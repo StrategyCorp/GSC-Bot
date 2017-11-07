@@ -14,7 +14,7 @@ exports.run = (client, message, args) => {
   let owner = client.users.get(client.config.ownerId);
   const stats = new Discord.RichEmbed()
     .setColor(settings.embedColour)
-    .addField('Statistics', `${mem}\n${swap}\n${uptime}\n${users}\n${servers}\n${channels}\n${discordjs}\n${v}`)
+    .addField(client.user.username, `${mem}\n${swap}\n${uptime}\n${users}\n${servers}\n${channels}\n${discordjs}\n${v}`)
     .addField('Owner Contact Details', `Name: ${owner.username}#${owner.discriminator}\nID: ${owner.id}`);
   message.channel.send({embed: stats});
 };

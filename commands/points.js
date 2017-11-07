@@ -1,10 +1,13 @@
+const Discord = require('discord.js');
+
 exports.run = (client, message, args) => {
-  let user;
-  if (message.mentions.users.size === 0) user = message.author;
-  if (message.mentions.users.size === 1) user = message.mentions.users.first();
-  const scorePoints = client.points.get(user.id).points;
-  const scoreLevel = client.points.get(user.id).level;
-  !scorePoints ? message.channel.send('You have no points yet.') : message.channel.send(`You are level ${scoreLevel} with ${scorePoints} points!`);
+  let scorePoints = client.points.get(message.author.id).points;
+  let scoreLevel = client.points.get(message.author.id).level;
+  const settings = client.settings.get(message.guild.id);
+  const pointsEmbed = new Discord.RichEmbed()
+    .setColor(settings.embedColour)
+    .addField(`${message.author.username}`, `Level: ${scoreLevel}\nPoints${scorePoints}`);
+  message.channel.send({embed: pointsEmbed});
 };
 
 exports.cmdConfig = {
