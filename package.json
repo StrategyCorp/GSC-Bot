@@ -16,7 +16,8 @@
     "express": "^4.16.2",
     "moment": "^2.19.1",
     "request": "^2.83.0",
-    "util": "^0.10.3"
+    "util": "^0.10.3",
+    "sqlite": "^2.8.0"
   },
   "engines": {
     "node": "8.x"
