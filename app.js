@@ -11,6 +11,8 @@ require("./util/functions.js")(client);
 client.commands = new Enmap();
 client.aliases = new Enmap();
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
+const pointProvider = new EnmapLevel({name: "points"});
+this.points = new Enmap({provider: pointProvider});
 
 const init = async () => {
   const cmdFiles = await readdir("./commands/");

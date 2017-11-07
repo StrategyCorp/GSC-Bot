@@ -1,8 +1,26 @@
 const moment = require('moment');
+const smite = require('../data/smite.json');
 
 module.exports = (client) => {
   client.log = (message) => {
     console.log(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] ${message}`);
+  };
+
+  client.vgs = (client, message) => {
+    if (message.channel.type !=='text') return;
+    if (smite.vgs[message.content.toLowerCase()]) {
+      message.channel.sendMessage(smite.vgs[message.content.toLowerCase()]);
+    }
+  };
+  
+  client.pointsMonitor = (client, message) => {
+    if (message.channel.type !=='text') return;
+    const settings = client.settings.get(message.guild.id);
+    if (message.content.startsWith(settings.prefix)) return;
+    const score = client.points.get(message.author.id) || { points: 0, level: 0 };
+    score.points++;
+    const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
+    client.points.set(message.author.id, score);
   };
 
   client.awaitReply = async (msg, question, limit = 60000) => {
