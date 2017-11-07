@@ -1,22 +1,11 @@
-exports.run = (client, message, args) => {
+exports.run = async (client, message, args) => {
   if (message.author.id !== client.config.ownerId) return;
-  let command;
-  if (client.commands.has(args[0])) {
-    command = args[0];
-  } else if (client.aliases.has(args[0])) {
-    command = client.aliases.get(args[0]);
-  }
-  if (!command) {
-    return message.channel.send(`:negative_squared_cross_mark: I cannot find the command: ${args[0]}`);
-  } else {
-    message.channel.send(`Reloading: ${command}`).then(m => {
-      client.reload(command).then(() => {
-        m.edit(`:white_check_mark: Successfully reloaded: ${command}`);
-      }).catch(e => {
-        m.edit(`:negative_squared_cross_mark: Command reload failed: ${command}\n\`\`\`${e.stack}\`\`\``);
-      });
-    });
-  }
+  if (!args || args.size < 1) return message.reply('"':negative_squared_cross_mark:Must provide a command to reload.");
+  let response = await client.unloadCommand(args[0]);
+  if (response) return message.reply(`Error Unloading: ${response}`);
+  response = client.loadCommand(args[0]);
+  if (response) return message.reply(`Error Loading: ${response}`);
+  message.reply(`The command \`${args[0]}\` has been reloaded`);
 };
 
 exports.cmdConfig = {

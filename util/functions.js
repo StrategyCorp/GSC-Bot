@@ -9,7 +9,7 @@ module.exports = (client) => {
   client.vgs = (client, message) => {
     if (message.channel.type !=='text') return;
     if (smite.vgs[message.content.toLowerCase()]) {
-      message.channel.sendMessage(smite.vgs[message.content.toLowerCase()]);
+      message.channel.send(smite.vgs[message.content.toLowerCase()]);
     }
   };
   
