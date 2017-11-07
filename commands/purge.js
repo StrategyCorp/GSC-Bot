@@ -19,7 +19,7 @@ exports.run = function(client, message, args) {
 exports.cmdConfig = {
   name: "purge",
   aliases: ['p'],
-  description: "Purges X amount of messages from a given channel. If no given amount of messages to delete, it will delete 20. Permission needed: MANAGE_MESSAGES",
+  description: "Purges X amount of messages from a given channel. If no given amount of messages to delete, it will delete 20. Permission needed: MANAGE_MESSAGES.",
   usage: "purge [number]",
   type: "mod"
 };

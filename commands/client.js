@@ -22,7 +22,7 @@ exports.run = (client, message, [search, ...args]) => {
 exports.cmdConfig = {
   name: "client",
   aliases: [],
-  description: "client config",
+  description: "go away",
   usage: "client <command> [args]",
   type: "client"
 };

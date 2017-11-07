@@ -11,7 +11,8 @@ exports.run = (client, message, args) => {
   message.guild.ban(user, 2);
   const settings = client.settings.get(message.guild.id);
   if (settings.modlogEnable !== "true") return;
-  if (!settings.modlogChannel) return message.channel.send(`:negative_squared_cross_mark: I couldn't find a modlog channel by the name of \`${settings.modlogChannel}\``);
+  let modlog = client.channels.find("name", settings.modlogChannel);
+  if (!modlog) return message.channel.send(`:negative_squared_cross_mark: I couldn't find a modlog channel by the name of \`${settings.modlogChannel}\``);
   const banEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
     .setThumbnail(user.avatarURL)
@@ -23,7 +24,7 @@ exports.run = (client, message, args) => {
 exports.cmdConfig = {
   name: "ban",
   aliases: [],
-  description: "Bans the mentioned user and deletes there message from the last 2 days",
+  description: "Bans the mentioned user and deletes there message from the last 2 days. Permission needed: BAN_MEMBERS.",
   usage: "Ban <@user> [reason]",
   type: "mod"
 };

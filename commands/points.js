@@ -6,7 +6,8 @@ exports.run = (client, message, args) => {
   const settings = client.settings.get(message.guild.id);
   const pointsEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
-    .addField(`${message.author.username}`, `Level: ${scoreLevel}\nPoints${scorePoints}`);
+    .setThumbnail(message.author.avatarURL)
+    .addField(`${message.author.username}`, `Level: ${scoreLevel}\nPoints: ${scorePoints}`);
   message.channel.send({embed: pointsEmbed});
 };
 
