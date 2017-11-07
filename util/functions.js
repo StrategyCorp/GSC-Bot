@@ -24,7 +24,7 @@ module.exports = (client) => {
     score.points++;
     const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
     client.points.set(message.author.id, score);
-    */
+    
     sql.get(`SELECT * FROM points WHERE id ='${message.author.id}'`).then(row => {
       if (!row) {
         sql.run('INSERT INTO points (id, points) VALUES (?, ?)', [message.author.id, 1]);
@@ -37,6 +37,7 @@ module.exports = (client) => {
         sql.run('INSERT INTO points (id, points) VALUES (?, ?)', [message.author.id, 1]);
       });
     });
+    */
   };
 
   client.awaitReply = async (msg, question, limit = 60000) => {
