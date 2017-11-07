@@ -1,0 +1,1822 @@
+{
+  "patchVersion": "4.4",
+  "gods": {
+    "agni": {
+      "name": "Agni",
+      "title": "God of Fire",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/2/29/SkinArt_Agni_Default.jpg?version=c6c6d206f49bff4e2492ddee849a40db",
+      "pan": "Hindu",
+      "role": "Mage",
+      "favor": 1250,
+      "gems": 200,
+      "colour": "#DF3129",
+      "release": "May 31, 2012",
+      "wiki": "http://smite.gamepedia.com/Agni",
+      "reveal": "https://www.youtube.com/watch?v=w_aGSGzkysU",
+      "abil": {
+        "passive": {
+          "name": "Combustion",
+          "desc": "After hitting with 4 Basic Attacks, Agni will gain a Buff. On the next cast of Flame Wave or Rain Fire, all enemies hit by those abilities will be additionally set ablaze, taking damage every .5s for 3s.",
+          "type": "Buff",
+          "stats": ["Damage per Tick: 5 (+10% of magical power)"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/1/12/Icons_Agni_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=LkCBPzRFxRY"
+        },
+        "1": {
+          "name": "Noxious Fumes",
+          "desc": "Agni summons a cloud of noxious fumes at his ground target location, doing damage every second. Firing any of Agni's abilities into the fumes detonates the gas, Stunning all enemies in the radius.",
+          "type": "Ground Target",
+          "stats": ["Damage per Tick :10/20/30/40/50 (+5% of your magical power)", "Fumes Duration: 10s", "Stun Duration: 1s", "Radius: 20"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/3/33/Icons_Agni_A01.png",
+          "cost": [60, 70, 80, 90, 100],
+          "cd": [12, 12, 12, 12, 12],
+          "vid": "https://www.youtube.com/watch?v=i40Q_bpC7AE"
+        },
+        "2": {
+          "name": "Flame Wave",
+          "desc": "Agni summons a wave of fire in front of him that scorches all enemies in its path. Ignites Noxious Fumes.",
+          "type": "Line",
+          "stats": ["Damage: 90/140/190/240/290 (+65% of your magical power)"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/0/0b/Icons_Agni_A02.png",
+          "cost": [60, 70, 80, 90, 100],
+          "cd": [60, 70, 80, 90, 100],
+          "vid": "https://www.youtube.com/watch?v=Gnyv1uX94nQ"
+        },
+        "3": {
+          "name": "Path of Flames",
+          "desc": "Agni blazes a path forward in a quick dash, leaving flames trailing behind him. Any enemies passing through the flames catch fire and burn for damage every .5s for 2s. Ignites Noxious Fumes. Agni is immune to Knockback while dashing.",
+          "type": "Dash",
+          "stats": ["Damage per Tick: 20/30/40/50/60 (+15% of your magical power)", "Path Duration: 3s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/f/ff/Icons_Agni_A03.png",
+          "cost": [70, 75, 80, 85, 90],
+          "cd": [15, 15, 15, 15, 15],
+          "vid": "https://www.youtube.com/watch?v=PR1zEp3LTa4"
+        },
+        "4": {
+          "name": "Rain Fire",
+          "desc": "Every 20 seconds, Agni gains a flaming halo that can be expended to summon a giant meteor at his ground target location. He can summon 1 every .8 seconds. Ignites Noxious Fumes.",
+          "type": "Ground Target",
+          "stats": ["Damage: 160/195/230/265/300 (+60% of your magical power)", "Max Halos: 3", "Radius: 20"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/2/2c/Icons_Agni_A04.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [20, 20, 20, 20, 20],
+          "vid": "https://www.youtube.com/watch?v=fRy6p1bL_q0"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [360, 71],
+          "mana": [255, 45],
+          "speed": [350, 0],
+          "range": "Ranged"
+        },
+        "basic": {
+          "damage": [34, 1.5, 20],
+          "as": [1, 0.95],
+          "progression": "none"
+        },
+        "prot": {
+          "phys": [11, 2.6],
+          "magi": [30, 0]
+        },
+        "regen": {
+          "hp": [7, 0.47],
+          "mp": [4.7, 0.37]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "The Heat!",
+          "desc": "As Agni stun three or more gods with Noxious Fumes.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/b/bc/Achievement_Combat_Agni_TheHeat.png/96px-Achievement_Combat_Agni_TheHeat.png?version=2b5fb042af308fa5e8af4e0908c98204"
+        },
+        "b": {
+          "name": "Those Fumes",
+          "desc": "As Agni get the killing blow with the damage from Combustion.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/0/00/Achievement_Combat_Agni_ThoseFumes.png/96px-Achievement_Combat_Agni_ThoseFumes.png?version=639923078ccceb64f48d0eaf5a0e7369"
+        }
+      }
+    },
+    "ah muzen cab": {
+      "name": "Ah Muzen Cab",
+      "title": "God of Bees",
+      "pic": "http://vignette3.wikia.nocookie.net/smite/images/0/0c/AhMuzenCab.jpg/revision/latest?cb=20140311070835",
+      "pan": "Mayan",
+      "role": "Hunter",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#a06a19",
+      "release": "November 7, 2013",
+      "wiki": "http://smite.gamepedia.com/Ah_Muzen_Cab",
+      "reveal": "https://www.youtube.com/watch?v=o5D-g-x1BDs",
+      "abil": {
+        "passive": {
+          "name": "Bees!",
+          "desc": "Enemies afflicted by Bees! take damage every .5s for 2s, are revealed on the minimap, and swarm nearby enemies. Basic Attacks refresh and extend the duration of Bees! by 1s, and any target afflicted for 4s is Disarmed for 1s (10s Cooldown between Disarms).",
+          "type": "Pet",
+          "stats": ["Damage per tick: 8 (+5% of your physical power)", "Radius: 30"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/b/b4/Icons_AMC_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=9XB2DPzkutg"
+        },
+        "1": {
+          "name": "Hive",
+          "desc": "Bees swarm at the ground target location, creating a new Hive that provides movement and Attack Speed Buffs to Ah Muzen Cab. He also heals for a small amount every second while he remains close to the Hives. Hives reveal enemies within 20 units of them and will notify Ah Muzen Cab if they are destroyed. The Hives can only be destroyed by Basic Attacks (maximum 6 Hives).",
+          "type": "Ground Target",
+          "stats": ["Healing: 4/6/8/10/12", "Movement Speed: 10/15/20/25/30%", "Attack Speed: 10/20/30/40/50%", "Radius: 90"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/c/c3/Icons_AMC_A01.png",
+          "cost": [40, 40, 40, 40, 40],
+          "cd": [14, 14, 14, 14, 14],
+          "vid": "https://www.youtube.com/watch?v=3zRr-MHGvy8"
+        },
+        "2": {
+          "name": "Swarm",
+          "desc": "Ah Muzen Cab summons a large swarm of bees that fly forward in a path in front of him, dealing damage to all enemies hit and applying Bees to them.",
+          "type": "Line",
+          "stats": ["Damage: 60/115/170/225/280 (+80% of your physical power)", "Range: 70"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/e/ed/Icons_AMC_A02.png",
+          "cost": [65, 70, 75, 80, 85],
+          "cd": [16, 15, 14, 13, 12],
+          "vid": "https://www.youtube.com/watch?v=Q1K5PsoWtoI"
+        },
+        "3": {
+          "name": "Honey",
+          "desc": "Ah Muzen Cab sprays honey at a moveable ground target location, Slowing all enemies in the area. Bees from Hives within 90 units and Swarm will fly over to protect the honey, dealing damage every .5 second and applying Bees! to all enemies as they leave the honey.",
+          "type": "Ground Target",
+          "stats": ["Damage per Tick: 13/25/37/49/61 (+15% of your physical power)", "Slow: 20%"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/a/a9/Icons_AMC_A03.png",
+          "cost": [75, 80, 85, 80, 95],
+          "cd": [10, 10, 10, 10, 10],
+          "vid": "https://www.youtube.com/watch?v=7LsWzI7Ir28"
+        },
+        "4": {
+          "name": "Stinger",
+          "desc": "Ah Muzen Cab fires off an enormous stinger that deals damage to all enemies in a line, sticking into the first god that is hit, applying Bees! and Crippling them for 3 seconds. If the target dies or after 3 seconds, the stinger falls onto the ground for 4 seconds. If Ah Muzen Cab picks up his stinger, he gains a significant reduction to Stinger's Cooldown.",
+          "type": "Line",
+          "stats": ["Damage: 275/355/435/515/595 (+110% of your physical power)", "Retrieval Cooldown Reduction: 80%", "Range: 70"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/4/45/Icons_AMC_A04.png",
+          "cost": [100, 100, 100, 100, 100],
+          "cd": [90, 90, 90, 90, 90],
+          "vid": "https://www.youtube.com/watch?v=DIWAGOD9Bxo"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [450, 73],
+          "mana": [230, 40],
+          "speed": [365, 0],
+          "range": "Ranged"
+        },
+        "basic": {
+          "damage": [38, 2.2, 100],
+          "as": [0.95, 1.7],
+          "progression": "none"
+        },
+        "prot": {
+          "phys": [12, 3],
+          "magi": [30, 0.9]
+        },
+        "regen": {
+          "hp": [7, 0.71],
+          "mp": [44, 0.38]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "Disarm",
+          "desc": "As AMC disarm an enemy god using bees.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/7/71/Achievement_Combat_AMC_Disarm.png/96px-Achievement_Combat_AMC_Disarm.png?version=63dd0994899da61fc4ac881ec8a00101"
+        },
+        "b": {
+          "name": "How Sweet",
+          "desc": "As AMC pick up 5 stingers in a single match.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/4/4b/Achievement_Combat_AMC_HowSweet.png/96px-Achievement_Combat_AMC_HowSweet.png?version=f74b9b6facd9e6f0636bd06a7abb73f7"
+        }
+      }
+    },
+    "ah puch": {
+      "name": "Ah Puch",
+      "title": "Horrific God of Decay",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/c/c9/SkinArt_AhPuch_Default.jpg?version=cfdef35f219d6c7cc91832f007a24892",
+      "pan": "Mayan",
+      "role": "Mage",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#910b67",
+      "release": "April 28, 2015",
+      "wiki": "http://smite.gamepedia.com/Ah_Puch",
+      "reveal": "https://www.youtube.com/watch?v=PDQW_nAgQRU",
+      "abil": {
+        "passive": {
+          "name": "Hollow Ground",
+          "desc": "Ah Puch is closely attuned with the dead and may exhume corpses at his will. When walking over a decaying corpse, Ah Puch lowers the cooldown of Undead Surge and Corpse Explosion by 2s, restores 5% of his maximum Health and 3% of his maximum Mana.",
+          "type": "Buff",
+          "stats": ["Max Corpses: 6", "Corpse Lifetime: 45s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/2/26/Icons_AhPuch_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=s8V5hoGsVkM"
+        },
+        "1": {
+          "name": "Undead Surge",
+          "desc": "Ah Puch raises up to two decaying corpses from the underworld that surge forward exploding on anything they touch, when they reach max distance, or when Ah Puch reactivates Undead Surge dealing damage and slowing targets hit. The corpses collapse after exploding remaining behind.",
+          "type": "Projectile",
+          "stats": ["Damage: 90/110/130/150/170 (+35% of your magical power)", "Slow: 20/25/30/35/40%", "Slow Duration: 3s", "Corpses Dropped: 1/1/2/2/2", "Radius: 20"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/1/16/Icons_AhPuch_A01.png",
+          "cost": [70, 75, 80, 85, 90],
+          "cd": [10, 10, 10, 10, 10],
+          "vid": "https://www.youtube.com/watch?v=rZ2-E9BpZd4"
+        },
+        "2": {
+          "name": "Corpse Explosion",
+          "desc": "Ah Puch causes the target area to explode dealing damage. Corpse Explosion also causes any decaying corpses in the area to explode.",
+          "type": "Ground Target",
+          "stats": ["Initial Damage: 60/70/80/90/100 (+10% of your magical power)", "Damage per Corpse: 60/85/110/135/160 (+25% of your magical power)", "Radius/Corpse Radius: 20/25"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/c/c9/Icons_AhPuch_A02.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [8, 8, 8, 8, 8],
+          "vid": "https://www.youtube.com/watch?v=0e_CV4e2W1Y"
+        },
+        "3": {
+          "name": "Fleeting Breath",
+          "desc": "Ah Puch throws a charm from the underworld which awakens a decaying corpse that applies miasma to targets in an area and falls to the ground, remaining behind. Targets take damage every second. After the duration, targets take additional damage and are stunned if they were healed by an ability during the initial duration.",
+          "type": "Ground Target",
+          "stats": ["Damage per Tick: 30/35/40/45/50 (+20% of your magical power)", "Additional Damage: 50/100/150/200/250 (+50% of your magical power)", "Stun Duration: 1.5s", "Duration: 4s", "Radius: 13"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/e/e1/Icons_AhPuch_A03.png",
+          "cost": [70, 70, 70, 70, 70],
+          "cd": [10, 10, 10, 10, 10],
+          "vid": "https://www.youtube.com/watch?v=gLB_rxB5rc4"
+        },
+        "4": {
+          "name": "Empty the Crypts",
+          "desc": "Ah Puch unleashes an army of Wraiths from the Ninth Hell that swarm forward and deal damage to enemies they collide with.",
+          "type": "Line",
+          "stats": ["Damage per Wraith: 40/50/60/70/80 (+10% of your magical power)", "Duration: 6s", "Radius: 50"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/a/a8/Icons_AhPuch_A04.png",
+          "cost": [100, 100, 100, 100, 100],
+          "cd": [90, 90, 90, 90, 90],
+          "vid": "https://www.youtube.com/watch?v=GTLP-ffkSa8"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [400, 75],
+          "mana": [265, 55],
+          "speed": [365, 0],
+          "range": "Ranged"
+        },
+        "basic": {
+          "damage": [35, 1.5, 20],
+          "as": [0.86, 0.95],
+          "progression": "none"
+        },
+        "prot": {
+          "phys": [9, 2.7],
+          "magi": [30, 0]
+        },
+        "regen": {
+          "hp": [6, 0.45],
+          "mp": [4.9, 0.42]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "Corpses aka Landmines",
+          "desc": "As Ah Puch blow up and hit an enemy with 6 corpses in one cast of Corpse Explosion.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/8/8d/Achievement_Combat_AhPuch_CorpsesLandmines.png/96px-Achievement_Combat_AhPuch_CorpsesLandmines.png?version=58539d8e710f2798eb6992129ec13323"
+        },
+        "b": {
+          "name": "Rise My Pretties",
+          "desc": "As Ah Puch release 100 Zombies in one match.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/4/40/Achievement_Combat_AhPuch_RiseMyPrettiest.png/96px-Achievement_Combat_AhPuch_RiseMyPrettiest.png?version=6b0e510c85cc8b270cf02912046c8713"
+        }
+      }
+    },
+    "amaterasu": {
+      "name": "Amaterasu",
+      "title": "The Shining Light",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/8/8a/SkinArt_Amaterasu_Default.jpg?version=ac73aa9c505e924240831b0fdb924db9",
+      "pan": "Japanese",
+      "role": "Warrior",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#ad1616",
+      "release": "January 12, 2016",
+      "wiki": "http://smite.gamepedia.com/Amaterasu",
+      "reveal": "https://www.youtube.com/watch?v=cIUhRqUzES0",
+      "abil": {
+        "passive": {
+          "name": "Illuminating Strike",
+          "desc": "Amaterasu illuminates enemies she hits with basic attacks. After 3 hits on the same target the enemy gains an aura, exposing their weaknesses and causing them to take more damage from all sources. Any other enemies that come near the afflicted target are weakened as well.",
+          "type": "Debuff",
+          "stats": ["Weakening Aura: 10% Increased Damage Taken", "Stack/Aura Duration: 5s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/9/94/Icons_Amaterasu_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=EtDlabo3OaA"
+        },
+        "1": {
+          "name": "Divine Presence",
+          "desc": "Amaterasu harnesses the power of her jewel, healing herself every second for 4 seconds and creating a persistent aura that buffs nearby allied gods. Every time this ability is activated the aura switches between Valor and Benevolence.",
+          "type": "Buff",
+          "stats": ["Heal Per Tick: 15/25/35/45/55 (+5% of your physical power)", "Benevolence Aura : 5/10/15/20/25% Move Speed", "Valor Aura : 15/20/25/30/35 Bonus Power", "Radius: 30"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/1/13/Icons_Amaterasu_A01.png",
+          "cost": [50, 55, 60, 65, 70],
+          "cd": [9, 9, 9, 9, 9],
+          "vid": "https://www.youtube.com/watch?v=maFGDaiTH8E"
+        },
+        "2": {
+          "name": "Heavenly Reflection",
+          "desc": "Amaterasu charges her mirror for 5 seconds. While the mirror is charging she takes decreased damage. By activating the ability again or at the end of the 5 seconds she will fire her mirror straight ahead. The mirror can be charged up by successfully attacking enemies or from taking damage, and will deal up to double the base damage when fully charged.",
+          "type": "Line",
+          "stats": ["Self Damage Mitigation: 3/6/9/12/15%", "Mirror Damage: 50/90/130/170/210 (+60% of your physical power)", "Full Charge Damage: 50/90/130/170/210", "Range: 55"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/2/2b/Icons_Amaterasu_A02.png",
+          "cost": [70, 75, 80, 85, 90],
+          "cd": [14, 14, 14, 14, 14],
+          "vid": "https://www.youtube.com/watch?v=ROgZoqyW86E"
+        },
+        "3": {
+          "name": "Glorious Charge",
+          "desc": "Amaterasu shines light off of her sacred blade, silencing all enemies in front of her. She then dashes forward while dealing damage, piercing through minions or stopping at the first god hit.",
+          "type": "Dash",
+          "stats": ["Silence Duration: 1s", "Dash Damage: 70/130/190/250/310 (+60% of your physical power)"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/8/89/Icons_Amaterasu_A03.png",
+          "cost": [70, 75, 80, 85, 90],
+          "cd": [18, 18, 18, 18, 18],
+          "vid": "https://www.youtube.com/watch?v=2hTvdez5XKo"
+        },
+        "4": {
+          "name": "Dazzling Offensive",
+          "desc": "Amaterasu focuses the power of the heavens into an impressive 3 strike combination attack. The 2nd hit will do 20% more base damage and slow enemies. The 3rd hit will do 40% more base damage and stun enemies. She must hit an enemy target with each hit to progress the combo.",
+          "type": "Cone",
+          "stats": ["Damage per Strike: 75/125/175/225/275 (+50% of your physical power)", "Slow Duration: 2s", "Stun Duration: 2s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/9/93/Icons_Amaterasu_A04.png",
+          "cost": [100, 100, 100, 100, 100],
+          "cd": [75, 75, 75 ,75 ,75],
+          "vid": "https://www.youtube.com/watch?v=xDGg3hhuppQ"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [470, 82],
+          "mana": [220, 35],
+          "speed": [375, 0],
+          "range": "Melee"
+        },
+        "basic": {
+          "damage": [39, 2, 100],
+          "as": [1, 1.2],
+          "progression": "1/.5/1 damage and swing time"
+        },
+        "prot": {
+          "phys": [18, 3],
+          "magi": [30, 0.9]
+        },
+        "regen": {
+          "hp": [8, 0.8],
+          "mp": [4.8, 0.4]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "My Offense Is Dazzling",
+          "desc": "As Amaterasu hit three or more enemies with the final strike of your ultimate.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/5/52/Achievement_Combat_Amaterasu_MyOffenseIsDazzling.png/96px-Achievement_Combat_Amaterasu_MyOffenseIsDazzling.png?version=89cc96b4cbc5d19345768cf2971ecc8b"
+        },
+        "b": {
+          "name": "Reflect The Heavens",
+          "desc": "As Amaterasu fully charge her mirror in one second.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/c/c8/Achievement_Combat_Amaterasu_ReflecttheHeavens.png/96px-Achievement_Combat_Amaterasu_ReflecttheHeavens.png?version=97d9eba189d091456882bc9492fbe4bf"
+        }
+      }
+    },
+    "anhur": {
+      "name": "Anhur",
+      "title": "Slayer of Enemies",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/1/1e/SkinArt_Anhur_Default.jpg?version=f7559d2590915aba5108cdb435c5412d",
+      "pan": "Egyptian",
+      "role": "Hunter",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#ad6e16",
+      "release": "August 3, 2012",
+      "reveal": "https://www.youtube.com/watch?v=d2hcnY6xVIk",
+      "wiki": "http://smite.gamepedia.com/Anhur",
+      "abil": {
+        "passive": {
+          "name": "Enfeeble",
+          "desc": "Anhur's spear attacks reduce the enemy target's Physical Protection for 3 seconds.",
+          "type": "Debuff",
+          "stats": ["Physical Protection Debuff: 20"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/4/44/Icons_Anhur_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=s_OpWNdFdDE"
+        },
+        "1": {
+          "name": "Shifting Sands",
+          "desc": "Anhur erects an obelisk from the ground, blocking all player movement. The surrounding sands Slow enemies and increase the damage of Anhur's Basic Attacks against targets in the sands.",
+          "type": "Ground Target",
+          "stats": ["Slow: 15/20/25/30/35%", "Damage Buff: 4/8/12/16/20%", "Lifetime: 7s", "Radius: 30", "Cooldown: 14 seconds"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/4/45/Icons_Anhur_A01.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [14, 14, 14, 14, 14],
+          "vid": "https://www.youtube.com/watch?v=nOQhdzAK9uY"
+        },
+        "2": {
+          "name": "Impale",
+          "desc": "Anhur hurls his spear with great might. If the spear hits a god, they take damage and are knocked back. Gods knocked back into a wall are Stunned. The spear passes through minions, doing damage to them as well.",
+          "type": "Line",
+          "stats": ["Damage: 90/155/220/285/350 (+80% of your physical power)", "Stun Duration: 1.1/1.2/1.3/1.4/1.5s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/4/44/Icons_Anhur_A02.png",
+          "cost": [70, 75, 80, 75, 90],
+          "cd": [12, 12, 12, 12, 12],
+          "vid": "https://www.youtube.com/watch?v=4VRjfV3n5Nk"
+        },
+        "3": {
+          "name": "Disperse",
+          "desc": "Anhur leaps to his ground target location, doing damage and knocking back all enemies in the radius where he lands.",
+          "type": "Leap",
+          "stats": ["Damage: 50/90/130/170/210 (+60% of your physical power)", "Radius: 15"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/2/2b/Icons_Anhur_A03.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [15, 15, 15, 15, 15],
+          "vid": "https://www.youtube.com/watch?v=_onxXe0y_Yk"
+        },
+        "4": {
+          "name": "Desert Fury",
+          "desc": "Summoning the fury of the desert, Anhur hunkers down and throws empowered spears that pass through everything, doing damage to all enemies in their path. He is immune to Crowd Control for the duration.",
+          "type": "Line",
+          "stats": ["Damage per Spear: 60/85/110/135/160 (+20% of your physical power)", "Spears Thrown: 8"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/4/4f/Icons_Anhur_A04.png",
+          "cost": [80, 90, 100, 110, 120],
+          "cd": [90, 90, 90, 90, 90],
+          "vid": "https://www.youtube.com/watch?v=QQwCuK9bv98"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [460, 78],
+          "mana": [220, 35],
+          "speed": [365, 0],
+          "range": "Ranged"
+        },
+        "basic": {
+          "damage": [40, 2.5, 100],
+          "as": [0.9, 1.7],
+          "progression": "None"
+        },
+        "prot": {
+          "phys": [11, 2.8],
+          "magi": [30, 0.9]
+        },
+        "regen": {
+          "hp": [8, 0.69],
+          "mp": [4.5, 0.32]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "The Fury of the Desert",
+          "desc": "As Anhur kill three enemies with a single Desert Fury",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/8/89/Achievement_Combat_Anhur_TheFuryoftheDesert.png/96px-Achievement_Combat_Anhur_TheFuryoftheDesert.png?version=0e81aca2145eb11a8c2e6ceabe17e92a"
+        },
+        "b": {
+          "name": "Up Against the Wall",
+          "desc": "As Anhur stun 10 opponents by impaling them into your Pillar.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/e/e0/Achievement_Combat_Anhur_UpAgainstTheWall.png/96px-Achievement_Combat_Anhur_UpAgainstTheWall.png?version=8c9e1a4935e4cddb7b354de292d62a94"
+        }
+      }
+    },
+    "anubis": {
+      "name": "Anubis",
+      "title": "God of the Dead",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/5/59/SkinArt_Anubis_Default.jpg?version=0d8a11e71b9f8437487083eeb89845e4",
+      "pan": "Egyptian",
+      "role": "Mage",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#246ee5",
+      "release": "May 31, 2012",
+      "wiki": "http://smite.gamepedia.com/Anubis",
+      "reveal": "Unknown",
+      "abil": {
+        "passive": {
+          "name": "Sorrow",
+          "desc": "All of Anubis' abilities steal Physical and Magical Protection from the target and he gains increased Scaling to his item-based Magical Lifesteal. In addition, Sorrow grants Anubis an additional 30% reduction to all Crowd Control durations.",
+          "type": "Buff/Debuff",
+          "stats": ["Stolen per Tick: 7", "Magical Lifesteal Scaling per Tick: +33%", "Duration: 5s", "Max Stacks: 3"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/9/91/Icons_Anubis_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=dKJoBcQ2xP8"
+        },
+        "1": {
+          "name": "Plague of Locusts",
+          "desc": "A plague of locusts bellows forth from Anubis' mouth, smothering all enemies in the area and doing damage every .5s for 3s. Anubis is immune to Knockback while channeling.",
+          "type": "Cone",
+          "stats": ["Damage per Tick: 35/50/65/80/95 (+40% of your magical power)"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/8/8d/Icons_Anubis_A01.png",
+          "cost": [60, 70, 80, 90, 100],
+          "cd": [15, 14, 13, 12, 11],
+          "vid": "https://www.youtube.com/watch?v=IHCDmBLHbQE"
+        },
+        "2": {
+          "name": "Mummify",
+          "desc": "Anubis fires a bandage projectile, mummifying and Stunning his target.",
+          "type": "Projectile",
+          "stats": ["Stun Duration: 1.2/1.4/1.6/1.8/2s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/0/0f/Icons_Anubis_A02.png",
+          "cost": [60, 60, 60, 60, 60],
+          "cd": [16, 15, 14, 13, 12],
+          "vid": "https://www.youtube.com/watch?v=FHb5zpTz8Lw"
+        },
+        "3": {
+          "name": "Grasping Hands",
+          "desc": "Anubis calls for help from the underworld as hands penetrate the ground and claw at his enemies, doing damage and Slowing every .5s for 2s.",
+          "type": "Ground Target",
+          "stats": ["Damage per Tick: 25/40/55/70/85 (+35% of your magical power)", "Slow: 25%", "Radius: 20"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/3/31/Icons_Anubis_A03.png",
+          "cost": [70, 80, 90, 100, 110],
+          "cd": [15, 14, 13, 12, 11],
+          "vid": "https://www.youtube.com/watch?v=uM4c57m059Y"
+        },
+        "4": {
+          "name": "Death Gaze",
+          "desc": "Anubis focuses all of his energy into a piercing gaze, doing damage to all enemies in the path, every 0.1 seconds for 3 seconds.",
+          "type": "Line",
+          "stats": ["Damage per Tick: 23/28/33/38/43 (+15% of your magical power)"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/3/30/Icons_Anubis_A04.png",
+          "cost": [90, 90, 90, 90, 90],
+          "cd": [90, 85, 80, 75, 70],
+          "vid": "https://www.youtube.com/watch?v=9DYrp4XZ-x0"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [360, 66],
+          "mana": [280, 58],
+          "speed": [360, 0],
+          "range": "Ranged"
+        },
+        "basic": {
+          "damage": [35, 1.5, 20],
+          "as": [0.86, 0.99],
+          "progression": "None"
+        },
+        "prot": {
+          "phys": [10, 2.5],
+          "magi": [30, 0]
+        },
+        "regen": {
+          "hp": [7, 0.45],
+          "mp": [4.8, 0.36]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "Mummified",
+          "desc": "As Anubis stun 15 enemy gods using mummify in a single match.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/8/82/Achievement_Combat_Anubis_Mummified.png/96px-Achievement_Combat_Anubis_Mummified.png?version=9caa0f5c92808c42717b8746d0a60ddb"
+        },
+        "b": {
+          "name": "Where Am I?",
+          "desc": "As Anubis kill an enemy with Death Gaze from Behind a Wall",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/0/03/Achievement_Combat_Anubis_WhereAmI.png/96px-Achievement_Combat_Anubis_WhereAmI.png?version=e45c6bad84d6c6bdac7519c167b79710"
+        }
+      }
+    },
+    "ao kuang": {
+      "name": "Ao Kuang",
+      "title": "Dragon King of the Eastern Seas",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/3/3b/SkinArt_AoKuang_Default.jpg?version=9104f4291a6e20080bc7111c8ffc9eec",
+      "pan": "Chinese",
+      "role": "Mage",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#2997c6",
+      "release": "November 19, 2014",
+      "wiki": "http://smite.gamepedia.com/Ao_Kuang",
+      "reveal": "https://www.youtube.com/watch?v=2H5q-14OT80",
+      "abil": {
+        "passive": {
+          "name": "King's Sword",
+          "desc": "Ao Kuang's sword can hold up to 3 energy charges, and regenerates charges while his sword his sheathed. Each time Ao Kuang casts an ability, an energy charge will be consumed if available, increasing the damage of the ability. If Ao Kuang is out of Mana, he will use energy charges to cast abilities instead.",
+          "type": "Passive",
+          "stats": ["Charge Damage Increase: 5%", "Charge Regeneration: 5s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/9/95/Icons_AoKuang_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=PfOvy2r0zDo"
+        },
+        "1": {
+          "name": "Water Illusion",
+          "desc": "Ao Kuang Teleports forward into Stealth, leaving behind a watery form of himself. He remains in Stealth for 5s or until he attacks or takes damage. Ao Kuang may activate this ability again to detonate the watery form, dealing damage to nearby enemies.",
+          "type": "Teleport",
+          "stats": ["Damage: 70/120/170/220/270 (+60% of your magical power)", "Range: 30", "Radius: 20"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/a/ac/Icons_AoKuang_A01.png",
+          "cost": [70, 70, 70, 70, 70],
+          "cd": [15, 15, 15, 15, 15],
+          "vid": "https://www.youtube.com/watch?v=tTR9N8QF6zM"
+        },
+        "2": {
+          "name": "Dragon Call",
+          "desc": "Ao Kuang summons 6 dragons to his side. For every successful Basic Attack Ao Kuang makes, a dragon will dive to the target dealing additional damage. This ability ends after all dragons are used, or after 10s. Ao Kuang may activate this ability again to send forward any remaining dragons in a ranged attack. The dragons damage and Slow the first enemy they hit.",
+          "type": "Stim/Line",
+          "stats": ["Attack Damage: 35/50/65/80/95 (+30% of your magical power) per hit", "Ranged Damage: 15/20/25/30/35 (+15% of your magical power) per remaining dragon", "Slow: 30%, for 1s +0.25s per remaining dragon", "Range: 55"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/b/b8/Icons_AoKuang_A02.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [15, 14, 13, 12, 11],
+          "vid": "https://www.youtube.com/watch?v=_uWfxNGsNIg"
+        },
+        "3": {
+          "name": "Wild Storm",
+          "desc": "Ao Kuang unleashes a storm of lightning from his sword, damaging all enemies in front of him. This hit is considered a Basic Attack, and will activate item effects.",
+          "type": "Cone",
+          "stats": ["Damage: 80/125/170/215/260 (+40% of your magical power)", "Range: 30"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/c/c0/Icons_AoKuang_A03.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [7, 7, 7, 7, 7],
+          "vid": "https://www.youtube.com/watch?v=PjBUoB8YD1g"
+        },
+        "4": {
+          "name": "King of the Eastern Seas",
+          "desc": "Ao Kuang grabs a single target, damaging and knocking them into the air. If the target is below a Health threshold, Ao Kuang will also reveal his true form, becoming an airborne Dragon and executing them restoring Health. After transforming Ao Kuang then picks a new location to land, dealing damage to enemies within range 20 and fully recharging his Sword.",
+          "type": "Unknown",
+          "stats": ["Damage: 90/140/190/240/290 (+50% of your magical power)", "Execute Threshold: 30%", "Heal: 10/15/20/25/30% of maximum Health", "Landing Damage: 100/150/200/250/300 (+50% of your magical power)", "Landing Range: 200"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/4/48/Icons_AoKuang_A04.png",
+          "cost": [90, 100, 110, 120, 130],
+          "cd": [90, 90, 90, 90, 90],
+          "vid": "https://www.youtube.com/watch?v=NkjrDc6bbTo"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [400, 82],
+          "mana": [200, 36],
+          "speed": [375, 0],
+          "range": "Melee"
+        },
+        "basic": {
+          "damage": [35, 2.4, 20],
+          "as": [1, 1.95],
+          "progression": "1/0.5/0.5/1x damage, 1/0.5/0.5/0.5x Speed"
+        },
+        "prot": {
+          "phys": [12, 3],
+          "magi": [30, 0.9]
+        },
+        "regen": {
+          "hp": [10, 0.7],
+          "mp": [4.5, 0.2]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "A Mighty Sword",
+          "desc": "As Ao Kuang execute an enemy God who's been ulted by Khepri.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/c/c3/Achievement_Combat_AoKuang_AMightySword.png/96px-Achievement_Combat_AoKuang_AMightySword.png?version=2fccaf2ee9efe6e3ef6d3c46c40f76a2"
+        },
+        "b": {
+          "name": "Water Illustionist",
+          "desc": "As Ao Kuang kill an enemy with your water illusion.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/d/d7/Achievement_Combat_AoKuang_WaterIllustionist.png/96px-Achievement_Combat_AoKuang_WaterIllustionist.png?version=9099fc57acbf24f434393bac78cca134"
+        }
+      }
+    },
+    "aphrodite": {
+      "name": "Aphrodite",
+      "title": "Goddess of Beauty",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/3/3b/SkinArt_Aphrodite_Default.jpg?version=33d3b90b7c5dfcae640f513c8b3e86c8",
+      "pan": "Greek",
+      "role": "Mage",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#fa77ff",
+      "release": "March 13, 2013",
+      "wiki": "http://smite.gamepedia.com/Aphrodite",
+      "reveal": "https://www.youtube.com/watch?v=fB_AuiHgGa8",
+      "abil": {
+        "passive": {
+          "name": "Center of Attention",
+          "desc": "Aphrodite gains 4 Physical Protection and 4 Magical Protection for each friendly and enemy god within 70 units of her.",
+          "type": "Buff",
+          "stats": ["Unknown"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/2/2f/Icons_Aphrodite_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "Unknown"
+        },
+        "1": {
+          "name": "Kiss",
+          "desc": "Aphrodite blows a kiss to an allied god, making them her soul mate and giving them both increased movement speed. If it hits an ally, it has a reduced 3s cooldown. If the kiss hits an enemy god, they are Stunned and Aphrodite's soul mate gets jealous, increasing their damage. Also, 70% of all Mana regenerated by Aphrodite is granted to her soul mate.",
+          "type": "Projectile",
+          "stats": ["Movement Speed: 4/8/12/16/20%", "Stun Duration: 1s", "Jealousy Damage Increase: 4/8/12/16/20%", "Jealousy Duration: 5s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/6/6b/Icons_Aphrodite_A01.png",
+          "cost": [50, 55, 60, 65, 70],
+          "cd": [16, 15, 14, 13, 12],
+          "vid": "https://www.youtube.com/watch?v=5dMyvGXtoRo"
+        },
+        "2": {
+          "name": "Back off!",
+          "desc": "Agitated by all the attention, Aphrodite commands enemies to get away from her, doing damage around her and knocking them back to 25 units from her. If Aphrodite has a soul mate, an explosion originates on them in addition, dealing the same damage and slowing by 25% for 2s. If an enemy would be hit by both blasts, they will only be affected by the one originating from Aphrodite.",
+          "type": "Point Blank",
+          "stats": ["Damage: 80/140/200/260/320 (+80% of your magical power)", "Slow: 25%", "Radius: 20"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/4/44/Icons_Aphrodite_A02.png",
+          "cost": [70, 75, 80, 85, 90],
+          "cd": [12, 12, 12, 12, 12],
+          "vid": "https://www.youtube.com/watch?v=wTtm8VvnsYk"
+        },
+        "3": {
+          "name": "Love Birds",
+          "desc": "Aphrodite calls forth a flock of beautiful doves that fly forward in the area in front of her. The doves circle around all enemies in the path, damaging enemies every .5s for 3s. Aphrodite and her soul mate also receive healing when cast.",
+          "type": "Line",
+          "stats": ["Damage per Tick: 15/25/35/45/55 (+15% of your magical power)", "Heal per Tick: 10/17/24/31/38 (+15% of your magical power)"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/b/bc/Icons_Aphrodite_A03.png",
+          "cost": [70, 75, 80, 85, 90],
+          "cd": [16, 15, 14, 13, 12],
+          "vid": "https://www.youtube.com/watch?v=3RWhQQLu0kE"
+        },
+        "4": {
+          "name": "Undying Love",
+          "desc": "Aphrodite pledges undying love to herself and her soul mate. While this is active, her and her soul mate are invulnerable to all damage for a short duration. All Crowd Control effects are also removed when activated.",
+          "type": "Buff",
+          "stats": ["Invulnerability Duration: .8/1.1/1.4/1.7/2s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/9/93/Icons_Aphrodite_A04.png",
+          "cost": [100, 100, 100, 100, 100],
+          "cd": [90, 85, 80, 75, 70],
+          "vid": "https://www.youtube.com/watch?v=g8pSNW_OzCQ"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [380, 68],
+          "mana": [240, 43],
+          "speed": [355, 0],
+          "range": "Ranged"
+        },
+        "basic": {
+          "damage": [32, 1.45, 20],
+          "as": [0.87, 0.95],
+          "progression": "None"
+        },
+        "prot": {
+          "phys": [9, 2.7],
+          "magi": [30, 0]
+        },
+        "regen": {
+          "hp": [6, 0.45],
+          "mp": [4.8, 0.41]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "Kiss Me!",
+          "desc": "As Aphrodite apply your kiss to every God in the match. This includes allies and enemies.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/c/c9/Achievement_Combat_Aphrodite_KissMe.png/96px-Achievement_Combat_Aphrodite_KissMe.png?version=f143bfdccda0c53d91fedd0c0857ce4c"
+        },
+        "b": {
+          "name": "My Lovely Lady Birds",
+          "desc": "As Aphrodite get the killing blow with the damage from your birds.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/5/5c/Achievement_Combat_Aphrodite_MyLovelyLadyBirds.png/96px-Achievement_Combat_Aphrodite_MyLovelyLadyBirds.png?version=b72b3cc25869af04927a89c3e638b73d"
+        }
+      }
+    },
+    "apollo": {
+      "name": "Apollo",
+      "title": "God of Music",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/8/8e/SkinArt_Apollo_Default.jpg?version=8a14fc6ef5647d7abce6647431fb32ba",
+      "pan": "Greek",
+      "role": "Hunter",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#f7a138",
+      "release": "March 28, 2013",
+      "wiki": "http://smite.gamepedia.com/Apollo",
+      "reveal": "https://www.youtube.com/watch?v=J8q-aTUPgnw",
+      "abil": {
+        "passive": {
+          "name": "Audacity",
+          "desc": "After 10 successful Basic Attacks, Apollo gains Audacity, attacking with both hands and increasing his Attack Speed by 100% for the next 5 Basic Attacks (hit or miss) he makes.",
+          "type": "Buff",
+          "stats": ["Attack Speed Buff: 100%", "Buff Duration: 5 Basic Attacks"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/4/47/Icons_Apollo_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=tDkfDlywBKU"
+        },
+        "1": {
+          "name": "So Beautiful",
+          "desc": "Apollo strums a single chord on his lyre. It's so beautiful it hurts, and all enemies in a long range line take damage.",
+          "type": "Line",
+          "stats": ["Damage: 80/135/190/245/300 (+80% of your physical power)"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/e/ee/Icons_Apollo_A01.png",
+          "cost": [70, 75, 80, 85, 90],
+          "cd": [15, 14, 13, 12, 11],
+          "vid": "https://www.youtube.com/watch?v=y8S9y2IilGU"
+        },
+        "2": {
+          "name": "Serenade",
+          "desc": "Apollo uses his amazing voice to Mesmerize all nearby enemies and bolster himself with additional physical protection. Any damage done breaks the effect.",
+          "type": "Area",
+          "stats": ["Mesmerize: .7/1.1/1.5/1.9/2.3s", "Physical Protection: 10/20/30/40/50", "Buff Lifetime: 5s", "Radius: 20"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/b/b6/Icons_Apollo_A02.png",
+          "cost": [75, 75, 75, 75, 75],
+          "cd": [17, 16, 15, 14, 13],
+          "vid": "https://www.youtube.com/watch?v=nNAVG5P83Fk"
+        },
+        "3": {
+          "name": "The Moves",
+          "desc": "Apollo runs forward and slides on his knees, dealing damage, knocking aside all enemies and adding a stack of Audacity for each enemy hit. At the end of the slide, the movement speed is decreased for enemies and increased for himself and allies.",
+          "type": "Dash",
+          "stats": ["Damage: 70/115/160/205/250 (+60% of your physical power)", "Movement Speed Buff/Debuff: 5/10/15/20/25%", "Buff Duration: 2s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/5/57/Icons_Apollo_A03.png",
+          "cost": [70, 70, 70, 70, 70],
+          "cd": [15, 15, 15, 15, 15],
+          "vid": "https://www.youtube.com/watch?v=Ha5QRsI4-jM"
+        },
+        "4": {
+          "name": "Across The Sky",
+          "desc": "Apollo rides his chariot across the sky, choosing when to land, dealing damage every .2s for .8s as he lands.",
+          "type": "Ground Type",
+          "stats": ["Damage per Tick: 70/95/120/145/170 (+30% of your physical power)", "Radius: 20"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/3/3d/Icons_Apollo_A04.png",
+          "cost": [10, 10, 10, 10, 10],
+          "cd": [110, 110, 110, 110, 110],
+          "vid": "https://www.youtube.com/watch?v=5Lw9_5MlBM8"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [450, 77],
+          "mana": [225, 40],
+          "speed": [365, 0],
+          "range": "Ranged"
+        },
+        "basic": {
+          "damage": [40, 2.6],
+          "as": [0.95, 1.7],
+          "progression": "None"
+        },
+        "prot": {
+          "phys": [12, 2.7],
+          "magi": [30, 0.9]
+        },
+        "regen": {
+          "hp": [8, 0.69],
+          "mp": [4.6, 0.4]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "My Chariot Awaits",
+          "desc": "As Apollo hit an enemy with every tick from Across The Sky",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/a/ac/Achievement_Combat_Apollo_MyChariotAwaits.png/96px-Achievement_Combat_Apollo_MyChariotAwaits.png?version=c6e01be7e29a31f5a6e2bad20f7a2765"
+        },
+        "b": {
+          "name": "Serenade",
+          "desc": "As Apollo serenade at least three enemy gods at once.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/0/05/Achievement_Combat_Apollo_Serenade.png/96px-Achievement_Combat_Apollo_Serenade.png?version=3cc41802c4bee5ce8f4c50594370f9f3"
+        }
+      }
+    },
+    "arachne": {
+      "name": "Arachne",
+      "title": "The Weaver",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/a/a8/SkinArt_Arachne_Default.jpg?version=c8e119c8f2e015b210791f8f29b88ba8",
+      "pan": "Greek",
+      "role": "Assassin",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#312468",
+      "release": "May 31, 2012",
+      "wiki": "http://smite.gamepedia.com/Arachne",
+      "reveal": "Unknown",
+      "abil": {
+        "passive": {
+          "name": "Predator",
+          "desc": "Arachne's Basic Attacks gain 1.5% Physical damage for every 5% of a target's missing Health.",
+          "type": "Unknown",
+          "stats": ["Unknown"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/9/9a/Icons_Arachne_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=Dd5-lci8Brk"
+        },
+        "1": {
+          "name": "Venomous Bite",
+          "desc": "Upon activation, Arachne's next Basic Attack within 5s does additional damage and infects the target with Venom, dealing damage over time and healing Arachne every 0.5s for 3s.",
+          "type": "Stim",
+          "stats": ["Initial Damage: 50/75/100/125/150 (+35% of your physical power)", "Damage/Healing per Tick: 10/20/30/40/50 (+10% of your physical power)"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/2/2d/Icons_Arachne_A01.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [15, 14, 13 ,12, 11],
+          "vid": "https://www.youtube.com/watch?v=HQR55l-P59s"
+        },
+        "2": {
+          "name": "Cocoon",
+          "desc": "Arachne spindles her webbing, and her next 3 successful Basic Attacks are executed with increased Attack Speed for 6s. If all 3 Basic Attacks hit the same target, that target is Stunned.",
+          "type": "Stim",
+          "stats": ["Attack Speed: 30/40/50/60/70%", "Stun Duration: 1/1.1/1.2/1.3/1.4s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/5/5a/Icons_Arachne_A02.png",
+          "cost": [70, 70, 70, 70, 70],
+          "cd": [15, 15, 15, 15, 15],
+          "vid": "https://www.youtube.com/watch?v=Z74rxTLN1rA"
+        },
+        "3": {
+          "name": "Web",
+          "desc": "Arachne shoots a line of Web forward. She is Immune to Slows and moves faster on Web. If the Web reaches max range a Web trap will spawn. Enemy gods who walk through the trap or get hit by the projectile are Slowed by 25%, revealed to Arachne, leave a trail of Web behind them, and are attacked by Broodlings. Arachne can only have 2 Web traps active at a time and the Webs last 240s.",
+          "type": "Projectile",
+          "stats": ["Slow Duration: 4/4.5/5/5.5/6s", "Movement Speed: 40%", "Broodlings: 2", "Broodling Damage: 20/30/40/50/60 per hit"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/6/64/Icons_Arachne_A03.png",
+          "cost": [50, 55, 60, 65, 70],
+          "cd": [18, 18, 18, 18, 18],
+          "vid": "Unknown"
+        },
+        "4": {
+          "name": "Night Crawler",
+          "desc": "Arachne flips up to her infinite web, hanging upside down above the lane and increasing her movement speed. She may leap off the web to deal damage to all enemies in the target area.",
+          "type": "Channeled",
+          "stats": ["Damage: 150/250/350/450/550 (100% of your physical power)", "Duration on Web: 5s", "Movement Speed: 40%", "Radius: 20"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/3/3e/Icons_Arachne_A04.png",
+          "cost": [100, 100, 100, 100, 100],
+          "cd": [90, 85, 80, 75, 70],
+          "vid": "https://www.youtube.com/watch?v=DqA1O9d2dUI"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [445, 79],
+          "mana": [210, 41],
+          "speed": [375, 0],
+          "range": "Melee"
+        },
+        "basic": {
+          "damage": [38, 2.2, 100],
+          "as": [1, 2],
+          "progression": ".5/1/1x"
+        },
+        "prot": {
+          "phys": [13, 3],
+          "magi": [30, 0.9]
+        },
+        "regen": {
+          "hp": [9, 0.67],
+          "mp": [4.8, 0.46]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "Arachnophobia",
+          "desc": "As Arachne, have your broodlings deliver the killing blow to an enemy.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/d/d4/Achievement_Combat_Arachne_Arachnophobia.png/96px-Achievement_Combat_Arachne_Arachnophobia.png?version=9c54e143816f704c37ef5b3a5de4d50e"
+        },
+        "b": {
+          "name": "Wrapped Up ",
+          "desc": "As Arachne, successfully stun 3 or more enemy gods in a match with cocoon.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/f/f6/Achievement_Combat_Arachne_WrappedUp.png/96px-Achievement_Combat_Arachne_WrappedUp.png?version=dea7701ca9d30346b86c3c7500680187"
+        }
+      }
+    },
+    "ares": {
+      "name": "Ares",
+      "title": "God of War",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/3/33/SkinArt_Ares_Default.jpg?version=d1867c581618c036ed376ee5f8ab0030",
+      "pan": "Greek",
+      "role": "Guardian",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#9b2600",
+      "release": "October 4, 2012",
+      "wiki": "http://smite.gamepedia.com/Ares",
+      "reveal": "https://www.youtube.com/watch?v=xwWiU9H5L8A",
+      "abil": {
+        "passive": {
+          "name": "Blessed Presence",
+          "desc": "Each completed aura item that Ares owns grants him 30 additional Magical Power.",
+          "type": "Buff",
+          "stats": ["Unknown"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/1/19/Icons_Ares_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=cKVCYBOXcTs"
+        },
+        "1": {
+          "name": "Shackles",
+          "desc": "Chains extend from Ares' shield, doing damage to all enemies in its path. Hitting a god shackles them to Ares, Cripples them, preventing movement abilities, dealing the same damage every second while slowing them and buffing Ares. While shackled, Ares can fire another chain for free within 2s.",
+          "type": "Projectile",
+          "stats": ["Minion Damage: 25/45/65/85/105 (+15% of your magical power)", "God Damage per Tick: 25/45/65/85/105 (+15% of your magical power)", "Slow/Speed: 15% per unique Shackle", "Duration: 4s", "Max Shackles: 3"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/4/4f/Icons_Ares_A01.png",
+          "cost": [70, 75, 80, 85, 90],
+          "cd": [15, 15, 15, 15, 15],
+          "vid": "https://www.youtube.com/watch?v=30ps8iDh7oU"
+        },
+        "2": {
+          "name": "Bolster Defenses",
+          "desc": "Ares strengthens the defenses of himself and all nearby allies, granting Protections and reducing Crowd Control durations. For each shackled enemy, the Protection Buffs are increased.",
+          "type": "Buff",
+          "stats": ["Protections: 20/25/30/35/40", "CC Reduction: 10/15/20/25/30%", "Lifetime: 8s", "Shackle Bonus: 7", "Radius: 35"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/3/32/Icons_Ares_A02.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [15, 15, 15, 15, 15],
+          "vid": "https://www.youtube.com/watch?v=XpxTwSVD2VE"
+        },
+        "3": {
+          "name": "Searing Flesh",
+          "desc": "Flames pour forth from Ares' shield, engulfing enemies in a cone in front of him causing damage every .5s for 4s. Ares is immune to Knockback for the duration.",
+          "type": "Cone",
+          "stats": ["Damage per Tick: 15/20/25/30/35 (+7% of your magical power)", "% Max Health per Tick: 1/1/2/2/3%"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/4/4e/Icons_Ares_A03.png",
+          "cost": [55, 60, 65, 70, 75],
+          "cd": [12, 12, 12, 12, 12],
+          "vid": "https://www.youtube.com/watch?v=E_BDOQSJFwY"
+        },
+        "4": {
+          "name": "No Escape",
+          "desc": "Ares throws chains out to all enemy gods in an area around him. All enemies hit by the chains are pulled to Ares after 2.5s, taking damage and are Stunned.",
+          "type": "Area",
+          "stats": ["Damage: 200/275/350/425/500 (+40% of your magical power)", "Stun: 1s", "Radius: 35"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/2/24/Icons_Ares_A04.png",
+          "cost": [80, 85, 90, 95, 100],
+          "cd": [100, 100, 100, 100, 100],
+          "vid": "https://www.youtube.com/watch?v=yFYmczvxDT0"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [485, 90],
+          "mana": [200, 37],
+          "speed": [360, 0],
+          "range": "Melee"
+        },
+        "basic": {
+          "damage": [38, 1.55, 20],
+          "as": [0.9, 1.25],
+          "progression": "1/.75/1/1.25x damage and swing time"
+        },
+        "prot": {
+          "phys": [17, 3],
+          "magi": [30, 0.9]
+        },
+        "regen": {
+          "hp": [8, 0.67],
+          "mp": [4.6, 0.42]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "Meltmaster",
+          "desc": "As Ares incinerate two gods in one match with Searing Flesh.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/b/b8/Achievement_Combat_Ares_Meltmaster.png/96px-Achievement_Combat_Ares_Meltmaster.png?version=84f87127a9ad640aeaff71b46eb8d015"
+        },
+        "b": {
+          "name": "Two Chains? Nah, Five.",
+          "desc": "As Ares hit and pull five enemy gods at once with no escape.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/a/ae/Achievement_Combat_Ares_2Chains5Chains.png/96px-Achievement_Combat_Ares_2Chains5Chains.png?version=b1030bf9f61f42660827c16b11457d6c"
+        }
+      }
+    },
+    "artemis": {
+      "name": "Artemis",
+      "title": "Goddess of the Hunt",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/5/53/SkinArt_Artemis_Default.jpg?version=30cc1eac8948b2798f5a39e56d06257c",
+      "pan": "Greek",
+      "role": "Hunter",
+      "favor": 575,
+      "gems": 200,
+      "colour": "#056804",
+      "release": "May 31, 2012",
+      "wiki": "http://smite.gamepedia.com/Artemis",
+      "reveal": "Unknown",
+      "abil": {
+        "passive": {
+          "name": "Still Target",
+          "desc": "Artemis gains a Critical Strike chance Buff on each successful hit.",
+          "type": "Buff",
+          "stats": ["Critical Chance per hit: 5%", "Duration: 4s", "Max Stacks: 3"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/1/1f/Icons_Artemis_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=pejTW0fyfGI"
+        },
+        "1": {
+          "name": "Transgressor's Fate",
+          "desc": "Artemis places a trap on the ground. Enemy gods coming within 5 units of her traps activate them, Rooting and Crippling the enemy god, preventing movement abilities and dealing damage every second for 3s.",
+          "type": "Ground Target",
+          "stats": ["Damage per Tick: 25/40/55/70/85 (+30% of your physical power)", "Root: 2s", "Max Traps: 3"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/3/31/Icons_Artemis_Fate.png",
+          "cost": [45, 45, 45, 45, 45],
+          "cd": [18, 16, 14, 12, 10],
+          "vid": "https://www.youtube.com/watch?v=bA3lM3ShNc8"
+        },
+        "2": {
+          "name": "Vengeful Assault",
+          "desc": "Artemis attacks at a furious pace, increasing her Attack and Movement Speed significantly.",
+          "type": "Buff",
+          "stats": ["Attack Speed: 40/50/60/70/80%", "Movement Speed: 20%", "Duration: 3/3.5/4/4.5/5s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/2/22/Icons_Artemis_Assault.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [18, 17, 16, 15, 14],
+          "vid": "https://www.youtube.com/watch?v=ypmViVlWeI8"
+        },
+        "3": {
+          "name": "Suppress the Insolent",
+          "desc": "Artemis fires a volley into a ground target, suppressing all of her enemies. Enemies caught within the volley are damaged and are Slowed.",
+          "type": "Ground Target",
+          "stats": ["Damage: 80/130/180/230/280 (+40% of your physical power)", "Slow: 25%", "Slow Duration: 2s", "Radius: 15"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/d/d2/Icons_Artemis_Suppress.png",
+          "cost": [70, 75, 80, 85, 90],
+          "cd": [10, 10, 10, 10, 10],
+          "vid": "https://www.youtube.com/watch?v=RZrpFqCRZRw"
+        },
+        "4": {
+          "name": "Calydonian Boar",
+          "desc": "Artemis summons the great Calydonian Boar on her enemies, doing damage to the nearest enemy god and Stunning them, and itself. The boar is immune until he hits the first god and then continues to charge other gods for its lifetime. Artemis is also immune to Crowd Control for 3s.",
+          "type": "Area",
+          "stats": ["Damage: 150/225/300/375/450 (+100% of your physical power)", "Stun: 1.1/1.2/1.3/1.4/1.5s", "Boar Lifetime: 6s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/b/b0/Icons_Artemis_Boar.png",
+          "cost": [80, 90, 100, 110, 120],
+          "cd": [90, 90, 90, 90, 90],
+          "vid": "https://www.youtube.com/watch?v=UBnD-DYivfw"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [450, 72],
+          "mana": [205, 34],
+          "speed": [365, 0],
+          "range": "Ranged"
+        },
+        "basic": {
+          "damage": [35, 2.5, 100],
+          "as": [0.95, 1.7],
+          "progression": "None"
+        },
+        "prot": {
+          "phys": [12, 3],
+          "magi": [30, 0.9]
+        },
+        "regen": {
+          "hp": [8, 0.68],
+          "mp": [30, 0.9]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "It's a Trap!",
+          "desc": "As Artemis cripple twenty five enemy gods with Transgressors Fate.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/f/f6/Achievement_Combat_Artemis_ItsaTrap.png/96px-Achievement_Combat_Artemis_ItsaTrap.png?version=e9f0b560e8a6e2df6ff5a83626fd95ef"
+        },
+        "b": {
+          "name": "Stunville",
+          "desc": "As Artemis stun three or more enemy gods with Calydonian Boar in one deployment.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/4/48/Achievement_Combat_Artemis_Stunville.png/96px-Achievement_Combat_Artemis_Stunville.png?version=8a93c664e5883814fd44dae6a8c0a57f"
+        }
+      }
+    },
+    "athena": {
+      "name": "Athena",
+      "title": "Goddes of Wisdom",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/d/d7/SkinArt_Athena_Default.jpg?version=cc501b0550939298463a33d57e41e256",
+      "pan": "Greek",
+      "role": "Guardian",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#ff997a",
+      "release": "June 5, 2013",
+      "wiki": "http://smite.gamepedia.com/Athena",
+      "reveal": "https://www.youtube.com/watch?v=VGmnS14KHmI",
+      "abil": {
+        "passive": {
+          "name": "Reach",
+          "desc": "After using any ability, Athena's next Basic Attack is a ranged attack, hitting all enemies it passes through, and dealing an additional +25% of her Magical Power as damage.",
+          "type": "Passive",
+          "stats": ["Unknown"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/8/82/Icons_Athena_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=es3cJvSV0_k"
+        },
+        "1": {
+          "name": "Preemptive Strike",
+          "desc": "Athena powers up for a dash. While dashing, Athena will pass through minions, stop and hit the first enemy god she encounters, dealing damage and slowing all she hits. If she hits an enemy, Athena gains one stack of Block (max 3), absorbing the next Basic Attack from any god that hits her.",
+          "type": "Dash",
+          "stats": ["Damage: 80/130/180/230/280 (+50% of your magical power)", "Slow Amount: 25%", "Slow Duration: 1.25/1.5/1.75/2.0/2.25s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/9/9f/Icons_Athena_A01.png",
+          "cost": [60, 70, 80, 90, 100],
+          "cd": [15, 14, 13, 12, 11],
+          "vid": "https://www.youtube.com/watch?v=Mk1eqmxKJfA"
+        },
+        "2": {
+          "name": "Confound",
+          "desc": "Athena releases a shockwave of power from her shield, Taunting enemy gods, and forcing them to fight or chase her.",
+          "type": "Cone",
+          "stats": ["Taunt Duration: 1.0/1.25/1.5/1.75/2.0s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/8/81/Icons_Athena_A02.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [18, 18, 18, 18, 18],
+          "vid": "https://www.youtube.com/watch?v=OpWh8S1IXUU"
+        },
+        "3": {
+          "name": "Shield Wall",
+          "desc": "Athena summons a group of Athenian warriors who do damage upon arrival, and after 2s strike for additional damage.",
+          "type": "Ground",
+          "stats": ["Initial Damage: 60/95/130/165/200 (+50% of your magical power)", "Secondary Damage: 80/150/220/290/360 (+50% of your magical power)", "Radius: 30"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/8/82/Icons_Athena_A03.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [14, 14, 14, 14, 14],
+          "vid": "https://www.youtube.com/watch?v=ZheP-nM8sH0"
+        },
+        "4": {
+          "name": "Defender of Olympus",
+          "desc": "Athena picks a single allied god anywhere in the world, and launches herself up into the air, landing next to that god 4.2 seconds later. During that 4.2 seconds, the allied god mitigates 20% of the damage they're taking. Enemies nearby when Athena lands take damage.",
+          "type": "Global",
+          "stats": ["Damage: 350/450/550/650/750 (+90% of your magical power)"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/5/59/Icons_Athena_A04.png",
+          "cost": [80, 90, 100, 110, 120],
+          "cd": [110, 105, 100, 95, 90],
+          "vid": "https://www.youtube.com/watch?v=ty3xXtLMwG8"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [500, 100],
+          "mana": [190, 34],
+          "speed": [365, 0],
+          "range": "Melee"
+        },
+        "basic": {
+          "damage": [35, 1.5, 20],
+          "as": [1, 1.2],
+          "progression": "1/1/2x damage and swing time"
+        },
+        "prot": {
+          "phys": [20, 3.2],
+          "magi": [30, 0.9]
+        },
+        "regen": {
+          "hp": [8, 0.9],
+          "mp": [4.6, 0.42]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "Defend Olympus",
+          "desc": "As Athena get a kill with the damage from Defender of Olympus",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/2/20/Achievement_Combat_Athena_DefendOlympus.png/96px-Achievement_Combat_Athena_DefendOlympus.png?version=99bc865e9be2a633c7db7e367a68f560"
+        },
+        "b": {
+          "name": "Face Me",
+          "desc": "As Athena Taunt three ore more enemies with one confound.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/f/ff/Achievement_Combat_Athena_FaceMe.png/96px-Achievement_Combat_Athena_FaceMe.png?version=a808d4ec2f8e101ccbccb2acd7315dda"
+        }
+      }
+    },
+    "awilix": {
+      "name": "Awilix",
+      "title": "Goddes of the Moon",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/0/00/SkinArt_Awilix_Default.jpg?version=ed08f78e3e453ede9ffa109342817f87",
+      "pan": "Mayan",
+      "role": "Assassin",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#009b36",
+      "release": "December 17, 2014",
+      "wiki": "http://smite.gamepedia.com/Awilix",
+      "reveal": "https://www.youtube.com/watch?v=Q8AQhHE8vOE",
+      "abil": {
+        "passive": {
+          "name": "Initiative",
+          "desc": "If Awilix strikes first from out of combat, she increases her Physical Power for a short duration.",
+          "type": "Passive",
+          "stats": ["Physical Power Increase: 30% for 2.5s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/b/bb/Icons_Awilix_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=FBPVHEOKPNM"
+        },
+        "1": {
+          "name": "Summon Suku",
+          "desc": "Awilix mounts her Panther Suku, gaining movement speed but decreasing strafe speed. Awilix may leap off of Suku to deal damage to all enemies in the target area. Canceling this ability before leaping will not trigger its Cooldown.",
+          "type": "Mount, Leap",
+          "stats": ["Damage: 80/130/180/230/280 (+80% of your physical power)", "Movement Speed: 25%", "Strafe Penalty: 50%", "Range: 55"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/3/3c/Icons_Awilix_A01.png",
+          "cost": [50, 55, 60, 65, 70],
+          "cd": [15, 15, 15, 15, 15],
+          "vid": "https://www.youtube.com/watch?v=xFYnm7ql5NY"
+        },
+        "2": {
+          "name": "Feather Step",
+          "desc": "Awilix flips over the last enemy she hit within 1.5s, Rooting, Crippling, and dealing damage as she passes over them. The damage dealt is modified based on the next attack in Awilix's Basic Attack progression. If the next attack is her third attack, then she also hits all targets in the area around her.",
+          "type": "Leap",
+          "stats": ["Damage: 60/90/120/150/180 (+50% of your physical power)", "Attack Progression Bonus: 1x, 1.5x, 2x", "Root and Cripple Duration: 0.6s", "Range: 30"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/2/25/Icons_Awilix_A02.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [8, 8, 8, 8, 8],
+          "vid": "https://www.youtube.com/watch?v=xMoTryDXyEI"
+        },
+        "3": {
+          "name": "Moonlight Charge",
+          "desc": "Suku comes to Awilix's aid, rushing forward and damaging all enemies. If hit from the side or behind, enemies are also knocked up into the air.",
+          "type": "Line",
+          "stats": ["Damage: 90/130/170/210/250 (+60% of your physical power)", "Range: 65"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/c/cf/Icons_Awilix_A03.png",
+          "cost": [85, 85, 85, 85, 85],
+          "cd": [12, 12, 12, 12, 12],
+          "vid": "http://smite.gamepedia.com/Awilix"
+        },
+        "4": {
+          "name": "Gravity Surge",
+          "desc": "Awilix calls upon the power of the moon, immediately pulling to her the closest enemy god she is facing that is either leaping or knocked up into the air. The target god takes damage when they land. Awilix is then bathed in moonlight, gaining bonus Attack Speed and Physical Power, along with protection against Roots, Slows, and Knockbacks for 6s.",
+          "type": "Stim",
+          "stats": ["Damage: 200/250/300/350/400 (80% of your physical power)", "Attack Speed: 30/40/50/60/70%", "Physical Power: 20/30/40/50/60", "Range: 70"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/2/28/Icons_Awilix_A04.png",
+          "cost": [100, 100, 100, 100, 100],
+          "cd": [90, 90, 90, 90, 90],
+          "vid": "https://www.youtube.com/watch?v=f1oaHCFTspw"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [475, 77],
+          "mana": [220, 38],
+          "speed": [370, 0],
+          "range": [16, 0]
+        },
+        "basic": {
+          "damage": [38, 2.16, 100],
+          "as": [1, 1.89],
+          "progression": "1/0.75/1.25x damage."
+        },
+        "prot": {
+          "phys": [13, 3],
+          "magi": [30, 0.9]
+        },
+        "regen": {
+          "hp": [10, 0.68],
+          "mp": [3.9, 0.27]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "Get Over Here",
+          "desc": "As Awilix pull a knocked up enemy god to you using Gravity Surge.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/b/b9/Achievement_Combat_Awilix_GetOverHere.png/96px-Achievement_Combat_Awilix_GetOverHere.png?version=17c50b5789be584cf7fa56177acce2d0"
+        },
+        "b": {
+          "name": "Pretty Kitty",
+          "desc": "As Awilix kill an enemy God with the damage when you jump from Suku.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/6/68/Achievement_Combat_Awilix_PrettyKitty.png/96px-Achievement_Combat_Awilix_PrettyKitty.png?version=e7840e1e33a4a79888d680caf11563ad"
+        }
+      }
+    },
+    "bacchus": {
+      "name": "Bacchus",
+      "title": "God of Wine",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/d/d0/SkinArt_Bacchus_Default.jpg/250px-SkinArt_Bacchus_Default.jpg?version=f437155766ecd1424a92834b2e68f287",
+      "pan": "Roman",
+      "role": "Guardian",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#9507b5",
+      "release": "November 19, 2012",
+      "wiki": "http://smite.gamepedia.com/Bacchus",
+      "reveal": "https://www.youtube.com/watch?v=IsZHSlXR3gw",
+      "abil": {
+        "passive": {
+          "name": "Drunk-O-Meter",
+          "desc": "Bacchus loves the drink and as Bacchus drinks from his jug, he becomes more intoxicated, gaining Buffs when he gets Tipsy and Smashed.",
+          "type": "Buff",
+          "stats": ["Tipsy: Take 7% less damage and gain 10 Magical Power", "Smashed: Take 14% less damage and gain 30 Magical Power"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/1/13/Icons_Bachus_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://youtu.be/Tjcp87AZZH0"
+        },
+        "1": {
+          "name": "Chug",
+          "desc": "Bacchus takes a drink from his jug, giving him additional Buffs. Bacchus celebrates when he kills an enemy god, giving him 10% on his meter.",
+          "type": "Buff",
+          "stats": ["Drunk-O-Meter: 33/35/37/39/41%", "Protections: 15/20/25/30/35"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/7/7a/Icons_Bachus_A01.png",
+          "cost": [40, 65, 90, 115, 140],
+          "cd": [10, 10, 10, 10, 10],
+          "vid": "https://youtu.be/vkFt12AUy9U"
+        },
+        "2": {
+          "name": "Belly Flop",
+          "desc": "Bacchus jumps into the air and, not so gracefully, comes slamming to the ground belly first, knocking all enemies into the air and dealing damage. If he is Tipsy, all enemies are also Slowed after they land.",
+          "type": "Leap",
+          "stats": ["Damage: 90/130/170/210/250 (+70% of your magical power)", "Slow: 20%"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/d/db/Icons_Bachus_A02.png",
+          "cost": [70, 75, 80, 85, 90],
+          "cd": [16, 16, 16, 16, 16],
+          "vid": "https://youtu.be/qQ9GhLCT-eY"
+        },
+        "3": {
+          "name": "Belch of the Gods",
+          "desc": "Bacchus lets out an obnoxiously loud belch, doing damage every .5s for 2s. If he is Tipsy, enemies are Stunned for 1s and their healing is Debuffed. Bacchus is immune to knockback for the duration.",
+          "type": "Cone",
+          "stats": ["Damage per Tick: 20/35/50/65/80 (+15% of your magical power)", "Stun: 1s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/4/49/Icons_Bachus_A03.png",
+          "cost": [70, 75, 80, 85, 90],
+          "cd": [14, 14, 14, 14, 14],
+          "vid": "https://youtu.be/xF5QvE64Xq0"
+        },
+        "4": {
+          "name": "Intoxicate",
+          "desc": "Bacchus smashes his jug of wine on the ground, intoxicating all nearby enemies and doing damage. If he is Smashed, Bacchus also gains a Magical Power Buff because of his anger over his lost wine!",
+          "type": "Area",
+          "stats": ["Damage: 250/325/400/475/550 (+70% of your magical power)", "Intoxication Debuff Duration: 6s", "Magical Power Buff: 20/30/40/50/60", "Buff Duration: 5s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/5/53/Icons_Bachus_A04.png",
+          "cost": [95, 95, 95, 95, 95],
+          "cd": [90, 90, 90, 90, 90],
+          "vid": "https://youtu.be/OJNqJOJRC6w"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [495, 86],
+          "mana": [200, 40],
+          "speed": [365, 0],
+          "range": "Melee"
+        },
+        "basic": {
+          "damage": [37, 1.5, 20],
+          "as": [0.88, 1],
+          "progression": "None"
+        },
+        "prot": {
+          "phys": [19, 3],
+          "magi": [30, 0.9]
+        },
+        "regen": {
+          "hp": [8, 0.8],
+          "mp": [4.8, 0.4]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "Bottoms Up",
+          "desc": "As Bacchus keep your Drunk-o-meter in smashed for Five minutes.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/3/38/Achievement_Combat_Bacchus_BottomsUp.png/96px-Achievement_Combat_Bacchus_BottomsUp.png?version=ba32460b7ccf6855f38f135adf917571"
+        },
+        "b": {
+          "name": "Everybody Getting Tipsy",
+          "desc": "As Bacchus intoxicate three or more enemy Gods at once.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/1/12/Achievement_Combat_Bacchus_EverybodyGetTipsy.png/96px-Achievement_Combat_Bacchus_EverybodyGetTipsy.png?version=d81aeabc46c159b848162cede6b7f57d"
+        }
+      }
+    },
+    "bakasura": {
+      "name": "Bakasura",
+      "title": "The Great Devourer",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/f/fd/SkinArt_Bakasura_Default.jpg?version=e08766b028c7781e8ecb608e49eea2cd",
+      "pan": "Hindu",
+      "role": "Assassin",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#d82729",
+      "release": "July 20, 2012",
+      "wiki": "http://smite.gamepedia.com/Bakasura",
+      "reveal": "https://www.youtube.com/watch?v=Bz0Fm2QeANs",
+      "abil": {
+        "passive": {
+          "name": "Insatiable Hunger",
+          "desc": "Bakasura's attack and movement speed temporarily increases for each enemy that he kills.",
+          "type": "Buff",
+          "stats": ["Attack Speed per Stack: 10%", "Movement Speed per Stack: 10%"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/d/de/Icons_Bakasura_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=jU4lJEthvAY"
+        },
+        "1": {
+          "name": "Take Down",
+          "desc": "Bakasura leaps to his ground target location, doing damage to all enemies in the area and reducing their Physical Protection.",
+          "type": "Leap",
+          "stats": ["Damage: 100/160/220/280/340 (+60% of your physical power)", "Physical Protection Debuff: 20", "Duration: 3s", "Radius: 15"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/2/20/Icons_Bakasura_A01.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [12, 12, 12, 12, 12],
+          "vid": "https://www.youtube.com/watch?v=a-F3zUnf5zI"
+        },
+        "2": {
+          "name": "Eat Minion",
+          "desc": "Bakasura grabs a minion and devours it, healing himself and gaining a Protections Buff. Buff wielding minions must be at 33% Health to be consumed. Up to 6 minions are stored for Regurgitate.",
+          "type": "Melee Target",
+          "stats": ["Heal: 70/120/170/220/270 (+70% of your physical power)", "Protections: 10/15/20/25/30", "Protections Duration: 10s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/e/ec/Icons_Bakasura_A02.png",
+          "cost": [55, 55, 55, 55, 55],
+          "cd": [15, 15, 15, 15, 15],
+          "vid": "https://www.youtube.com/watch?v=_ULuPJzdSjU"
+        },
+        "3": {
+          "name": "Butcher Blades",
+          "desc": "Bakasura passively gains Physical Power. When activated, he gains additional true damage on each strike for the duration.",
+          "type": "Buff",
+          "stats": ["Passive Physical Power: 10/15/20/25/30", "True Damage: 10/25/40/55/70", "Duration: 6s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/8/8e/Icons_Bakasura_A03.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [14, 14, 14, 14, 14],
+          "vid": "https://www.youtube.com/watch?v=r0fAOPjTKwM"
+        },
+        "4": {
+          "name": "Regurgitate",
+          "desc": "Bakasura regurgitates all of the minions consumed by his Eat Minion ability at his ground target location that Slows and Cripples enemy players. Bakasura's Basic Attacks become cone attacks and he is immune to Crowd Control for a short duration.",
+          "type": "Ground Target",
+          "stats": ["Slow: 20/25/30/35/40%", "Slow Duration: 4s", "Cone Attack Duration: 6s", "CC Immunity Duration: 1.5s", "Minion Damage: 15", "Radius: 25"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/e/ec/Icons_Bakasura_A04.png",
+          "cost": [80, 90, 100, 110, 120],
+          "cd": [90, 90, 90, 90, 90],
+          "vid": "https://www.youtube.com/watch?v=zMM7tVXUXtc"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [455, 78],
+          "mana": [200, 39],
+          "speed": [370, 0],
+          "range": "Melee"
+        },
+        "basic": {
+          "damage": [38, 2.2, 100],
+          "as": [1, 1.6],
+          "progression": "None"
+        },
+        "prot": {
+          "phys": [13, 2.8],
+          "magi": [30, 0.9]
+        },
+        "regen": {
+          "hp": [9, 0.68],
+          "mp": [4.8, 0.46]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "My Minion",
+          "desc": "As Bakasura eat twenty five minions using eat minion in a single match.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/0/0c/Achievement_Combat_Bakasura_MyMinion.png/96px-Achievement_Combat_Bakasura_MyMinion.png?version=deffd34a3569857130d7311389b3fbdf"
+        },
+        "b": {
+          "name": "The Butcher",
+          "desc": "As Bakasura get three kills on enemy gods with the damage from Butcher Blades.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/f/f4/Achievement_Combat_Bakasura_TheButcher.png/96px-Achievement_Combat_Bakasura_TheButcher.png?version=c53acabdfff8acdde27eab51e59f89f9"
+        }
+      }
+    },
+    "bastet": {
+      "name": "Bastet",
+      "title": "Goddess of cats",
+      "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/c/c7/SkinArt_Bastet_Default.jpg?version=cf58cd0911b2c831b90a5286fb668ab3",
+      "pan": "Egyptian",
+      "role": "Assassin",
+      "favor": 5500,
+      "gems": 200,
+      "colour": "#995820",
+      "release": "May 31, 2012",
+      "wiki": "http://smite.gamepedia.com/Bastet",
+      "reveal": "https://www.youtube.com/watch?v=HHxvnC31vQw",
+      "abil": {
+        "passive": {
+          "name": "Open Wound",
+          "desc": "When Bastet hits an enemy with Pounce, Razor Whip or Declaw, she wounds the target for a brief time. If the target has a wound, those abilities deal additional damage and remove the wound instead.",
+          "type": "Debuff",
+          "stats": ["Wound Duration: 3s", "Additional Damage: 20%"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/e/ef/Icons_Bastet_Passive.png",
+          "cost": [0, 0, 0, 0, 0],
+          "cd": [0, 0, 0, 0, 0],
+          "vid": "https://www.youtube.com/watch?v=frSuEmRPn1E"
+        },
+        "1": {
+          "name": "Pounce",
+          "desc": "Bastet pounces to her target location, damaging enemies within the radius. For 4 seconds after pouncing, you can press the button again to pounce back to your initial location. Bastet moves 25% faster while in the return pounce state.",
+          "type": "Leap",
+          "stats": ["Damage: 80/145/210/275/340 (+100% of your physical power)", "Radius: 20"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/f/f1/Icons_Bastet_A01.png",
+          "cost": [60, 65, 70, 75, 80],
+          "cd": [12, 12, 12, 12, 12],
+          "vid": "https://www.youtube.com/watch?v=J_KN7HA8YW0"
+        },
+        "2": {
+          "name": "Razor Whip",
+          "desc": "Bastet swipes at her enemies, causing them to Bleed for damage every second for the duration.",
+          "type": "Cone",
+          "stats": ["Damage per Tick: 30/50/70/90/110 (+20% of your physical power)", "Duration: 4s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/a/a2/Icons_Bastet_A02.png",
+          "cost": [60, 65, 70, 75 ,80],
+          "cd": [15, 15, 15, 15, 15],
+          "vid": "https://www.youtube.com/watch?v=B7eL6sP5rTs"
+        },
+        "3": {
+          "name": "Declaw",
+          "desc": "Bastet throws her dagger, which detonates on her target dealing damage and slowing the enemies in the area.",
+          "type": "Projectile",
+          "stats": ["Damage: 70/120/170/220/270 (+100% of your physical power)", "Slow: 30%", "Slow Duration: 2s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/a/a7/Icons_Bastet_A03.png",
+          "cost": [70, 75, 80, 85, 90],
+          "cd": [10, 10, 10, 10, 10],
+          "vid": "https://www.youtube.com/watch?v=n09ke6rDRUg"
+        },
+        "4": {
+          "name": "Cat Call",
+          "desc": "Bastet summons 3 cats that attack nearby targets, Slowing and damaging them. Sensing the smell of blood, the cats will attack Bleeding enemies first.",
+          "type": "Summon Pet",
+          "stats": ["Damage per Hit: 25/35/45/55/65 (+20% of your physical power)", "Slow: 20%", "Cat Lifetime: 10s"],
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/4/40/Icons_Bastet_A04.png",
+          "cost": [90, 95, 100, 105, 110],
+          "cd": [90, 90, 90, 90, 90],
+          "vid": "https://www.youtube.com/watch?v=7lDmduu1kyg"
+        }
+      },
+      "stats": {
+        "stat": {
+          "health": [415, 80],
+          "mana": [230, 39],
+          "speed": [375, 0],
+          "range": "Melee"
+        },
+        "basic": {
+          "damage": [38, 2.13, 100],
+          "as": [1, 1.98],
+          "progression": "1/.7/1.3x damage"
+        },
+        "prot": {
+          "phys": [12, 2.9],
+          "magi": [30, 0.9]
+        },
+        "regen": {
+          "hp": [9, 0.72],
+          "mp": [4.4, 0.25]
+        }
+      },
+      "achv": {
+        "a": {
+          "name": "Cat Scratch",
+          "desc": "As Bastet deliver the killing blow to an enemy God in a single match with the damage from your Cats.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/2/2a/Achievement_Combat_Bastet_CatScratch.png/96px-Achievement_Combat_Bastet_CatScratch.png?version=bbf36670c019205a7deba641b17677f7"
+        },
+        "b": {
+          "name": "Where's My Kitties?",
+          "desc": "As Bastet release 45 cats using your Ultimate in a single match.",
+          "pic": "https://hydra-media.cursecdn.com/smite.gamepedia.com/thumb/e/eb/Achievement_Combat_Bastet_WheresMyKitties.png/96px-Achievement_Combat_Bastet_WheresMyKitties.png?version=cdd762df6abbcad2a117e941d7b025a2"
+        }
+      }
+    }
+  },
+  "vgs": {
+    "va1": "Attack left lane!",
+    "va2": "Attack middle lane!",
+    "va3": "Attack right lane!",
+    "vaa": "Attack!",
+    "vaf": "Attack Fire Giant!",
+    "vag": "Attack the Gold Fury!",
+    "vam": "Attack the Titan!",
+    "vat1": "Attack left tower!",
+    "vat2": "Attack middle tower!",
+    "vat3": "Attack right tower!",
+    "vb1": "Enemis in left lane!",
+    "vb2": "Enemies in middle lane!",
+    "vb3": "Enemies in right lane!",
+    "vba": "Enemy ultimate incoming!",
+    "vbb": "Enemies have returned to base.",
+    "vad": "Enemy ultimate down!",
+    "vbe": "Enemies behind us!",
+    "vbf": "Enemies at the Fire Giant!",
+    "vbg": "Enemies at the Gold Fury!",
+    "vbm": "Enemies at our Titan!",
+    "vbs": "Enemy spotted!",
+    "vbj1": "Enemies in the Left Jungle!",
+    "vbj2": "Enemies in the right jungle!",
+    "vbjj": "Enemies in the jungle!",
+    "vc1": "Be careful left!",
+    "vc2": "Be careful middle!",
+    "vc3": "Be careful right!",
+    "vcb": "Return to base!",
+    "vcc": "Be careful!",
+    "vcj": "Be careful in the jungle!",
+    "vd1": "Defend left lane!",
+    "vd2": "Defend middle lane!",
+    "vd3": "Defend right lane!",
+    "vdd": "Defend!",
+    "vdf": "Defend the Fire Giant!",
+    "vdg": "Defend the Gold Fury!",
+    "vdm": "Defend the Titan!",
+    "vea": "Awesome!",
+    "veg": "I'm the Greatest!",
+    "vej": "<plays god's joke>",
+    "vel": "<plays god's laugh>",
+    "ver": "You Rock!",
+    "vet": "<plays god's taunt>",
+    "vew": "Woohoo!",
+    "vf1": "Enemy missing left!",
+    "vf2": "Enemy missing middle!",
+    "vf3": "Enemy missing right!",
+    "vff": "Enemy missing!",
+    "vg1": "Gank left lane!",
+    "vg2": "Gank middle lane!",
+    "vg3": "Gank right lane!",
+    "vgg": "Gank!",
+    "vh1": "Help left lane!",
+    "vh2": "Help middle lane!",
+    "vh3": "Help right lane!",
+    "vhh": "Help!",
+    "vhs": "Need Healing!",
+    "vi1": "Enemies incoming left!",
+    "vi2": "Enemies incoming middle!",
+    "vi3": "Enemies incoming right!",
+    "vii": "Enemies incoming!",
+    "vq1": "Ward Left!",
+    "vq2": "Ward middle!",
+    "vq3": "Ward Right!",
+    "vqf": "Ward Fire Giant!",
+    "vqg": "Ward Gold Fury!",
+    "vqn": "Need Wards!",
+    "vqq": "Ward Here!",
+    "vr1": "Retreat left lane!",
+    "vr2": "Retreat middle lane!",
+    "vr3": "Retreat right lane!",
+    "vrj": "Retreat from the Jungle!",
+    "vrr": "Retreat!",
+    "vrs": "Save yourself!",
+    "vso": "I'm on it!",
+    "vsr": "Falling back!",
+    "vss": "I'm building Stacks!",
+    "vsa1": "I'll Attack left lane!",
+    "vsa2": "I'll Attack middle lane!",
+    "vsa3": "I'll Attack right lane!",
+    "vsaa": "I'll Attack!",
+    "vsaf": "I'll Attack Fire Giant!",
+    "vsag": "I'll Attack the Gold Fury!",
+    "vsam": "I'll Attack the Titan!",
+    "vsbb": "I'm going for jungle buff!",
+    "vsbn": "I need the jungle buff.",
+    "vsbt": "Take this jungle buff.",
+    "vsd1": "I'll defend left lane!",
+    "vsd2": "I'll defend middle lane!",
+    "vsd3": "I'll defend right lane!",
+    "vsdd": "I'll defend!",
+    "vsdf": "I'll defend the Fire Giant!",
+    "vsdg": "I'll defend the Gold Fury!",
+    "vsdm": "I'll defend the Titan!",
+    "vsg1": "I'll gank left lane!",
+    "vsg2": "I'll gank middle lane!",
+    "vsg3": "I'll gank right lane!",
+    "vsgg": "I'll gank!",
+    "vsq1": "I will ward left!",
+    "vsq2": "I will ward middle!",
+    "vsq3": "I will ward right!",
+    "vsqq": "I will ward!",
+    "vst1": "I'm returning left lane!",
+    "vst2": "I'm returning middle lane!",
+    "vst3": "I'm returning right lane!",
+    "vstb": "I'm returning to base!",
+    "vstt": "I have returned!",
+    "vt1": "Enemies have returned left!",
+    "vt2": "Enemies have returned middle!",
+    "vt3": "Enemies have returned right!",
+    "vtt": "Enemies have returned!",
+    "vva": "Ok!",
+    "vvb": "Be right back!",
+    "vvc": "Completed!",
+    "vvk": "Stepping away for a moment.",
+    "vvm": "Out of mana!",
+    "vvn": "No!",
+    "vvp": "Please?",
+    "vvs": "Sorry!",
+    "vvt": "Thanks!",
+    "vvw": "Wait!",
+    "vvx": "Cancel that!",
+    "vvy": "Yes!",
+    "vvgb": "Bye!",
+    "vvgf": "Have fun!",
+    "vvgg": "Good game!",
+    "vvgh": "Hi!",
+    "vvgl": "Good luck!",
+    "vvgn": "Nice Job!",
+    "vvgo": "Oops!",
+    "vvgq": "Quiet!",
+    "vvgr": "No Problem!",
+    "vvgs": "Curses!",
+    "vvgt": "That's too bad!",
+    "vvgw": "You're welcome!",
+    "vvva": "Set up an ambush here!",
+    "vvvb": "Behind us!",
+    "vvvc": "Chase the enemy!",
+    "vvvd": "Ultimate is down! (Xs remaining)",
+    "vvve": "On my way!",
+    "vvvf": "Follow me!",
+    "vvvg": "Group up!",
+    "vvvj": "Going into the jungle!",
+    "vvvp": "Split push!",
+    "vvvr": "Ultimate is ready!",
+    "vvvs": "Stay here!",
+    "vvvt": "It's a trap!",
+    "vvvw": "Place a Ward for teleport!",
+    "vvvx": "Spread Out!"
+  }
+}

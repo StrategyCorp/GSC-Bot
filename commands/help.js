@@ -1,50 +1,65 @@
 const Discord = require('discord.js');
 
 exports.run = (client, message, args) => {
+  const settings = client.settings.get(message.guild.id);
   if (!args[0]) {
-    /*
-    let currentCategory = "";
-    let output = `= Command List =\n\n[Use ${settings.prefix}help <commandname> for details]\n`;
-    const sorted = myCommands.array().sort((p, c) => p.cmdConfig.type > c.cmdConfig.type ? 1 :  p.cmdConfig.name > c.cmdConfig.name && p.cmdConfig.type === c.cmdConfig.type ? 1 : -1 );
-    sorted.forEach( c => {
-      const cat = c.cmdConfig.type.toProperCase();
-      if (currentCategory !== cat) {
-        output += `\n== ${cat} ==\n`;
-        currentCategory = cat;
-      }
-      output += `${settings.prefix}${c.cmdConfig.name}${" ".repeat(longest - c.cmdConfig.name.length)} :: ${c.cmdConfig.description}\n`;
-    });
-    message.channel.send(output, {code:"asciidoc"});
-    */
-    const settings = client.settings.get(message.guild.id);
-    const myCommands = client.commands;
-    const commandNames = myCommands.keyArray();
-    const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
-    const helpEmbed = new Discord.RichEmbed()
+    let cmdName = client.commands.map(c => `${c.cmdConfig.name}type=${c.cmdConfig.type}`);
+    let core = cmdName.filter(filterCore).join(', ').replace(/type=core/g, '');
+    let fun = cmdName.filter(filterFun).join(', ').replace(/type=fun/g, '');
+    let info = cmdName.filter(filterInfo).join(', ').replace(/type=info/g, '');
+    let mod = cmdName.filter(filterMod).join(', ').replace(/type=mod/g, '');
+    let clnt = cmdName.filter(filterClnt).join(', ').replace(/type=client/g, '');
+    const normalHelp = new Discord.RichEmbed()
       .setColor(settings.embedColour)
-      .addField('Command List', `Use ${settings.prefix}help [command] for more details`);
-    let cmdArray = new Array();
-    let currentCategory = "";
-    const sorted = myCommands.array().sort((p, c) => p.cmdConfig.type > c.cmdConfig.type ? 1 :  p.cmdConfig.name > c.cmdConfig.name && p.cmdConfig.type === c.cmdConfig.type ? 1 : -1 );
-    sorted.forEach(c => {
-      const cat = c.cmdConfig.type.toProperCase();
-      if (currentCategory !== cat) {
-        helpEmbed.addField(cat, cmdArray);
-        cmdArray = [];
-        currentCategory = cat;
-      } else {
-        cmdArray.push(c.cmdConfig.name);
-      }
-    });
-    message.channel.send({embed: helpEmbed});
+      .setThumbnail(client.user.avatarURL)
+      .setTitle(`Use ${settings.prefix}help [command] for more infomation`)
+      .addField('Core', core)
+      .addField('Fun', fun)
+      .addField('Infomation', info)
+      .addField('Mod', mod);
+    if (message.author.id === client.config.ownerId) normalHelp.addField('Client', clnt);
+    message.channel.send({embed: normalHelp});
   } else {
     let command = args[0];
     if (client.commands.has(command)) {
       command = client.commands.get(command);
-      message.channel.send(`= ${command.cmdConfig.name} = \n${command.cmdConfig.description}\nusage::${command.cmdConfig.usage}`, {code:"asciidoc"});
+      const commandHelp = new Discord.RichEmbed()
+        .setColor(settings.embedColour)
+        .setTitle(cap(command.cmdConfig.name))
+        .addBlankField()
+        .addField('Description', command.cmdConfig.description)
+        .addField('Usage', command.cmdConfig.usage)
+        .addField('Type', command.cmdConfig.type);
+      message.channel.send({embed: commandHelp});
+    } else {
+      message.channel.send(`:negative_squared_cross_mark: I could not find the command \`${args.join(' ')}\`, trying using \`${settings.prefix}help\` to get a list of all commands.`);
     }
   }
 };
+
+function filterCore(type) {
+  return type.includes('type=core');
+}
+
+function filterFun(type) {
+  return type.includes('type=fun');
+}
+
+function filterInfo(type) {
+  return type.includes('type=info');
+}
+
+function filterMod(type) {
+  return type.includes('type=mod');
+}
+
+function filterClnt(type) {
+  return type.includes('type=client');
+}
+
+function cap(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 exports.cmdConfig = {
   name : "help",
@@ -53,3 +68,5 @@ exports.cmdConfig = {
   usage: "help [command]",
   type: "core"
 };
+
+
