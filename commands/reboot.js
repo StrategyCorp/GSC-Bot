@@ -22,9 +22,9 @@ exports.run = (client, message) => {
 };
 
 exports.cmdConfig = {
-  name: 'reboot',
+  name: "reboot",
   aliases: ['restart'],
-  description: 'Turns off the bot.',
-  usage: 'reboot',
+  description: "Turns off the bot.",
+  usage: "reboot",
   type: "client"
 };
