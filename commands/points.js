@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
   if (message.mentions.users.size === 1) user = message.mentions.users.first();
   const settings = client.settings.get(message.guild.id);
   sql.get(`SELECT * FROM ${message.guild.id} WHERE id = '${user.id}'`).then(row => {
-    if (!row) sql.run('INSERT INTO ${message.guild.id} (id, points) VALUES (?, ?)', [message.author.id, 1]);
+    if (!row) sql.run(`INSERT INTO ${message.guild.id} (id, points) VALUES (?, ?)`, [message.author.id, 1]);
     let points = row.points;
     let level = Math.floor(Math.sqrt(points));
     const pointsEmbed = new Discord.RichEmbed()
@@ -18,8 +18,8 @@ exports.run = (client, message, args) => {
     message.channel.send({embed: pointsEmbed});
   }).catch(() => {
     console.error;
-    sql.run('CREATE TABLE IF NOT EXISTS ${message.guild.id} (id TEXT, points INTEGER)').then(() => {
-      sql.run('INSERT INTO ${message.guild.id} (id, points) VALUES (?, ?)', [message.author.id, 1]);
+    sql.run(`CREATE TABLE IF NOT EXISTS ${message.guild.id} (id TEXT, points INTEGER)`).then(() => {
+      sql.run(`INSERT INTO ${message.guild.id} (id, points) VALUES (?, ?)`, [message.author.id, 1]);
     });
   });
 };

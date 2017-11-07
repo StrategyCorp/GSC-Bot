@@ -27,8 +27,8 @@ module.exports = (client) => {
       }
     }).catch(() => {
       console.error;
-      sql.run('CREATE TABLE IF NOT EXISTS ${message.guild.id} (id TEXT, points INTEGER)').then(() => {
-        sql.run('INSERT INTO ${message.guild.id} (id, points) VALUES (?, ?)', [message.author.id, 1]);
+      sql.run(`CREATE TABLE IF NOT EXISTS ${message.guild.id} (id TEXT, points INTEGER)`).then(() => {
+        sql.run(`INSERT INTO ${message.guild.id} (id, points) VALUES (?, ?)`, [message.author.id, 1]);
       });
     });
   };
