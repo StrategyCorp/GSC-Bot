@@ -3,7 +3,7 @@ require('node-opus');
 
 exports.run = async (client, message) => {
   const settings = client.settings.get(message.guild.id);
-  if (client.queue[message.guild.id] === undefined) return message.channel.send(`Add some songs to the queue first with ${client.config.prefix}add`);
+  if (client.queue[message.guild.id] === undefined) return message.channel.send(`Add some songs to the queue first with ${settings.prefix}add`);
 	if (!message.guild.voiceConnection) return client.commands.get('join').run(client, message).then(() => client.commands.get('play').run(client, message)).catch(err => { throw err; });
 	if (client.queue[message.guild.id].playing) return message.channel.send('Already Playing');
 	let dispatcher;
@@ -19,11 +19,11 @@ exports.run = async (client, message) => {
 		dispatcher = message.guild.voiceConnection.playStream(yt(song.url, { audioonly: true }), { passes: client.config.passes });
 		const collector = message.channel.createMessageCollector(message => message);
 		collector.on('collect', m => {
-			if (m.content.startsWith(`${client.config.prefix}pause`)) {
+			if (m.content.startsWith(`${settings.prefix}pause`)) {
 				return message.channel.send('⏸ Paused').then(() => { dispatcher.pause(); });
-			} else if (m.content.startsWith(`${client.config.prefix}resume`)) {
+			} else if (m.content.startsWith(`${settings.prefix}resume`)) {
 				return message.channel.send('▶ Resumed').then(() => { dispatcher.resume(); });
-			} else if (m.content.startsWith(`${client.config.prefix}skip`)) {
+			} else if (m.content.startsWith(`${settings.prefix}skip`)) {
 				return message.channel.send('⏭ Skipped').then(() => { dispatcher.end(); });
 			} else if (m.content.startsWith('volume+')) {
 				if (Math.round(dispatcher.volume * 50) >= 100) return message.channel.send(`📢 Volume: ${Math.round(dispatcher.volume * 50)}%`);
@@ -33,7 +33,7 @@ exports.run = async (client, message) => {
 				if (Math.round(dispatcher.volume * 50) <= 0) return message.channel.send(`🔇 Volume: ${Math.round(dispatcher.volume * 50)}%`);
 				dispatcher.setVolume(Math.max(((dispatcher.volume * 50) - (2 * (m.content.split('-').length - 1))) / 50, 0));
 				return message.channel.send(`${dispatcher.volume === 0 ? '🔇' : '🔉'} Volume: ${Math.round(dispatcher.volume * 50)}%`);
-			} else if (m.content.startsWith(`${client.config.prefix}time`)) {
+			} else if (m.content.startsWith(`${settings.prefix}time`)) {
 				return message.channel.send(`🕰 Time: ${Math.floor(dispatcher.time / 60000)}:${Math.floor((dispatcher.time % 60000) / 1000) < 10 ?
           `0${Math.floor((dispatcher.time % 60000) / 1000)}` :
           Math.floor((dispatcher.time % 60000) / 1000)}`);
@@ -50,7 +50,6 @@ exports.run = async (client, message) => {
 			client.queue[message.guild.id].songs.shift();
 			play(client.queue[message.guild.id].songs[0]);
 		}));
-
 		return null;
 	}(client.queue[message.guild.id].songs[0]));
   return null;
