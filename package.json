@@ -19,7 +19,9 @@
     "request": "^2.83.0",
     "snekfetch": "^3.5.8",
     "util": "^0.10.3",
-    "cheerio": "^0.22.0"
+    "cheerio": "^0.22.0",
+    "node-opus": "^0.2.7",
+    "ytdl-core": "^0.18.1"
   },
   "engines": {
     "node": "8.x"
