@@ -4,6 +4,7 @@ const snekfetch = require('snekfetch');
 const querystring = require('querystring');
 
 exports.run = async (client, message, args) => {
+  args = args.join(' ');
   let searchMessage = await message.channel.send(`Search for \`${args}\` . . .`);
   let searchUrl = `https://www.google.com/search?q=${encodeURIComponent(message.content)}`;
   snekfetch.get(searchUrl).then((result) => {
