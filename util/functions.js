@@ -7,14 +7,14 @@ module.exports = (client) => {
   };
 
   client.vgs = (client, message) => {
-    if (message.channel.type !=='text') return;
+    if (message.channel.type !== 'text') return;
     if (smite.vgs[message.content.toLowerCase()]) {
       message.channel.send(smite.vgs[message.content.toLowerCase()]);
     }
   };
   
   client.pointsMonitor = (client, message) => {
-    if (message.channel.type !=='text') return;
+    if (message.channel.type !== 'text') return;
     const settings = client.settings.get(message.guild.id);
     if (message.content.startsWith(settings.prefix)) return;
     const score = client.points.get(message.author.id) || { points: 0, level: 0 };
@@ -22,6 +22,13 @@ module.exports = (client) => {
     const curLevel = Math.floor(Math.sqrt(score.points));
   };
 
+  client.poll = async (client, message) => {
+    if (message.channel.type !== 'text') return;
+    if (!message.content.startsWith('poll: ')) return;
+    let rea
+    message.react('👌');
+  };
+  
   client.awaitReply = async (msg, question, limit = 60000) => {
     const filter = m => m.author.id = msg.author.id;
     await msg.channel.send(question);
