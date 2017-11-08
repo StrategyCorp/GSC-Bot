@@ -1,7 +1,6 @@
 const points= {
   "default": {
-    "level": 0,
-    "points": 0
+    "user": 0
   }
 };
 
