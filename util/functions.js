@@ -18,9 +18,9 @@ module.exports = (client) => {
     const settings = client.settings.get(message.guild.id);
     if (message.content.startsWith(settings.prefix)) return;
     const points = client.points.get(message.guild.id);
-    if (!points[message.author.id]) points[message.author.id] = 0;
-    points[message.author.id]++;
-    client.points.set(message.guild.id, points);
+    //if (!points[message.author.id]) points[message.author.id] = 0;
+    //points[message.author.id]++;
+    //client.points.set(message.guild.id, points);
   };
 
   client.poll = async (client, message) => {
