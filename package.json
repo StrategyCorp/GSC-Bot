@@ -15,11 +15,11 @@
     "enmap-level": "^1.0.0",
     "express": "^4.16.2",
     "moment": "^2.19.1",
+    "querystring": "^0.2.0",
     "request": "^2.83.0",
-    "util": "^0.10.3",
-    "cheerio": "^0.22.0",
     "snekfetch": "^3.5.8",
-    "querystring": "^0.2.0"
+    "util": "^0.10.3",
+    "cheerio": "^0.22.0"
   },
   "engines": {
     "node": "8.x"
