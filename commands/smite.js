@@ -33,12 +33,12 @@ exports.run = (client, message, args) => {
       .addField('Role', god.role)
       .addField('Cost', `Favor: ${god.favor}\nGems: ${god.gems}`)
       .addField('Release Date', god.release)
-      .addField('Reaveal Video', god.reveal)
+      .addField('Reveal Video', god.reveal)
       .addField('Wiki', god.wiki);
     message.channel.send({embed: godEmbed});
   } else if (search === "ability" || search === "a") {
     let ability = args[1];
-    if (!ability) return message.channel.send(':negative_squared_cross_mark: You must give an ability (0/passeive, 1, 2, 3, 4/ultimate)');
+    if (!ability) return message.channel.send(':negative_squared_cross_mark: You must give an ability (0/passeive, 1, 2, 3, 4/ult/ultimate)');
     const abl = {
       0: "passive",
       passive: "passive",
@@ -49,7 +49,7 @@ exports.run = (client, message, args) => {
       ult: "4",
       ultimate: "4"
     };
-    if (abl[ability] === undefined) return message.channel.send(':negative_squared_cross_mark: That is not an ability (0/passeive, 1, 2, 3, 4/ultimate)');
+    if (abl[ability] === undefined) return message.channel.send(':negative_squared_cross_mark: That is not an ability (0/passive, 1, 2, 3, 4/ultimate)');
     let god = args.slice(2).join(' ');
     if (!god) return message.channel.send(':negative_squared_cross_mark: You must give me a God to search');
     god = db.gods[god.toLowerCase()];
@@ -78,6 +78,7 @@ exports.run = (client, message, args) => {
     function scale(base, scale) {
       base[0] + (level * scale[1]);
     }
+    let health = god.stat.health[0] + (level * god.stat.health[1]);
     let mana = god.stat.mana[0] + (level * god.stat.mana[1]);
     let speed = god.stat.speed[0] + (level * god.stat.speed[1]);
     let damage = god.basic.damage[0] + (level * god.basic.damage[1]);
@@ -89,7 +90,7 @@ exports.run = (client, message, args) => {
     const statEmbed = new Discord.RichEmbed()
       .setColor(db.gods[args.slice(2).join(' ').toLowerCase()].colour)
       .setThumbnail(db.gods[args.slice(2).join(' ').toLowerCase()].pic)
-      .addField('Stats', `Health: ${scale(god.stat.health[0], god.stat.health[1])}\nMana: ${mana}\nMovement Speed: ${speed}\nRange: ${god.stat.range}`)
+      .addField('Stats', `Health: ${health}\nMana: ${mana}\nMovement Speed: ${speed}\nRange: ${god.stat.range}`)
       .addField('Basic Attacks', `Damage: ${damage} + ${god.basic.damage[2]}%\nAttack Speed: ${as}\nProgression: ${god.basic.progression}`)
       .addField('Regen', `HP5: ${hp}\nMP5: ${mp}`);
     message.channel.send({embed: statEmbed});
