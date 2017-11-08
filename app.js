@@ -13,6 +13,7 @@ client.aliases = new Enmap();
 client.queue = new Enmap();
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 client.points = new Enmap({provider: new EnmapLevel({name: "points"})});
+client.board = new Enmap({provider: new EnmapLevel({name: "board"})});
 
 const init = async () => {
   const cmdFiles = await readdir("./commands/");
