@@ -1,5 +1,6 @@
 const config = {
   "ownerId": "166641492113358848",
+  "musicPasses": "1",
   "serverSettings": {
     "prefix": "!",
     "modlogChannel": "mod-log",
