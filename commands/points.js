@@ -2,8 +2,10 @@ const Discord = require('discord.js');
 
 exports.run = (client, message, args) => {
   const settings = client.settings.get(message.guild.id);
-  const points = client.points.get(message.author.id).points
-  const level = client.points.get(message.author.id).level;
+  let user = message.mentions.users.first();
+  if (message.mentions.users.size < 1) user = message.author;
+  const points = client.points.get(user.id).points
+  const level = client.points.get(user.id).level;
   if (!points) {
     points = 1;
     level = 0;
@@ -19,6 +21,6 @@ exports.cmdConfig = {
   name: "points",
   aliases: ['point', 'level', 'levels'],
   description: "Displays a users points",
-  usage: "points",
+  usage: "points [@user]",
   type: "fun"
 };
