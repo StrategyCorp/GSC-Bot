@@ -59,7 +59,7 @@ exports.run = async (client, message) => {
 exports.cmdConfig = {
   name: "play",
   aliases: ['musicplay'],
-  description: "Joins the message author's voice channel.",
-  usage: "pla",
+  description: "Plays the queue.",
+  usage: "play",
   type: "music"
 };
