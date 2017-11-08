@@ -2,7 +2,8 @@ const Discord = require('discord.js');
 
 exports.run = (client, message, args) => {
   const settings = client.settings.get(message.guild.id);
-  const points = client.points.get(message.guild.id);
+  const points = client.points.get(message.author.id).points;
+  const level = client.points.get(message.author.id).level;
   const pointsEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
     .setThumbnail(message.author.avatarURL)

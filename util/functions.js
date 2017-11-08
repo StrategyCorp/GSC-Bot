@@ -14,13 +14,14 @@ module.exports = (client) => {
   };
   
   client.pointsMonitor = (client, message) => {
-    if (message.channel.type !== 'text') return;
+    if (message.channel.type !=='text') return;
     const settings = client.settings.get(message.guild.id);
     if (message.content.startsWith(settings.prefix)) return;
-    const points = client.points.get(message.guild.id);
-    //if (!points[message.author.id]) points[message.author.id] = 0;
-    //points[message.author.id]++;
-    //client.points.set(message.guild.id, points);
+    const score = client.points.get(message.author.id) || { points: 0, level: 0 };
+    score.points++;
+    const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
+    if (score.level < curLevel) score.level = curLevel;
+    client.points.set(message.author.id, score);
   };
 
   client.poll = async (client, message) => {
