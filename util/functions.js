@@ -25,8 +25,10 @@ module.exports = (client) => {
   client.poll = async (client, message) => {
     if (message.channel.type !== 'text') return;
     if (!message.content.startsWith('poll: ')) return;
-    let rea
-    message.react('👌');
+    let reactionArray = ['👍', '👎', '🤷'];
+    for (const react of reactionArray) {
+      await message.react(react);
+    }
   };
   
   client.awaitReply = async (msg, question, limit = 60000) => {
