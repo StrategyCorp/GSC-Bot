@@ -49,6 +49,7 @@ exports.run = async (client, message, [search, key, ...value]) => {
     const response = await client.awaitReply(message, `:warning: Are you sure you want to permanently reset ALL server settings? This **CANNOT** be undone.`);
     if (["y", "yes"].includes(response)) {
       client.settings.delete(message.guild.id);
+      client.settings.set(message.guild.id, client.config.serverSettings);
       message.channel.send(`:white_check_mark: All server settings have been deleted.`);
     } else if (["n", "no", "cancel"].includes(response)) {
       message.channel.send(":white_check_mark: Action cancelled.");

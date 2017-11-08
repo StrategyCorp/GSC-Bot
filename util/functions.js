@@ -19,7 +19,9 @@ module.exports = (client) => {
     if (message.content.startsWith(settings.prefix)) return;
     const score = client.points.get(message.author.id) || { points: 0, level: 0 };
     score.points++;
-    
+    const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
+    if (score.level < curLevel) score.level = curLevel;
+    client.points.set(message.author.id, score);
   };
 
   client.poll = async (client, message) => {
