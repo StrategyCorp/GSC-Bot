@@ -1,5 +1,3 @@
-const { inspect } = require("util");
-
 exports.run = (client, message, [search, ...args]) => {
   if (message.author.id !== client.config.ownerId) return;
   if (!args) return message.channel.send(':negative_squared_cross_mark: !args');
@@ -18,9 +16,6 @@ exports.run = (client, message, [search, ...args]) => {
   } else if (search === "username") {
     client.user.setUsername(`${args.join(' ')}`);
     message.channel.send(`:white_check_mark: username changed to ${args.join(' ')}`);
-  } else if (search === "pointsview") {
-    const points = client.points.get(message.guild.id);
-    message.channel.send(inspect(points), {code: "json"});
   }
 }
 
