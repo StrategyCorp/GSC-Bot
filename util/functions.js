@@ -19,7 +19,7 @@ module.exports = (client) => {
     if (message.content.startsWith(settings.prefix)) return;
     const score = client.points.get(message.author.id) || { points: 0, level: 0 };
     score.points++;
-    const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
+    const curLevel = Math.floor(Math.sqrt(score.points));
   };
 
   client.awaitReply = async (msg, question, limit = 60000) => {
