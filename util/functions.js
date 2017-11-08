@@ -92,6 +92,10 @@ module.exports = (client) => {
     return this[Math.floor(Math.random() * this.length)]
   };
   
+  client.randomNum = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
   process.on("uncaughtException", (err) => {
     const errorMsg = err.stack.replace(new RegExp(`${__dirname}/`, "g"), "./");
     console.error("Uncaught Exception: ", errorMsg);
