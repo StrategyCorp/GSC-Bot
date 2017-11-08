@@ -12,7 +12,7 @@ exports.run = (client, message, [song]) => {
 		}
 		client.queue[message.guild.id].songs.push({ url: song, title: info.title, requester: message.author.username });
 		return message.channel.send(`🎵 Added **${info.title}** to the queue 🎶`);
-});
+  });
 };
 
 exports.cmdConfig = {
