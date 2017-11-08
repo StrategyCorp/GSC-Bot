@@ -17,7 +17,7 @@ module.exports = (client) => {
     if (message.channel.type !=='text') return;
     const settings = client.settings.get(message.guild.id);
     if (message.content.startsWith(settings.prefix)) return;
-    const score = client.points.get(message.author.id) || { points: 0, level: 0 };
+    const score = client.points.get(message.author.id) || { points: 1, level: 0 };
     score.points++;
     const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
     if (score.level < curLevel) score.level = curLevel;
