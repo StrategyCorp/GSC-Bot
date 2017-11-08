@@ -18,7 +18,7 @@ module.exports = (client) => {
     const settings = client.settings.get(message.guild.id);
     if (message.content.startsWith(settings.prefix)) return;
     const points = client.points.get(message.guild.id);
-    points["points"] = parseInt(points["points"]) + 1;
+    
   };
 
   client.poll = async (client, message) => {
