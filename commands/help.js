@@ -7,6 +7,7 @@ exports.run = (client, message, args) => {
     let core = cmdName.filter(filterCore).join(', ').replace(/type=core/g, '');
     let fun = cmdName.filter(filterFun).join(', ').replace(/type=fun/g, '');
     let info = cmdName.filter(filterInfo).join(', ').replace(/type=info/g, '');
+    let music = cmdName.filter(filterMusic).join(', ').replace(/type=music/g, '');
     let mod = cmdName.filter(filterMod).join(', ').replace(/type=mod/g, '');
     let clnt = cmdName.filter(filterClnt).join(', ').replace(/type=client/g, '');
     const normalHelp = new Discord.RichEmbed()
@@ -16,6 +17,7 @@ exports.run = (client, message, args) => {
       .addField('Core', core)
       .addField('Fun', fun)
       .addField('Infomation', info)
+      .addField('Music', music)
       .addField('Mod', mod);
     if (message.author.id === client.config.ownerId) normalHelp.addField('Client', clnt);
     message.channel.send({embed: normalHelp});
@@ -47,6 +49,10 @@ function filterFun(type) {
 
 function filterInfo(type) {
   return type.includes('type=info');
+}
+
+function filterMusic(type) {
+  return type.includes('type=music');
 }
 
 function filterMod(type) {
