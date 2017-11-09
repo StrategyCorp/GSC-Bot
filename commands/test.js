@@ -5,7 +5,7 @@ var fs = require('fs');
 var path = require('path');
 
 exports.run = (client, message, args) => {
-  const pngStream = canvas.createPNGStream().pipe(fs.createWriteStream(path.join(__dirname, 'clock.png')))
+  const pngStream = canvas.createPNGStream().pipe(fs.createWriteStream(path.join(__dirname, 'export.png')))
 }
 
 exports.cmdConfig = {
