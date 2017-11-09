@@ -21,7 +21,8 @@
     "util": "^0.10.3",
     "cheerio": "^0.22.0",
     "node-opus": "^0.2.7",
-    "ytdl-core": "^0.18.1"
+    "ytdl-core": "^0.18.1",
+    "canvas": "^1.6.7"
   },
   "engines": {
     "node": "8.x"
