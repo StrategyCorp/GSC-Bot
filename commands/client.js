@@ -19,6 +19,8 @@ exports.run = (client, message, [search, ...args]) => {
   } else if (search === "username") {
     client.user.setUsername(`${args.join(' ')}`);
     message.channel.send(`:white_check_mark: username changed to ${args.join(' ')}`);
+  } else {
+    message.channel.send(':negative_squared_cross_mark: else')
   }
 }
 
