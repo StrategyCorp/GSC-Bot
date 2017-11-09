@@ -1,7 +1,10 @@
 exports.run = (client, message, [search, ...args]) => {
   if (message.author.id !== client.config.ownerId) return;
   if (!args) return message.channel.send(':negative_squared_cross_mark: !args');
-  if (search === "game") {
+  if (search === "say") {
+    message.delete()
+    message.channel.send(args.join(' '));
+  } else if (search === "game") {
     client.user.setGame(`${args.join(' ')}`);
     message.channel.send(`:white_check_mark: game changed to \`${args.join(' ')}\``);
   } else if (search === "avatar") {
