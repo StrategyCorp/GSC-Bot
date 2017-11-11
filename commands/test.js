@@ -17,7 +17,7 @@ exports.run = (client, message, args) => {
   ctx.lineTo(50 + te.width, 102);
   ctx.stroke();
   console.log(`${canvas.toDataURL()}`);
-  //const pngStream = canvas.createPNGStream().pipe(fs.createWriteStream(path.join(__dirname, 'export.png')))
+  const pngStream = canvas.createPNGStream().pipe(fs.createWriteStream('export.png'))
 }
 
 exports.cmdConfig = {
