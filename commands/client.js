@@ -23,12 +23,16 @@ exports.run = (client, message, [search, ...args]) => {
     let srch = args[0];
     if (!srch) return message.channel.send(':negative_squared_cross_mark: !srch');
     let user = args[1];
-    if (!user) return message.channel.send(':negative_squared_cross_mark: !user');
+    if (!user || user.length !== 18) return message.channel.send(':negative_squared_cross_mark: !user || user.length !== 18');
+    client.users.get(user);
     let points = args[2];
     if (!points) return message.channel.send(':negative_squared_cross_mark: !points');
     const score = client.points.get(user) || { points: 0, level: 0 };
     if (srch === "set") {
-      
+      score.points = points;
+      score.level = Math.floor(0.1 * Math.sqrt(score.points));
+      client.points.set(user, score);
+      message.channel.send(`:white_check_mark: ${user.username}`);
     }
   } else {
     message.channel.send(':negative_squared_cross_mark: else')
