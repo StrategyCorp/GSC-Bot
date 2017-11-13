@@ -12,7 +12,7 @@ exports.run = (client, message) => {
 
 exports.cmdConfig = {
   name: "queue",
-  aliases: ['musicqueue'],
+  aliases: ['musicqueue', 'playlist'],
   description: "Displays the music queue.",
   usage: "queue",
   type: "music"

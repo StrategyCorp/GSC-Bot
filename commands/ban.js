@@ -23,7 +23,7 @@ exports.run = (client, message, args) => {
 
 exports.cmdConfig = {
   name: "ban",
-  aliases: [],
+  aliases: ['vac'],
   description: "Bans the mentioned user and deletes there message from the last 2 days. Permission needed: BAN_MEMBERS.",
   usage: "Ban <@user> [reason]",
   type: "mod"
