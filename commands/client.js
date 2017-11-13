@@ -6,36 +6,46 @@ exports.run = (client, message, [search, ...args]) => {
     message.channel.send(args.join(' '));
   } else if (search === "game") {
     client.user.setGame(`${args.join(' ')}`);
-    message.channel.send(`:white_check_mark: game changed to \`${args.join(' ')}\``);
+    return message.channel.send(`:white_check_mark: game changed to \`${args.join(' ')}\``);
   } else if (search === "avatar") {
     client.user.setGame(`${args.join(' ')}`);
-    message.channel.send(`:white_check_mark: avatar changed`);
+    return message.channel.send(`:white_check_mark: avatar changed`);
   } else if (search === "status") {
     args = args.toString().toLowerCase();
     if (args.match(/^(online|idle|invisible|dnd)$/)) {
       client.user.setStatus(args);
-      message.channel.send(`:white_check_mark: status changed to \`${args}\``);
+      return message.channel.send(`:white_check_mark: status changed to \`${args}\``);
     }
   } else if (search === "username") {
     client.user.setUsername(`${args.join(' ')}`);
-    message.channel.send(`:white_check_mark: username changed to ${args.join(' ')}`);
+    return message.channel.send(`:white_check_mark: username changed to ${args.join(' ')}`);
   } else if (search === "points") {
     let srch = args[0];
     if (!srch) return message.channel.send(':negative_squared_cross_mark: !srch');
     let user = args[1];
     if (!user || user.length !== 18) return message.channel.send(':negative_squared_cross_mark: !user || user.length !== 18');
-    client.users.get(user);
+    let userObject = client.users.get(user);
     let points = args[2];
-    if (!points) return message.channel.send(':negative_squared_cross_mark: !points');
+    if (!points || points !== points) return message.channel.send(':negative_squared_cross_mark: !points || points !== points');
     const score = client.points.get(user) || { points: 0, level: 0 };
     if (srch === "set") {
       score.points = points;
       score.level = Math.floor(0.1 * Math.sqrt(score.points));
       client.points.set(user, score);
-      message.channel.send(`:white_check_mark: ${user.username}`);
+      return message.channel.send(`:white_check_mark: \`${userObject.username}'s\` has been set to \`${points}\``);
+    } else if (srch === "add") {
+      score.points = parseInt(score.points) + parseInt(points);
+      score.level = Math.floor(0.1 * Math.sqrt(score.points));
+      client.points.set(user, score);
+      return message.channel.send(`:white_check_mark: \`${points}\` points has been added to \`${userObject.username}\``);
+    } else if (srch === "remove") {
+      score.points = parseInt(score.points) - parseInt(points);
+      score.level = Math.floor(0.1 * Math.sqrt(score.points));
+      client.points.set(user, score);
+      return message.channel.send(`:white_check_mark: \`${points}\` points has been removed from \`${userObject.username}\``)
     }
   } else {
-    message.channel.send(':negative_squared_cross_mark: else')
+    return message.channel.send(':negative_squared_cross_mark: else')
   }
 }
 
