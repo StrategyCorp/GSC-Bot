@@ -28,7 +28,7 @@ exports.run = (client, message, question) => {
   if (!question[0]) return message.channel.sendMessage(':negative_squared_cross_mark: You must ask a question');
   const ball = new Discord.RichEmbed()
     .setColor(answerList[answer])
-    .addField(question.join(' '), answer);
+    .addField(`:question: ${question.join(' ')}`, `:8ball: ${answer}`);
   message.channel.send({embed: ball});
 };
 
