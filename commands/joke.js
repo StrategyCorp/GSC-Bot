@@ -8,9 +8,11 @@ exports.run = (client, message, args) => {
     "Why does everyone think that Xing Tian uses drugs?": "Because he's always Xing things."
   };
   let jokeArray = Object.keys(jokeList);
-  args = parseInt(args);
-  if (jokeArray[args] !== undefined) {
-    console.log("1");
+  let jokeNumber = parseInt(args);
+  jokeNumber--;
+  if (jokeArray[jokeNumber] !== undefined) {
+    console.log(jokeArray[args]);
+    console.log(jokeNumber);
   }
   return;
   var joke = jokeArray[Math.floor(Math.random() * jokeArray.length)];
