@@ -3,6 +3,7 @@ const config = {
   "musicPasses": "1",
   "serverSettings": {
     "prefix": "!",
+    "adminRole": "admin",
     "modlogChannel": "mod-log",
     "modlogEnable": "true",
     "defaultChannel": "general",
