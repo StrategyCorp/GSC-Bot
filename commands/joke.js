@@ -11,11 +11,10 @@ exports.run = (client, message, args) => {
   let jokeNumber = parseInt(args);
   jokeNumber--;
   if (jokeArray[jokeNumber] !== undefined) {
-    console.log(jokeArray[args]);
-    console.log(jokeNumber);
+    var joke = jokeArray[jokeNumber];
+  } else {
+    var joke = jokeArray[Math.floor(Math.random() * jokeArray.length)];
   }
-  return;
-  var joke = jokeArray[Math.floor(Math.random() * jokeArray.length)];
   const jokeEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
     .addField(`:regional_indicator_q: ${joke}`, `:regional_indicator_a: ${jokeList[joke]}`)
