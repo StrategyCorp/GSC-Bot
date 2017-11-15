@@ -1,6 +1,6 @@
 const config = {
   "ownerId": "166641492113358848",
-  "games": [],
+  "games": ['SMITE', ""],
   "musicPasses": "1",
   "serverSettings": {
     "prefix": "!",
