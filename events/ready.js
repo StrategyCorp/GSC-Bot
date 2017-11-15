@@ -8,7 +8,7 @@ module.exports = async client => {
   let minutes = client.config.gameChangeTime;
   let interval = minutes * 60 * 1000;
   setInterval(function() {
-    console.log(`Game changed to ${game}`);
+    console.log(`Game changed to: ${game}`);
     client.user.setGame(game);
   }, interval);
 };
