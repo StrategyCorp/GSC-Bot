@@ -3,20 +3,20 @@ const Discord = require('discord.js');
 exports.run = (client, message, args) => {
   const settings = client.settings.get(message.guild.id);
   let jokeList = {
-    "EA": "1",
-    "test": "2",
-    "test 2": "3"
+    "Why does everyone think Bacchus is so annoying?": "Because he's always whining",
+    "What is Sol's favourite movie?": "Twilight: Breaking Down",
+    "Why does everyone think that Xing Tian uses drugs?": "Because he's always Xing things."
   };
-  let isNan = parseInt(args);
-  if (!args[0] || isNan !== isNan) {
-    let jokeArray = Object.keys(jokeList);
-    const joke = jokeArray[Math.floor(Math.random() * jokeArray.length)];
+  let jokeArray = Object.keys(jokeList);
+  if (!args[0]) {
+    var joke = jokeArray[Math.floor(Math.random() * jokeArray.length)];
   } else {
-    const joke = jokeList.getKeyByValue(args[0]);
+    var joke = jokeList.getKeyByValue(args[0]);
   }
   const jokeEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
-    .addField(`${joke}`, `#${jokeList[joke]}`);
+    .addField(`:regional_indicator_q: ${joke}`, `:regional_indicator_a: ${jokeList[joke]}`)
+    .setFooter(`#${jokeList[joke]}`);
   return message.channel.send({embed: jokeEmbed});
 };
 
