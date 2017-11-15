@@ -16,11 +16,8 @@ exports.run = (client, message, args) => {
   let jokeArray = Object.keys(jokeList);
   let forceNumber = parseInt(args);
   forceNumber--;
-  if (jokeArray[forceNumber] !== undefined) {
-    var joke = jokeArray[forceNumber];
-  } else {
-    var joke = jokeArray[Math.floor(Math.random() * jokeArray.length)];
-  }
+  let joke = jokeArray[Math.floor(Math.random() * jokeArray.length)];
+  if (jokeArray[forceNumber] !== undefined) joke = jokeArray[forceNumber];
   let jokeNumber = jokeArray.indexOf(joke);
   jokeNumber++;
   const jokeEmbed = new Discord.RichEmbed()
