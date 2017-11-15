@@ -25,18 +25,6 @@ exports.run = async (client, message) => {
 				return message.channel.send('▶ Resumed').then(() => { dispatcher.resume(); });
 			} else if (m.content.startsWith(`${settings.prefix}skip`)) {
 				return message.channel.send('⏭ Skipped').then(() => { dispatcher.end(); });
-			} else if (m.content.startsWith('volume+')) {
-				if (Math.round(dispatcher.volume * 50) >= 100) return message.channel.send(`📢 Volume: ${Math.round(dispatcher.volume * 50)}%`);
-				dispatcher.setVolume(Math.min(((dispatcher.volume * 50) + (2 * (m.content.split('+').length - 1))) / 50, 2));
-				return message.channel.send(`${dispatcher.volume === 2 ? '📢' : '🔊'} Volume: ${Math.round(dispatcher.volume * 50)}%`);
-			} else if (m.content.startsWith('volume-')) {
-				if (Math.round(dispatcher.volume * 50) <= 0) return message.channel.send(`🔇 Volume: ${Math.round(dispatcher.volume * 50)}%`);
-				dispatcher.setVolume(Math.max(((dispatcher.volume * 50) - (2 * (m.content.split('-').length - 1))) / 50, 0));
-				return message.channel.send(`${dispatcher.volume === 0 ? '🔇' : '🔉'} Volume: ${Math.round(dispatcher.volume * 50)}%`);
-			} else if (m.content.startsWith(`${settings.prefix}time`)) {
-				return message.channel.send(`🕰 Time: ${Math.floor(dispatcher.time / 60000)}:${Math.floor((dispatcher.time % 60000) / 1000) < 10 ?
-          `0${Math.floor((dispatcher.time % 60000) / 1000)}` :
-          Math.floor((dispatcher.time % 60000) / 1000)}`);
 			}
 			return null;
 		});
