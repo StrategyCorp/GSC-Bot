@@ -2,12 +2,11 @@ module.exports = async client => {
   await client.wait(1000);
   client.log(`${client.user.tag}, ready to serve ${client.users.size} users in ${client.guilds.size} servers.`);
   client.guilds.filter(g => !client.settings.has(g.id)).forEach(g => client.settings.set(g.id, client.config.serverSettings));
-  let game = client.config.games;
-  game = game[Math.floor(Math.random() * game.length)];
-  client.user.setGame(game);
   let minutes = client.config.gameChangeTime;
   let interval = minutes * 60 * 1000;
   setInterval(function() {
+    let game = client.config.games;
+    game = game[Math.floor(Math.random() * game.length)];
     console.log(`Game changed to: ${game}`);
     client.user.setGame(game);
   }, interval);
