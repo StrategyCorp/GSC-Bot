@@ -105,7 +105,7 @@ module.exports = (client) => {
     return this.replace(/([^\W_]+[^\s-]*) */g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
   };
   
-  Object.prototype.getKeyByValue = function( value ) {
+  Object.prototype.getKeyByValue = function(value) {
     for (var prop in this) {
       if (this.hasOwnProperty(prop)) {
         if (this[prop] === value) {

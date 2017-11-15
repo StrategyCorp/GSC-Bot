@@ -7,17 +7,17 @@ exports.run = (client, message, args) => {
     "test": "2",
     "test 2": "3"
   };
-  const jokeEmbed = new Discord.RichEmbed()
-    .setColor(settings.embedColour);
   let isNan = parseInt(args);
   if (!args[0] || isNan !== isNan) {
     let jokeArray = Object.keys(jokeList);
-    let joke = jokeArray[Math.floor(Math.random() * jokeArray.length)];
-    jokeEmbed.addField(`${joke}`, `#${jokeList[joke]}`);
-    return message.channel.send({embed: jokeEmbed});
+    const joke = jokeArray[Math.floor(Math.random() * jokeArray.length)];
   } else {
-    console.log(jokeList.getKeyByValue("2"));
+    const joke = jokeList.getKeyByValue(args[0]);
   }
+  const jokeEmbed = new Discord.RichEmbed()
+    .setColor(settings.embedColour)
+    .addField(`${joke}`, `#${jokeList[joke]}`);
+  return message.channel.send({embed: jokeEmbed});
 };
 
 exports.cmdConfig = {
