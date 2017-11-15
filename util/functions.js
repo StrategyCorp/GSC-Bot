@@ -93,17 +93,27 @@ module.exports = (client) => {
 
   client.wait = require("util").promisify(setTimeout);
 
-  String.prototype.toProperCase = function() {
-    return this.replace(/([^\W_]+[^\s-]*) */g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-  };
-
   Array.prototype.random = function() {
     return this[Math.floor(Math.random() * this.length)]
   };
   
   client.randomNum = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+  };
+  
+  String.prototype.toProperCase = function() {
+    return this.replace(/([^\W_]+[^\s-]*) */g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  };
+  
+  Object.prototype.getKeyByValue = function( value ) {
+    for (var prop in this) {
+      if (this.hasOwnProperty(prop)) {
+        if (this[prop] === value) {
+          return prop;
+        }
+      }
+    }
+  };
   
   process.on("uncaughtException", (err) => {
     const errorMsg = err.stack.replace(new RegExp(`${__dirname}/`, "g"), "./");

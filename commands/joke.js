@@ -16,7 +16,7 @@ exports.run = (client, message, args) => {
     jokeEmbed.addField(`${joke}`, `#${jokeList[joke]}`);
     return message.channel.send({embed: jokeEmbed});
   } else {
-    
+    console.log(jokeList.getKeyByValue("2"));
   }
 };
 
@@ -24,6 +24,6 @@ exports.cmdConfig = {
   name: "joke",
   aliases: ['tellmeajoke'],
   description: "Tells a random joke.",
-  usage: "joke[jokenumber]",
+  usage: "joke [jokenumber]",
   type: "fun"
 };
