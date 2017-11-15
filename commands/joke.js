@@ -9,14 +9,18 @@ exports.run = (client, message, args) => {
   };
   const jokeEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour);
-  if (!args) {
+  if (!args[0]) {
     let jokeArray = Object.keys(jokeList);
     let joke = jokeArray[Math.floor(Math.random() * jokeArray.length)];
-    jokeEmbed.addField(`${joke}`, `${}`)
-  } else if (args !== args) {
-    
+    jokeEmbed.addField(`${joke}`, `#${jokeList[joke]}`);
+    return message.channel.send({embed: jokeEmbed});
   } else {
-    
+    let isNan = parseInt(args);
+    if (isNan !== isNan) {
+      console.log("1");
+    } else {
+      
+    }
   }
 };
 
