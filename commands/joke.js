@@ -8,11 +8,11 @@ exports.run = (client, message, args) => {
     "Why does everyone think that Xing Tian uses drugs?": "Because he's always Xing things."
   };
   let jokeArray = Object.keys(jokeList);
-  if (!args[0]) {
-    var joke = jokeArray[Math.floor(Math.random() * jokeArray.length)];
-  } else {
-    var joke = jokeList.getKeyByValue(args[0]);
+  if (jokeArray[parseInt(args)] !== undefined) {
+    console.log("1");
   }
+  return;
+  var joke = jokeArray[Math.floor(Math.random() * jokeArray.length)];
   const jokeEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
     .addField(`:regional_indicator_q: ${joke}`, `:regional_indicator_a: ${jokeList[joke]}`)
