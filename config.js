@@ -6,6 +6,7 @@ const config = {
   "serverSettings": {
     "prefix": "!",
     "adminRole": "admin",
+    "iamroles": "",
     "defaultChannel": "general",
     "welcomeMessage": "Welcome {{user}} to {{guild}}. Member count is now {{memberCount}}",
     "welcomeEnable": "false",
