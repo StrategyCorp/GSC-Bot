@@ -11,7 +11,8 @@ exports.run = (client, message, args) => {
     "Did you hear He Bo used to be a celebrity?": "Now he's all washed up",
     "I told a joke about Awilix to my friend,": "but it went over his head",
     "Why isn't Sobek ever in a serious relationship?": "Because all he's ever looking for is a fling",
-    "What's Bellona's favourite restaurant?": "Taco Bellona"
+    "What's Bellona's favourite restaurant?": "Taco Bellona",
+    "Rexsi's winrate": ". . ."
   };
   let jokeArray = Object.keys(jokeList);
   let forceNumber = parseInt(args);
