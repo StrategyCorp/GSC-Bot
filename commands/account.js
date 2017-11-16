@@ -27,8 +27,7 @@ exports.run = (client, message, args) => {
     .addField('Date Joined Server', usergm.joinedAt.toUTCString())
     .addField('Nickname', usergm.displayName)
     .addField(`Role [${usergm.roles.array().length - 1}]`, usergm.roles.filter(r => r.id !== message.guild.id).map(role => role.name).join(', '));
-  //message.channel.send({embed: accEmbed});
-  message.channel.send()
+  message.channel.send({embed: accEmbed});
 };
 
 exports.cmdConfig = {
