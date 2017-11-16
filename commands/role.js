@@ -5,11 +5,14 @@ exports.run = (client, message, args) => {
   if (manageMessages === false) return message.channel.send(':negative_squared_cross_mark: You do not have permission. You need \`MANAGE_ROLES\`');
   let user = message.mentions.users.first();
   if (message.mentions.users.size < 1) {
-    let roleName = args.slice(1).join(' ');
-    let role = message.guild.roles.find("name", roleName);
-    user.addRole(role);
-  } else {
     let search = args[0];
+    console.log("1");
+  } else {
+    let roleName = args.slice(1).join(' ');
+    if (!roleName) return message.channel.send()
+    let role = message.guild.roles.find("name", roleName);
+    console.log(message.member.highestRole.comparePositionTo(role));
+    //user.addRole(role);
   }
 };
 
