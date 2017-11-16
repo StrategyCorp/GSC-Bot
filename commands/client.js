@@ -44,6 +44,8 @@ exports.run = (client, message, [search, ...args]) => {
       client.points.set(user, score);
       return message.channel.send(`:white_check_mark: \`${points}\` points has been removed from \`${userObject.username}\``)
     }
+  } else if (search === "test") {
+    return message.channel.send('ok');
   } else {
     return message.channel.send(':negative_squared_cross_mark: else');
   }

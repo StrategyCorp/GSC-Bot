@@ -10,6 +10,13 @@ exports.run = (client, message, args) => {
     user = message.mentions.users.first();
     usergm = message.guild.member(message.mentions.users.first());
   }
+  if (message.member.roles.array().length === 1) {
+    var colour = "ffffff";
+    console.log("1");
+  } else {
+    var colour = usergm.highestRole.hexColor;
+    console.log("2");
+  }
   // const statusColours = {
   //   online: 0x23DF49,
   //   idle: 0xffe523,
@@ -19,7 +26,7 @@ exports.run = (client, message, args) => {
   // };
   const accEmbed = new Discord.RichEmbed()
     // .setColor(statusColours[user.presence.status])
-    .setColor(usergm.highestRole.hexColor)
+    .setColor(colour)
     .setThumbnail(user.avatarURL)
     .setAuthor(`${user.username}#${user.discriminator}`, user.avatarURL)
     .addField('ID', user.id)
