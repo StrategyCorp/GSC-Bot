@@ -1,21 +1,21 @@
 const Discord = require('discord.js');
 
 exports.run = (client, message, args) => {
-  let user;
-  let usergm;
   if (message.mentions.users.size === 0) {
-    user = message.author
-    usergm = message.member;
+    var user = message.author
+    var usergm = message.member;
   } else {
-    user = message.mentions.users.first();
-    usergm = message.guild.member(message.mentions.users.first());
+    var user = message.mentions.users.first();
+    var usergm = message.guild.member(message.mentions.users.first());
   }
-  if (message.member.roles.array().length === 1) {
-    var colour = "ffffff";
-    console.log("1");
+  if (usergm.roles.array().length === 1) {
+    var colour = "#FFFFFF";
+    var roleNumber = "Role [0]";
+    var roleArray = "no roles yet . . .";
   } else {
     var colour = usergm.highestRole.hexColor;
-    console.log("2");
+    var roleNumber = `Role [${usergm.roles.array().length - 1}]`;
+    var roleArray = usergm.roles.filter(r => r.id !== message.guild.id).map(role => role.name).join(', ');
   }
   // const statusColours = {
   //   online: 0x23DF49,
@@ -34,7 +34,7 @@ exports.run = (client, message, args) => {
     .addField('Account Created', user.createdAt.toUTCString())
     .addField('Date Joined Server', usergm.joinedAt.toUTCString())
     .addField('Nickname', usergm.displayName)
-    .addField(`Role [${usergm.roles.array().length - 1}]`, usergm.roles.filter(r => r.id !== message.guild.id).map(role => role.name).join(', '));
+    .addField(roleNumber, roleArray);
   message.channel.send({embed: accEmbed});
 };
 

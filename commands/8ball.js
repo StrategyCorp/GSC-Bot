@@ -23,8 +23,8 @@ exports.run = (client, message, question) => {
     "Outlook not so good": "#FF0000",
     "Very doubtful": "#FF0000"
   }
-  let answerArry = Object.keys(answerList);
-  let answer = answerArry[Math.floor(Math.random() * answerArry.length)];
+  let answerArray = Object.keys(answerList);
+  let answer = answerArray[Math.floor(Math.random() * answerArray.length)];
   if (!question[0]) return message.channel.sendMessage(':negative_squared_cross_mark: You must ask a question');
   const ball = new Discord.RichEmbed()
     .setColor(answerList[answer])
