@@ -4,10 +4,10 @@ exports.run = (client, message, args) => {
   let manageMessages = message.member.hasPermission("KICK_MEMBERS");
   if (manageMessages === false) return message.channel.send(':negative_squared_cross_mark: You do not have permission. You need \`KICK_MEMBERS\`');
   let user = message.mentions.users.first();
-  if (message.mentions.users.size < 1) return message.channel.send(':negative_squared_cross_mark: You must mention someone to kick them').catch(console.error);
+  if (message.mentions.users.size < 1) return message.channel.send(':negative_squared_cross_mark: You must mention someone to kick them');
   let reason = args.slice(1).join(' ');
   if (!reason) reason = "/shrug";
-  if (!message.guild.member(user).kickable) return message.channel.send(':negative_squared_cross_mark: I cannot kick that member');
+  if (!message.guild.member(user).kickable) return message.channel.send(':negative_squared_cross_mark: I cannot kick that member, their role might be higher than mine');
   message.guild.member(user).kick();
   const settings = client.settings.get(message.guild.id);
   if (settings.modlogEnable !== "true") return;

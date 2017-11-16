@@ -7,7 +7,7 @@ exports.run = (client, message, args) => {
   if (message.mentions.users.size < 1) return message.channel.send(':negative_squared_cross_mark: You must mention someone to ban them');
   let reason = args.slice(1).join(' ');
   if (!reason) reason = "/shrug";
-  if (!message.guild.member(user).bannable) return message.channel.send(':negative_squared_cross_mark: I cannot ban that member');
+  if (!message.guild.member(user).bannable) return message.channel.send(':negative_squared_cross_mark: I cannot ban that member, their role might be higher than mine');
   message.guild.ban(user, 2);
   const settings = client.settings.get(message.guild.id);
   if (settings.modlogEnable !== "true") return;
