@@ -10,17 +10,15 @@ exports.run = (client, message, args) => {
     user = message.mentions.users.first();
     usergm = message.guild.member(message.mentions.users.first());
   }
-  const statusColours = {
-    online: 0x23DF49,
-    idle: 0xffe523,
-    dnd: 0xff1414,
-    streaming: 0x930de0,
-    offline: 0x0,
-  };
-  let role1 = `Role [${usergm.roles.array().length - 1}]`;
-  let role2 = usergm.roles.filter(r => r.id !== message.guild.id).map(role => role.name).join(', ');
+  // const statusColours = {
+  //   online: 0x23DF49,
+  //   idle: 0xffe523,
+  //   dnd: 0xff1414,
+  //   streaming: 0x930de0,
+  //   offline: 0x0,
+  // };
   const accEmbed = new Discord.RichEmbed()
-    .setColor(statusColours[user.presence.status])
+    // .setColor(statusColours[user.presence.status])
     .setThumbnail(user.avatarURL)
     .setAuthor(`${user.username}#${user.discriminator}`, user.avatarURL)
     .addField('ID', user.id)
@@ -28,8 +26,9 @@ exports.run = (client, message, args) => {
     .addField('Account Created', user.createdAt.toUTCString())
     .addField('Date Joined Server', usergm.joinedAt.toUTCString())
     .addField('Nickname', usergm.displayName)
-    .addField(role1, role2);
-  message.channel.send({embed: accEmbed});
+    .addField(`Role [${usergm.roles.array().length - 1}]`, usergm.roles.filter(r => r.id !== message.guild.id).map(role => role.name).join(', '));
+  //message.channel.send({embed: accEmbed});
+  message.channel.send()
 };
 
 exports.cmdConfig = {
