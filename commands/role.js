@@ -9,8 +9,9 @@ exports.run = (client, message, args) => {
     console.log("1");
   } else {
     let roleName = args.slice(1).join(' ');
-    if (!roleName) return message.channel.send(`:negative_squared_cross_mark: You need to give me a role to ${user.username}`);
+    if (!roleName) return message.channel.send(`:negative_squared_cross_mark: You need to give me a role to give to \`${user.username}\``);
     let role = message.guild.roles.find("name", roleName);
+    if (!role) return message.channel.send(`:negative_squared_cross_mark: \`${roleName}\` isn't a role`);
     console.log(message.member.highestRole.comparePositionTo(role));
     //user.addRole(role);
   }
