@@ -6,6 +6,8 @@ exports.run = (client, message, args) => {
   let user = message.mentions.users.first();
   if (message.mentions.users.size < 1) {
     let roleName = args.slice(1).join(' ');
+    let role = message.guild.roles.find("name", roleName);
+    user.addRole(role);
   } else {
     let search = args[0];
   }
