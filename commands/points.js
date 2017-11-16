@@ -4,7 +4,7 @@ exports.run = (client, message, args) => {
   const settings = client.settings.get(message.guild.id);
   let user = message.mentions.users.first();
   if (message.mentions.users.size < 1) user = message.author;
-  const points = client.points.get(user.id).points
+  const points = client.points.get(user.id).points;
   const level = client.points.get(user.id).level;
   if (!points) {
     points = 1;
