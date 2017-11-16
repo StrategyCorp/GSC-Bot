@@ -115,6 +115,14 @@ module.exports = (client) => {
     }
   };
   
+  Array.min = function(array) {
+    return Math.min.apply(Math, array);
+  };
+  
+  Array.max = function(array) {
+    return Math.max.apply(Math, array);
+  };
+  
   process.on("uncaughtException", (err) => {
     const errorMsg = err.stack.replace(new RegExp(`${__dirname}/`, "g"), "./");
     console.error("Uncaught Exception: ", errorMsg);

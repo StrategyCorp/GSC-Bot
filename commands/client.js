@@ -46,7 +46,9 @@ exports.run = (client, message, [search, ...args]) => {
     }
   } else {
     //return message.channel.send(':negative_squared_cross_mark: else');
-    message.channel.send(message.member.roles.filter(r => r.id !== message.guild.id).map(role => role.position));
+    let highestRole = message.member.roles.filter(r => r.id !== message.guild.id).map(role => role.position);
+    highestRole = Array.min(highestRole);
+    message.channel.send(highestRole);
   }
 }
 
