@@ -19,6 +19,7 @@ exports.run = (client, message, args) => {
   // };
   const accEmbed = new Discord.RichEmbed()
     // .setColor(statusColours[user.presence.status])
+    .setColor(usergm.highestRole.hexColor)
     .setThumbnail(user.avatarURL)
     .setAuthor(`${user.username}#${user.discriminator}`, user.avatarURL)
     .addField('ID', user.id)

@@ -45,10 +45,7 @@ exports.run = (client, message, [search, ...args]) => {
       return message.channel.send(`:white_check_mark: \`${points}\` points has been removed from \`${userObject.username}\``)
     }
   } else {
-    //return message.channel.send(':negative_squared_cross_mark: else');
-    let highestRole = message.member.roles.filter(r => r.id !== message.guild.id).map(role => role.position);
-    highestRole = Array.min(highestRole);
-    message.channel.send(highestRole);
+    return message.channel.send(':negative_squared_cross_mark: else');
   }
 }
 
