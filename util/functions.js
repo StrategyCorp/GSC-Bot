@@ -22,14 +22,6 @@ module.exports = (client) => {
     client.points.set(message.author.id, score);
   };
 
-  client.poll = async (client, message) => {
-    if (message.channel.type !== 'text') return;
-    if (!message.content.startsWith('poll: ')) return;
-    let reactionArray = ['👍', '👎', '🤷'];
-    for (const react of reactionArray) {
-      await message.react(react);
-    }
-  };
   
   client.awaitReply = async (msg, question, limit = 60000) => {
     const filter = m => m.author.id = msg.author.id;
