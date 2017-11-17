@@ -7,7 +7,7 @@ exports.run = (client, message, args) => {
   let usergm = message.guild.member(message.mentions.users.first());
   if (message.mentions.users.size < 1) {
     let search = args[0];
-    console.log("args");
+    if (!search) return message.channel.send(':negative_squared_cross_mark: ');
   } else {
     let roleName = args.slice(1).join(' ');
     if (!roleName) return message.channel.send(`:negative_squared_cross_mark: You need to give me a role to give to \`${user.username}\``);
@@ -29,6 +29,6 @@ exports.cmdConfig = {
   name: "role",
   aliases: ['roles'],
   description: "Gives a user a role. Permission needed: MANAGE_ROLES.",
-  usage: "roles <@user> <role>",
+  usage: "roles [<@user> <role>] | [<action> <args>]",
   type: "mod"
 };
