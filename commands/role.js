@@ -6,12 +6,13 @@ exports.run = (client, message, args) => {
   let user = message.mentions.users.first();
   if (message.mentions.users.size < 1) {
     let search = args[0];
-    console.log("1");
+    console.log("args");
   } else {
     let roleName = args.slice(1).join(' ');
     if (!roleName) return message.channel.send(`:negative_squared_cross_mark: You need to give me a role to give to \`${user.username}\``);
     let role = message.guild.roles.find("name", roleName);
     if (!role) return message.channel.send(`:negative_squared_cross_mark: \`${roleName}\` isn't a role`);
+    if (message.member.highestRole.comparePositionTo(role) < 1) return message.channel.send('')
     console.log(message.member.highestRole.comparePositionTo(role));
     //user.addRole(role);
   }
