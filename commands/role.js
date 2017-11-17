@@ -13,11 +13,14 @@ exports.run = (client, message, args) => {
     if (!roleName) return message.channel.send(`:negative_squared_cross_mark: You need to give me a role to give to \`${user.username}\``);
     let role = message.guild.roles.find("name", roleName);
     if (!role) return message.channel.send(`:negative_squared_cross_mark: \`${roleName}\` isn't a role`);
-    if (message.member.highestRole.comparePositionTo(role) < 1) return message.channel.send(':negative_squared_cross_mark: You cannot give somebody a role higher or equal to your own');
-    usergm.addRole(role);
-    return message.channel.send(`:white_check_mark: \`${user.username}\` has been given \`${role.name}\``);
     if (usergm.roles.has(role.id)) {
-        
+      if (message.member.highestRole.comparePositionTo(role) < 1) return message.channel.send(':negative_squared_cross_mark: You cannot remove a role higher or equal to your own from somebody');
+      usergm.removeRole(role);
+      return message.channel.send(`:white_check_mark: \`${user.username}\` has been given \`${role.name}\``);
+    } else {
+      if (message.member.highestRole.comparePositionTo(role) < 1) return message.channel.send(':negative_squared_cross_mark: You cannot give somebody a role higher or equal to your own');
+      usergm.addRole(role);
+      return message.channel.send(`:white_check_mark: \`${user.username}\` has been given \`${role.name}\``);
     }
   }
 };

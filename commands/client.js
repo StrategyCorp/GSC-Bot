@@ -37,12 +37,12 @@ exports.run = (client, message, [search, ...args]) => {
       score.points = parseInt(score.points) + parseInt(points);
       score.level = Math.floor(0.1 * Math.sqrt(score.points));
       client.points.set(user, score);
-      return message.channel.send(`:white_check_mark: \`${points}\` points has been added to \`${userObject.username}\``);
+      return message.channel.send(`:white_check_mark: \`${points}\` points have been added to \`${userObject.username}\``);
     } else if (srch === "remove") {
       score.points = parseInt(score.points) - parseInt(points);
       score.level = Math.floor(0.1 * Math.sqrt(score.points));
       client.points.set(user, score);
-      return message.channel.send(`:white_check_mark: \`${points}\` points has been removed from \`${userObject.username}\``)
+      return message.channel.send(`:white_check_mark: \`${points}\` points have been removed from \`${userObject.username}\``)
     }
   } else if (search === "test") {
     return message.channel.send('ok');
