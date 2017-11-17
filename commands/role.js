@@ -15,7 +15,10 @@ exports.run = (client, message, args) => {
     if (!role) return message.channel.send(`:negative_squared_cross_mark: \`${roleName}\` isn't a role`);
     if (message.member.highestRole.comparePositionTo(role) < 1) return message.channel.send(':negative_squared_cross_mark: You cannot give somebody a role higher or equal to your own');
     usergm.addRole(role);
-    return message.channel.send(`:white_check_mark: ${user.username} has been given ${role.name}`);
+    return message.channel.send(`:white_check_mark: \`${user.username}\` has been given \`${role.name}\``);
+    if (message.guild.member(user).roles.has(role.id)) {
+        
+    }
   }
 };
 
