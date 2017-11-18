@@ -7,6 +7,7 @@ const config = {
     "prefix": "!",
     "adminRole": "admin",
     "iamroles": "",
+    "curency": "",
     "defaultChannel": "general",
     "welcomeMessage": "Welcome {{user}} to {{guild}}. Member count is now {{memberCount}}",
     "welcomeEnable": "false",
