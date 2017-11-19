@@ -17,30 +17,24 @@ module.exports = (client) => {
   
   client.pointsMonitor = (client, message) => {
     if (message.channel.type !=='text') return;
-    if (message.guild.memberCount < 20) return;
-    const score = client.points.get(message.author.id) || { points: 0, level: 0 };
-    score.points++;
-    score.level = Math.floor(0.1 * Math.sqrt(score.points));
-    client.points.set(message.author.id, score);
+    // if (message.guild.memberCount < 20) return;
+    // const score = client.points.get(message.author.id) || { points: 0, level: 0 };
+    // score.points++;
+    // score.level = Math.floor(0.1 * Math.sqrt(score.points));
+    // client.points.set(message.author.id, score);
     
-    sql.get(`SELECT * FROM scores WHERE userId ="${message.author.id}"`).then(row => {
+    sql.get(`SELECT * FROM ${message.guild.id} WHERE userId ="${message.author.id}"`).then(row => {
     if (!row) {
-      sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.author.id, 1, 0]);
+      sql.run(`INSERT INTO ${message.guild.id} (userId, points VALUES (?, ?)`, [message.author.id, 1]);
     } else {
-      let curLevel = Math.floor(0.1 * Math.sqrt(row.points + 1));
-      if (curLevel > row.level) {
-        row.level = curLevel;
-        sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE userId = ${message.author.id}`);
-        message.reply(`You've leveled up to level **${curLevel}**! Ain't that dandy?`);
-      }
-      sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
+      sql.run(`UPDATE ${message.guild.id} SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
     }
-  }).catch(() => {
-    console.error;
-    sql.run("CREATE TABLE IF NOT EXISTS scores (userId TEXT, points INTEGER, level INTEGER)").then(() => {
-      sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.author.id, 1, 0]);
+    }).catch(() => {
+      console.error;
+      sql.run(`CREATE TABLE IF NOT EXISTS ${message.guild.id} (userId TEXT, points INTEGER)`).then(() => {
+        sql.run(`INSERT INTO ${message.guild.id} (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
+      });
     });
-  });
   };
 
   
