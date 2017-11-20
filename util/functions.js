@@ -23,18 +23,18 @@ module.exports = (client) => {
     score.level = Math.floor(0.1 * Math.sqrt(score.points));
     client.points.set(message.author.id, score);
     
-    sql.get(`SELECT * FROM ${message.guild.id} WHERE userId ="${message.author.id}"`).then(row => {
-    if (!row) {
-      sql.run(`INSERT INTO ${message.guild.id} (userId, points VALUES (?, ?)`, [message.author.id, 1]);
-    } else {
-      sql.run(`UPDATE ${message.guild.id} SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
-    }
-    }).catch(() => {
-      console.error;
-      sql.run(`CREATE TABLE IF NOT EXISTS ${message.guild.id} (userId TEXT, points INTEGER)`).then(() => {
-        sql.run(`INSERT INTO ${message.guild.id} (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
-      });
-    });
+    // sql.get(`SELECT * FROM ${message.guild.id} WHERE userId ="${message.author.id}"`).then(row => {
+    // if (!row) {
+    //   sql.run(`INSERT INTO ${message.guild.id} (userId, points VALUES (?, ?)`, [message.author.id, 1]);
+    // } else {
+    //   sql.run(`UPDATE ${message.guild.id} SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
+    // }
+    // }).catch(() => {
+    //   console.error;
+    //   sql.run(`CREATE TABLE IF NOT EXISTS ${message.guild.id} (userId TEXT, points INTEGER)`).then(() => {
+    //     sql.run(`INSERT INTO ${message.guild.id} (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
+    //   });
+    // });
   };
 
   
