@@ -1,12 +1,15 @@
 const Discord = require('discord.js');
 
 exports.run = (client, message, waifu) => {
-  if (!waifu) return message.channel.send(':negative_squared_cross_mark: You must tell me who your waifu is');
+  if (!waifu[0]) return message.channel.send(':negative_squared_cross_mark: You must tell me who your waifu is');
+  waifu = waifu.join(' ');
+  waifu = waifu.toLowerCase();
   const settings = client.settings.get(message.guild.id);
-  let score = client.randomNum(1, 10)
+  let score = client.randomNum(1, 10);
+  if (waifu === "blake") score = 10;
   const waifuEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
-    .addField(waifu, score);
+    .addField(waifu.toProperCase(), `${score} / 10`);
   message.channel.send({embed: waifuEmbed});
 };
 
