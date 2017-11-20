@@ -12,7 +12,7 @@ exports.run = (client, message, args) => {
   }
   const pointsEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
-    .setThumbnail(message.author.avatarURL)
+    .setThumbnail(user.avatarURL)
     .addField(message.author.username, `Level: ${level}\nPoints: ${points}`);
   message.channel.send({embed: pointsEmbed});
 };
