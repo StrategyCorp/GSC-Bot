@@ -1,7 +1,7 @@
 const moment = require('moment');
 const smite = require('../data/smite.json');
-const sql = require("sqlite");
-sql.open("../data/points.sqlite");
+// const sql = require("sqlite");
+// sql.open("../data/points.sqlite");
 
 module.exports = (client) => {
   client.log = (message) => {
