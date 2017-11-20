@@ -23,7 +23,8 @@
     "node-opus": "^0.2.7",
     "ytdl-core": "^0.18.1",
     "canvas": "^1.6.7",
-    "sqlite": "^2.8.0"
+    "sqlite": "^2.8.0",
+    "image-search": "^0.0.1"
   },
   "engines": {
     "node": "8.4.0"
