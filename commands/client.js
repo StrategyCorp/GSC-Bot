@@ -1,5 +1,5 @@
-const sql = require("sqlite");
-sql.open("../data/points.sqlite");
+// const sql = require("sqlite");
+// sql.open("../data/points.sqlite");
 
 exports.run = (client, message, [search, ...args]) => {
   if (message.author.id !== client.config.ownerId) return;
@@ -48,10 +48,10 @@ exports.run = (client, message, [search, ...args]) => {
       return message.channel.send(`:white_check_mark: \`${points}\` points have been removed from \`${userObject.username}\``)
     }
   } else if (search === "test") {
-    sql.get(`SELECT * FROM ${message.guild.id} WHERE userId ="${message.author.id}"`).then(row => {
-      if (!row) return message.reply("sadly you do not have any points yet!");
-      message.reply(`you currently have ${row.points} points, good going!`);
-    });
+    // sql.get(`SELECT * FROM ${message.guild.id} WHERE userId ="${message.author.id}"`).then(row => {
+    //   if (!row) return message.reply("sadly you do not have any points yet!");
+    //   message.reply(`you currently have ${row.points} points, good going!`);
+    // });
     //return message.channel.send('ok');
   } else {
     return message.channel.send(':negative_squared_cross_mark: else');
