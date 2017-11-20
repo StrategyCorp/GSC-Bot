@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const GoogleImageSearch = require('free-google-image-search');
 
 exports.run = (client, message, waifu) => {
   if (!waifu[0]) return message.channel.send(':negative_squared_cross_mark: You must tell me who your waifu is');
@@ -7,6 +8,9 @@ exports.run = (client, message, waifu) => {
   const settings = client.settings.get(message.guild.id);
   let score = client.randomNum(1, 10);
   if (waifu === "blake" || waifu === "blake belledonna") score = 10;
+  GoogleImageSearch.searchImage("cats").then((res) => {
+    console.log(res);
+  });
   const waifuEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
     .addField(waifu.toProperCase(), `${score} / 10`);

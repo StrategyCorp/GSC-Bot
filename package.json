@@ -7,6 +7,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "rm package-lock.json",
     "start": "node app.js"
   },
   "dependencies": {
@@ -23,7 +24,8 @@
     "snekfetch": "^3.5.8",
     "sqlite": "^2.8.0",
     "util": "^0.10.3",
-    "ytdl-core": "^0.18.2"
+    "ytdl-core": "^0.18.2",
+    "free-google-image-search": "^1.0.0"
   },
   "engines": {
     "node": "8.4.0"
