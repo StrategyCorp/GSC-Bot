@@ -10,21 +10,20 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "canvas": "^1.6.7",
+    "cheerio": "^0.22.0",
     "discord.js": "^11.2.1",
     "enmap": "^0.4.2",
     "enmap-level": "^1.0.0",
     "express": "^4.16.2",
     "moment": "^2.19.2",
+    "node-opus": "^0.2.7",
     "querystring": "^0.2.0",
     "request": "^2.83.0",
     "snekfetch": "^3.5.8",
-    "util": "^0.10.3",
-    "cheerio": "^0.22.0",
-    "node-opus": "^0.2.7",
-    "ytdl-core": "^0.18.1",
-    "canvas": "^1.6.7",
     "sqlite": "^2.8.0",
-    "image-search": "^0.0.1"
+    "util": "^0.10.3",
+    "ytdl-core": "^0.18.2"
   },
   "engines": {
     "node": "8.4.0"
