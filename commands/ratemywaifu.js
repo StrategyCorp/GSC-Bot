@@ -6,8 +6,8 @@ exports.run = (client, message, waifu) => {
   waifu = waifu.join(' ');
   waifu = waifu.toLowerCase();
   const settings = client.settings.get(message.guild.id);
-  let score = client.randomNum(1, 10);
-  if (waifu === "blake" || waifu === "blake belledonna") score = 10;
+  let score = client.randomNum(4, 10);
+  if (waifu === "blake" || waifu === "blake belladonna") score = 10;
   let url = `https://api.qwant.com/api/search/images?count=1&offset=1&q=anime ` + waifu;
   request.get({
       url: url,
@@ -26,7 +26,7 @@ exports.run = (client, message, waifu) => {
         if (image !== undefined) waifuEmbed.setImage(image);
         message.channel.send({embed: waifuEmbed});
       }
-  }); 
+  });
 };
 
 exports.cmdConfig = {
