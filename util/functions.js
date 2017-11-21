@@ -1,7 +1,7 @@
 const moment = require('moment');
 const smite = require('../data/smite.json');
-// const sql = require("sqlite");
-// sql.open("../data/points.sqlite");
+const sql = require("sqlite");
+sql.open("./data/points.sqlite");
 
 module.exports = (client) => {
   client.log = (message) => {
@@ -17,24 +17,27 @@ module.exports = (client) => {
   
   client.pointsMonitor = (client, message) => {
     if (message.channel.type !=='text') return;
-    if (message.guild.memberCount < 20) return;
+    // if (message.guild.memberCount < 20) return;
     const score = client.points.get(message.author.id) || { points: 0, level: 0 };
     score.points++;
     score.level = Math.floor(0.1 * Math.sqrt(score.points));
     client.points.set(message.author.id, score);
     
-    // sql.get(`SELECT * FROM ${message.guild.id} WHERE userId ="${message.author.id}"`).then(row => {
-    // if (!row) {
-    //   sql.run(`INSERT INTO ${message.guild.id} (userId, points VALUES (?, ?)`, [message.author.id, 1]);
-    // } else {
-    //   sql.run(`UPDATE ${message.guild.id} SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
-    // }
-    // }).catch(() => {
-    //   console.error;
-    //   sql.run(`CREATE TABLE IF NOT EXISTS ${message.guild.id} (userId TEXT, points INTEGER)`).then(() => {
-    //     sql.run(`INSERT INTO ${message.guild.id} (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
-    //   });
-    // });
+    sql.get(`SELECT * FROM ${message.guild.id} WHERE userId ="${message.author.id}"`).then(row => {
+    if (!row) {
+      sql.run(`INSERT INTO ${message.guild.id} (userId, points VALUES (?, ?)`, [message.author.id, 1]);
+      console.log("1");
+    } else {
+      sql.run(`UPDATE ${message.guild.id} SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
+      console.log("2");
+    }
+    }).catch(() => {
+      console.error;
+      sql.run(`CREATE TABLE IF NOT EXISTS ${message.guild.id} (userId TEXT, points INTEGER)`).then(() => {
+        sql.run(`INSERT INTO ${message.guild.id} (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
+        console.log("3");
+      });
+    });
   };
 
   

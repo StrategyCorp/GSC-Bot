@@ -1,5 +1,5 @@
-// const sql = require("sqlite");
-// sql.open("../data/points.sqlite");
+const sql = require("sqlite");
+sql.open("./data/points.sqlite");
 
 exports.run = (client, message, [search, ...args]) => {
   if (message.author.id !== client.config.ownerId) return;
