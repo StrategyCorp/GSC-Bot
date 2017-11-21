@@ -19,7 +19,8 @@ exports.run = (client, message, waifu) => {
       } else if (res.statusCode !== 200) {
         console.log('Status:', res.statusCode);
       } else {
-        if (data.data.result.items !== null)  {
+        let resultArray = data.data.result.items;
+        if (resultArray.length > 0)  {
           var image = data.data.result.items[0].media;
         }
       }
