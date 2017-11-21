@@ -19,14 +19,14 @@ exports.run = (client, message, waifu) => {
       } else if (res.statusCode !== 200) {
         console.log('Status:', res.statusCode);
       } else {
-        let image = data.data.result.media;
-        console.log(image);
+        let image = data.data.result.items[0].media;
+        const waifuEmbed = new Discord.RichEmbed()
+          .setColor(settings.embedColour)
+          .addField(waifu.toProperCase(), `${score} / 10`);
+        if (image !== undefined) waifuEmbed.setImage(image);
+        message.channel.send({embed: waifuEmbed});
       }
-  });
-  //   const waifuEmbed = new Discord.RichEmbed()
-  //   .setColor(settings.embedColour)
-  //   .addField(waifu.toProperCase(), `${score} / 10`);
-  // message.channel.send({embed: waifuEmbed});
+  }); 
 };
 
 exports.cmdConfig = {
