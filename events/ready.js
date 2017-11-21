@@ -7,7 +7,6 @@ module.exports = async client => {
   setInterval(function() {
     let game = client.config.games;
     game = game[Math.floor(Math.random() * game.length)];
-    console.log(`Game changed to: ${game}`);
     client.user.setGame(game);
   }, interval);
 };
