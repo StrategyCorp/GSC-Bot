@@ -7,7 +7,7 @@ const config = {
     "prefix": "!",
     "adminRole": "admin",
     "iamroles": "",
-    "currency": "",
+    "currency": "points",
     "defaultChannel": "general",
     "welcomeMessage": "Welcome {{user}} to {{guild}}. Member count is now {{memberCount}}",
     "welcomeEnable": "false",
