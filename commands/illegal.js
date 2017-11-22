@@ -2,7 +2,7 @@ const request = require('request');
 
 exports.run = async (client, message, word) => {
   if (!word[0]) return message.channel.send(':negative_squared_cross_mark: What would you like to be illegal?');
-  let url = `https://is-now-illegal.firebaseio.com/gifs/${word.join('').toUpperCase()}.json`;
+  if (word.join('').length > 17) return message.channel.send(`:negative_squared_cross_mark: \`${word.join('')}\` is too long. Max 18 charaters.`);
   const requestIllegal = async (url) => {
     request.get({
       url: url,
@@ -31,7 +31,11 @@ exports.run = async (client, message, word) => {
             } else if (res.statusCode !== 200) {
               return message.channel.send(':negative_squared_cross_mark: Status:', res.statusCode);
             }
-            
+            console.log(word.join('').toUpperCase());
+            let url = `https://is-now-illegal.firebaseio.com/gifs/${word.join('').toUpperCase()}.json`;
+            setTimeout(function() {
+              requestIllegal(url);
+            }, 5000)
           });
         } else {
           return message.channel.send({'files': [data.url]});
@@ -39,6 +43,7 @@ exports.run = async (client, message, word) => {
       }
     });
   }
+  let url = `https://is-now-illegal.firebaseio.com/gifs/${word.join('').toUpperCase()}.json`;
   requestIllegal(url);
 };
 
