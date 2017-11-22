@@ -1,5 +1,3 @@
-const sql = require("sqlite");
-
 exports.run = (client, message, [search, ...args]) => {
   if (message.author.id !== client.config.ownerId) return;
   if (!args) return message.channel.send(':negative_squared_cross_mark: !args');
@@ -47,12 +45,33 @@ exports.run = (client, message, [search, ...args]) => {
       return message.channel.send(`:white_check_mark: \`${points}\` points have been removed from \`${userObject.username}\``)
     }
   } else if (search === "test") {
-    // sql.get(`SELECT * FROM ${message.guild.id} WHERE userId ="${message.author.id}"`).then(row => {
-    //   if (!row) return message.reply("sadly you do not have any points yet!");
-    //   message.reply(`you currently have ${row.points} points, good going!`);
-    // });
-    //return message.channel.send('ok');
-    message.channel.send(args.join(' ').toMemeCase());
+    
+    var Canvas = require('canvas')
+      , Image = Canvas.Image
+      , canvas = new Canvas(200, 200)
+      , ctx = canvas.getContext('2d');
+    ctx.font = '30px Impact';
+    ctx.rotate(.1);
+    ctx.fillText("Awesome!", 50, 100);
+    var te = ctx.measureText('Awesome!');
+    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+    ctx.beginPath();
+    ctx.lineTo(50, 102);
+    ctx.lineTo(50 + te.width, 102);
+    ctx.stroke();
+    
+    var fs = require('fs')
+      , out = fs.createWriteStream(__dirname + '/canvas/test.png')
+      , stream = canvas.pngStream();
+    
+    stream.on('data', function(chunk){
+      out.write(chunk);
+    });
+    
+    stream.on('end', function(){
+      console.log('saved png');
+    });
+    
   } else {
     return message.channel.send(':negative_squared_cross_mark: else');
   }
