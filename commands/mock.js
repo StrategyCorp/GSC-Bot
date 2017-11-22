@@ -8,7 +8,6 @@ exports.run = (client, message, args) => {
   } else {
     return message.channel.send(args.join(' ').toMemeCase());
   }
-  return message.channel.send(':negative_squared_cross_mark: ')
 };
 
 exports.cmdConfig = {

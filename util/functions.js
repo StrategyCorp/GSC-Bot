@@ -113,9 +113,7 @@ module.exports = (client) => {
   };
   
   String.prototype.toMemeCase = function() {
-    return this.replace(/.{2}/g, function(match, $1, $2, offset, original) {
-        return '' + match[0].toUpperCase() + match[1];
-    })
+    return this.split('').map((v, i) => i % 2 == 0 ? v.toLowerCase() : v.toUpperCase()).join('');
   };
   
   Object.prototype.getKeyByValue = function(value) {
