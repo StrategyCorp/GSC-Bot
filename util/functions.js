@@ -1,7 +1,6 @@
 const moment = require('moment');
 const smite = require('../data/smite.json');
 const sql = require("sqlite");
-sql.open("./data/points.sqlite");
 
 module.exports = (client) => {
   client.log = (message) => {
@@ -23,21 +22,17 @@ module.exports = (client) => {
     score.level = Math.floor(0.1 * Math.sqrt(score.points));
     client.points.set(message.author.id, score);
     
-    sql.get(`SELECT * FROM ${message.guild.id} WHERE userId ="${message.author.id}"`).then(row => {
+    sql.open(`./data/points/${message.guid.id}.sqlite`);
+    sql.get(`SELECT * FROM points WHERE userId ="${message.author.id}"`).then(row => {
       if (!row) {
-        sql.run(`INSERT INTO ${message.guild.id} (userId, points, level) VALUES (?, ?, ?)`, [message.author.id, 1, 0]);
+        sql.run(`INSERT INTO points (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
       } else {
-        let curLevel = Math.floor(0.1 * Math.sqrt(row.points + 1));
-        if (curLevel > row.level) {
-          row.level = curLevel;
-          sql.run(`UPDATE ${message.guild.id} SET points = ${row.points + 1}, level = ${row.level} WHERE userId = ${message.author.id}`);
-        }
-        sql.run(`UPDATE ${message.guild.id} SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
+        sql.run(`UPDATE points SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
       }
     }).catch(() => {
       console.error;
-      sql.run(`CREATE TABLE IF NOT EXISTS ${message.guild.id} (userId TEXT, points INTEGER, level INTEGER)`).then(() => {
-        sql.run(`INSERT INTO ${message.guild.id} (userId, points, level) VALUES (?, ?, ?)`, [message.author.id, 1, 0]);
+      sql.run(`CREATE TABLE IF NOT EXISTS points (userId TEXT, points INTEGER)`).then(() => {
+        sql.run(`INSERT INTO points (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
       });
     });
   };
