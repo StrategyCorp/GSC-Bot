@@ -1,6 +1,5 @@
 const moment = require('moment');
 const smite = require('../data/smite.json');
-const sql = require("sqlite");
 
 module.exports = (client) => {
   client.log = (message) => {
@@ -22,7 +21,8 @@ module.exports = (client) => {
     score.level = Math.floor(0.1 * Math.sqrt(score.points));
     client.points.set(message.author.id, score);
     
-    sql.open(`./data/points/${message.guid.id}.sqlite`);
+    const sql = require("sqlite");
+    sql.open(`./data/points/${message.guild.id}.sqlite`);
     sql.get(`SELECT * FROM points WHERE userId ="${message.author.id}"`).then(row => {
       if (!row) {
         sql.run(`INSERT INTO points (userId, points) VALUES (?, ?)`, [message.author.id, 1]);

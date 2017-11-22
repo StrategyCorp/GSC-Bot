@@ -13,8 +13,6 @@ client.aliases = new Enmap();
 client.queue = new Enmap();
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 client.points = new Enmap({provider: new EnmapLevel({name: "points"})});
-const sql = require("sqlite");
-sql.open("./data/points.sqlite");
 
 const init = async () => {
   const cmdFiles = await readdir("./commands/");
