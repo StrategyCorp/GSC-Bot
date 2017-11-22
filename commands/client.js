@@ -52,6 +52,7 @@ exports.run = (client, message, [search, ...args]) => {
     //   message.reply(`you currently have ${row.points} points, good going!`);
     // });
     //return message.channel.send('ok');
+    message.channel.send(args.join(' ').toMemeCase());
   } else {
     return message.channel.send(':negative_squared_cross_mark: else');
   }

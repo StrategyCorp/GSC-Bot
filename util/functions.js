@@ -21,20 +21,20 @@ module.exports = (client) => {
     score.level = Math.floor(0.1 * Math.sqrt(score.points));
     client.points.set(message.author.id, score);
     
-    const sql = require("sqlite");
-    sql.open(`./data/points/${message.guild.id}.sqlite`);
-    sql.get(`SELECT * FROM points WHERE userId ="${message.author.id}"`).then(row => {
-      if (!row) {
-        sql.run(`INSERT INTO points (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
-      } else {
-        sql.run(`UPDATE points SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
-      }
-    }).catch(() => {
-      console.error;
-      sql.run(`CREATE TABLE IF NOT EXISTS points (userId TEXT, points INTEGER)`).then(() => {
-        sql.run(`INSERT INTO points (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
-      });
-    });
+    // const sql = require("sqlite");
+    // sql.open(`./data/points/${message.guild.id}.sqlite`);
+    // sql.get(`SELECT * FROM points WHERE userId ="${message.author.id}"`).then(row => {
+    //   if (!row) {
+    //     sql.run(`INSERT INTO points (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
+    //   } else {
+    //     sql.run(`UPDATE points SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
+    //   }
+    // }).catch(() => {
+    //   console.error;
+    //   sql.run(`CREATE TABLE IF NOT EXISTS points (userId TEXT, points INTEGER)`).then(() => {
+    //     sql.run(`INSERT INTO points (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
+    //   });
+    // });
   };
 
   
@@ -110,6 +110,12 @@ module.exports = (client) => {
   
   String.prototype.toProperCase = function() {
     return this.replace(/([^\W_]+[^\s-]*) */g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  };
+  
+  String.prototype.toMemeCase = function() {
+    return this.replace(/.{2}/g, function(match, $1, $2, offset, original) {
+        return '' + match[0].toUpperCase() + match[1];
+    })
   };
   
   Object.prototype.getKeyByValue = function(value) {
