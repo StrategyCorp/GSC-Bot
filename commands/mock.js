@@ -1,8 +1,6 @@
 exports.run = (client, message, args) => {
   if (!args[0]) {
-    message.channel.fetchMessages({limit: 2, around: message.id}).then(msgs => {
-      console.log(msgs.size);
-    })
+    message.channel.
   } else if (args[0].length === 18 && /^\d+$/.test(args[0])) {
     message.channel.fetchMessage(args[0]).then(msg => {
       let messageToMock = msg.content;
