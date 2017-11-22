@@ -61,7 +61,7 @@ exports.run = (client, message, [search, ...args]) => {
     ctx.stroke();
     
     var fs = require('fs')
-      , out = fs.createWriteStream(__dirname + '/canvas/test.png')
+      , out = fs.createWriteStream(__dirname + '/../data/canvas/test.png')
       , stream = canvas.pngStream();
     
     stream.on('data', function(chunk){

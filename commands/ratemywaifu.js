@@ -34,7 +34,7 @@ exports.run = (client, message, waifu) => {
 
 exports.cmdConfig = {
   name: "ratemywaifu",
-  aliases: ['waifu'],
+  aliases: ['waifu', 'ratemyhusbando', 'husbando'],
   description: "Gives your waifu a score out of 10.",
   usage: "ratemywaifu <waifu>",
   type: "fun"
