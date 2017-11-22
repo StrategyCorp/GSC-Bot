@@ -1,4 +1,4 @@
-exports.run = (client, message, [search, ...args]) => {
+exports.run = async (client, message, [search, ...args]) => {
   if (message.author.id !== client.config.ownerId) return;
   if (!args) return message.channel.send(':negative_squared_cross_mark: !args');
   if (search === "say") {
@@ -46,32 +46,33 @@ exports.run = (client, message, [search, ...args]) => {
     }
   } else if (search === "test") {
     
-    var Canvas = require('canvas')
-      , Image = Canvas.Image
-      , canvas = new Canvas(200, 200)
-      , ctx = canvas.getContext('2d');
-    ctx.font = '30px Impact';
-    ctx.rotate(.1);
-    ctx.fillText("Awesome!", 50, 100);
-    var te = ctx.measureText('Awesome!');
-    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-    ctx.beginPath();
-    ctx.lineTo(50, 102);
-    ctx.lineTo(50 + te.width, 102);
-    ctx.stroke();
+//     var Canvas = require('canvas')
+//       , Image = Canvas.Image
+//       , canvas = new Canvas(200, 200)
+//       , ctx = canvas.getContext('2d');
+//     ctx.font = '30px Impact';
+//     ctx.rotate(.1);
+//     ctx.fillText("Awesome!", 50, 100);
+//     var te = ctx.measureText('Awesome!');
+//     ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+//     ctx.beginPath();
+//     ctx.lineTo(50, 102);
+//     ctx.lineTo(50 + te.width, 102);
+//     ctx.stroke();
     
     var fs = require('fs')
-      , out = fs.createWriteStream(__dirname + '/../data/canvas/test.png')
-      , stream = canvas.pngStream();
+//       , out = fs.createWriteStream(__dirname + '/../data/canvas/test.png')
+//       , stream = canvas.pngStream();
     
-    stream.on('data', function(chunk){
-      out.write(chunk);
-    });
+//     stream.on('data', function(chunk){
+//       out.write(chunk);
+//     });
     
-    stream.on('end', function(){
-      console.log('saved png');
-    });
-    
+//     stream.on('end', function(){
+//       console.log('saved png');
+//     });
+    let image = await fs.readFile('../data/canvas/image/bonobo.png');
+    message.channel.send(image)
   } else {
     return message.channel.send(':negative_squared_cross_mark: else');
   }
