@@ -14,13 +14,28 @@ exports.run = async (client, message, word) => {
         console.log('Status:', res.statusCode);
       } else {
         if (data === null) {
-          request.post({
-            url: 'https://is-now-illegal.firebaseio.com/queue/tasks.json',
-            form: {
-              task: 'gif',
-              word: word.join('').toUpperCase()
+          var postData = {
+            task: 'gif',
+            word: word.join('').toUpperCase()
+          };
+          var options = {
+            method: 'post',
+            body: postData,
+            json: true,
+            url: 'https://is-now-illegal.firebaseio.com/queue/tasks.json'
+          };
+          request(options, function (err, res, body) {
+            if (err) {
+              console.error('error posting json: ', err);
+              throw err
             }
+            var headers = res.headers;
+            var statusCode = res.statusCode;
+            // console.log('headers: ', headers);
+            // console.log('statusCode: ', statusCode);
+            // console.log('body: ', body);
           });
+          
         } else {
           return message.channel.send({'files': [data.url]});
         }      
