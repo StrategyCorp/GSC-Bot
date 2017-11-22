@@ -3,7 +3,8 @@ const fs = require('fs');
 
 exports.run = (client, message, args) => {
   if (!args[0]) {
-    return message.channel.send('HELP WIP');
+    
+    // return message.channel.send('HELP WIP');
   } else {
     let imageObj = {
     "bonobo": "1",
