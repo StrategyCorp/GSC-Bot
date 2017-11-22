@@ -1,7 +1,7 @@
 const config = {
   "ownerId": "166641492113358848",
   "games": ["SMITE", "with your mind", "nothing", "with fire", "with Kuzenbo's nene"],
-  "gameChangeTime": "15",
+  "gameChangeTime": "20",
   "replyObj": {
     "rexsi": "lol"
   },
