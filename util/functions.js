@@ -13,6 +13,13 @@ module.exports = (client) => {
     }
   };
   
+  client.replyArray = (client, message) => {
+    if (message.channel.type !== 'text') return;
+    if (client.config.replyObj[message.content.toLowerCase()]) {
+      message.channel.send(client.config.replyObj[message.content.toLowerCase()]);
+    }
+  };
+  
   client.pointsMonitor = (client, message) => {
     if (message.channel.type !=='text') return;
     // if (message.guild.memberCount < 20) return;
