@@ -1,6 +1,9 @@
 exports.run = (client, message, args) => {
-  if (!args[0]) return message.channel.send(':negative_squared_cross_mark: You must give me text to mock');
-  if (args[0].length === 18 && /^\d+$/.test(args[0])) {
+  if (!args[0]) {
+    message.channel.fetchMessage(message.channel.lastMessageID).then(msg => {
+      console.log(msg.content);
+    })
+  } else if (args[0].length === 18 && /^\d+$/.test(args[0])) {
     message.channel.fetchMessage(args[0]).then(msg => {
       let messageToMock = msg.content;
       return message.channel.send(messageToMock.toMemeCase());
