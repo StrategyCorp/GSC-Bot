@@ -30,6 +30,6 @@ exports.cmdConfig = {
   name: "urban",
   aliases: [],
   description: "Searches the Urban Dictionary library for a definition to the search term.",
-  usage: "urban <term>",
+  usage: "urban <term> [number]",
   type: "fun"
 };
