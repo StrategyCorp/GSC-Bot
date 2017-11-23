@@ -4,7 +4,7 @@ exports.run = (client, message, [search, ...args]) => {
   if (!search) {
     return message.channel.send('HELP WIP');
   } else if (search === "search") {
-    
+    let q = args.join(' ');
   } else if (search === "trending") {
     
   } else if (search === "random") {
