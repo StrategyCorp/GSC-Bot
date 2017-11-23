@@ -5,6 +5,10 @@ exports.run = (client, message, [search, ...args]) => {
     return message.channel.send('HELP WIP');
   } else if (search === "search") {
     let q = args.join(' ');
+    let lastItem = args[args.length - 1];
+    if (/^\d+$/.test(lastItem)) {
+      console.log("2");
+    }
   } else if (search === "trending") {
     
   } else if (search === "random") {
