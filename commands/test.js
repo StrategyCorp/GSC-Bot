@@ -1,25 +1,34 @@
 const Discord = require('discord.js');
 const request = require('request');
-const crypto = require('crypto');
+// const crypto = require('crypto');
+const md5 = require('md5');
 const moment = require('moment');
 
 exports.run = (client, message, args) => {
   let playerName = 'Gazder';
   const devID = process.env.SMITEDEVID;
-  const authKey = process.env.SMITEAUTHKEY;
+  const authKey = process.env.SMITEAUTHID;
   let method = 'getplayerstatus';
-  let timestamp = moment().format('YYYY MM dd HH mm ss');
+  let timestamp = moment().format('YYYYMMDDHHmmss');
   let signature = `${devID}createsession${authKey}${timestamp}`;
+  console.log(signature)
+  signature = md5(signature);
+  console.log(signature);
   let createsession = `http://api.smitegame.com/smiteapi.svc/createsessionJson/${devID}/${signature}/${timestamp}`;
   let url = `http://api.smitegame.com/smiteapi.svc/${method}json/${devID}/${signature}/${timestamp}/${playerName}`;
-  console.log(timestamp);
-  // request(createsession, function(error, response, body) {
-  //   if (!error && response.statusCode === 200) {
-  //     console.log(JSON.parse(body));
-  //   } else {
-  //     console.log(response.statusCode);
-  //   }
-  // })
+  request.get({
+    url: createsession,
+    json: true,
+    headers: {'User-Agent': 'request'}
+  }, (err, res, data) => {
+    if (err) {
+      return message.channel.send(':negative_squared_cross_mark: Error:', err);
+    } else if (res.statusCode !== 200) {
+      return message.channel.send(':negative_squared_cross_mark: Status:', res.statusCode);
+    } else {
+      var sessionID = data.session_id;
+    }
+  });
 }
 
 exports.cmdConfig = {
