@@ -8,16 +8,18 @@ exports.run = (client, message, [search, ...args]) => {
     var offset = args[args.length - 1];
     if (/^\d+$/.test(offset)) {
       args.pop();
-      var q = args.join(' ');
+      if (offset > 24) offset = 25;
     } else {
-      var q = args.join(' ');
       offset = 1;
     }
+    var q = args.join(' ');
     offset = offset - 1;
     const apiKey = process.env.GIPHY;
     var url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${q}&limit=25&offset=${offset}&rating=G&lang=en`;
   } else if (search === "trending") {
-    
+    if (/^\d+$/.test(args[0])) {
+      
+    }
   } else if (search === "random") {
     
   }
@@ -32,7 +34,7 @@ exports.run = (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:', res.statusCode);
       } else {
-        return message.channel.send(`**${q}**\n**Requested${data.data[0].embed_url}`)
+        return message.channel.send(`**${q.toProperCase()}** #${parseInt(offset) + 1}\n${data.data[offset].embed_url}`);
       }
     });
   };
