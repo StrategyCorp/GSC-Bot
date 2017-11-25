@@ -24,11 +24,9 @@ exports.run = (client, message, args) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
-        if (data === "") {
-          console.log("data");
-        } else {
-          console.log(data);
-        }
+        if ()
+        console.log(data);
+        console.log(domain + `testsessionJson/${devID}/${signature}/${session}/${timestamp}`);
       }
     });
   }
