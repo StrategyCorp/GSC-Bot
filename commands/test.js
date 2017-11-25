@@ -4,6 +4,9 @@ const md5 = require('md5');
 const moment = require('moment');
 
 exports.run = (client, message, args) => {
+  
+  
+  
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
   const authKey = process.env.SMITEAUTHID;
