@@ -37,9 +37,9 @@ exports.run = (client, message, [search, ...args]) => {
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
       if (err) {
-        return message.channel.send(':negative_squared_cross_mark: Error:', err);
+        return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
       } else if (res.statusCode !== 200) {
-        return message.channel.send(':negative_squared_cross_mark: Status:', res.statusCode);
+        return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         let title = `**${q.toProperCase()}**`;
         let number = ` #${parseInt(offset) + 1}`;

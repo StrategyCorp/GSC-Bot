@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const request = require('request');
-// const crypto = require('crypto');
 const md5 = require('md5');
 const moment = require('moment');
 
@@ -19,15 +18,16 @@ exports.run = (client, message, args) => {
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
       if (err) {
-        return message.channel.send(':negative_squared_cross_mark: Error:', err);
+        return message.channel.send(':negative_squared_cross_mark: Error:' + err);
       } else if (res.statusCode !== 200) {
-        return message.channel.send(':negative_squared_cross_mark: Status:', res.statusCode);
+        return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
         var session = data.session_id;
       }
     });
   }
   
+  let session = client.session;
   let testSessionUrl = domain + `testsessionJson/${devID}/${signature}/${session}/${timestamp}`;
   const testSession = async (url) => {
     

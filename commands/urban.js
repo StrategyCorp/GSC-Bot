@@ -18,9 +18,9 @@ exports.run = (client, message, [search, resultNum]) => {
       const result = body.list[resultNum];
       if (result) {
         const definition = `**Word:** ${search}\n\n**Definition:** ${resultNum += 1} out of ${body.list.length}\n_${result.definition}_\n\n**Example:**\n${result.example}\n<${result.permalink}>`;
-        message.channel.send(definition).catch(err => client.funcs.log(err.stack, "error"));
+        message.channel.send(definition);
       } else {
-        message.channel.send(":negative_squared_cross_mark: No entry found.").catch(err => client.funcs.log(err.stack, "error"));
+        message.channel.send(":negative_squared_cross_mark: No entry found.");
       }
     });
   }

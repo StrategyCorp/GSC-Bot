@@ -11,6 +11,7 @@ require("./util/functions.js")(client);
 client.commands = new Enmap();
 client.aliases = new Enmap();
 client.queue = new Enmap();
+client.session = new Enmap();
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 client.points = new Enmap({provider: new EnmapLevel({name: "points"})});
 

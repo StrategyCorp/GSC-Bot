@@ -11,9 +11,9 @@ exports.run = async (client, message, word) => {
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
       if (err) {
-        return message.channel.send(':negative_squared_cross_mark: Error:', err);
+        return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
       } else if (res.statusCode !== 200) {
-        return message.channel.send(':negative_squared_cross_mark: Status:', res.statusCode);
+        return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         if (data === null) {
           var postData = {
@@ -28,9 +28,9 @@ exports.run = async (client, message, word) => {
           };
           request(options, function (err, res, body) {
             if (err) {
-              return message.channel.send(':negative_squared_cross_mark: Error:', err);
+              return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
             } else if (res.statusCode !== 200) {
-              return message.channel.send(':negative_squared_cross_mark: Status:', res.statusCode);
+              return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
             }
             setTimeout(function() {
               requestIllegal(url);
