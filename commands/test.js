@@ -5,16 +5,23 @@ const moment = require('moment');
 
 exports.run = (client, message, args) => {
   let session = client.session;
-  if (Object.keys(session).length === 0) {
-    session.push({currentsession: 0});
-  }
-  console.log(session);
-  
+  if (Object.keys(session).length === 0) client.session.set("sessionID", "0");
+  session = client.session.get("sessionID");
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
   const authKey = process.env.SMITEAUTHID;
-  let timestamp = moment().format('YYYYMMDDHHmmss');
   let signature = `${devID}createsession${authKey}${timestamp}`;
+  let timestamp = moment().format('YYYYMMDDHHmmss');
+  const testSession = async () => {
+    request.get({
+      url: domain + `testsessionJson/${devID}/${signature}/${session}/${timestamp}`
+    })
+  }
+  console.log(domain + `testsessionJson/${devID}/${signature}/${session}/${timestamp}`);
+  
+  
+  
+  
   signature = md5(signature);
   let createSessionUrl = domain + `createsessionJson/${devID}/${signature}/${timestamp}`;
   const createSession = async (url) => {
@@ -32,10 +39,7 @@ exports.run = (client, message, args) => {
       }
     });
   }
-  let testSessionUrl = domain + `testsessionJson/${devID}/${signature}/${session}/${timestamp}`;
-  const testSession = async (url) => {
-    
-  }
+  
   let method = 'getplayerstatus';
   let playerName = 'Gazder';
   let url = domain + `${method}json/${devID}/${signature}/${timestamp}/${playerName}`;
