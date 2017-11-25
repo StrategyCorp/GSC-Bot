@@ -4,15 +4,17 @@ exports.run = (client, message, [search, ...args]) => {
   if (!search) {
     return message.channel.send('HELP WIP');
   } else if (search === "search") {
-    let lastItem = args[args.length - 1];
-    if (/^\d+$/.test(lastItem)) {
-      var q = args.splice(-1, 1).join(' ');
+    let offset = args[args.length - 1];
+    if (/^\d+$/.test(offset)) {
+      args.pop();
+      var q = args.join(' ');
     } else {
       var q = args.join(' ');
-      lastItem = 1;
+      offset = 1;
     }
-    console.log(q);
-    console.log(lastItem);
+    offset = offset - 1;
+    const apiKey = process.env.GIPHY;
+    let url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${q}&limit=25&offset=${offset}&rating=G&lang=en`;
   } else if (search === "trending") {
     
   } else if (search === "random") {
