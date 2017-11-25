@@ -4,6 +4,11 @@ const Discord = require("discord.js");
 exports.run = (client, message, [search, ...args]) => {
   const apiKey = process.env.GIPHY;
   if (!search) {
+    var cmdArray = [
+      ["search", ""],
+      ["'trending'"],
+      ['random']
+    ]
     return message.channel.send('HELP WIP');
   } else if (search === "search") {
     var offset = args[args.length - 1];
