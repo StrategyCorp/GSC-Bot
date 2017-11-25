@@ -1,4 +1,5 @@
 const request = require("request");
+const Discord = require("discord.js");
 
 exports.run = (client, message, [search, ...args]) => {
   if (!search) {
@@ -31,9 +32,7 @@ exports.run = (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:', res.statusCode);
       } else {
-        let gif = data.data[0].embed_url;
-        console.log(gif)
-        // return message.channel.send({'files': [gif]});   
+        return message.channel.send(`**${q}**\n**Requested${data.data[0].embed_url}`)
       }
     });
   };
