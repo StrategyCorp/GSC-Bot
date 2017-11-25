@@ -9,24 +9,35 @@ exports.run = (client, message, args) => {
   session = client.session.get("sessionID");
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
+  let timestamp = moment().format('YYYYMMDDHHmmss');
   const authKey = process.env.SMITEAUTHID;
   let signature = `${devID}createsession${authKey}${timestamp}`;
-  let timestamp = moment().format('YYYYMMDDHHmmss');
+  signature = md5(signature);
   const testSession = async () => {
     request.get({
-      url: domain + `testsessionJson/${devID}/${signature}/${session}/${timestamp}`
-    })
+      url: domain + `testsessionJson/${devID}/${signature}/${session}/${timestamp}`,
+      json: true,
+      headers: {'User-Agent': 'request'}
+    }, (err, res, data) => {
+      if (err) {
+        return message.channel.send(':negative_squared_cross_mark: Error:' + err);
+      } else if (res.statusCode !== 200) {
+        return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
+      } else {
+        if (data === "") {
+          console.log("data");
+        } else {
+          console.log(data);
+        }
+      }
+    });
   }
-  console.log(domain + `testsessionJson/${devID}/${signature}/${session}/${timestamp}`);
+  testSession();
   
   
-  
-  
-  signature = md5(signature);
-  let createSessionUrl = domain + `createsessionJson/${devID}/${signature}/${timestamp}`;
-  const createSession = async (url) => {
+  const createSession = async () => {
     request.get({
-      url: url,
+      url: domain + `createsessionJson/${devID}/${signature}/${timestamp}`,
       json: true,
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
@@ -39,10 +50,6 @@ exports.run = (client, message, args) => {
       }
     });
   }
-  
-  let method = 'getplayerstatus';
-  let playerName = 'Gazder';
-  let url = domain + `${method}json/${devID}/${signature}/${timestamp}/${playerName}`;
 }
 
 exports.cmdConfig = {
