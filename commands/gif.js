@@ -2,6 +2,7 @@ const request = require("request");
 const Discord = require("discord.js");
 
 exports.run = (client, message, [search, ...args]) => {
+  const apiKey = process.env.GIPHY;
   if (!search) {
     return message.channel.send('HELP WIP');
   } else if (search === "search") {
@@ -14,14 +15,19 @@ exports.run = (client, message, [search, ...args]) => {
     }
     var q = args.join(' ');
     offset = offset - 1;
-    const apiKey = process.env.GIPHY;
     var url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${q}&limit=25&offset=${offset}&rating=G&lang=en`;
   } else if (search === "trending") {
+    var q = "Trending";
     if (/^\d+$/.test(args[0])) {
-      
+      var offset = args[0];
+      if (offset > 24) offset = 25;
+    } else {
+      var offset = 1;
     }
+    offset = offset - 1;
+    var url = `https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=25&rating=G`;
   } else if (search === "random") {
-    
+    var url = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${q}&rating=G`;
   }
   const requestGif = async () => {
     request.get({
@@ -34,7 +40,10 @@ exports.run = (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:', res.statusCode);
       } else {
-        return message.channel.send(`**${q.toProperCase()}** #${parseInt(offset) + 1}\n${data.data[offset].embed_url}`);
+        let title = `**${q.toProperCase()}**`;
+        let number = ` #${parseInt(offset) + 1}`;
+        if (args[0] === "search" || args[0] === "trending") title += number;
+        return message.channel.send(`${title}\n${data.data[offset].url}`);
       }
     });
   };
