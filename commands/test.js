@@ -4,8 +4,11 @@ const md5 = require('md5');
 const moment = require('moment');
 
 exports.run = (client, message, args) => {
-  
-  
+  let session = client.session;
+  if (Object.keys(session).length === 0) {
+    session.push({currentsession: 0});
+  }
+  console.log(session);
   
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
@@ -29,13 +32,10 @@ exports.run = (client, message, args) => {
       }
     });
   }
-  
-  let session;
   let testSessionUrl = domain + `testsessionJson/${devID}/${signature}/${session}/${timestamp}`;
   const testSession = async (url) => {
     
   }
-  
   let method = 'getplayerstatus';
   let playerName = 'Gazder';
   let url = domain + `${method}json/${devID}/${signature}/${timestamp}/${playerName}`;
