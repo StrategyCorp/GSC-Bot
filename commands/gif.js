@@ -6,9 +6,7 @@ exports.run = (client, message, [search, ...args]) => {
   } else if (search === "search") {
     let q = args.join(' ');
     let lastItem = args[args.length - 1];
-    if (/^\d+$/.test(lastItem)) {
-      console.log("2");
-    }
+    console.log(lastItem);
   } else if (search === "trending") {
     
   } else if (search === "random") {
