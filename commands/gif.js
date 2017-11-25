@@ -27,6 +27,7 @@ exports.run = (client, message, [search, ...args]) => {
     offset = offset - 1;
     var url = `https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=25&rating=G`;
   } else if (search === "random") {
+    var q = args.join(' ');
     var url = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${q}&rating=G`;
   }
   const requestGif = async () => {
@@ -42,8 +43,13 @@ exports.run = (client, message, [search, ...args]) => {
       } else {
         let title = `**${q.toProperCase()}**`;
         let number = ` #${parseInt(offset) + 1}`;
-        if (args[0] === "search" || args[0] === "trending") title += number;
-        return message.channel.send(`${title}\n${data.data[offset].url}`);
+        if (search === "search" || search === "trending") {
+          var gif = data.data[offset].url
+          title += number;
+        } else {
+          var gif = data.data.url;
+        }
+        return message.channel.send(`${title}\n${gif}`);
       }
     });
   };
