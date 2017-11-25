@@ -24,15 +24,15 @@ exports.run = (client, message, args) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
-        if ()
-        console.log(data);
-        console.log(domain + `testsessionJson/${devID}/${signature}/${session}/${timestamp}`);
+        if (Object.prototype.toString.call(data) === "[object String]") {
+          createSession();
+          console.log("1");
+        } else {
+          console.log("2");
+        }
       }
     });
   }
-  testSession();
-  
-  
   const createSession = async () => {
     request.get({
       url: domain + `createsessionJson/${devID}/${signature}/${timestamp}`,
@@ -44,10 +44,12 @@ exports.run = (client, message, args) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
-        var session = data.session_id;
+        client.session.set("sessionID", data.session_id);
+        testSession();
       }
     });
   }
+  testSession();
 }
 
 exports.cmdConfig = {
