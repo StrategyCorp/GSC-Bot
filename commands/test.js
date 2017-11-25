@@ -27,7 +27,7 @@ exports.run = (client, message, args) => {
     });
   }
   
-  let session = client.session;
+  let session;
   let testSessionUrl = domain + `testsessionJson/${devID}/${signature}/${session}/${timestamp}`;
   const testSession = async (url) => {
     
