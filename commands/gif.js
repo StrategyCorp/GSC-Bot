@@ -4,7 +4,7 @@ exports.run = (client, message, [search, ...args]) => {
   if (!search) {
     return message.channel.send('HELP WIP');
   } else if (search === "search") {
-    let offset = args[args.length - 1];
+    var offset = args[args.length - 1];
     if (/^\d+$/.test(offset)) {
       args.pop();
       var q = args.join(' ');
@@ -14,15 +14,30 @@ exports.run = (client, message, [search, ...args]) => {
     }
     offset = offset - 1;
     const apiKey = process.env.GIPHY;
-    let url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${q}&limit=25&offset=${offset}&rating=G&lang=en`;
+    var url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${q}&limit=25&offset=${offset}&rating=G&lang=en`;
   } else if (search === "trending") {
     
   } else if (search === "random") {
     
   }
-  const requestGif = async (endpoint, parameters) => {
-    let url = `https://api.giphy.com/v1/gifs/${endpoint}?api_key=MnPQGrZvaZGPbYCdeAfT4RRuI6KPToYb${parameters}`;
+  const requestGif = async () => {
+    request.get({
+      url: url,
+      json: true,
+      headers: {'User-Agent': 'request'}
+    }, (err, res, data) => {
+      if (err) {
+        return message.channel.send(':negative_squared_cross_mark: Error:', err);
+      } else if (res.statusCode !== 200) {
+        return message.channel.send(':negative_squared_cross_mark: Status:', res.statusCode);
+      } else {
+        let gif = data.data[0].embed_url;
+        console.log(gif)
+        // return message.channel.send({'files': [gif]});   
+      }
+    });
   };
+  requestGif();
 };
 
 exports.cmdConfig = {
