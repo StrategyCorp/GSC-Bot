@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
   const devID = process.env.SMITEDEVID;
   const authKey = process.env.SMITEAUTHKEY;
   let method = 'getplayerstatus';
-  let timestamp = moment().format('yyyyMMddHHmmss');
+  let timestamp = moment().format('YYYY MM dd HH mm ss');
   let signature = `${devID}createsession${authKey}${timestamp}`;
   let createsession = `http://api.smitegame.com/smiteapi.svc/createsessionJson/${devID}/${signature}/${timestamp}`;
   let url = `http://api.smitegame.com/smiteapi.svc/${method}json/${devID}/${signature}/${timestamp}/${playerName}`;
