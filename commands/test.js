@@ -25,7 +25,6 @@ exports.run = (client, message, args) => {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
         if (Object.prototype.toString.call(data) === "[object String]") {
-          createSession();
           console.log("1");
         } else {
           console.log("2");
