@@ -129,12 +129,13 @@ exports.run = async (client, message, [search, ...args]) => {
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
       if (err) {
-        return message.channel.send(':negative_squared_cross_mark: Error:' + err);
+        return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
       } else if (res.statusCode !== 200) {
-        return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
+        return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         if (search === "player") {
           var p = data[0];
+          if (!p) return message.channel.send(':negative_squared_cross_mark: Error: I could not find that player. Either ');
           let level = `**Level:** ${p.Level}`;
           let status = `**Status:** ${p.Personal_Status_Message}`;
           let clan = `**Clan:** ${p.Team_Name}`;
@@ -143,11 +144,10 @@ exports.run = async (client, message, [search, ...args]) => {
           let created = `**Account Created:** ${p.Created_Datetime}`;
           let login = `**Last Login:** ${p.Last_Login_Datetime}`;
           let winrate = parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100;
-          let ranked = [p.RankedConquest.Tier, p.RankedDuel.Tier, p.RankedJoust.Tier];
-          console.log(ranked);
-          console.log(rankedTierObj[Math.max.apply(Math, ranked)]);
+          let rankColour = [p.RankedConquest.Tier, p.RankedDuel.Tier, p.RankedJoust.Tier];
+          rankColour = rankedTierObj[rankedTierArray[Math.max.apply(Math, rankColour)]];
           const playerEmbed = new Discord.RichEmbed()
-            .setColor(rankedTierObj[Math.max.apply(Math, ranked)])
+            .setColor(rankColour)
             .addField(p.Name, `${level}\n${status}\n${clan}\n${region}\n${mastery}\n${created}\n${login}`)
             .addField('Games', `**Winrate:** ${winrate}%\n**Wins:** ${p.Wins}\n**Losses:** ${p.Losses}\n**Matches Left:** ${p.Leaves}`)
             .addField('Ranked', `**Conquest:** ${rankedTierArray[p.RankedConquest.Tier]}\n**Duel:** ${rankedTierArray[p.RankedDuel.Tier]}\n**Joust:** ${rankedTierArray[p.RankedJoust.Tier]}`);
