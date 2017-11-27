@@ -135,7 +135,9 @@ exports.run = async (client, message, [search, ...args]) => {
       } else {
         if (search === "player") {
           var p = data[0];
-          if (!p) return message.channel.send(':negative_squared_cross_mark: Error: I could not find that player. Either ');
+          if (!p) return message.channel.send(`:negative_squared_cross_mark: Error: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
+          let name = p["Name"].split(/[|]/);
+          console.log(name);
           let level = `**Level:** ${p.Level}`;
           let status = `**Status:** ${p.Personal_Status_Message}`;
           let clan = `**Clan:** ${p.Team_Name}`;
@@ -152,7 +154,7 @@ exports.run = async (client, message, [search, ...args]) => {
             .addField('Games', `**Winrate:** ${winrate}%\n**Wins:** ${p.Wins}\n**Losses:** ${p.Losses}\n**Matches Left:** ${p.Leaves}`)
             .addField('Ranked', `**Conquest:** ${rankedTierArray[p.RankedConquest.Tier]}\n**Duel:** ${rankedTierArray[p.RankedDuel.Tier]}\n**Joust:** ${rankedTierArray[p.RankedJoust.Tier]}`);
           if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
-          message.channel.send({embed: playerEmbed});
+          return message.channel.send({embed: playerEmbed});
         }
       }
     });
