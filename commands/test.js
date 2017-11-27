@@ -58,7 +58,7 @@ exports.run = async (client, message, [search, ...args]) => {
     });
   };
   
-  async function requestData(method, parameters) {
+  function requestData(method, parameters) {
     var signature = createSignature(method);
     request.get({
       url: domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}/${parameters}`,
