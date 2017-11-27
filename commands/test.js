@@ -70,14 +70,13 @@ exports.run = async (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
-        console.log(data);
+        // console.log(data);
         return data;
       }
     });
   }
   
   testSession();
-  await client.wait(1000);
   
   if (search === "getdataused") {
     const getDataUsed = async () => {
@@ -98,7 +97,7 @@ exports.run = async (client, message, [search, ...args]) => {
     };
     getDataUsed();
   } else if (search === "player") {
-    var data = await requestData("getplayer", args[0]);
+    var data = requestData("getplayer", args[0]);
     console.log(data);
   }
 }
