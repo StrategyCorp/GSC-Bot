@@ -99,7 +99,7 @@ exports.run = async (client, message, [search, ...args]) => {
     getDataUsed();
   } else if (search === "player") {
     var data = requestData("getplayer", args[0]);
-    return message.channel.send(inspect(data), {code: "json"});
+    console.log(data);
   }
 }
 
