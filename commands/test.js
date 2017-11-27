@@ -58,7 +58,7 @@ exports.run = async (client, message, [search, ...args]) => {
     });
   };
   
-  function requestData(method, parameters) {
+  const requestData = async (method, parameters) => {
     var signature = createSignature(method);
     request.get({
       url: domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}/${parameters}`,
@@ -70,13 +70,17 @@ exports.run = async (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
-        // console.log(data);
-        return data;
+        
       }
     });
   }
   
   testSession();
+  await client.wait(1000);
+  let searchObj = {
+    "player": "getplayer"
+  };
+  requestData();
   
   if (search === "getdataused") {
     const getDataUsed = async () => {
@@ -96,10 +100,6 @@ exports.run = async (client, message, [search, ...args]) => {
       });
     };
     getDataUsed();
-  } else if (search === "player") {
-    await client.wait(1000);
-    var data = requestData("getplayer", args[0]);
-    // return message.channel.send(inspect(data), {code: "json"});
   }
 }
 
