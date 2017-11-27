@@ -35,7 +35,36 @@ exports.run = async (client, message, [search, ...args]) => {
     return md5(`${devID}${method}${authKey}${timestamp}`);
   }
   
-  var rankedTier = ["Unranked", "Bronze V", "Bronze IV", "Bronze III", "Bronze II", "Bronze I", "Silver V", "Silver IV", "Silver III", "Silver II", "Silver I", "Gold V", "Gold IV", "Gold III", "Gold II", "Gold I", "Platinum V", "Platinum IV", "Platinum III", "Platinum II", "Platinum I", "Diamond V", "Diamond IV", "Diamond III", "Diamond II", "Diamond I", "Masters"];
+  var rankedTierObj = {
+    "Unranked": "#000000",
+    "Bronze V": "#a0460a",
+    "Bronze IV": "#a0460a",
+    "Bronze III": "#a0460a",
+    "Bronze II": "#a0460a",
+    "Bronze I": "#a0460a",
+    "Silver V": "#a0a0a0",
+    "Silver IV": "#a0a0a0",
+    "Silver III": "#a0a0a0",
+    "Silver II": "#a0a0a0",
+    "Silver I": "#a0a0a0",
+    "Gold V": "#dca032",
+    "Gold IV": "#dca032",
+    "Gold III": "#dca032",
+    "Gold II": "#dca032",
+    "Gold I": "#dca032",
+    "Platinum V": "#508c28",
+    "Platinum IV": "#508c28",
+    "Platinum III": "#508c28",
+    "Platinum II": "#508c28",
+    "Platinum I": "#508c28",
+    "Diamond V": "#2864c8",
+    "Diamond IV": "#2864c8",
+    "Diamond III": "#2864c8",
+    "Diamond II": "#2864c8",
+    "Diamond I": "#2864c8",
+    "Masters": "#ff00ff"
+  };
+  var rankedTierArray = Object.keys(rankedTierObj);
   
   const testSession = async () => {
     var signature = createSignature("testsession");
@@ -117,7 +146,7 @@ exports.run = async (client, message, [search, ...args]) => {
           const playerEmbed = new Discord.RichEmbed()
             .addField(p.Name, `${level}\n${status}\n${clan}\n${region}\n${mastery}\n${created}\n${login}`)
             .addField('Games', `**Winrate:** ${winrate}%\n**Wins:** ${p.Wins}\n**Losses:** ${p.Losses}\n**Matches Left:** ${p.Leaves}`)
-            .addField('Ranked', `**Conquest:** ${rankedTier[p.Rank_Stat_Conquest]}\n**Duel:** ${rankedTier[p.Rank_Stat_Duel]}\n**Joust:** ${rankedTier[p.Rank_Stat_Joust]}`);
+            .addField('Ranked', `**Conquest:** ${rankedTierArray[p.Rank_Stat_Conquest]}\n**Duel:** ${rankedTierArray[p.Rank_Stat_Duel]}\n**Joust:** ${rankedTierArray[p.Rank_Stat_Joust]}`);
           if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
           message.channel.send({embed: playerEmbed});
         }
