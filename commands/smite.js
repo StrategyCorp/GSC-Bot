@@ -143,6 +143,7 @@ exports.run = async (client, message, [search, ...args]) => {
           let created = `**Account Created:** ${p.Created_Datetime}`;
           let login = `**Last Login:** ${p.Last_Login_Datetime}`;
           let winrate = parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100;
+          let ranked = [p.Rank_Stat_Conquest, p.Rank_Stat_Duel, p.Rank_Stat_Joust];
           const playerEmbed = new Discord.RichEmbed()
             .addField(p.Name, `${level}\n${status}\n${clan}\n${region}\n${mastery}\n${created}\n${login}`)
             .addField('Games', `**Winrate:** ${winrate}%\n**Wins:** ${p.Wins}\n**Losses:** ${p.Losses}\n**Matches Left:** ${p.Leaves}`)
