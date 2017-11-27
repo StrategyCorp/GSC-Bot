@@ -7,14 +7,10 @@ const { inspect } = require("util");
 
 exports.run = async (client, message, [search, ...args]) => {
   if (search) search = search.toLowerCase();
-  /*
   if (search === "help" || search === undefined) {
     var cmdArray = [
-      ["god", "<god>", "Displays infomation on a chosen God"],
-      ["ability", "<ability> <god>", "Displays infomation on a chosen Gods ability"],
-      ["stats", "<lvl> <god>", "Displays the stats on a chosen God at a chosen level"],
-      ["achievement", "[achievement] <god>", "Displays a random or chosen achievement for a chosen God"],
-      ["details", "", "Displays which Gods have been added and what smite patch the stats are for"]
+      ["player", "<player>", "Displays a players stats"],
+      ["god", "<god>", "Displays infomation on a chosen God"]
     ];
     const settings = client.settings.get(message.guild.id);
     const helpEmbed = new Discord.RichEmbed()
@@ -25,8 +21,8 @@ exports.run = async (client, message, [search, ...args]) => {
     }
     return message.channel.send({embed: helpEmbed});
   }
-  */
-  
+  let searchArray;
+  if (client.isInArray(searchArray, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
   let timestamp = moment().format('YYYYMMDDHHmmss');
@@ -110,14 +106,9 @@ exports.run = async (client, message, [search, ...args]) => {
     });
   };
   
-  let searchObj = {
-    "player": "getplayer",
-    "match": "getmatchdetails"
-  };
-  let searchArray = Object.keys(searchObj);
-  if (client.isInArray(searchArray, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   testSession();
-  requestData(searchObj[search], args[0]);
+  if (search === "player") requestData("getplayer", args[0]);
+  if (search === "god" || search === "gods") requestData()
   
   function requestData(method, parameters) {
     var signature = createSignature(method);
