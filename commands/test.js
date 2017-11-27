@@ -75,10 +75,9 @@ exports.run = async (client, message, [search, ...args]) => {
       } else {
         // console.log(data);
         dataObj = data;
-        return message.channel.send(inspect(data), {code: "json"});
       }
     });
-    // console.log(dataObj);
+    console.log(dataObj);
     return dataObj;
   }
   
