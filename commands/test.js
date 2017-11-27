@@ -58,6 +58,24 @@ exports.run = async (client, message, [search, ...args]) => {
     });
   };
   
+  function requestData(method, parameters) {
+    var signature = createSignature(method);
+    request.get({
+      url: domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}/${parameters}`,
+      json: true,
+      headers: {'User-Agent': 'request'}
+    }, (err, res, data) => {
+      if (err) {
+        return message.channel.send(':negative_squared_cross_mark: Error:' + err);
+      } else if (res.statusCode !== 200) {
+        return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
+      } else {
+        console.log(data);
+        return data
+      }
+    });
+  }
+  
   testSession();
   await client.wait(1000);
   
@@ -65,7 +83,7 @@ exports.run = async (client, message, [search, ...args]) => {
     const getDataUsed = async () => {
       var signature = createSignature("getdataused");
       request.get({
-        url: domain + `getdatausedJson/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}]`,
+        url: domain + `getdatausedJson/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}`,
         json: true,
         headers: {'User-Agent': 'request'}
       }, (err, res, data) => {
@@ -80,10 +98,7 @@ exports.run = async (client, message, [search, ...args]) => {
     };
     getDataUsed();
   } else if (search === "player") {
-    const getPlayer = async () => {
-      var player = args[0];
-      var signature = createSignature("getpl")
-    }
+    
   }
 }
 
