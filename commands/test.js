@@ -24,7 +24,14 @@ exports.run = async (client, message, args) => {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
         console.log(data);
-        
+        let message = data.split(' ');
+        message = message[0] + message[1] + message[2];
+        console.log(message);
+        if (message === "Invalidsessionid.") {
+          createSession();
+        } else {
+          console.log("2");
+        }
       }
     });
   }
@@ -43,6 +50,7 @@ exports.run = async (client, message, args) => {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
         client.session.set("sessionID", data.session_id);
+        testSession();
       }
     });
   }
