@@ -36,7 +36,7 @@ exports.run = async (client, message, [search, ...args]) => {
   }
   
   var rankedTierObj = {
-    "Unranked": "#000000",
+    "Unranked": "#ff0000",
     "Bronze V": "#a0460a",
     "Bronze IV": "#a0460a",
     "Bronze III": "#a0460a",
@@ -136,8 +136,7 @@ exports.run = async (client, message, [search, ...args]) => {
         if (search === "player") {
           var p = data[0];
           if (!p) return message.channel.send(`:negative_squared_cross_mark: Error: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
-          let name = p["Name"].split(/[|]/);
-          console.log(name);
+          let name = p["Name"].replace('[', '').split(']');
           let level = `**Level:** ${p.Level}`;
           let status = `**Status:** ${p.Personal_Status_Message}`;
           let clan = `**Clan:** ${p.Team_Name}`;
@@ -145,14 +144,15 @@ exports.run = async (client, message, [search, ...args]) => {
           let mastery = `**Mastery:** ${p.MasteryLevel} Gods, ${p.Total_Worshippers} total Worshippers`;
           let created = `**Account Created:** ${p.Created_Datetime}`;
           let login = `**Last Login:** ${p.Last_Login_Datetime}`;
+          let achievement = `**Achievements:** ${p.Total_Achievements}`;
           let winrate = parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100;
-          let rankColour = [p.RankedConquest.Tier, p.RankedDuel.Tier, p.RankedJoust.Tier];
+          let rankColour = [p.Tier_Conquest, p.Tier_Duel, p.Tier_Joust];
           rankColour = rankedTierObj[rankedTierArray[Math.max.apply(Math, rankColour)]];
           const playerEmbed = new Discord.RichEmbed()
             .setColor(rankColour)
-            .addField(p.Name, `${level}\n${status}\n${clan}\n${region}\n${mastery}\n${created}\n${login}`)
+            .addField(name[1], `${level}\n${status}\n[${name[0]}] ${clan}\n${region}\n${mastery}\n${created}\n${login}\n${achievement}`)
             .addField('Games', `**Winrate:** ${winrate}%\n**Wins:** ${p.Wins}\n**Losses:** ${p.Losses}\n**Matches Left:** ${p.Leaves}`)
-            .addField('Ranked', `**Conquest:** ${rankedTierArray[p.RankedConquest.Tier]}\n**Duel:** ${rankedTierArray[p.RankedDuel.Tier]}\n**Joust:** ${rankedTierArray[p.RankedJoust.Tier]}`);
+            .addField('Ranked', `**Conquest:** ${rankedTierArray[p.Tier_Conquest]}\n**Duel:** ${rankedTierArray[p.Tier_Duel]}\n**Joust:** ${rankedTierArray[p.Tier_Joust]}`);
           if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
           return message.channel.send({embed: playerEmbed});
         }
