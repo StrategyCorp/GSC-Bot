@@ -1,5 +1,5 @@
-const request = require("request");
 const Discord = require("discord.js");
+const request = require("request");
 
 exports.run = (client, message, [search, ...args]) => {
   const apiKey = process.env.GIPHY;

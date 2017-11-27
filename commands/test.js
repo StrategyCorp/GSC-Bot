@@ -3,10 +3,8 @@ const request = require('request');
 const md5 = require('md5');
 const moment = require('moment');
 
-exports.run = (client, message, args) => {
-  let session = client.session;
-  if (Object.keys(session).length === 0) client.session.set("sessionID", "0");
-  session = client.session.get("sessionID");
+exports.run = async (client, message, args) => {
+  let session = client.session.get("sessionID");
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
   let timestamp = moment().format('YYYYMMDDHHmmss');
@@ -24,6 +22,7 @@ exports.run = (client, message, args) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
+        console.log(data);
         if (Object.prototype.toString.call(data) === "[object String]") {
           console.log("1");
         } else {
@@ -44,11 +43,11 @@ exports.run = (client, message, args) => {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
         client.session.set("sessionID", data.session_id);
-        testSession();
       }
     });
   }
-  testSession();
+  // testSession();
+  createSession();
 }
 
 exports.cmdConfig = {
