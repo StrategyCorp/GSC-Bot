@@ -25,17 +25,17 @@ exports.run = async (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
-        console.log(data);
+        // console.log(data);
         let message = data.split(' ');
         message = message[0] + message[1] + message[2];
         if (message === "Invalidsessionid.") {
           createSession();
-          console.log("A new session is being created");
+          // console.log("A new session is being created");
         } else if (message === "Invalidsignature.Your") {
-          console.log("The signature was rejected");
+          // console.log("The signature was rejected");
           return message.channel.send(':negative_squared_cross_mark: Invaid signature? If this error pops up the bot is really broken. Lets hope i never have to read this again!');
         } else if (message === "Thiswasa") {
-          console.log("we good!");
+          // console.log("we good!");
         }
       }
     });
@@ -58,7 +58,7 @@ exports.run = async (client, message, [search, ...args]) => {
     });
   };
   
-  function requestData(method, parameters) {
+  async function requestData(method, parameters) {
     var signature = createSignature(method);
     request.get({
       url: domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}/${parameters}`,
@@ -98,7 +98,7 @@ exports.run = async (client, message, [search, ...args]) => {
     };
     getDataUsed();
   } else if (search === "player") {
-    var data = requestData("getplayer", args[0]);
+    var data = await requestData("getplayer", args[0]);
     console.log(data);
   }
 }
