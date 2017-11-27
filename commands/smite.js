@@ -143,11 +143,14 @@ exports.run = async (client, message, [search, ...args]) => {
           let created = `**Account Created:** ${p.Created_Datetime}`;
           let login = `**Last Login:** ${p.Last_Login_Datetime}`;
           let winrate = parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100;
-          let ranked = [p.Rank_Stat_Conquest, p.Rank_Stat_Duel, p.Rank_Stat_Joust];
+          let ranked = [p.RankedConquest.Tier, p.RankedDuel.Tier, p.RankedJoust.Tier];
+          console.log(ranked);
+          console.log(rankedTierObj[Math.max.apply(Math, ranked)]);
           const playerEmbed = new Discord.RichEmbed()
+            .setColor(rankedTierObj[Math.max.apply(Math, ranked)])
             .addField(p.Name, `${level}\n${status}\n${clan}\n${region}\n${mastery}\n${created}\n${login}`)
             .addField('Games', `**Winrate:** ${winrate}%\n**Wins:** ${p.Wins}\n**Losses:** ${p.Losses}\n**Matches Left:** ${p.Leaves}`)
-            .addField('Ranked', `**Conquest:** ${rankedTierArray[p.Rank_Stat_Conquest]}\n**Duel:** ${rankedTierArray[p.Rank_Stat_Duel]}\n**Joust:** ${rankedTierArray[p.Rank_Stat_Joust]}`);
+            .addField('Ranked', `**Conquest:** ${rankedTierArray[p.RankedConquest.Tier]}\n**Duel:** ${rankedTierArray[p.RankedDuel.Tier]}\n**Joust:** ${rankedTierArray[p.RankedJoust.Tier]}`);
           if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
           message.channel.send({embed: playerEmbed});
         }
