@@ -9,14 +9,12 @@ exports.run = async (client, message, args) => {
   const devID = process.env.SMITEDEVID;
   let timestamp = moment().format('YYYYMMDDHHmmss');
   const authKey = process.env.SMITEAUTHID;
-  let method;
-  let signature = `${devID}${method}${authKey}${timestamp}`;
-  console.log(signature);
-  signature = md5(signature);
   const testSession = async () => {
     var method = "testsession";
+    let signature = `${devID}${method}${authKey}${timestamp}`;
+    signature = md5(signature);
     request.get({
-      url: domain + `testsessionJson/${devID}/${signature}/${session}/${timestamp}`,
+      url: domain + `${method}Json/${devID}/${signature}/${session}/${timestamp}`,
       json: true,
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
@@ -26,18 +24,16 @@ exports.run = async (client, message, args) => {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
         console.log(data);
-        if (Object.prototype.toString.call(data) === "[object String]") {
-          console.log("1");
-        } else {
-          console.log("2");
-        }
+        
       }
     });
   }
   const createSession = async () => {
     var method = "createsession";
+    let signature = `${devID}${method}${authKey}${timestamp}`;
+    signature = md5(signature);
     request.get({
-      url: domain + `createsessionJson/${devID}/${signature}/${timestamp}`,
+      url: domain + `${method}Json/${devID}/${signature}/${timestamp}`,
       json: true,
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
