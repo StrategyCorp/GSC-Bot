@@ -8,8 +8,9 @@ exports.run = async (client, message, [search, ...args]) => {
   const devID = process.env.SMITEDEVID;
   let timestamp = moment().format('YYYYMMDDHHmmss');
   const authKey = process.env.SMITEAUTHID;
+  
   const testSession = async () => {
-    var signature = createSignature("getdataused");
+    var signature = createSignature("testsession");
     request.get({
       url: domain + `testsessionJson/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}`,
       json: true,
@@ -23,16 +24,19 @@ exports.run = async (client, message, [search, ...args]) => {
         console.log(data);
         let message = data.split(' ');
         message = message[0] + message[1] + message[2];
-        console.log(message);
-        if (message === "Invalidsessionid.") {
+        if (message === "Thiswasa") {
           createSession();
-          console.log("1");
-        } else {
-          console.log("2");
+          console.log("A new session is being created");
+        } else if (message === "Invalidsignature.Your") {
+          console.log("The signature was rejected");
+          return 
+        } else if (message === "Thiswasa") {
+          console.log()
         }
       }
     });
   };
+  
   const createSession = async () => {
     var signature = createSignature("createsession");
     request.get({
@@ -49,7 +53,8 @@ exports.run = async (client, message, [search, ...args]) => {
       }
     });
   };
-  // testSession();
+  
+  testSession();
   
   if (search === "getdataused") {
     const getDataUsed = async () => {
@@ -60,12 +65,12 @@ exports.run = async (client, message, [search, ...args]) => {
         headers: {'User-Agent': 'request'}
       }, (err, res, data) => {
         if (err) {
-        return message.channel.send(':negative_squared_cross_mark: Error:' + err);
-      } else if (res.statusCode !== 200) {
-        return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
-      } else {
-        console.log(data);
-      }
+          return message.channel.send(':negative_squared_cross_mark: Error:' + err);
+        } else if (res.statusCode !== 200) {
+          return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
+        } else {
+          console.log(data);
+        }
       });
     };
     getDataUsed();
