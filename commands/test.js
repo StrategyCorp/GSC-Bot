@@ -71,9 +71,10 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
         // console.log(data);
-        
       }
     });
+    console.log(data);
+    return data;
   }
   
   testSession();
