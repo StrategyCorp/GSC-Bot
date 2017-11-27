@@ -21,8 +21,8 @@ exports.run = async (client, message, [search, ...args]) => {
     }
     return message.channel.send({embed: helpEmbed});
   }
-  let searchArray;
-  if (client.isInArray(searchArray, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
+  let cmdList = ['player', 'god', 'gods'];
+  if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
   let timestamp = moment().format('YYYYMMDDHHmmss');
@@ -105,11 +105,9 @@ exports.run = async (client, message, [search, ...args]) => {
       }
     });
   };
-  
   testSession();
   if (search === "player") requestData("getplayer", args[0]);
-  if (search === "god" || search === "gods") requestData()
-  
+  if (search === "god" || search === "gods") requestData("getgods", "1");
   function requestData(method, parameters) {
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}`
@@ -146,6 +144,8 @@ exports.run = async (client, message, [search, ...args]) => {
             .addField('Ranked', `**Conquest:** ${rankedTierArray[p.Tier_Conquest]}\n**Duel:** ${rankedTierArray[p.Tier_Duel]}\n**Joust:** ${rankedTierArray[p.Tier_Joust]}`);
           if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
           return message.channel.send({embed: playerEmbed});
+        } else if (search === "god" || search === "gods") {
+          console.log(data);
         }
       }
     });
