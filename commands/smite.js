@@ -35,7 +35,7 @@ exports.run = async (client, message, [search, ...args]) => {
     return md5(`${devID}${method}${authKey}${timestamp}`);
   }
   
-  var rankedTier = ["Unranked", "Bronze V", "Bronze IV", "Bronze III", "Bronze II", "Bronze I", "Silver V"];
+  var rankedTier = ["Unranked", "Bronze V", "Bronze IV", "Bronze III", "Bronze II", "Bronze I", "Silver V", "Silver IV", "Silver III", "Silver II", "Silver I", "Gold V", "Gold IV", "Gold III", "Gold II", "Gold I", "Platinum V", "Platinum IV", "Platinum III", "Platinum II", "Platinum I", "Diamond V", "Diamond IV", "Diamond III", "Diamond II", "Diamond I", "Masters"];
   
   const testSession = async () => {
     var signature = createSignature("testsession");
@@ -117,7 +117,7 @@ exports.run = async (client, message, [search, ...args]) => {
           const playerEmbed = new Discord.RichEmbed()
             .addField(p.Name, `${level}\n${status}\n${clan}\n${region}\n${mastery}\n${created}\n${login}`)
             .addField('Games', `**Winrate:** ${winrate}%\n**Wins:** ${p.Wins}\n**Losses:** ${p.Losses}\n**Matches Left:** ${p.Leaves}`)
-            .addField('Ranked')
+            .addField('Ranked', `**Conquest:** ${rankedTier[p.Rank_Stat_Conquest]}\n**Duel:** ${rankedTier[p.Rank_Stat_Duel]}\n**Joust:** ${rankedTier[p.Rank_Stat_Joust]}`);
           if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
           message.channel.send({embed: playerEmbed});
         }
