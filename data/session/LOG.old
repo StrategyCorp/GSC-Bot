@@ -1,5 +1,5 @@
-2017/11/27-21:34:31.113377 7f7dbeffd700 Recovering log #67
-2017/11/27-21:34:31.113474 7f7dbeffd700 Level-0 table #70: started
-2017/11/27-21:34:31.118699 7f7dbeffd700 Level-0 table #70: 215 bytes OK
-2017/11/27-21:34:32.102326 7f7dbeffd700 Delete type=0 #67
-2017/11/27-21:34:32.102388 7f7dbeffd700 Delete type=3 #65
+2017/11/27-21:41:32.074920 7ff2f4aed700 Recovering log #71
+2017/11/27-21:41:32.075056 7ff2f4aed700 Level-0 table #73: started
+2017/11/27-21:41:32.081840 7ff2f4aed700 Level-0 table #73: 257 bytes OK
+2017/11/27-21:41:32.998894 7ff2f4aed700 Delete type=0 #71
+2017/11/27-21:41:32.998960 7ff2f4aed700 Delete type=3 #69

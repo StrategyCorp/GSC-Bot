@@ -35,6 +35,8 @@ exports.run = async (client, message, [search, ...args]) => {
     return md5(`${devID}${method}${authKey}${timestamp}`);
   }
   
+  var rankedTier = ["Unranked", "Bronze V", "Bronze IV", "Bronze III", "Bronze II", "Bronze I", "Silver V"];
+  
   const testSession = async () => {
     var signature = createSignature("testsession");
     request.get({
@@ -107,11 +109,15 @@ exports.run = async (client, message, [search, ...args]) => {
           let level = `**Level:** ${p.Level}`;
           let status = `**Status:** ${p.Personal_Status_Message}`;
           let clan = `**Clan:** ${p.Team_Name}`;
-          let region = `**Region:** {p.Region}`;
+          let region = `**Region:** ${p.Region}`;
           let mastery = `**Mastery:** ${p.MasteryLevel} Gods, ${p.Total_Worshippers} total Worshippers`;
+          let created = `**Account Created:** ${p.Created_Datetime}`;
+          let login = `**Last Login:** ${p.Last_Login_Datetime}`;
+          let winrate = parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100;
           const playerEmbed = new Discord.RichEmbed()
-            .addField(p.Name, `${level}\n${status}\n${clan}\n${region}\n${mastery}`)
-            .addField('Games', `**Winrate:** ${parseInt()}\n**Wins:** ${p.Wins}\n**Losses:** {p.Losses}`)
+            .addField(p.Name, `${level}\n${status}\n${clan}\n${region}\n${mastery}\n${created}\n${login}`)
+            .addField('Games', `**Winrate:** ${winrate}%\n**Wins:** ${p.Wins}\n**Losses:** ${p.Losses}\n**Matches Left:** ${p.Leaves}`)
+            .addField('Ranked')
           if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
           message.channel.send({embed: playerEmbed});
         }
