@@ -1,13 +1,17 @@
 const Discord = require('discord.js');
 const request = require('request');
-const md5 = require('md5');
 const moment = require('moment');
+const md5 = require('md5');
+const { inspect } = require("util");
 
 exports.run = async (client, message, [search, ...args]) => {
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
   let timestamp = moment().format('YYYYMMDDHHmmss');
   const authKey = process.env.SMITEAUTHID;
+  function createSignature(method) {
+    return md5(`${devID}${method}${authKey}${timestamp}`);
+  }
   
   const testSession = async () => {
     var signature = createSignature("testsession");
@@ -24,14 +28,14 @@ exports.run = async (client, message, [search, ...args]) => {
         console.log(data);
         let message = data.split(' ');
         message = message[0] + message[1] + message[2];
-        if (message === "Thiswasa") {
+        if (message === "Invalidsessionid.") {
           createSession();
           console.log("A new session is being created");
         } else if (message === "Invalidsignature.Your") {
           console.log("The signature was rejected");
-          return 
+          return message.channel.send(':negative_squared_cross_mark: Invaid signature? If this error pops up the bot is really broken. Lets hope i never have to read this again!');
         } else if (message === "Thiswasa") {
-          console.log()
+          console.log("we good!");
         }
       }
     });
@@ -55,6 +59,7 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   
   testSession();
+  await client.wait(1000);
   
   if (search === "getdataused") {
     const getDataUsed = async () => {
@@ -69,15 +74,16 @@ exports.run = async (client, message, [search, ...args]) => {
         } else if (res.statusCode !== 200) {
           return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
         } else {
-          console.log(data);
+          return message.channel.send(inspect(data), {code: "json"});
         }
       });
     };
     getDataUsed();
-  }
-  
-  function createSignature(method) {
-    return md5(`${devID}${method}${authKey}${timestamp}`);
+  } else if (search === "player") {
+    const getPlayer = async () => {
+      var player = args[0];
+      var signature = createSignature("getpl")
+    }
   }
 }
 
