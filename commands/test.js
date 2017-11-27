@@ -60,9 +60,6 @@ exports.run = async (client, message, [search, ...args]) => {
   
   function requestData(method, parameters) {
     var signature = createSignature(method);
-    var dataObj = {
-      no: "data"
-    };
     request.get({
       url: domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}/${parameters}`,
       json: true,
@@ -74,11 +71,9 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
         // console.log(data);
-        dataObj = data;
+        return data;
       }
     });
-    console.log(dataObj);
-    return dataObj;
   }
   
   testSession();
