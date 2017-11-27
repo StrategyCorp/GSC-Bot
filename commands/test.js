@@ -9,9 +9,12 @@ exports.run = async (client, message, args) => {
   const devID = process.env.SMITEDEVID;
   let timestamp = moment().format('YYYYMMDDHHmmss');
   const authKey = process.env.SMITEAUTHID;
-  let signature = `${devID}createsession${authKey}${timestamp}`;
+  let method;
+  let signature = `${devID}${method}${authKey}${timestamp}`;
+  console.log(signature);
   signature = md5(signature);
   const testSession = async () => {
+    var method = "testsession";
     request.get({
       url: domain + `testsessionJson/${devID}/${signature}/${session}/${timestamp}`,
       json: true,
@@ -32,6 +35,7 @@ exports.run = async (client, message, args) => {
     });
   }
   const createSession = async () => {
+    var method = "createsession";
     request.get({
       url: domain + `createsessionJson/${devID}/${signature}/${timestamp}`,
       json: true,
@@ -46,8 +50,7 @@ exports.run = async (client, message, args) => {
       }
     });
   }
-  // testSession();
-  createSession();
+  testSession();
 }
 
 exports.cmdConfig = {
