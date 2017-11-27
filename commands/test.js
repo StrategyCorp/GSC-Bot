@@ -97,6 +97,7 @@ exports.run = async (client, message, [search, ...args]) => {
     };
     getDataUsed();
   } else if (search === "player") {
+    await client.wait(1000);
     var data = requestData("getplayer", args[0]);
     console.log(data);
   }
