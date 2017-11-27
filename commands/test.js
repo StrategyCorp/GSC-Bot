@@ -4,17 +4,14 @@ const md5 = require('md5');
 const moment = require('moment');
 
 exports.run = async (client, message, [search, ...args]) => {
-  let session = client.session.get("sessionID");
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
   let timestamp = moment().format('YYYYMMDDHHmmss');
   const authKey = process.env.SMITEAUTHID;
   const testSession = async () => {
-    var method = "testsession";
-    let signature = `${devID}${method}${authKey}${timestamp}`;
-    signature = md5(signature);
+    var signature = createSignature("getdataused");
     request.get({
-      url: domain + `${method}Json/${devID}/${signature}/${session}/${timestamp}`,
+      url: domain + `testsessionJson/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}`,
       json: true,
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
@@ -37,11 +34,9 @@ exports.run = async (client, message, [search, ...args]) => {
     });
   };
   const createSession = async () => {
-    var method = "createsession";
-    let signature = `${devID}${method}${authKey}${timestamp}`;
-    signature = md5(signature);
+    var signature = createSignature("createsession");
     request.get({
-      url: domain + `${method}Json/${devID}/${signature}/${timestamp}`,
+      url: domain + `createsessionJson/${devID}/${signature}/${timestamp}`,
       json: true,
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
@@ -59,13 +54,25 @@ exports.run = async (client, message, [search, ...args]) => {
   if (search === "getdataused") {
     const getDataUsed = async () => {
       var signature = createSignature("getdataused");
-      console.log(signature);
+      request.get({
+        url: domain + `getdatausedJson/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}]`,
+        json: true,
+        headers: {'User-Agent': 'request'}
+      }, (err, res, data) => {
+        if (err) {
+        return message.channel.send(':negative_squared_cross_mark: Error:' + err);
+      } else if (res.statusCode !== 200) {
+        return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
+      } else {
+        console.log(data);
+      }
+      });
     };
+    getDataUsed();
   }
   
   function createSignature(method) {
-    let signature = `${devID}${method}${authKey}${timestamp}`;
-    signature = md5(signature);
+    return md5(`${devID}${method}${authKey}${timestamp}`);
   }
 }
 
