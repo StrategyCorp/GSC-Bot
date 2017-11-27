@@ -111,6 +111,10 @@ module.exports = (client) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
   
+  client.isInArray = (array, string) => {
+    return array.indexOf(string) > -1;
+  };
+  
   Array.prototype.random = function() {
     return this[Math.floor(Math.random() * this.length)]
   };
