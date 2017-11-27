@@ -103,9 +103,16 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
         if (search === "player") {
+          var p = data[0];
+          let level = `**Level:** ${p.Level}`;
+          let status = `**Status:** ${p.Personal_Status_Message}`;
+          let clan = `**Clan:** ${p.Team_Name}`;
+          let region = `**Region:** {p.Region}`;
+          let mastery = `**Mastery:** ${p.MasteryLevel} Gods, ${p.Total_Worshippers} total Worshippers`;
           const playerEmbed = new Discord.RichEmbed()
-            .addField()
-          if (data[0].Avatar_URL !== null) playerEmbed.setThumbnail(data[0].Avatar_URL);
+            .addField(p.Name, `${level}\n${status}\n${clan}\n${region}\n${mastery}`)
+            .addField('Games', `**Winrate:** ${parseInt()}\n**Wins:** ${p.Wins}\n**Losses:** {p.Losses}`)
+          if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
           message.channel.send({embed: playerEmbed});
         }
       }
