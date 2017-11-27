@@ -3,7 +3,7 @@ const request = require('request');
 const md5 = require('md5');
 const moment = require('moment');
 
-exports.run = async (client, message, args) => {
+exports.run = async (client, message, [search, ...args]) => {
   let session = client.session.get("sessionID");
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
@@ -29,12 +29,13 @@ exports.run = async (client, message, args) => {
         console.log(message);
         if (message === "Invalidsessionid.") {
           createSession();
+          console.log("1");
         } else {
           console.log("2");
         }
       }
     });
-  }
+  };
   const createSession = async () => {
     var method = "createsession";
     let signature = `${devID}${method}${authKey}${timestamp}`;
@@ -50,11 +51,22 @@ exports.run = async (client, message, args) => {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
         client.session.set("sessionID", data.session_id);
-        testSession();
       }
     });
+  };
+  // testSession();
+  
+  if (search === "getdataused") {
+    const getDataUsed = async () => {
+      var signature = createSignature("getdataused");
+      console.log(signature);
+    };
   }
-  testSession();
+  
+  function createSignature(method) {
+    let signature = `${devID}${method}${authKey}${timestamp}`;
+    signature = md5(signature);
+  }
 }
 
 exports.cmdConfig = {
