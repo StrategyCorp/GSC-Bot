@@ -239,7 +239,7 @@ exports.run = async (client, message, [search, ...args]) => {
           //   return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
           // };
           // var i = data.find(findItemByName);
-          var i = client.searchArrayOfObjects(data, "DeviceName", args.join(' '));
+          var i = client.searchArrayOfObjects(data, "DeviceName", args.join(' ').toLowerCase());
           if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not an item`);
           let stats = [];
           for (let stat of i.ItemDescription.Menuitems) {

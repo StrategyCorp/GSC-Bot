@@ -117,7 +117,7 @@ module.exports = (client) => {
   
   client.searchArrayOfObjects = (array, key, value) => {
     for (var i=0; i < array.length; i++) {
-      if (array[i][key] === value) {
+      if (array[i][key] === value.toLowerCase()) {
         return array[i];
       }
     }
