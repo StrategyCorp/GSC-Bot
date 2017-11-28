@@ -245,9 +245,17 @@ exports.run = async (client, message, [search, ...args]) => {
             stats.push(`${stat.Value} ${stat.Description}`);
           }
           let main = [
-            `Item `,
-            `${stats.join('\n')}`
+            `**Price:** ${i.Price}`,
+            `**Item Tier:** ${i.ItemTier}`,
+            `**Stats:**\n${stats.join('\n')}`
           ];
+          if (i.ItemDescription.SecondaryDescription !== "" || i.ItemDescription.SecondaryDescription !== null) {
+            main.unshift(`**Effect:** ${i.ItemDescription.SecondaryDescription}`);
+          } else if (i.ItemDescription.Description !== "" || i.ItemDescription.Description !== null) {
+            main.unshift(`**Effect:** ${i.ItemDescription.Description}`);
+          } else if (i.ShortDesc !== "" || i.ShortDesc !== null) {
+            main.unshift(`**Effect:** ${i.ShortDesc}`);
+          }
           const itemEmbed = new Discord.RichEmbed()
             .setThumbnail(i.itemIcon_URL)
             .addField(i.DeviceName, main.join('\n'));
@@ -270,6 +278,6 @@ exports.cmdConfig = {
   name: "smite",
   aliases: ['smit'],
   description: "Work in progress",
-  usage: "smite",
+  usage: "smite <command> [arguments]",
   type: "info"
 };
