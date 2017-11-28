@@ -115,6 +115,14 @@ module.exports = (client) => {
     return array.indexOf(string) > -1;
   };
   
+  client.searchArrayOfObjects = (array, key, value) => {
+    for (var i=0; i < array.length; i++) {
+        if (array[i][key] === value) {
+            return array[i];
+        }
+    }
+  };
+  
   Array.prototype.random = function() {
     return this[Math.floor(Math.random() * this.length)]
   };

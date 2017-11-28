@@ -239,7 +239,7 @@ exports.run = async (client, message, [search, ...args]) => {
             return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
           };
           let searchID;
-          const findItemByID = (searchID) => {
+          function findItemByID(searchID) {
             return searchID.ItemId === searchID;
           };
           var i = data.find(findItemByName);
@@ -259,9 +259,8 @@ exports.run = async (client, message, [search, ...args]) => {
             if (i.ItemTier === 1) {
               main.unshift(`**Price:** ${i.Price}`);
             } else if (i.ItemTier === 2) {
-              searchID = i.ChildItemId;
-              var child = data.find(findItemByID);
-              main.unshift(`**Price:** ${child.Price} + ${i.Price}`);
+              var child = client.searchArrayOfObjects(data, "ItemId", i)
+              main.unshift(`**Price:**  + ${i.Price}`);
             }
           }
           if (i.ItemDescription.SecondaryDescription !== "" || i.ItemDescription.SecondaryDescription !== null) {
