@@ -192,8 +192,13 @@ exports.run = async (client, message, [search, ...args]) => {
             [`**Physical Protection:** ${g.PhysicalProtection}`, g.PhysicalProtectionPerLevel]
           ];
           if (g.MagicalPower === 0) {
-            stats.unshift([`**Physical Power:** ${g.PhysicalPower}`], g.PhysicalPowerPerLevel);
+            stats.unshift([`**Physical Power:** ${g.PhysicalPower}`, g.PhysicalPowerPerLevel]);
+          } else {
+            stats.unshift([`**Magical Power:** ${g.MagicalPower}`, g.MagicalPowerPerLevel]);
           }
+          let basicDamage = g.basicAttack.itemDescription.menuitems[0].value;
+          basicDamage = basicDamage.split(' ');
+          console.log(basicDamage);
           let baseStats = [];
           let perLevel = [];
           for (let [base, level] of stats) {
