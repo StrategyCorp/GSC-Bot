@@ -183,13 +183,21 @@ exports.run = async (client, message, [search, ...args]) => {
             `**4:** ${g.Ability5}`
           ];
           let stats = [
-            
+            [`**Health:** ${g.Health}`, g.HealthPerLevel],
+            [`**HP5:** ${g.HealthPerFive}`, g.HP5PerLevel],
+            [`**Mana:** ${g.Mana}`, g.ManaPerLevel],
+            [`**MP5:** ${g.ManaPerFive}`, g.MP5PerLevel]
           ];
+          let baseStats = [];
+          let perLevel = [];
+          for (let [] of )
           const godEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .setThumbnail(g.godIcon_URL)
             .addField(`${g.Name} - ${g.Title}`, main.join('\n'))
-            .addField('Abilities', abilities.join('\n'));
+            .addField('Abilities', abilities.join('\n'))
+            .addField("Base Stats", true)
+            .addField("Per level", true);
           return message.channel.send({embed: godEmbed});
         }
       }
