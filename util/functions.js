@@ -117,9 +117,9 @@ module.exports = (client) => {
   
   client.searchArrayOfObjects = (array, key, value) => {
     for (var i=0; i < array.length; i++) {
-        if (array[i][key] === value) {
-            return array[i];
-        }
+      if (array[i][key] === value) {
+        return array[i];
+      }
     }
   };
   

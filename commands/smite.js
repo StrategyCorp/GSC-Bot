@@ -235,14 +235,11 @@ exports.run = async (client, message, [search, ...args]) => {
         } else if (search === "ability") {
           return message.channel.send('WIP');
         } else if (search === "items") {
-          const findItemByName = (searchItem) => {
-            return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
-          };
-          let searchID;
-          function findItemByID(searchID) {
-            return searchID.ItemId === searchID;
-          };
-          var i = data.find(findItemByName);
+          // const findItemByName = (searchItem) => {
+          //   return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
+          // };
+          // var i = data.find(findItemByName);
+          var i = client.searchArrayOfObjects(data, "DeviceName", args.join(' '));
           if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not an item`);
           let stats = [];
           for (let stat of i.ItemDescription.Menuitems) {
@@ -259,8 +256,8 @@ exports.run = async (client, message, [search, ...args]) => {
             if (i.ItemTier === 1) {
               main.unshift(`**Price:** ${i.Price}`);
             } else if (i.ItemTier === 2) {
-              var child = client.searchArrayOfObjects(data, "ItemId", i)
-              main.unshift(`**Price:**  + ${i.Price}`);
+              var child = client.searchArrayOfObjects(data, "ItemId", i.ChildItemId);
+              main.unshift(`**Price:** ${child.Price} + ${i.Price}`);
             }
           }
           if (i.ItemDescription.SecondaryDescription !== "" || i.ItemDescription.SecondaryDescription !== null) {
