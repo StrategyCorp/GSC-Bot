@@ -147,7 +147,7 @@ exports.run = async (client, message, [search, ...args]) => {
           if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
           return message.channel.send({embed: playerEmbed});
         } else if (search === "god" || search === "gods") {
-          
+          console.log(url);
         }
       }
     });
