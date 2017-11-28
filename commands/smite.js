@@ -6,22 +6,24 @@ const { inspect } = require("util");
 
 exports.run = async (client, message, [search, ...args]) => {
   if (search) search = search.toLowerCase();
-  if (search === "help" || search === undefined) {
-    var cmdArray = [
+  var cmdList = [];
+  var cmdArray = [
       ["player", "<player>", "Displays a players stats"],
       ["god", "<god>", "Displays infomation on a chosen God"],
-      ["ability", "<god> <ability number>", "Displays the God ability"]
+      ["ability", "<god> <ability number>", "Displays the God ability"],
+      ["friends", "<player>", "Lists all of there friends without private profiles"]
     ];
-    const settings = client.settings.get(message.guild.id);
-    const helpEmbed = new Discord.RichEmbed()
-      .setColor(settings.embedColour)
-      .setTitle('**Smite Help**');
-    for (let [cmdName, cmdUsage, cmdDesc] of cmdArray) {
-       helpEmbed.addField(cmdName, `${settings.prefix}smite ${cmdName} ${cmdUsage}\n${cmdDesc}`);
-    }
+  const settings = client.settings.get(message.guild.id);
+  const helpEmbed = new Discord.RichEmbed()
+    .setColor(settings.embedColour)
+    .setTitle('**Smite Help**');
+  for (let [cmdName, cmdUsage, cmdDesc] of cmdArray) {
+    cmdList.push(cmdName);
+    helpEmbed.addField(cmdName, `${settings.prefix}smite ${cmdName} ${cmdUsage}\n${cmdDesc}`);
+  }
+  if (search === "help" || search === undefined) {
     return message.channel.send({embed: helpEmbed});
   }
-  for (let [cmdName] of cmdArray)
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
@@ -225,7 +227,13 @@ exports.run = async (client, message, [search, ...args]) => {
         } else if (search === "ability") {
           return message.channel.send('WIP');
         } else if (search === "friends") {
-          console.log(data);
+          var f = data;
+          if (!f) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
+          let friendsArray = [];
+          for (let name of f) {
+            friendsArray.push(name)
+          }
+          return message.channel.send(friendsArray);
         }
       }
     });
