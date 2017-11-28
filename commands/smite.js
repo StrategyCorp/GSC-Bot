@@ -183,21 +183,30 @@ exports.run = async (client, message, [search, ...args]) => {
             `**4:** ${g.Ability5}`
           ];
           let stats = [
+            [`**Attack Speed:** ${g.AttackSpeed}`, g.AttackSpeedPerLevel],
             [`**Health:** ${g.Health}`, g.HealthPerLevel],
             [`**HP5:** ${g.HealthPerFive}`, g.HP5PerLevel],
             [`**Mana:** ${g.Mana}`, g.ManaPerLevel],
-            [`**MP5:** ${g.ManaPerFive}`, g.MP5PerLevel]
+            [`**MP5:** ${g.ManaPerFive}`, g.MP5PerLevel],
+            [`**Magical Protection:** ${g.MagicProtection}`, g.MagicProtectionPerLevel],
+            [`**Physical Protection:** ${g.PhysicalProtection}`, g.PhysicalProtectionPerLevel]
           ];
+          if (g.MagicalPower === 0) {
+            stats.unshift([`**Physical Power:** ${g.PhysicalPower}`], g.PhysicalPowerPerLevel);
+          }
           let baseStats = [];
           let perLevel = [];
-          for (let [] of )
+          for (let [base, level] of stats) {
+            baseStats.push(base);
+            perLevel.push(level);
+          }
           const godEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .setThumbnail(g.godIcon_URL)
             .addField(`${g.Name} - ${g.Title}`, main.join('\n'))
             .addField('Abilities', abilities.join('\n'))
-            .addField("Base Stats", true)
-            .addField("Per level", true);
+            .addField("Base Stats", baseStats.join('\n'), true)
+            .addField("Per level", perLevel.join('\n'), true);
           return message.channel.send({embed: godEmbed});
         }
       }
