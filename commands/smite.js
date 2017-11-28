@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const db = require('../data/smite.json');
 const request = require('request');
 const moment = require('moment');
 const md5 = require('md5');

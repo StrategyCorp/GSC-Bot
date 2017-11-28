@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 
 exports.run = (client, message, question) => {
-  let answerList = {
+  if (!question[0]) return message.channel.sendMessage(':negative_squared_cross_mark: You must ask a question');
+  let answerObj = {
     "It is certain": "#00FF00",
     "It is decidedly so": "#00FF00",
     "Without a doubt": "#00FF00",
@@ -23,13 +24,12 @@ exports.run = (client, message, question) => {
     "Outlook not so good": "#FF0000",
     "Very doubtful": "#FF0000"
   }
-  let answerArray = Object.keys(answerList);
+  let answerArray = Object.keys(answerObj);
   let answer = answerArray[Math.floor(Math.random() * answerArray.length)];
-  if (!question[0]) return message.channel.sendMessage(':negative_squared_cross_mark: You must ask a question');
-  const ball = new Discord.RichEmbed()
-    .setColor(answerList[answer])
+  const ballEmbed = new Discord.RichEmbed()
+    .setColor(answerObj[answer])
     .addField(`:question: ${question.join(' ')}`, `:8ball: ${answer}`);
-  message.channel.send({embed: ball});
+  message.channel.send({embed: ballEmbed});
 };
 
 exports.cmdConfig = {
