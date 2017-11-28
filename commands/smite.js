@@ -21,7 +21,7 @@ exports.run = async (client, message, [search, ...args]) => {
     }
     return message.channel.send({embed: helpEmbed});
   }
-  let cmdList = ['player', 'god', 'gods'];
+  let cmdList = ['player', 'god'];
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
@@ -107,7 +107,7 @@ exports.run = async (client, message, [search, ...args]) => {
   await client.wait(1000);
   if (search === "player") {
     requestData("getplayer", args[0]);
-  } else if (search === "god" || search === "gods") {
+  } else if (search === "god") {
     requestData("getgods", "1");
   }
   function requestData(method, parameters) {
@@ -146,8 +146,13 @@ exports.run = async (client, message, [search, ...args]) => {
             .addField('Ranked', `**Conquest:** ${rankedTierArray[p.Tier_Conquest]}\n**Duel:** ${rankedTierArray[p.Tier_Duel]}\n**Joust:** ${rankedTierArray[p.Tier_Joust]}`);
           if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
           return message.channel.send({embed: playerEmbed});
-        } else if (search === "god" || search === "gods") {
-          
+        } else if (search === "god") {
+          var god = args[0].toLowerCase();
+          console.log(god);
+          function findGod(searchGod) {
+            return searchGod.Name === god;
+          }
+          console.log(data.find(findGod));
         }
       }
     });
