@@ -133,7 +133,7 @@ exports.run = async (client, message, [search, ...args]) => {
       } else {
         if (search === "player") {
           var p = data[0];
-          if (!p) return message.channel.send(`:negative_squared_cross_mark: Error: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
+          if (!p) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
           let name = p["Name"].replace('[', '').split(']');
           let main = [
             `**Level:** ${p.Level}`,
@@ -165,11 +165,11 @@ exports.run = async (client, message, [search, ...args]) => {
             .addField('Ranked', ranked.join('\n'));      
           return message.channel.send({embed: playerEmbed});
         } else if (search === "god") {
-          function findGod(searchGod) {
+          const findGod = (searchGod) => {
             return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
           }
           var g = data.find(findGod);
-          if (!g) return message.channel.send(`:negative_squared_cross_mark: Error: \`${args[0].join(' ')}\` is not a God`);
+          if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args[0].join(' ')}\` is not a God`);
           let main = [
             `**Role:**${g.Roles}`,
             `**Pantheon:** ${g.Pantheon}`,
@@ -220,6 +220,15 @@ exports.run = async (client, message, [search, ...args]) => {
             .addField("Base Stats", baseStats.join('\n'), true)
             .addField("Per level", perLevel.join('\n'), true);
           return message.channel.send({embed: godEmbed});
+        } else if (search === "ability") {
+          var g = data.find(findGod);
+          if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args[0].join(' ')}\` is not a God`);
+          var ablNumber = args[args.length - 1];
+          if (/^\d+$/.test(ablNumber)) {
+            args.pop();
+          } else {
+            return message.channel.send(':negative_squared_cross_mark: Which ability would you like me to display?');
+          }
         }
       }
     });
