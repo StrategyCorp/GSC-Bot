@@ -164,17 +164,30 @@ exports.run = async (client, message, [search, ...args]) => {
           }
           var g = data.find(findGod);
           let main = [
-            `**Role:**${g.Roles};`,
+            `**Role:**${g.Roles}`,
             `**Pantheon:** ${g.Pantheon}`,
             `**Attack Type:**${g.Type}`,
-            `**Pros:**${g.Pros}`,
-            `**Cons:**${g.Cons}`
+            `**Pros:**${g.Pros}`
           ];
+          if (g.OnFreeRotation === "true") {
+            main.push(`**Free Rotation:** True`)
+          } else {
+            main.push(`**Free Rotation:** False`)
+          }
           if (g.latestGod === "y") main.push(`Currently the newest God`);
+          let abilities = [
+            `**P:** ${g.Ability1}`,
+            `**1:** ${g.Ability2}`,
+            `**2:** ${g.Ability3}`,
+            `**3:** ${g.Ability4}`,
+            `**4:** ${g.Ability5}`
+          ];
+          
           const godEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .setThumbnail(g.godIcon_URL)
-            .addField(`${g.Name} - ${g.Title}`, main.join('\n'));
+            .addField(`${g.Name} - ${g.Title}`, main.join('\n'))
+            .addField('Abilities', abilities.join('\n'));
           return message.channel.send({embed: godEmbed});
         }
       }
