@@ -6,7 +6,6 @@ const md5 = require('md5');
 const { inspect } = require("util");
 
 exports.run = async (client, message, [search, ...args]) => {
-  const settings = client.settings.get(message.guild.id);
   if (search) search = search.toLowerCase();
   if (search === "help" || search === undefined) {
     var cmdArray = [
@@ -61,6 +60,13 @@ exports.run = async (client, message, [search, ...args]) => {
     "Masters": "#ff00ff"
   };
   var rankedTierArray = Object.keys(rankedTierObj);
+  var roleObj = {
+    "assassin": "#ffff00",
+    "guardian": "#14ff00",
+    "hunter": "#ff6400",
+    "mage": "#ff00ff",
+    "warrior": "#ff0000"
+  };
   const testSession = async () => {
     var signature = createSignature("testsession");
     request.get({
@@ -160,10 +166,10 @@ exports.run = async (client, message, [search, ...args]) => {
           return message.channel.send({embed: playerEmbed});
         } else if (search === "god") {
           function findGod(searchGod) {
-            return searchGod["Name"].toLowerCase() === args[0].toLowerCase();
+            return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
           }
           var g = data.find(findGod);
-          if (!g) return message.channel.send()
+          if (!g) return message.channel.send(`:negative_squared_cross_mark: Error: \`${args[0].join(' ')}\` is not a God`);
           let main = [
             `**Role:**${g.Roles}`,
             `**Pantheon:** ${g.Pantheon}`,
@@ -207,7 +213,7 @@ exports.run = async (client, message, [search, ...args]) => {
             perLevel.push(level);
           }
           const godEmbed = new Discord.RichEmbed()
-            .setColor(settings.embedColour)
+            .setColor()
             .setThumbnail(g.godIcon_URL)
             .addField(`${g.Name} - ${g.Title}`, main.join('\n'))
             .addField('Abilities', abilities.join('\n'))
