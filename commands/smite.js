@@ -231,9 +231,12 @@ exports.run = async (client, message, [search, ...args]) => {
           if (!f) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
           let friendsArray = [];
           for (let name of f) {
-            friendsArray.push(name)
+            if (name.name !== "") friendsArray.push(name.name)
           }
-          return message.channel.send(friendsArray);
+          const friendsEmbed = new Discord.RichEmbed()
+            .setColor(settings.embedColour)
+            // .addField(`${args[0]} - [${f.length}]`, friendsArray.join(', '));
+          return message.channel.send(`== ${args[0]} ==`, {code: "ascii"});
         }
       }
     });
