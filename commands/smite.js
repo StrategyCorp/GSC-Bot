@@ -131,37 +131,51 @@ exports.run = async (client, message, [search, ...args]) => {
           let name = p["Name"].replace('[', '').split(']');
           let main = [
             `**Level:** ${p.Level}`,
-            `**Status:** ${p.Personal_Status_Message}`
+            `**Status:** ${p.Personal_Status_Message}`,
+            `**Clan:** [${name[0]}] ${p.Team_Name}`,
+            `**Region:** ${p.Region}`,
+            `**Mastery:** ${p.MasteryLevel} Gods, ${p.Total_Worshippers} total Worshippers`,
+            `**Account Created:** ${p.Created_Datetime}`,
+            `**Last Login:** ${p.Last_Login_Datetime}`,
+            `**Achievements:** ${p.Total_Achievements}`
           ];
-          let level = `**Level:** ${p.Level}`;
-          let status = `**Status:** ${p.Personal_Status_Message}`;
-          let clan = `**Clan:** [${name[0]}] ${p.Team_Name}`;
-          let region = `**Region:** ${p.Region}`;
-          let mastery = `**Mastery:** ${p.MasteryLevel} Gods, ${p.Total_Worshippers} total Worshippers`;
-          let created = `**Account Created:** ${p.Created_Datetime}`;
-          let login = `**Last Login:** ${p.Last_Login_Datetime}`;
-          let achievement = `**Achievements:** ${p.Total_Achievements}`;
-          let winrate = parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100;
+          let winrate = [
+            `**Winrate:** ${parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100}%\n**Wins:** ${p.Wins}`,
+            `**Losses:** ${p.Losses}`,
+            `**Matches Left:** ${p.Leaves}`
+          ];
+          let ranked = [
+            `**Conquest:** ${rankedTierArray[p.Tier_Conquest]}`,
+            `**Duel:** ${rankedTierArray[p.Tier_Duel]}`,
+            `**Joust:** ${rankedTierArray[p.Tier_Joust]}`
+          ];
           let rankColour = [p.Tier_Conquest, p.Tier_Duel, p.Tier_Joust];
           rankColour = rankedTierObj[rankedTierArray[Math.max.apply(Math, rankColour)]];
           const playerEmbed = new Discord.RichEmbed()
             .setColor(rankColour)
-            .addField(name[1], `${level}\n${status}\n${clan}\n${region}\n${mastery}\n${created}\n${login}\n${achievement}`)
-            .addField('Games', `**Winrate:** ${winrate}%\n**Wins:** ${p.Wins}\n**Losses:** ${p.Losses}\n**Matches Left:** ${p.Leaves}`)
-            .addField('Ranked', `**Conquest:** ${rankedTierArray[p.Tier_Conquest]}\n**Duel:** ${rankedTierArray[p.Tier_Duel]}\n**Joust:** ${rankedTierArray[p.Tier_Joust]}`);
-          if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
+            .setThumbnail(p.Avatar_URL)
+            .addField(name[1], main.join('\n'))
+            .addField('Games', winrate.join('\n'))
+            .addField('Ranked', ranked.join('\n'));      
           return message.channel.send({embed: playerEmbed});
         } else if (search === "god") {
           function findGod(searchGod) {
             return searchGod["Name"].toLowerCase() === args[0].toLowerCase();
           }
           var g = data.find(findGod);
-          let role = `**Role:** ${g.Role};`
-          let pantheon = `**Pantheon:** ${g.Pantheon}`;
+          let main = [
+            `**Role:**${g.Roles};`,
+            `**Pantheon:** ${g.Pantheon}`,
+            `**Attack Type:**${g.Type}`,
+            `**Pros:**${g.Pros}`,
+            `**Cons:**${g.Cons}`
+          ];
+          if (g.latestGod === "y") main.push(`Currently the newest God`);
           const godEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .setThumbnail(g.godIcon_URL)
-            .addField(`${g.Name} - ${g.Title}`, `${role}\n${pantheon}`);
+            .addField(`${g.Name} - ${g.Title}`, main.join('\n'));
+          return message.channel.send({embed: godEmbed});
         }
       }
     });
