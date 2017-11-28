@@ -8,11 +8,11 @@ exports.run = async (client, message, [search, ...args]) => {
   if (search) search = search.toLowerCase();
   var cmdList = [];
   var cmdArray = [
-      ["player", "<player>", "Displays a players stats"],
-      ["god", "<god>", "Displays infomation on a chosen God"],
-      ["ability", "<god> <ability number>", "Displays the God ability"],
-      ["friends", "<player>", "Lists all of there friends without private profiles"]
-    ];
+    ["player", "<player>", "Displays a players stats"],
+    ["god", "<god>", "Displays infomation on a chosen God"],
+    ["ability", "<god> <ability number>", "Displays the God ability"],
+    ["friends", "<player>", "Lists all of there friends without private profiles"]
+  ];
   const settings = client.settings.get(message.guild.id);
   const helpEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
