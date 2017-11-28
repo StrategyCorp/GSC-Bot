@@ -235,10 +235,10 @@ exports.run = async (client, message, [search, ...args]) => {
         } else if (search === "ability") {
           return message.channel.send('WIP');
         } else if (search === "items") {
-          const findItem = (searchItem) => {
+          const findItemByName = (searchItem) => {
             return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
           }
-          var i = data.find(findItem);
+          var i = data.find(findItemByName);
           if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not an item`);
           let stats = [];
           for (let stat of i.ItemDescription.Menuitems) {
@@ -246,9 +246,13 @@ exports.run = async (client, message, [search, ...args]) => {
           }
           let main = [
             `**Price:** ${i.Price}`,
-            `**Item Tier:** ${i.ItemTier}`,
             `**Stats:**\n${stats.join('\n')}`
           ];
+          if (i.StartingItem) {
+            main.unshift(`**Item Tier:** Starter`);
+          } else {
+            main.unshift(`**Item Tier:** ${i.ItemTier}`);
+          }
           if (i.ItemDescription.SecondaryDescription !== "" || i.ItemDescription.SecondaryDescription !== null) {
             main.unshift(`**Effect:** ${i.ItemDescription.SecondaryDescription}`);
           } else if (i.ItemDescription.Description !== "" || i.ItemDescription.Description !== null) {
