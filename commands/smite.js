@@ -21,7 +21,7 @@ exports.run = async (client, message, [search, ...args]) => {
     }
     return message.channel.send({embed: helpEmbed});
   }
-  let cmdList = ['player', 'god'];
+  for (let [cmdName] of cmdArray)
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
@@ -116,6 +116,8 @@ exports.run = async (client, message, [search, ...args]) => {
     requestData("getplayer", args[0]);
   } else if (search === "god" || search === "ability") {
     requestData("getgods", "1");
+  } else if (search === "friends") {
+    requestData("getfriends", args[0]);
   }
   function requestData(method, parameters) {
     var signature = createSignature(method);
@@ -221,14 +223,9 @@ exports.run = async (client, message, [search, ...args]) => {
             .addField("Per level", perLevel.join('\n'), true);
           return message.channel.send({embed: godEmbed});
         } else if (search === "ability") {
-          var g = data.find(findGod);
-          if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args[0].join(' ')}\` is not a God`);
-          var ablNumber = args[args.length - 1];
-          if (/^\d+$/.test(ablNumber)) {
-            args.pop();
-          } else {
-            return message.channel.send(':negative_squared_cross_mark: Which ability would you like me to display?');
-          }
+          return message.channel.send('WIP');
+        } else if (search === "friends") {
+          console.log(data);
         }
       }
     });
