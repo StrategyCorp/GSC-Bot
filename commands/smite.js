@@ -6,6 +6,7 @@ const md5 = require('md5');
 const { inspect } = require("util");
 
 exports.run = async (client, message, [search, ...args]) => {
+  const settings = client.settings.get(message.guild.id);
   if (search) search = search.toLowerCase();
   if (search === "help" || search === undefined) {
     var cmdArray = [
@@ -128,6 +129,10 @@ exports.run = async (client, message, [search, ...args]) => {
           var p = data[0];
           if (!p) return message.channel.send(`:negative_squared_cross_mark: Error: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
           let name = p["Name"].replace('[', '').split(']');
+          let main = [
+            `**Level:** ${p.Level}`,
+            `**Status:** ${p.Personal_Status_Message}`
+          ];
           let level = `**Level:** ${p.Level}`;
           let status = `**Status:** ${p.Personal_Status_Message}`;
           let clan = `**Clan:** [${name[0]}] ${p.Team_Name}`;
@@ -147,12 +152,16 @@ exports.run = async (client, message, [search, ...args]) => {
           if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
           return message.channel.send({embed: playerEmbed});
         } else if (search === "god") {
-          var god = args[0].toLowerCase();
-          console.log(god);
           function findGod(searchGod) {
-            return searchGod.Name === god;
+            return searchGod["Name"].toLowerCase() === args[0].toLowerCase();
           }
-          console.log(data.find(findGod));
+          var g = data.find(findGod);
+          let role = `**Role:** ${g.Role};`
+          let pantheon = `**Pantheon:** ${g.Pantheon}`;
+          const godEmbed = new Discord.RichEmbed()
+            .setColor(settings.embedColour)
+            .setThumbnail(g.godIcon_URL)
+            .addField(`${g.Name} - ${g.Title}`, `${role}\n${pantheon}`);
         }
       }
     });
