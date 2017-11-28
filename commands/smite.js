@@ -182,7 +182,9 @@ exports.run = async (client, message, [search, ...args]) => {
             `**3:** ${g.Ability4}`,
             `**4:** ${g.Ability5}`
           ];
-          
+          let stats = [
+            
+          ];
           const godEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .setThumbnail(g.godIcon_URL)
