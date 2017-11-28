@@ -30,7 +30,6 @@ exports.run = async (client, message, [search, ...args]) => {
   function createSignature(method) {
     return md5(`${devID}${method}${authKey}${timestamp}`);
   }
-  
   var rankedTierObj = {
     "Unranked": "#ff0000",
     "Bronze V": "#a0460a",
@@ -61,7 +60,6 @@ exports.run = async (client, message, [search, ...args]) => {
     "Masters": "#ff00ff"
   };
   var rankedTierArray = Object.keys(rankedTierObj);
-  
   const testSession = async () => {
     var signature = createSignature("testsession");
     request.get({
@@ -74,22 +72,21 @@ exports.run = async (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
-        console.log(data);
+        // console.log(data);
         let message = data.split(' ');
         message = message[0] + message[1] + message[2];
         if (message === "Invalidsessionid.") {
           createSession();
-          console.log("A new session is being created");
+          // console.log("A new session is being created");
         } else if (message === "Invalidsignature.Your") {
-          console.log("The signature was rejected");
+          // console.log("The signature was rejected");
           return message.channel.send(':negative_squared_cross_mark: Invaid signature? If this error pops up the bot is really broken. Lets hope i never have to read this again!');
         } else if (message === "Thiswasa") {
-          console.log("we good!");
+          // console.log("we good!");
         }
       }
     });
   };
-  
   const createSession = async () => {
     var signature = createSignature("createsession");
     request.get({
@@ -150,7 +147,7 @@ exports.run = async (client, message, [search, ...args]) => {
           if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
           return message.channel.send({embed: playerEmbed});
         } else if (search === "god" || search === "gods") {
-          return message.channel.send(inspect(data) )
+          
         }
       }
     });
