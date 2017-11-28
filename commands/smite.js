@@ -233,10 +233,7 @@ exports.run = async (client, message, [search, ...args]) => {
           for (let name of f) {
             if (name.name !== "") friendsArray.push(name.name)
           }
-          const friendsEmbed = new Discord.RichEmbed()
-            .setColor(settings.embedColour)
-            // .addField(`${args[0]} - [${f.length}]`, friendsArray.join(', '));
-          return message.channel.send(`== ${args[0]} ==`, {code: "ascii"});
+          return message.channel.send(`== ${args[0]} ==\n[Total Friends - ${f.length}]\n\n${friendsArray.join(', ')}`, {code: "asciidoc"});
         }
       }
     });
