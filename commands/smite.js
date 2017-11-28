@@ -245,11 +245,11 @@ exports.run = async (client, message, [search, ...args]) => {
             stats.push(`${stat.Value} ${stat.Description}`);
           }
           let main = [
-            `**Price:** ${i.Price}`,
             `**Stats:**\n${stats.join('\n')}`
           ];
           if (i.StartingItem) {
             main.unshift(`**Item Tier:** Starter`);
+            main.unshift(`**Price:** ${i.Price}``)
           } else {
             main.unshift(`**Item Tier:** ${i.ItemTier}`);
           }
