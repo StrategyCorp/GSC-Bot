@@ -10,7 +10,8 @@ exports.run = async (client, message, [search, ...args]) => {
   if (search === "help" || search === undefined) {
     var cmdArray = [
       ["player", "<player>", "Displays a players stats"],
-      ["god", "<god>", "Displays infomation on a chosen God"]
+      ["god", "<god>", "Displays infomation on a chosen God"],
+      ["ability", "<god> <ability number>", "Displays the God ability"]
     ];
     const settings = client.settings.get(message.guild.id);
     const helpEmbed = new Discord.RichEmbed()
@@ -114,7 +115,7 @@ exports.run = async (client, message, [search, ...args]) => {
   await client.wait(1000);
   if (search === "player") {
     requestData("getplayer", args[0]);
-  } else if (search === "god") {
+  } else if (search === "god" || search === "ability") {
     requestData("getgods", "1");
   }
   function requestData(method, parameters) {
@@ -213,7 +214,7 @@ exports.run = async (client, message, [search, ...args]) => {
             perLevel.push(level);
           }
           const godEmbed = new Discord.RichEmbed()
-            .setColor()
+            .setColor(roleObj[g["Roles"].replace(' ', '').toLowerCase()])
             .setThumbnail(g.godIcon_URL)
             .addField(`${g.Name} - ${g.Title}`, main.join('\n'))
             .addField('Abilities', abilities.join('\n'))
@@ -228,7 +229,7 @@ exports.run = async (client, message, [search, ...args]) => {
 
 exports.cmdConfig = {
   name: "smite",
-  aliases: [],
+  aliases: ['smit'],
   description: "Work in progress",
   usage: "smite",
   type: "info"
