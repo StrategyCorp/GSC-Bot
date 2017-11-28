@@ -11,6 +11,7 @@ exports.run = async (client, message, [search, ...args]) => {
     ["player", "<player>", "Displays a players stats"],
     ["god", "<god>", "Displays infomation on a chosen God"],
     ["ability", "<god> <ability number>", "Displays the God ability"],
+    ["items", "<item>", "not sure yet"],
     ["friends", "<player>", "Lists all of there friends without private profiles"]
   ];
   const settings = client.settings.get(message.guild.id);
@@ -118,6 +119,8 @@ exports.run = async (client, message, [search, ...args]) => {
     requestData("getplayer", args[0]);
   } else if (search === "god" || search === "ability") {
     requestData("getgods", "1");
+  } else if (search === "items") {
+    requestData("getitems", "1");
   } else if (search === "friends") {
     requestData("getfriends", args[0]);
   }
@@ -125,6 +128,7 @@ exports.run = async (client, message, [search, ...args]) => {
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}`
     if (parameters) url += `/${parameters}`;
+    console.log(url);
     request.get({
       url: url,
       json: true,
@@ -173,7 +177,7 @@ exports.run = async (client, message, [search, ...args]) => {
             return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
           }
           var g = data.find(findGod);
-          if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args[0].join(' ')}\` is not a God`);
+          if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not a God`);
           let main = [
             `**Role:**${g.Roles}`,
             `**Pantheon:** ${g.Pantheon}`,
@@ -226,6 +230,16 @@ exports.run = async (client, message, [search, ...args]) => {
           return message.channel.send({embed: godEmbed});
         } else if (search === "ability") {
           return message.channel.send('WIP');
+        } else if (search === "items") {
+          const findItem = (searchItem) => {
+            return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
+          }
+          var i = data.find(findItem);
+          if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not an item`);
+          let stats = [];
+          const itemEmbed = new Discord.RichEmbed()
+            .setThumbnail(i.itemIcon_URL)
+          return message.channel.send({embed: itemEmbed});
         } else if (search === "friends") {
           var f = data;
           if (!f) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
