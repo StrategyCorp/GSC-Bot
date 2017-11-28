@@ -163,6 +163,7 @@ exports.run = async (client, message, [search, ...args]) => {
             return searchGod["Name"].toLowerCase() === args[0].toLowerCase();
           }
           var g = data.find(findGod);
+          if (!g) return message.channel.send()
           let main = [
             `**Role:**${g.Roles}`,
             `**Pantheon:** ${g.Pantheon}`,
@@ -197,8 +198,8 @@ exports.run = async (client, message, [search, ...args]) => {
             stats.unshift([`**Magical Power:** ${g.MagicalPower}`, g.MagicalPowerPerLevel]);
           }
           let basicDamage = g.basicAttack.itemDescription.menuitems[0].value;
-          basicDamage = basicDamage.split(' ');
-          console.log(basicDamage);
+          basicDamage = basicDamage.replace('/', ' ').split(' ');
+          stats.push([`**Basic Damage:** ${basicDamage[0]} ${basicDamage[4].replace('(', '')}`, basicDamage[2]]);
           let baseStats = [];
           let perLevel = [];
           for (let [base, level] of stats) {
