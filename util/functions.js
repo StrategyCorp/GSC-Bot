@@ -1,5 +1,5 @@
 const moment = require('moment');
-const smite = require('../data/smite.json');
+const vgs = require('../data/vgs.json');
 
 module.exports = (client) => {
   client.log = (message) => {
@@ -8,8 +8,8 @@ module.exports = (client) => {
 
   client.vgs = (client, message) => {
     if (message.channel.type !== 'text') return;
-    if (smite.vgs[message.content.toLowerCase()]) {
-      message.channel.send(smite.vgs[message.content.toLowerCase()]);
+    if (vgs[message.content.toLowerCase()]) {
+      message.channel.send(vgs[message.content.toLowerCase()]);
     }
   };
   
