@@ -116,19 +116,23 @@ exports.run = async (client, message, [search, ...args]) => {
   testSession();
   await client.wait(1000);
   if (search === "player") {
+    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Status: Who would you like me to look up?');
     requestData("getplayer", args[0]);
   } else if (search === "god" || search === "ability") {
+    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Status: Which God would you like me to look up?');
     requestData("getgods", "1");
   } else if (search === "items") {
+    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Status: Which item would you like me to look up?');
     requestData("getitems", "1");
   } else if (search === "friends") {
+    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Status: Who would you like me to look up?');
     requestData("getfriends", args[0]);
   }
   function requestData(method, parameters) {
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}`
     if (parameters) url += `/${parameters}`;
-    console.log(url);
+    // console.log(url);
     request.get({
       url: url,
       json: true,
@@ -237,8 +241,16 @@ exports.run = async (client, message, [search, ...args]) => {
           var i = data.find(findItem);
           if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not an item`);
           let stats = [];
+          for (let stat of i.ItemDescription.Menuitems) {
+            stats.push(`${stat.Value} ${stat.Description}`);
+          }
+          let main = [
+            `Item `,
+            `${stats.join('\n')}`
+          ];
           const itemEmbed = new Discord.RichEmbed()
             .setThumbnail(i.itemIcon_URL)
+            .addField(i.DeviceName, main.join('\n'));
           return message.channel.send({embed: itemEmbed});
         } else if (search === "friends") {
           var f = data;
