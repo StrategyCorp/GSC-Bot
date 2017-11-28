@@ -74,16 +74,17 @@ exports.run = async (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
+        console.log(data);
         let message = data.split(' ');
         message = message[0] + message[1] + message[2];
         if (message === "Invalidsessionid.") {
           createSession();
-          // console.log("A new session is being created");
+          console.log("A new session is being created");
         } else if (message === "Invalidsignature.Your") {
-          // console.log("The signature was rejected");
+          console.log("The signature was rejected");
           return message.channel.send(':negative_squared_cross_mark: Invaid signature? If this error pops up the bot is really broken. Lets hope i never have to read this again!');
         } else if (message === "Thiswasa") {
-          // console.log("we good!");
+          console.log("we good!");
         }
       }
     });
@@ -106,8 +107,12 @@ exports.run = async (client, message, [search, ...args]) => {
     });
   };
   testSession();
-  if (search === "player") requestData("getplayer", args[0]);
-  if (search === "god" || search === "gods") requestData("getgods", "1");
+  await client.wait(1000);
+  if (search === "player") {
+    requestData("getplayer", args[0]);
+  } else if (search === "god" || search === "gods") {
+    requestData("getgods", "1");
+  }
   function requestData(method, parameters) {
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}`
@@ -128,7 +133,7 @@ exports.run = async (client, message, [search, ...args]) => {
           let name = p["Name"].replace('[', '').split(']');
           let level = `**Level:** ${p.Level}`;
           let status = `**Status:** ${p.Personal_Status_Message}`;
-          let clan = `**Clan:** ${p.Team_Name}`;
+          let clan = `**Clan:** [${name[0]}] ${p.Team_Name}`;
           let region = `**Region:** ${p.Region}`;
           let mastery = `**Mastery:** ${p.MasteryLevel} Gods, ${p.Total_Worshippers} total Worshippers`;
           let created = `**Account Created:** ${p.Created_Datetime}`;
@@ -139,13 +144,13 @@ exports.run = async (client, message, [search, ...args]) => {
           rankColour = rankedTierObj[rankedTierArray[Math.max.apply(Math, rankColour)]];
           const playerEmbed = new Discord.RichEmbed()
             .setColor(rankColour)
-            .addField(name[1], `${level}\n${status}\n[${name[0]}] ${clan}\n${region}\n${mastery}\n${created}\n${login}\n${achievement}`)
+            .addField(name[1], `${level}\n${status}\n${clan}\n${region}\n${mastery}\n${created}\n${login}\n${achievement}`)
             .addField('Games', `**Winrate:** ${winrate}%\n**Wins:** ${p.Wins}\n**Losses:** ${p.Losses}\n**Matches Left:** ${p.Leaves}`)
             .addField('Ranked', `**Conquest:** ${rankedTierArray[p.Tier_Conquest]}\n**Duel:** ${rankedTierArray[p.Tier_Duel]}\n**Joust:** ${rankedTierArray[p.Tier_Joust]}`);
           if (p.Avatar_URL !== null) playerEmbed.setThumbnail(p.Avatar_URL);
           return message.channel.send({embed: playerEmbed});
         } else if (search === "god" || search === "gods") {
-          console.log(data);
+          return message.channel.send(inspect(data) )
         }
       }
     });
