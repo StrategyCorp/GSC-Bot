@@ -20,9 +20,9 @@ exports.run = async (client, message, [search, ...args]) => {
   if (search) search = search.toLowerCase();
   // make an empty array that we can add all the command names to later
   var cmdList = [];
-  // here we have all the commands, there usage and a description
+  // here we have all the commands, there usage, a description and the error if they don't send an argument
   var cmdArray = [
-    ["player", "<player>", "Displays a players stats"],
+    ["player", "<player>", "Displays a players stats", "Who would you like me to look up?"],
     ["god", "<god>", "Displays infomation on a chosen God"],
     ["ability", "<god> <ability number>", "Displays the God ability"],
     ["item", "<item | term>", "not sure yet"],
@@ -37,10 +37,10 @@ exports.run = async (client, message, [search, ...args]) => {
     // make the title 'smite help' so they know what the commands are for
     .setTitle('**Smite Help**');
   // we loop through all the commands. i could have used forEach maybe? i don't really know how to use that so i went for a for loop
-  for (let [cmdName, cmdUsage, cmdDesc] of cmdArray) {
+  for (let [cmdName, cmdUsage, cmdDesc, cmdError] of cmdArray) {
     // add the command name to the empty array we made earlier
     cmdList.push(cmdName);
-    // make a new field for each of the commands showing the name, usage and description
+    // make a new field for each of the commands showing the name, usage and description. we don't sent the error h
     helpEmbed.addField(cmdName, `${settings.prefix}smite ${cmdName} ${cmdUsage}\n${cmdDesc}`);
   }
   // if they requested for the help command or if they didn't request for anything then it shows the list of commands
@@ -56,6 +56,10 @@ exports.run = async (client, message, [search, ...args]) => {
   // i make the aliases into an array so that it can be searched easier (i am too lazy to make a function to search object keys so i just used the one to search arrays)
   var aliaseArray = Object.keys(aliaseObj);
   // if the aliases is picked up then it changes what the user had requested to the correct usage
+  
+  if (!args[0]) {
+    
+  }
   if (client.isInArray(aliaseArray, search) === true) search = aliaseObj[search];
   // we check if the command is valid BEFORE we start using the smite api
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
@@ -164,7 +168,7 @@ exports.run = async (client, message, [search, ...args]) => {
   var itemArray = Object.keys(itemObj);
   
   /*
-      API GET Requests
+      API GET Requests section
   */
   
   // this is to test if a session is currently active. i forgot why it is asynchronous but i am sure i had a reson
@@ -229,7 +233,8 @@ exports.run = async (client, message, [search, ...args]) => {
     request.get({
       // this one is a bit simplier than the testsession one because i don't need to get the last session from the presistant collection
       url: domain + `createsessionJson/${devID}/${signature}/${timestamp}`,
-      // once again i want it in JSON but they send it in a string :(
+      // they actually send it in JSON unlike in testsession where they send it as a string even though in the url i request for JSON and in the json i request true
+      // still mad about that
       json: true,
       // does things beyond me
       headers: {'User-Agent': 'request'}
@@ -241,24 +246,33 @@ exports.run = async (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
-        // if there were no problems then it gets the ses
+        // if there were no problems then it gets the session id that they sent IN JSON (YAY!) and saves it to the persistant collection
         client.session.set("sessionID", data.session_id);
       }
     });
   };
+  
+  /*
+      not sure what to name this section section
+  */
+  
+  // calls the testsession function which may or may not call the createsession function
   testSession();
+  // just wait 1 second for the responses and stuff
+  // .wait is a function from utl/function.js and NOT a vanilla js function
   await client.wait(1000);
+  // just going to sort through the commands so we make the correct request
   if (search === "player") {
-    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Status: Who would you like me to look up?');
+    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: ');
     requestData("getplayer", args[0]);
   } else if (search === "god" || search === "ability") {
-    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Status: Which God would you like me to look up?');
+    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Which God would you like me to look up?');
     requestData("getgods", "1");
   } else if (search === "item") {
-    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Status: Which item would you like me to look up?');
+    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Which item would you like me to look up?');
     requestData("getitems", "1");
   } else if (search === "friends") {
-    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Status: Who would you like me to look up?');
+    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Who would you like me to look up?');
     requestData("getfriends", args[0]);
   }
   function requestData(method, parameters) {
