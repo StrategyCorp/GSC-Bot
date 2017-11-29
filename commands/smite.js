@@ -398,18 +398,26 @@ exports.run = async (client, message, [search, ...args]) => {
           if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not a God`);
           // so this is the main field
           let main = [
-            // for some unknow reason HiRez are being trolls again. some of the strings start with a space
+            // for some unknow reason HiRez are being trolls again. some (not all) of the strings start with a space
             // WHY
             // LIKE ACTUALL WHY DO YOU DO THIS
+            // i could have modified the string but i chose to just remove the space but i chose to just remove the space between the * and the $
+            // first what role the God has
             `**Role:**${g.Roles}`,
+            // then what pantheon they are
             `**Pantheon:** ${g.Pantheon}`,
+            // attack type is ranged or melee AND magical or physical
             `**Attack Type:**${g.Type}`,
+            // just shows what the God is good at
             `**Pros:**${g.Pros}`
+            // there is a section for cons but for all the Gods that i looked at, they were all plank
+            // not sure what they were for
           ];
+          // now we are checking
           if (g.OnFreeRotation === "true") {
-            main.push(`**Free Rotation:** True`)
+            main.push(`**Free Rotation:** Yes`)
           } else {
-            main.push(`**Free Rotation:** False`)
+            main.push(`**Free Rotation:** No`)
           }
           if (g.latestGod === "y") main.push(`Currently the newest God`);
           let abilities = [
