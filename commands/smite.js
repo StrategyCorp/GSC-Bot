@@ -414,8 +414,6 @@ exports.run = async (client, message, [search, ...args]) => {
             `**Pros:**${g.Pros}`,   
             `**Free Rotation:** ${g.OnFreeRotation}`
           ];
-          let rotation = g.OnFreeRotation;
-          main.push(`${rotation}`.toUpperCase());
           if (g.latestGod === "y") main.push(`Currently the newest God`);
           let abilities = [
             `**P:** ${g.Ability1}`,
