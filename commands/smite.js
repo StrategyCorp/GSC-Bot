@@ -19,14 +19,16 @@ exports.run = async (client, message, [search, ...args]) => {
   // make search lowercase so when we use it it won't be case sensative
   if (search) search = search.toLowerCase();
   // make an empty array that we can add all the command names to later
+  // i chose to use '= [];' over '= new Array' just because i think it looks nicer and it doesn't matter in this case
   var cmdList = [];
   // here we have all the commands, there usage, a description and the error if they don't send an argument
+  // yes i know the names are bad but i don't know what else to name them because it is an array or arrays
   var cmdArray = [
     ["player", "<player>", "Displays a players stats", "Who would you like me to look up?"],
-    ["god", "<god>", "Displays infomation on a chosen God"],
-    ["ability", "<god> <ability number>", "Displays the God ability"],
-    ["item", "<item | term>", "not sure yet"],
-    ["friends", "<player>", "Lists all of there friends without private profiles"]
+    ["god", "<god>", "Displays infomation on a chosen God", "Which God would you like me to look up?"],
+    ["ability", "<god> <ability number>", "Displays the God ability", "Which God would you like me to look up?"],
+    ["item", "<item | term>", "not sure yet", "Which item would you like me to look up?"],
+    ["friends", "<player>", "Lists all of there friends without private profiles", "Who would you like me to look up?"]
   ];
   // we get the server settings so we know what embed colour they want on the help embed
   const settings = client.settings.get(message.guild.id);
@@ -36,16 +38,19 @@ exports.run = async (client, message, [search, ...args]) => {
     .setColor(settings.embedColour)
     // make the title 'smite help' so they know what the commands are for
     .setTitle('**Smite Help**');
-  // we loop through all the commands. i could have used forEach maybe? i don't really know how to use that so i went for a for loop
+  // we loop through all the commands
+  // i could have used forEach maybe? i don't really know how to use that so i went for a for loop
   for (let [cmdName, cmdUsage, cmdDesc, cmdError] of cmdArray) {
     // add the command name to the empty array we made earlier
     cmdList.push(cmdName);
-    // make a new field for each of the commands showing the name, usage and description. we don't sent the error h
+    // make a new field for each of the commands showing the name, usage and description
+    // we don't sent the error here, it is for another section
     helpEmbed.addField(cmdName, `${settings.prefix}smite ${cmdName} ${cmdUsage}\n${cmdDesc}`);
   }
   // if they requested for the help command or if they didn't request for anything then it shows the list of commands
   if (search === "help" || search === undefined) {
-    // sending the help embed. i returned it here because we don't need the rest of the code; we are done
+    // sending the help embed
+    // i returned it here because we don't need the rest of the code; we are done
     return message.channel.send({embed: helpEmbed});
   }
   // here is where i make aliases for some of the commands so that it is easier to use
@@ -59,6 +64,7 @@ exports.run = async (client, message, [search, ...args]) => {
   
   if (!args[0]) {
     
+    return message.channel.send(`:negative_squared_cross_mark: $`);
   }
   if (client.isInArray(aliaseArray, search) === true) search = aliaseObj[search];
   // we check if the command is valid BEFORE we start using the smite api
@@ -266,13 +272,13 @@ exports.run = async (client, message, [search, ...args]) => {
     if (!args[0]) return message.channel.send(':negative_squared_cross_mark: ');
     requestData("getplayer", args[0]);
   } else if (search === "god" || search === "ability") {
-    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Which God would you like me to look up?');
+    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: ');
     requestData("getgods", "1");
   } else if (search === "item") {
-    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Which item would you like me to look up?');
+    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: ');
     requestData("getitems", "1");
   } else if (search === "friends") {
-    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Who would you like me to look up?');
+    if (!args[0]) return message.channel.send(':');
     requestData("getfriends", args[0]);
   }
   function requestData(method, parameters) {
