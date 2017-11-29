@@ -580,6 +580,9 @@ exports.run = async (client, message, [search, ...args]) => {
           // we replace it with a space so that it can be split when we make it an array
           // next we do the splitting and make it an array
           basicDamage = basicDamage.replace('/', ' ').split(' ');
+          
+          // once it is an array we can add it to the stats array in the correct format
+          // if we take the agni expample agian the array would be []
           stats.push([`**Basic Damage:** ${basicDamage[0]} ${basicDamage[4].replace('(', '')}`, basicDamage[2]]);
           let baseStats = [];
           let perLevel = [];
