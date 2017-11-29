@@ -283,7 +283,11 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         // once we get the data we are going to sort through what the user searched for
-        // first we have the player which shows a smite users stats
+        
+        /*
+            Player
+        */
+        
         if (search === "player") {
           // we are going to asign the variable p to the data
           // even though they only send one object they always send an array
@@ -300,20 +304,42 @@ exports.run = async (client, message, [search, ...args]) => {
           // then we split it at ] so it because an array
           // the array would be [clanTag, playerName]
           let name = p["Name"].replace('[', '').split(']');
-          // i 
+          // so i made one array for each of the fields just so i can read what is going to be on each line easily
           let main = [
+            // this shows the players level
+            // i am not sure but i think it shows one level above what it shows ingame for an unknow reason
+            // i need to do more testing to find out
             `**Level:** ${p.Level}`,
+            // this shows what there status/mood thing is
             `**Status:** ${p.Personal_Status_Message}`,
+            // so i use the clantag from the name array here and get the clan name
+            // for an unknown reason they refer to clans as teams in all the api stuff
+            // maybe it is just to annoying people like me
             `**Clan:** [${name[0]}] ${p.Team_Name}`,
+            // this is not what region they registed on but the last region they selected when they were host of a party or solo queueing
             `**Region:** ${p.Region}`,
+            // first it shows how many gods they have atleast mastery 1 on
+            // then it shows the total of all of there masteries
             `**Mastery:** ${p.MasteryLevel} Gods, ${p.Total_Worshippers} total Worshippers`,
+            // shows when the account was created to the second
             `**Account Created:** ${p.Created_Datetime}`,
+            // shows when the account last logged in to the second
             `**Last Login:** ${p.Last_Login_Datetime}`,
+            // shows how many achievements they have
+            // not sure if it counts event ones or not
             `**Achievements:** ${p.Total_Achievements}`
           ];
+          // the second field is all about winrates
           let winrate = [
-            `**Winrate:** ${parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100}%\n**Wins:** ${p.Wins}`,
+            // this does the maths on what the players winrate is
+            // i am not sure if i want to start rounding it or not because it shows 14 declimal places which is maybe too much
+            `**Winrate:** ${parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100}%`,
+            // shows wins
+            `**Wins:** ${p.Wins}`,
+            // you will never guess what this shows
+            // it shows losses, who would have known
             `**Losses:** ${p.Losses}`,
+            // this is just here to shame people that rage quit a lot or have really bad
             `**Matches Left:** ${p.Leaves}`
           ];
           let ranked = [
