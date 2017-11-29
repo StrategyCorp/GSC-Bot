@@ -569,8 +569,16 @@ exports.run = async (client, message, [search, ...args]) => {
             stats.unshift([`**Magical Power:** ${g.MagicalPower}`, g.MagicalPowerPerLevel]);
           }
           
-          // 
+          // the path to get basic attack damage is weird
+          // it has the same format as an ability
+          // this gets the string in which the numbers are stored
           let basicDamage = g.basicAttack.itemDescription.menuitems[0].value;
+          
+          // the format of the number is werid, for expample agni is '34 + 1.5/Lvl (+20% of Magical Power)'
+          // we have to manipulate the string to get the infomation we want
+          // first we sperate the per level value from the '/Lvl'
+          // we replace it with a space so that it can be split when we make it an array
+          // next we do the splitting and make it an array
           basicDamage = basicDamage.replace('/', ' ').split(' ');
           stats.push([`**Basic Damage:** ${basicDamage[0]} ${basicDamage[4].replace('(', '')}`, basicDamage[2]]);
           let baseStats = [];
