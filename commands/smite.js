@@ -11,7 +11,7 @@ exports.run = async (client, message, [search, ...args]) => {
     ["player", "<player>", "Displays a players stats"],
     ["god", "<god>", "Displays infomation on a chosen God"],
     ["ability", "<god> <ability number>", "Displays the God ability"],
-    ["items", "<item>", "not sure yet"],
+    ["item", "<item>", "not sure yet"],
     ["friends", "<player>", "Lists all of there friends without private profiles"]
   ];
   const settings = client.settings.get(message.guild.id);
@@ -25,6 +25,12 @@ exports.run = async (client, message, [search, ...args]) => {
   if (search === "help" || search === undefined) {
     return message.channel.send({embed: helpEmbed});
   }
+  var aliaseObj = {
+    "gods": "god",
+    "items": "item"
+  };
+  var aliaseArray = Object.keys(aliaseObj);
+  if (client.isInArray(aliaseArray, search)) search = aliaseObj[search];
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
@@ -235,11 +241,10 @@ exports.run = async (client, message, [search, ...args]) => {
         } else if (search === "ability") {
           return message.channel.send('WIP');
         } else if (search === "items") {
-          // const findItemByName = (searchItem) => {
-          //   return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
-          // };
-          // var i = data.find(findItemByName);
-          var i = client.searchArrayOfObjects(data, "DeviceName", args.join(' ').toLowerCase());
+          const findItemByName = (searchItem) => {
+            return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
+          };
+          var i = data.find(findItemByName);
           if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not an item`);
           let stats = [];
           for (let stat of i.ItemDescription.Menuitems) {
