@@ -265,11 +265,15 @@ exports.run = async (client, message, [search, ...args]) => {
   const requestData = (method, parameters) => {
     // just like every other time we hash the custom signature
     var signature = createSignature(method);
-    // make another messy url
-    let url = `;
+    // sometimes when i use a new method i want to get the url so i can open it open in the browser myself and see what i can do with it
+    let url = domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}/${parameters}`;
+    // as i said but i want to url
     // console.log(url);
+    // same thing as the other two times
     request.get({
-      url: domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}/${parameters},
+      url: url,
+      // i am having second thought on having this here but i am too scared to remove it
+      // if it works it works so i am not going to touch it even though i think it is just a wasted line
       json: true,
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
@@ -278,10 +282,25 @@ exports.run = async (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
+        // once we get the data we are going to sort through what the user searched for
+        // first we have the player which shows a smite users stats
         if (search === "player") {
+          // we are going to asign the variable p to the data
+          // even though they only send one object they always send an array
+          // p is short for player if you didn't realise
           var p = data[0];
+          // if there is no player with the name that they sent this is will return before we start geting all sort of undefined errors
+          // note that it is NOT case sensative
           if (!p) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
+          // they sent the name as '[clanTag]playerName'
+          // AARRRR
+          // it is just so annoying because it is the only was to get the players clan tag without sending another request to the clanthing method
+          // they also don't have another variable were they send a clean version
+          // first we get rid of the [
+          // then we split it at ] so it because an array
+          // the array would be [clanTag, playerName]
           let name = p["Name"].replace('[', '').split(']');
+          // i 
           let main = [
             `**Level:** ${p.Level}`,
             `**Status:** ${p.Personal_Status_Message}`,
