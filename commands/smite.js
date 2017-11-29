@@ -339,19 +339,35 @@ exports.run = async (client, message, [search, ...args]) => {
             // you will never guess what this shows
             // it shows losses, who would have known
             `**Losses:** ${p.Losses}`,
-            // this is just here to shame people that rage quit a lot or have really bad
+            // this is just here to shame people that rage quit a lot or have really bad internet
             `**Matches Left:** ${p.Leaves}`
           ];
+          // now onto the last field, ranked stats
+          // i am thinking of changing this to only show if people have a rank
           let ranked = [
+            // all 3 are self explanatory as to what they are. it is just the rank of each of the gamemods
+            // the smite api sends a number and not the actual rank so i use the rank array we made earlier
+            // the numbers just work out nicely with unranked being 0 and masters being 26
             `**Conquest:** ${rankedTierArray[p.Tier_Conquest]}`,
             `**Duel:** ${rankedTierArray[p.Tier_Duel]}`,
             `**Joust:** ${rankedTierArray[p.Tier_Joust]}`
           ];
+          // now we use the rank object to so we know what colour to make the embed
+          // first we make an array with the users ranks
           let rankColour = [p.Tier_Conquest, p.Tier_Duel, p.Tier_Joust];
+          // we change the array into a string. i think we can do that right?
+          // first we get the highest rank using Math.max
+          // then get what rank it would be equivalent to from the rank array
+          // then we get what colour it is from the rank object
           rankColour = rankedTierObj[rankedTierArray[Math.max.apply(Math, rankColour)]];
+          // so we are finally making the embed
           const playerEmbed = new Discord.RichEmbed()
+            // set are setting the colour to the rank 
             .setColor(rankColour)
+            // we are making the thumbnail the users avatar
+            // this doesn't seem to be working because discord embeds can't try to display it but fails
             .setThumbnail(p.Avatar_URL)
+            // we are using the ar
             .addField(name[1], main.join('\n'))
             .addField('Games', winrate.join('\n'))
             .addField('Ranked', ranked.join('\n'));      
