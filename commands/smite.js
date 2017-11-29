@@ -367,18 +367,40 @@ exports.run = async (client, message, [search, ...args]) => {
             // we are making the thumbnail the users avatar
             // this doesn't seem to be working because discord embeds can't try to display it but fails
             .setThumbnail(p.Avatar_URL)
-            // we are using the ar
+            // we are using the array for the name becasuse it is clean
+            // then we are just joining everything inside the main array with a newline
             .addField(name[1], main.join('\n'))
+            // this is the winrate array
             .addField('Games', winrate.join('\n'))
-            .addField('Ranked', ranked.join('\n'));      
+            // and finally the ranked field which i may not have for everybody
+            // we shall see
+            .addField('Ranked', ranked.join('\n')); 
+          // we are going to send the embed and return because we are done!
           return message.channel.send({embed: playerEmbed});
+        
+        /*  
+            God
+        */
+          
         } else if (search === "god") {
+          // so the smite api sends an array of objects
+          // each object is a different God
+          // this allows use to search for the God we want
+          // i might make an aliese thing later but i don't how what God alieses i should add
           const findGod = (searchGod) => {
+            // if the name is equal to the argument (the God the user requested) then return
             return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
           }
+          // so this will asign the Gods object to g
+          // g is short for God if you didn't realise
           var g = data.find(findGod);
+          // if the God is NOT in the array then just tell the user how dumb they are
           if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not a God`);
+          // so this is the main field
           let main = [
+            // for some unknow reason HiRez are being trolls again. some of the strings start with a space
+            // WHY
+            // LIKE ACTUALL WHY DO YOU DO THIS
             `**Role:**${g.Roles}`,
             `**Pantheon:** ${g.Pantheon}`,
             `**Attack Type:**${g.Type}`,
