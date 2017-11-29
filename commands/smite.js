@@ -28,6 +28,7 @@ exports.run = async (client, message, [search, ...args]) => {
     ["god", "<god>", "Displays infomation on a chosen God", "Which God would you like me to look up?"],
     ["ability", "<god> <ability number>", "Displays the God ability", "Which God would you like me to look up?"],
     ["item", "<item | term>", "not sure yet", "Which item would you like me to look up?"],
+    // not sure if i should keep the friends command
     ["friends", "<player>", "Lists all of there friends without private profiles", "Who would you like me to look up?"]
   ];
   // we get the server settings so we know what embed colour they want on the help embed
@@ -60,12 +61,15 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   // i make the aliases into an array so that it can be searched easier (i am too lazy to make a function to search object keys so i just used the one to search arrays)
   var aliaseArray = Object.keys(aliaseObj);
-  // if the aliases is picked up then it changes what the user had requested to the correct usage
-  
+  // here i check if the user has sent an argument
   if (!args[0]) {
-    
-    return message.channel.send(`:negative_squared_cross_mark: $`);
+    // if they haven't then we loop through all the commands and get the correct error
+    for (let [cmdName, cmdUsage, cmdDesc, cmdError] of cmdArray) {
+      // this will post the correct error and stop before we start using the smite api
+      if (search === cmdName) return message.channel.send(`:negative_squared_cross_mark: ${cmdError}`);
+    }
   }
+  // if the aliases is picked up then it changes what the user had requested to the correct usage
   if (client.isInArray(aliaseArray, search) === true) search = aliaseObj[search];
   // we check if the command is valid BEFORE we start using the smite api
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
@@ -257,37 +261,15 @@ exports.run = async (client, message, [search, ...args]) => {
       }
     });
   };
-  
-  /*
-      not sure what to name this section section
-  */
-  
-  // calls the testsession function which may or may not call the createsession function
-  testSession();
-  // just wait 1 second for the responses and stuff
-  // .wait is a function from utl/function.js and NOT a vanilla js function
-  await client.wait(1000);
-  // just going to sort through the commands so we make the correct request
-  if (search === "player") {
-    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: ');
-    requestData("getplayer", args[0]);
-  } else if (search === "god" || search === "ability") {
-    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: ');
-    requestData("getgods", "1");
-  } else if (search === "item") {
-    if (!args[0]) return message.channel.send(':negative_squared_cross_mark: ');
-    requestData("getitems", "1");
-  } else if (search === "friends") {
-    if (!args[0]) return message.channel.send(':');
-    requestData("getfriends", args[0]);
-  }
-  function requestData(method, parameters) {
+  // the main function. this is where almost everything happens
+  const requestData = (method, parameters) => {
+    // just like every other time we hash the custom signature
     var signature = createSignature(method);
-    let url = domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}`
-    if (parameters) url += `/${parameters}`;
+    // make another messy url
+    let url = `;
     // console.log(url);
     request.get({
-      url: url,
+      url: domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}/${parameters},
       json: true,
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
@@ -446,6 +428,31 @@ exports.run = async (client, message, [search, ...args]) => {
       }
     });
   }
+  
+  /*
+      not sure what to name this section section
+  */
+  
+  // calls the testsession function which may or may not call the createsession function
+  testSession();
+  // just wait 1 second for the responses and stuff
+  // .wait is a function from utl/function.js and NOT a vanilla js function
+  await client.wait(1000);
+  // just going to sort through the commands so we make the correct request
+  if (search === "player") {
+    // we are request the getplayer method and the parameter is the player name
+    requestData("getplayer", args[0]);
+    // i bundled god and ability together because they use the same method
+  } else if (search === "god" || search === "ability") {
+    // the parameter will never change because i always want it in English
+    requestData("getgods", "1");
+  } else if (search === "item") {
+    // once again the parameter never changes because i want it in English
+    requestData("getitems", "1");
+  } else if (search === "friends") {
+    // same as the player but the method is different
+    requestData("getfriends", args[0]);
+  }  
 };
 
 exports.cmdConfig = {
