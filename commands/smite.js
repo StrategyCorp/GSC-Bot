@@ -1,10 +1,17 @@
+// get the discord.js lib so that we can actually do stuff
 const Discord = require('discord.js');
+// require so that we can make GET requests
 const request = require('request');
+// require moment so that we can get the date and time for the smite api easily
 const moment = require('moment');
+// require md5 so that we can hash our signature for the smite api
 const md5 = require('md5');
+// require util so that we can send the data in discord chat so we know the paths
 const { inspect } = require("util");
 
+// make it asynchronous so that later we can wait for the GET request data
 exports.run = async (client, message, [search, ...args]) => {
+  // make search lowercase so that is 
   if (search) search = search.toLowerCase();
   var cmdList = [];
   var cmdArray = [
@@ -285,45 +292,45 @@ exports.run = async (client, message, [search, ...args]) => {
             }
           } else {
             const findItemByName = (searchItem) => {
-            return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
-          };
-          var i = data.find(findItemByName);
-          if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not an item or a searchable term`);
-          if (i.Type === "item") {
-            let stats = [];
-            for (let stat of i.ItemDescription.Menuitems) {
-              stats.push(`${stat.Value} ${stat.Description}`);
-            }
-            let main = [
-              `**Stats:**\n${stats.join('\n')}`
-            ];
-            var child = client.searchArrayOfObjects(data, "ItemId", i.ChildItemId);
-            var root = client.searchArrayOfObjects(data, "ItemId", i.RootItemId);
-            if (i.StartingItem) {
-              main.unshift(`**Item Tier:** Starter`);
-              main.unshift(`**Price:** ${i.Price}`);
-            } else {
-              main.unshift(`**Item Tier:** ${i.ItemTier}`);
-              if (i.ItemTier === 1) {
-                main.unshift(`**Price:** ${i.Price}`);
-              } else if (i.ItemTier === 2) {
-                main.unshift(`**Price:** ${i.Price} (${child.Price})`);
-              } else if (i.ItemTier === 3) {
-                main.unshift(`**Price:** ${i.Price} (${parseInt(child.Price) + parseInt(root.Price)})`);
+              return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
+            };
+            var i = data.find(findItemByName);
+            if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not an item or a searchable term`);
+            if (i.Type === "item") {
+              let stats = [];
+              for (let stat of i.ItemDescription.Menuitems) {
+                stats.push(`${stat.Value} ${stat.Description}`);
               }
+              let main = [
+                `**Stats:**\n${stats.join('\n')}`
+              ];
+              var child = client.searchArrayOfObjects(data, "ItemId", i.ChildItemId);
+              var root = client.searchArrayOfObjects(data, "ItemId", i.RootItemId);
+              if (i.StartingItem) {
+                main.unshift(`**Item Tier:** Starter`);
+                main.unshift(`**Price:** ${i.Price}`);
+              } else {
+                main.unshift(`**Item Tier:** ${i.ItemTier}`);
+                if (i.ItemTier === 1) {
+                  main.unshift(`**Price:** ${i.Price}`);
+                } else if (i.ItemTier === 2) {
+                  main.unshift(`**Price:** ${i.Price} (${child.Price})`);
+                } else if (i.ItemTier === 3) {
+                  main.unshift(`**Price:** ${i.Price} (${parseInt(child.Price) + parseInt(root.Price)})`);
+                }
+              }
+              if (i.ItemDescription.SecondaryDescription !== "" && i.ItemDescription.SecondaryDescription !== null) {
+                main.unshift(`**Effect:** ${i.ItemDescription.SecondaryDescription}`);
+              } else if (i.ItemDescription.Description !== "" && i.ItemDescription.Description !== null) {
+                main.unshift(`**Effect:** ${i.ItemDescription.Description}`);
+              } else if (i.ShortDesc !== "" && i.ShortDesc !== null) {
+                main.unshift(`**Effect:** ${i.ShortDesc}`);
+              }
+              const itemEmbed = new Discord.RichEmbed()
+                .setThumbnail(i.itemIcon_URL)
+                .addField(i.DeviceName, main.join('\n'));
+              return message.channel.send({embed: itemEmbed});
             }
-            if (i.ItemDescription.SecondaryDescription !== "" && i.ItemDescription.SecondaryDescription !== null) {
-              main.unshift(`**Effect:** ${i.ItemDescription.SecondaryDescription}`);
-            } else if (i.ItemDescription.Description !== "" && i.ItemDescription.Description !== null) {
-              main.unshift(`**Effect:** ${i.ItemDescription.Description}`);
-            } else if (i.ShortDesc !== "" && i.ShortDesc !== null) {
-              main.unshift(`**Effect:** ${i.ShortDesc}`);
-            }
-            const itemEmbed = new Discord.RichEmbed()
-              .setThumbnail(i.itemIcon_URL)
-              .addField(i.DeviceName, main.join('\n'));
-            return message.channel.send({embed: itemEmbed});
-          }
           }
         } else if (search === "friends") {
           var f = data;
