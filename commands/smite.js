@@ -593,20 +593,46 @@ exports.run = async (client, message, [search, ...args]) => {
           stats.push([`**Basic Damage:** ${basicDamage[0]} ${basicDamage[4].replace('(', '')}`, basicDamage[2]]);
           
           // now we are going to split the array into two sperate arrays
-          // i made two empty arrays so we can easily
+          // i made two empty arrays so we can easily add the base stats and the per level stats into two different fields
           let baseStats = [];
           let perLevel = [];
+          
+          // i looped through the stats and added each stat to the two different arrays
           for (let [base, level] of stats) {
+            
+            // this is adding it to base
             baseStats.push(base);
+            
+            // this is adding it to per level
             perLevel.push(level);
           }
+          
+          // this is where the embed is made
           const godEmbed = new Discord.RichEmbed()
+          
+            // so the colour changes according to what role the God is
+            // first we need to get ride of the dam space at the start of the string
+            // then we make the role all lowercase so we can use the roleObj we made above
             .setColor(roleObj[g["Roles"].replace(' ', '').toLowerCase()])
+          
+            // we want the thumbnail to be a picture of the god so that at a glance we know which God it is
             .setThumbnail(g.godIcon_URL)
+          
+            // this is where all the infomation from the main array is placed along with the name of the God and it's title
             .addField(`${g.Name} - ${g.Title}`, main.join('\n'))
+          
+            // now is the field for abilites
             .addField('Abilities', abilities.join('\n'))
+          
+            // this is where the base stats are
+            // we take it from the new baseStats array that we made and looped the infomation into
+            // i made it inline so that the base stats and per level stats will be next to each other
             .addField("Base Stats", baseStats.join('\n'), true)
+          
+            // this is also inline like the one above
             .addField("Per level", perLevel.join('\n'), true);
+          
+          // just going to send the embed and return
           return message.channel.send({embed: godEmbed});
 /*
     Ability
@@ -667,7 +693,12 @@ exports.run = async (client, message, [search, ...args]) => {
     Friends
 */
         } else if (search === "friends") {
+          
+          // the smite api sends back an array of objects but we like it in an array this time
+          // f is short
           var f = data;
+          
+          //
           if (!f) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
           let friendsArray = [];
           for (let name of f) {
