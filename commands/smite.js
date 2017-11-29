@@ -30,7 +30,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "items": "item"
   };
   var aliaseArray = Object.keys(aliaseObj);
-  if (client.isInArray(aliaseArray, search)) search = aliaseObj[search];
+  if (client.isInArray(aliaseArray, search) === true) search = aliaseObj[search];
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
@@ -81,14 +81,39 @@ exports.run = async (client, message, [search, ...args]) => {
     "tier 1": "tier",
     "tier 2": "tier",
     "tier 3": "tier",
-    "physical": "offensive",
     "physical power": "offensive",
     "magical power": "offensive",
-    "magical": "offensive",
     "attack speed": "offensive",
-    "lifesteal": "offensive",
-    ""
-  }
+    "physical lifesteal": "offensive",
+    "magical lifesteal": "offensive",
+    "physical penetration": "offensive",
+    "magical penetration": "offensivce",
+    "crit": "offensive",
+    "crit chance": "offensive",
+    "physical protection": "defensive",
+    "magical protection": "defensive",
+    "health": "defensive",
+    "ccr": "defensive",
+    "crowd control reduction": "defensive",
+    "hp5": "defensive",
+    "health per 5": "defensive",
+    "health per five": "defensive",
+    "movement": "utility",
+    "movement speed": "utility",
+    "cooldown": "utility",
+    "cooldown %": "utility",
+    "cool down": "utility",
+    "mana": "utility",
+    "mana per 5": "utility",
+    "mana per five": "utility",
+    "relic": "relic",
+    "relics": "relic",
+    "base": "relic",
+    "upgraded": "relic",
+    "consumable": "consumable",
+    "consumables": "consumable"
+  };
+  var itemArray = Object.keys(itemObj);
   const testSession = async () => {
     var signature = createSignature("testsession");
     request.get({
@@ -254,6 +279,7 @@ exports.run = async (client, message, [search, ...args]) => {
         } else if (search === "ability") {
           return message.channel.send('WIP');
         } else if (search === "item") {
+          if (client.isInArray(itemArray, args.join(' ')))
           
           const findItemByName = (searchItem) => {
             return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
