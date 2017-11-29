@@ -44,10 +44,10 @@ exports.run = async (client, message, [search, ...args]) => {
   // make the help embed that will show all the command infomation on smite
   const helpEmbed = new Discord.RichEmbed()
   
-    // set the colour to whatever the server setting colour it
+    // we set the colour to whatever the server setting colour it
     .setColor(settings.embedColour)
   
-    // make the title 'smite help' so they know what the commands are for
+    // we are making the title 'smite help' so they know what the commands are for
     .setTitle('**Smite Help**');
   
   // we loop through all the commands
@@ -66,27 +66,27 @@ exports.run = async (client, message, [search, ...args]) => {
   if (search === "help" || search === undefined) {
     
     // sending the help embed
-    // i returned it here because we don't need the rest of the code; we are done
+    // we returned it here because we don't need the rest of the code; we are done
     return message.channel.send({embed: helpEmbed});
   }
   
-  // here is where i make aliases for some of the commands so that it is easier to use
+  // here is where we make aliases for some of the commands so that it is easier to use
   // the key is what the aliase is and the value is what it should be
   var aliaseObj = {
     "gods": "god",
     "items": "item"
   };
   
-  // i make the aliases into an array so that it can be searched easier (i am too lazy to make a function to search object keys so i just used the one to search arrays)
+  // we make the aliases into an array so that it can be searched easier (i am too lazy to make a function to search object keys so i just used the one to search arrays)
   var aliaseArray = Object.keys(aliaseObj);
   
-  // here i check if the user has sent an argument
+  // here we check if the user has sent an argument
   if (!args[0]) {
     
     // if they haven't then we loop through all the commands and get the correct error
     for (let [cmdName, cmdUsage, cmdDesc, cmdError] of cmdArray) {
       
-      // this will post the correct error and stop before we start using the smite api
+      // this will post the correct error and stop BEFORE we start using the smite api
       if (search === cmdName) return message.channel.send(`:negative_squared_cross_mark: ${cmdError}`);
     }
   }
@@ -376,7 +376,7 @@ exports.run = async (client, message, [search, ...args]) => {
           let main = [
             
             // this shows the players level
-            // i am not sure but i think it shows one level above what it shows ingame for an unknow reason
+            // i am not sure but i think it shows one level above what it shows ingame for an unknown reason
             // i need to do more testing to find out
             `**Level:** ${p.Level}`,
             
@@ -695,15 +695,29 @@ exports.run = async (client, message, [search, ...args]) => {
         } else if (search === "friends") {
           
           // the smite api sends back an array of objects but we like it in an array this time
-          // f is short
+          // f is short for friends
           var f = data;
           
-          //
+          // we are going to check if it is an actual player once again so we don't get lots of undefined errors
           if (!f) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
+          
+          // we are making a new array to store all the friends thats profiles aren't private
           let friendsArray = [];
+          
+          // we are looping through the array that the smite api sent and getting only the names
           for (let name of f) {
+            
+            // we are adding all the names that aren't private to the new array i made
             if (name.name !== "") friendsArray.push(name.name)
           }
+          
+          // now we are sending the newly looped array which has all the friends in it
+          // note that the name is what the player sent and not the actual players name (maybe case differences)
+          // this is because we don't want to make another call to the api just for the name to be case perfect
+          // the length displayed is ALL of there friends and not just the ones that profiles aren't private
+          // we are sending it as a code block and not an embed because embed fields have a 1024 charater limit and code blocks have 2048
+          // not sure if the 2048 charater limit will be a problem, i don't have many friends :(
+          // the code block lint is asciidoc just because it is easy and neat to send different colours for the title and number of friends
           return message.channel.send(`== ${args[0]} ==\n[Total Friends - ${f.length}]\n\n${friendsArray.join(', ')}`, {code: "asciidoc"});
         }
       }
