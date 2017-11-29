@@ -586,7 +586,9 @@ exports.run = async (client, message, [search, ...args]) => {
           basicDamage = basicDamage.replace('/', ' ').split(' ');
           
           // once it is an array we can add it to the stats array in the correct format
-          // if we take the agni expample agian the array would be []
+          // if we take the agni expample agian the array would be ['34', '+', '1.5', '/Lvl', '(+20%', 'of' 'Magical', 'Power)']
+          // this makes the base damage's position 0 (arrays start at 0)
+          // the scaling damage is position 4
           stats.push([`**Basic Damage:** ${basicDamage[0]} ${basicDamage[4].replace('(', '')}`, basicDamage[2]]);
           let baseStats = [];
           let perLevel = [];
