@@ -411,9 +411,13 @@ exports.run = async (client, message, [search, ...args]) => {
             // just shows what the God is good at
             // there is a section for cons but for all the Gods that i looked at, they were all plank
             // not sure what they were for
-            `**Pros:**${g.Pros}`,   
-            `**Free Rotation:** ${g.OnFreeRotation}`
+            `**Pros:**${g.Pros}`
           ];
+          if (g.OnFreeRotation === "true") {
+            main.push(`**Free Rotation:** Yes`);
+          } else {
+            main.push(`**Free Rotation:** No`);
+          }
           if (g.latestGod === "y") main.push(`Currently the newest God`);
           let abilities = [
             `**P:** ${g.Ability1}`,
