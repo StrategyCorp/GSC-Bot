@@ -514,18 +514,36 @@ exports.run = async (client, message, [search, ...args]) => {
           // so the string is either 'true' or ''
           // this is just the laziest way of doing this
           if (g.OnFreeRotation === "true") {
+            
+            // if it is true then add to the end of the main array
             main.push(`**Free Rotation:** Yes`);
           } else {
+            
+            // and if it is empty (not say true) then add this to the end of the array
             main.push(`**Free Rotation:** No`);
           }
+          
+          // if the God is the newest to the game it will have the value 'y'
+          // unlike with OnFreeRotation this is either 'n' or 'y'
+          // it is so inconsistent it hurts
           if (g.latestGod === "y") main.push(`Currently the newest God`);
+          
+          // i made a new array for a new field
           let abilities = [
+            
+            // they start with 1 instead of 0 because they are horrible people
+            // this makes the ability numbers just wrong
             `**P:** ${g.Ability1}`,
             `**1:** ${g.Ability2}`,
             `**2:** ${g.Ability3}`,
             `**3:** ${g.Ability4}`,
             `**4:** ${g.Ability5}`
           ];
+          
+          // anther new field but this one is different to all the others
+          // this one is an array of arrays because it is 2 fields in one
+          // inside the array the first value is what the stat is and then the base value
+          // the second value is how much is gained per level
           let stats = [
             [`**Attack Speed:** ${g.AttackSpeed}`, g.AttackSpeedPerLevel],
             [`**Health:** ${g.Health}`, g.HealthPerLevel],
@@ -535,11 +553,23 @@ exports.run = async (client, message, [search, ...args]) => {
             [`**Magical Protection:** ${g.MagicProtection}`, g.MagicProtectionPerLevel],
             [`**Physical Protection:** ${g.PhysicalProtection}`, g.PhysicalProtectionPerLevel]
           ];
+          
+          // we need to check to see if they are a magical or physical damage dealer
+          // we could use g.Type but we would have to modify the string and i am too lazy
+          // physical damage dealers (assassins, hunter and warriors) would have a magical power of 0
           if (g.MagicalPower === 0) {
+            
+            // because only physical damage dealers are here we just add this to the stats array of arrays
+            // it keeps the formula of base then per level
             stats.unshift([`**Physical Power:** ${g.PhysicalPower}`, g.PhysicalPowerPerLevel]);
           } else {
+            
+            // if they doesn't have a magical power of 0 then they must be a magical damage dealer
+            // this is just the same as above but slightly differently worded and the values have changed
             stats.unshift([`**Magical Power:** ${g.MagicalPower}`, g.MagicalPowerPerLevel]);
           }
+          
+          // 
           let basicDamage = g.basicAttack.itemDescription.menuitems[0].value;
           basicDamage = basicDamage.replace('/', ' ').split(' ');
           stats.push([`**Basic Damage:** ${basicDamage[0]} ${basicDamage[4].replace('(', '')}`, basicDamage[2]]);
