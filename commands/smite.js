@@ -370,6 +370,7 @@ exports.run = async (client, message, [search, ...args]) => {
           // first we get rid of the [
           // then we split it at ] so it because an array
           // the array would be [clanTag, playerName]
+          console.log(p.Name);
           let name = p["Name"].replace('[', '').split(']');
           
           // so i made one array for each of the fields just so i can read what is going to be on each line easily
