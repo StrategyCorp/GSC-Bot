@@ -53,17 +53,31 @@ exports.run = async (client, message, [search, ...args]) => {
     "gods": "god",
     "items": "item"
   };
-  // i make the aliases into an array so that it can be searched easier (a)
+  // i make the aliases into an array so that it can be searched easier (i am too lazy to make a function to search object keys so i just used the one to search arrays)
   var aliaseArray = Object.keys(aliaseObj);
+  // if the aliases is picked up then it changes what the user had requested to the correct usage
   if (client.isInArray(aliaseArray, search) === true) search = aliaseObj[search];
+  // we check if the command is valid BEFORE we start using the smite api
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
+  
+  /*
+      Setup variables
+  */
+  
+  // this is the smite api domain just so we never have to retype or copy and paste it
   const domain = "http://api.smitegame.com/smiteapi.svc/";
+  // this loads my developer ID that was give to me by the smite api. i am using glitch.com to host the bot at the moment so it is in the .env file for safety
   const devID = process.env.SMITEDEVID;
+  // uses the moment package to get the date and time
   let timestamp = moment().format('YYYYMMDDHHmmss');
+  // same thing as the devID
   const authKey = process.env.SMITEAUTHID;
+  // i made a function for this because each method uses a different signature and i didn't want to copy and paste the same thing over and over again
   function createSignature(method) {
+    // it just md5 hashs all the previous details together so it can be placed into the urls later
     return md5(`${devID}${method}${authKey}${timestamp}`);
   }
+  // this is all the smite ranked ranks with a hex colour for embeds later
   var rankedTierObj = {
     "Unranked": "#ff0000",
     "Bronze V": "#a0460a",
@@ -93,7 +107,9 @@ exports.run = async (client, message, [search, ...args]) => {
     "Diamond I": "#2864c8",
     "Masters": "#ff00ff"
   };
+  // just an array of all the ranked ranks
   var rankedTierArray = Object.keys(rankedTierObj);
+  // this is same thing but with the roles
   var roleObj = {
     "assassin": "#ffff00",
     "guardian": "#14ff00",
@@ -101,6 +117,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "mage": "#ff00ff",
     "warrior": "#ff0000"
   };
+  // this is so that they can get a list of all items with a given filter
   var itemObj = {
     "starter": "tier",
     "tier 1": "tier",
@@ -138,10 +155,20 @@ exports.run = async (client, message, [search, ...args]) => {
     "consumable": "consumable",
     "consumables": "consumable"
   };
+  // make it into an array so it can be searched easily
   var itemArray = Object.keys(itemObj);
+  
+  /*
+      API GET Requests
+  */
+  
+  // this is to test if a session is currently active. i forgot why it is asynchronous but i am sure i had a reson
   const testSession = async () => {
+    // uses the function we made earlier so make a signature with the method testsession
     var signature = createSignature("testsession");
+    // use the request package to make a GET request
     request.get({
+      // the url 
       url: domain + `testsessionJson/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}`,
       json: true,
       headers: {'User-Agent': 'request'}
