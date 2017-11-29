@@ -11,9 +11,16 @@ const { inspect } = require("util");
 
 // make it asynchronous so that later we can wait for the GET request data
 exports.run = async (client, message, [search, ...args]) => {
-  // make search lowercase so that is 
+  
+  /*
+      Help Section
+  */
+  
+  // make search lowercase so when we use it it won't be case sensative
   if (search) search = search.toLowerCase();
+  // make an empty array that we can add all the command names to later
   var cmdList = [];
+  // here we have all the commands, there usage and a description
   var cmdArray = [
     ["player", "<player>", "Displays a players stats"],
     ["god", "<god>", "Displays infomation on a chosen God"],
@@ -21,21 +28,32 @@ exports.run = async (client, message, [search, ...args]) => {
     ["item", "<item | term>", "not sure yet"],
     ["friends", "<player>", "Lists all of there friends without private profiles"]
   ];
+  // we get the server settings so we know what embed colour they want on the help embed
   const settings = client.settings.get(message.guild.id);
+  // make the help embed that will show all the command infomation on smite
   const helpEmbed = new Discord.RichEmbed()
+    // set the colour to whatever the server setting colour it
     .setColor(settings.embedColour)
+    // make the title 'smite help' so they know what the commands are for
     .setTitle('**Smite Help**');
+  // we loop through all the commands. i could have used forEach maybe? i don't really know how to use that so i went for a for loop
   for (let [cmdName, cmdUsage, cmdDesc] of cmdArray) {
+    // add the command name to the empty array we made earlier
     cmdList.push(cmdName);
+    // make a new field for each of the commands showing the name, usage and description
     helpEmbed.addField(cmdName, `${settings.prefix}smite ${cmdName} ${cmdUsage}\n${cmdDesc}`);
   }
+  // if they requested for the help command or if they didn't request for anything then it shows the list of commands
   if (search === "help" || search === undefined) {
+    // sending the help embed. i returned it here because we don't need the rest of the code; we are done
     return message.channel.send({embed: helpEmbed});
   }
+  // here is where i make aliases for some of the commands so that it is easier to use
   var aliaseObj = {
     "gods": "god",
     "items": "item"
   };
+  // i make the aliases into an array so that it can be searched easier (a)
   var aliaseArray = Object.keys(aliaseObj);
   if (client.isInArray(aliaseArray, search) === true) search = aliaseObj[search];
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
