@@ -11,7 +11,7 @@ exports.run = async (client, message, [search, ...args]) => {
     ["player", "<player>", "Displays a players stats"],
     ["god", "<god>", "Displays infomation on a chosen God"],
     ["ability", "<god> <ability number>", "Displays the God ability"],
-    ["item", "<item>", "not sure yet"],
+    ["item", "<item | term>", "not sure yet"],
     ["friends", "<player>", "Lists all of there friends without private profiles"]
   ];
   const settings = client.settings.get(message.guild.id);
@@ -279,13 +279,16 @@ exports.run = async (client, message, [search, ...args]) => {
         } else if (search === "ability") {
           return message.channel.send('WIP');
         } else if (search === "item") {
-          if (client.isInArray(itemArray, args.join(' ')))
-          
-          const findItemByName = (searchItem) => {
+          if (client.isInArray(itemArray, args.join(' ')) === true) {
+            if (itemObj[args.join(' ')] === "tier") {
+              return;
+            }
+          } else {
+            const findItemByName = (searchItem) => {
             return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
           };
           var i = data.find(findItemByName);
-          if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not an item`);
+          if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not an item or a searchable term`);
           let stats = [];
           for (let stat of i.ItemDescription.Menuitems) {
             stats.push(`${stat.Value} ${stat.Description}`);
@@ -316,6 +319,7 @@ exports.run = async (client, message, [search, ...args]) => {
             .setThumbnail(i.itemIcon_URL)
             .addField(i.DeviceName, main.join('\n'));
           return message.channel.send({embed: itemEmbed});
+          }
         } else if (search === "friends") {
           var f = data;
           if (!f) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
