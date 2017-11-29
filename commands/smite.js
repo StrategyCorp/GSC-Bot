@@ -168,22 +168,39 @@ exports.run = async (client, message, [search, ...args]) => {
     var signature = createSignature("testsession");
     // use the request package to make a GET request
     request.get({
-      // the url 
+      // it justs puts all the variables together to make a url. 
+      // i made a persistant collection with just one variable called sessionID to save the last sessionID that was used
       url: domain + `testsessionJson/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}`,
+      // the response that we want is JSON
       json: true,
+      // i have no idea what this does but it works so i leave it
       headers: {'User-Agent': 'request'}
+      // just naming the variables, err = error, res = response code, data = the response data
     }, (err, res, data) => {
+      // if there is an error . . .
       if (err) {
+        // post the error in discord chat so that i work out what the problem is
         return message.channel.send(':negative_squared_cross_mark: Error:' + err);
+        // if the response code is not 200 (OK) then . . .
       } else if (res.statusCode !== 200) {
+        // post what the code is in discord chat so i know what went wrong
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
+        // if is all good then continue
       } else {
+        // sometimes i want to see what comes but so i left this here but commented out
         // console.log(data);
+        // the response is a string which is kinda annoying but whatever
+        // i split it into an array so i can process the start of it
         let message = data.split(' ');
+        // i just want the first 3 words
         message = message[0] + message[1] + message[2];
+        // if the session is too old (15 minutes or more) then make a new one and continue
         if (message === "Invalidsessionid.") {
+          // call the creatsession function
           createSession();
+          // if i want to know what happened i made these console.logs
           // console.log("A new session is being created");
+          // if the signature is invaild then somethin
         } else if (message === "Invalidsignature.Your") {
           // console.log("The signature was rejected");
           return message.channel.send(':negative_squared_cross_mark: Invaid signature? If this error pops up the bot is really broken. Lets hope i never have to read this again!');
