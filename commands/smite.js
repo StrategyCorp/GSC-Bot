@@ -593,6 +593,7 @@ exports.run = async (client, message, [search, ...args]) => {
           stats.push([`**Basic Damage:** ${basicDamage[0]} ${basicDamage[4].replace('(', '')}`, basicDamage[2]]);
           
           // now we are going to split the array into two sperate arrays
+          // i made two empty arrays
           let baseStats = [];
           let perLevel = [];
           for (let [base, level] of stats) {
