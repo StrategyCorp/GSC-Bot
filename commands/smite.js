@@ -323,15 +323,19 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   // the main function. this is where almost everything happens
   const requestData = (method, parameters) => {
+    
     // just like every other time we hash the custom signature
     var signature = createSignature(method);
+    
     // sometimes when i use a new method i want to get the url so i can open it open in the browser myself and see what i can do with it
     let url = domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}/${parameters}`;
+    
     // as i said but i want to url
     // console.log(url);
     // same thing as the other two times
     request.get({
       url: url,
+      
       // i am having second thought on having this here but i am too scared to remove it
       // if it works it works so i am not going to touch it even though i think it is just a wasted line
       json: true,
