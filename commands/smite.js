@@ -79,7 +79,9 @@ exports.run = async (client, message, [search, ...args]) => {
   }
   // this is all the smite ranked ranks with a hex colour for embeds later
   var rankedTierObj = {
+    // not sure about his unranked colour, does bright red work or should i make it blank?
     "Unranked": "#ff0000",
+    // here is where i would be placed if i played ranked, good old bronze 5
     "Bronze V": "#a0460a",
     "Bronze IV": "#a0460a",
     "Bronze III": "#a0460a",
@@ -105,6 +107,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "Diamond III": "#2864c8",
     "Diamond II": "#2864c8",
     "Diamond I": "#2864c8",
+    // never knew there was only one masters tier. the more you know i guess
     "Masters": "#ff00ff"
   };
   // just an array of all the ranked ranks
@@ -112,7 +115,9 @@ exports.run = async (client, message, [search, ...args]) => {
   // this is same thing but with the roles
   var roleObj = {
     "assassin": "#ffff00",
+    // the best role
     "guardian": "#14ff00",
+    // the second best role
     "hunter": "#ff6400",
     "mage": "#ff00ff",
     "warrior": "#ff0000"
@@ -170,12 +175,13 @@ exports.run = async (client, message, [search, ...args]) => {
     request.get({
       // it justs puts all the variables together to make a url. 
       // i made a persistant collection with just one variable called sessionID to save the last sessionID that was used
+      // the persistant collection is enmap. i have no idea how to use it properly but it works so i don't touch it
       url: domain + `testsessionJson/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}`,
       // the response that we want is JSON
       json: true,
       // i have no idea what this does but it works so i leave it
       headers: {'User-Agent': 'request'}
-      // just naming the variables, err = error, res = response code, data = the response data
+    // just naming the variables, err = error, res = response code, data = the response data
     }, (err, res, data) => {
       // if there is an error . . .
       if (err) {
@@ -200,28 +206,42 @@ exports.run = async (client, message, [search, ...args]) => {
           createSession();
           // if i want to know what happened i made these console.logs
           // console.log("A new session is being created");
-          // if the signature is invaild then somethin
+          // if the signature is invaild then something messed up. it has only happened once and hopefully it never happens again
         } else if (message === "Invalidsignature.Your") {
+          // as i said before sometimes i want to know what is going on
           // console.log("The signature was rejected");
+          // just letting discord chat know when something goes wrong, why
           return message.channel.send(':negative_squared_cross_mark: Invaid signature? If this error pops up the bot is really broken. Lets hope i never have to read this again!');
+          // if there was no problems then continue
         } else if (message === "Thiswasa") {
+          // you get the idea with these console.logs
           // console.log("we good!");
         }
       }
     });
   };
+  // next i made the createsession function for when the last session is too old (15 minutes or more)
+  // once again it is asynchronous and i am not sure why
   const createSession = async () => {
+    // uses the function again to make the hashed signature
     var signature = createSignature("createsession");
+    // makes another GET request but this time using the createsession method
     request.get({
+      // this one is a bit simplier than the testsession one because i don't need to get the last session from the presistant collection
       url: domain + `createsessionJson/${devID}/${signature}/${timestamp}`,
+      // once again i want it in JSON but they send it in a string :(
       json: true,
+      // does things beyond me
       headers: {'User-Agent': 'request'}
+    // same as before, err = error, res = response code, data = data/body 
     }, (err, res, data) => {
+      // i explained this before in when i was talking about test session, i don't need to explain it all again
       if (err) {
         return message.channel.send(':negative_squared_cross_mark: Error:' + err);
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
+        // if there were no problems then it gets the ses
         client.session.set("sessionID", data.session_id);
       }
     });
