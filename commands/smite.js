@@ -409,16 +409,13 @@ exports.run = async (client, message, [search, ...args]) => {
             // attack type is ranged or melee AND magical or physical
             `**Attack Type:**${g.Type}`,
             // just shows what the God is good at
-            `**Pros:**${g.Pros}`
             // there is a section for cons but for all the Gods that i looked at, they were all plank
             // not sure what they were for
+            `**Pros:**${g.Pros}`,   
+            `**Free Rotation:** ${g.OnFreeRotation}`
           ];
-          // now we are checking
-          if (g.OnFreeRotation === "true") {
-            main.push(`**Free Rotation:** Yes`)
-          } else {
-            main.push(`**Free Rotation:** No`)
-          }
+          let rotation = g.OnFreeRotation;
+          main.push(`${rotation}`.toUpperCase());
           if (g.latestGod === "y") main.push(`Currently the newest God`);
           let abilities = [
             `**P:** ${g.Ability1}`,
