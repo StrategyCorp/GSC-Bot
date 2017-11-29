@@ -76,6 +76,19 @@ exports.run = async (client, message, [search, ...args]) => {
     "mage": "#ff00ff",
     "warrior": "#ff0000"
   };
+  var itemObj = {
+    "starter": "tier",
+    "tier 1": "tier",
+    "tier 2": "tier",
+    "tier 3": "tier",
+    "physical": "offensive",
+    "physical power": "offensive",
+    "magical power": "offensive",
+    "magical": "offensive",
+    "attack speed": "offensive",
+    "lifesteal": "offensive",
+    ""
+  }
   const testSession = async () => {
     var signature = createSignature("testsession");
     request.get({
@@ -127,7 +140,7 @@ exports.run = async (client, message, [search, ...args]) => {
   } else if (search === "god" || search === "ability") {
     if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Status: Which God would you like me to look up?');
     requestData("getgods", "1");
-  } else if (search === "items") {
+  } else if (search === "item") {
     if (!args[0]) return message.channel.send(':negative_squared_cross_mark: Status: Which item would you like me to look up?');
     requestData("getitems", "1");
   } else if (search === "friends") {
@@ -240,7 +253,8 @@ exports.run = async (client, message, [search, ...args]) => {
           return message.channel.send({embed: godEmbed});
         } else if (search === "ability") {
           return message.channel.send('WIP');
-        } else if (search === "items") {
+        } else if (search === "item") {
+          
           const findItemByName = (searchItem) => {
             return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
           };
