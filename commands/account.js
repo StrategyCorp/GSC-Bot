@@ -25,8 +25,11 @@ exports.run = (client, message, args) => {
   }
   
   // now we check to see if they have any roles
-  // not
+  // note that @everybody counts as a role so even if they didn't have anyroles the .length would be equal to 1
   if (usergm.roles.array().length === 1) {
+    
+    // we are setting the colour of the highest role to be the side colour of the embed
+    // if they don't have any roles we just make the side colour black
     var colour = "#FFFFFF";
     var roleNumber = "Role [0]";
     var roleArray = "no roles yet . . .";

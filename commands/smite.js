@@ -214,7 +214,8 @@ exports.run = async (client, message, [search, ...args]) => {
     API GET Requests section
 */
   
-  // this is to test if a session is currently active. i forgot why it is asynchronous but i am sure i had a reson
+  // this is to test if a session is currently active
+  // i forgot why it is asynchronous but i am sure i had a reson
   const testSession = async () => {
     
     // uses the function we made earlier so make a signature with the method testsession
@@ -223,7 +224,7 @@ exports.run = async (client, message, [search, ...args]) => {
     // use the request package to make a GET request
     request.get({
       
-      // it justs puts all the variables together to make a url. 
+      // it justs puts all the variables together to make a url
       // i made a persistant collection with just one variable called sessionID to save the last sessionID that was used
       // the persistant collection is enmap. i have no idea how to use it properly but it works so i don't touch it
       url: domain + `testsessionJson/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}`,
@@ -254,6 +255,7 @@ exports.run = async (client, message, [search, ...args]) => {
         
         // sometimes i want to see what comes but so i left this here but commented out
         // console.log(data);
+        
         // the response is a string which is kinda annoying but whatever
         // i split it into an array so i can process the start of it
         let message = data.split(' ');
@@ -269,11 +271,13 @@ exports.run = async (client, message, [search, ...args]) => {
           
           // if i want to know what happened i made these console.logs
           // console.log("A new session is being created");
+          
           // if the signature is invaild then something messed up. it has only happened once and hopefully it never happens again
         } else if (message === "Invalidsignature.Your") {
           
           // as i said before sometimes i want to know what is going on
           // console.log("The signature was rejected");
+          
           // just letting discord chat know when something goes wrong, why
           return message.channel.send(':negative_squared_cross_mark: Invaid signature? If this error pops up the bot is really broken. Lets hope i never have to read this again!');
           
@@ -332,6 +336,7 @@ exports.run = async (client, message, [search, ...args]) => {
     
     // as i said but i want to url
     // console.log(url);
+    
     // same thing as the other two times
     request.get({
       url: url,
