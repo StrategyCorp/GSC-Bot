@@ -679,8 +679,16 @@ exports.run = async (client, message, [search, ...args]) => {
         } else if (search === "item") {
           if (client.isInArray(itemArray, args.join(' ')) === true) {
             if (itemObj[args.join(' ')] === "tier") {
-              return;
+              var filterItemArray = [];
+              for (const item of data) {
+                console.log(item);
+                for (const prop in item) {
+                  itemArray.push(prop.Name)
+                }
+              }
             }
+            console.log(filterItemArray);
+            return;
           } else {
             const findItemByName = (searchItem) => {
               return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
