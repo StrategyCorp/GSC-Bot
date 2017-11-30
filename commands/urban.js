@@ -1,28 +1,37 @@
 const request = require("request");
 
-exports.run = (client, message, [search, resultNum]) => {
-  if (!search) {
+exports.run = (client, message, args) => {
+  if (!args[0]) {
     message.channel.send(':negative_squared_cross_mark: What term would you like me to look up?');
   } else {
-    const baseUrl = "http://api.urbandictionary.com/v0/define?term=";
-    const theUrl = baseUrl + search;
-    request({
-      url: theUrl,
-      json: true,
-    }, (error, response, body) => {
-      if (!resultNum) {
-       resultNum = 0;
-      } else if (resultNum > 1) {
-        resultNum -= 1;
-      }
-      const result = body.list[resultNum];
-      if (result) {
-        const definition = `**Word:** ${search}\n\n**Definition:** ${resultNum += 1} out of ${body.list.length}\n_${result.definition}_\n\n**Example:**\n${result.example}\n<${result.permalink}>`;
-        message.channel.send(definition);
-      } else {
-        message.channel.send(":negative_squared_cross_mark: No entry found.");
-      }
-    });
+    var offset = args[args.length - 1];
+    if (/^\d+$/.test(offset)) {
+      args.pop();
+    } else {
+      offset = 1;
+    }
+    const url = "http://api.urbandictionary.com/v0/define?term=" + args.join(' ');
+    const urbanRequest = () => {
+      request.get({
+        url: url,
+        json: true,
+        headers: {'User-Agent': 'request'}
+      }, (err, res, data) => {
+        if (err) {
+          return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
+        } else if (res.statusCode !== 200) {
+          return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
+        }
+        const result = data.list[offset];
+        if (result) {
+          const definition = `**Word:** ${args.join(' ')}\n\n**Definition:** ${offset} out of ${data.list.length}\n_${result.definition}_\n\n**Example:**\n${result.example}\n<${result.permalink}>`;
+          message.channel.send(definition);
+        } else {
+          message.channel.send(":negative_squared_cross_mark: No entry found.");
+        }
+      });
+    };
+    urbanRequest();
   }
 };
 
