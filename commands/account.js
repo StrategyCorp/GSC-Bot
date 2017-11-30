@@ -91,10 +91,18 @@ exports.run = (client, message, args) => {
     // we make it a UTCString to make it look readable but you could also use moment
     .addField('Account Created', user.createdAt.toUTCString())
   
-    // this is the first server spe
+    // this is the first server specific property
+    // this is also a UTCString for readabilty
+    // if a user leaves the server and joins back it shows when they last joined the server not the first time
     .addField('Date Joined Server', usergm.joinedAt.toUTCString())
+  
+    // another server specific one
     .addField('Nickname', usergm.displayName)
+  
+    // this is where we use the variables in the else statements before
     .addField(roleNumber, roleArray);
+  
+  // just going to send the embed out and return because we are done
   return message.channel.send({embed: accountEmbed});
 };
 
