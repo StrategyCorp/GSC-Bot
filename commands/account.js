@@ -51,8 +51,13 @@ exports.run = (client, message, args) => {
     // so this maybe a little hard to explain but bare with me
     // first we get all of the users roles in an object
     // then we filter it so it only shows roles from the server that we are in
+    // next we make it into an array of all the names
+    // and we just join the array together
     var roleArray = usergm.roles.filter(r => r.id !== message.guild.id).map(role => role.name).join(', ');
   }
+  
+  // so this is incase you want to show the users status as the embed colour instead of the highest role
+  // it is just an object with the keys being the status and the values are the colours
   // const statusColours = {
   //   online: 0x23DF49,
   //   idle: 0xffe523,
@@ -60,18 +65,37 @@ exports.run = (client, message, args) => {
   //   streaming: 0x930de0,
   //   offline: 0x0,
   // };
-  const accEmbed = new Discord.RichEmbed()
+  
+  // here is where the embed is made
+  const accountEmbed = new Discord.RichEmbed()
+  
+    // if you want the colour to be the status uncomment this and the object above
+    // make sure you comment out or remove the ofther .setColor
     // .setColor(statusColours[user.presence.status])
     .setColor(colour)
+  
+    // we want the thumbnail of the embed to be the users avatar of course
     .setThumbnail(user.avatarURL)
+  
+    // so we make the author the name + discriminator so we know who it is
+    // we add the avatar again in the top left corner just so that the name at the top doesn't look out of place
     .setAuthor(`${user.username}#${user.discriminator}`, user.avatarURL)
+  
+    // first we give the id because it is userful
     .addField('ID', user.id)
+  
+    // might as well add what their status is
     .addField('Status', user.presence.status)
+    
+    // so this shows when the account was created
+    // we make it a UTCString to make it look readable but you could also use moment
     .addField('Account Created', user.createdAt.toUTCString())
+  
+    // this is the first server spe
     .addField('Date Joined Server', usergm.joinedAt.toUTCString())
     .addField('Nickname', usergm.displayName)
     .addField(roleNumber, roleArray);
-  message.channel.send({embed: accEmbed});
+  return message.channel.send({embed: accountEmbed});
 };
 
 exports.cmdConfig = {
