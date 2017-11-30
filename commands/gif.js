@@ -35,6 +35,8 @@ exports.run = (client, message, [search, ...args]) => {
     
     // we are looping through the array of arrays and splitting it into 3 variables
     for (let [cmdName, cmdUsage, cmdDesc] of cmdArray) {
+      
+      // we are going to 
        helpEmbed.addField(cmdName, `${settings.prefix}dashboard ${cmdName} ${cmdUsage}\n${cmdDesc}`);
     }
     return message.channel.send({embed: helpEmbed});
