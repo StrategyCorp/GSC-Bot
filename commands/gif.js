@@ -132,7 +132,7 @@ exports.run = (client, message, [search, ...args]) => {
   } else if (search === "random") {
     
     // this section is really short because we don't have to mess around with offsets
-    // i don't really know why this endpoint is here because 
+    // i don't really know why this endpoint is here because they send back an array of objects so it is very easy to pick a random on yourself
     
     // just going to return an error if there is no term to search
     if (!args[0]) return message.channel.send(':negative_squared_cross_mark: You must give me a term to search');
@@ -143,30 +143,59 @@ exports.run = (client, message, [search, ...args]) => {
     // the random endpoint url
     var url = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${q}&rating=G`;
   }
-  const requestGif = async () => {
-    request.get({
-      url: url,
-      json: true,
-      headers: {'User-Agent': 'request'}
-    }, (err, res, data) => {
-      if (err) {
-        return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
-      } else if (res.statusCode !== 200) {
-        return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
-      } else {
-        let title = `**${q.toProperCase()}**`;
+  
+/*
+    Request Data Section
+*/
+  
+  // we are going to use request to make our GET requests
+  request.get({
+    
+    // this url will be different depending on which if statement we went down
+    url: url,
+    
+    // we want the response to be in JSON
+    json: true,
+    
+    // still have no idea what this is for but i always have it in my GET request
+    headers: {'User-Agent': 'request'}
+    
+  // we are declaring what the response are
+  // err = error, res = response (status codes), data = the JSON
+  }, (err, res, data) => {
+    
+    // if there are any errors . . .
+    if (err) {
+      
+      // return the error into discord chat
+      return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
+      
+    // if the response code isn't 200 (OK) . . .
+    } else if (res.statusCode !== 200) {
+      
+      // return what the status code was
+      return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
+    
+    // if everything was ok . . .
+    } else {
+      
+      // we don't use embed because there is a problem loading Gifs in the setImage part of embeds so we use normal messages
+      // first we make the title which will be at the top of the message
+      let title = `**${q.toProperCase()}**`;
+      
+      // if the user used the search or the trending commands there would be a number asigned with the gif
+      if (search === "search" || search === "trending") {
+        
+        // first we pick which gif to actua
+        var gif = data.data[offset].url
         let number = ` #${parseInt(offset) + 1}`;
-        if (search === "search" || search === "trending") {
-          var gif = data.data[offset].url
-          title += number;
-        } else {
-          var gif = data.data.url;
-        }
-        return message.channel.send(`${title}\n${gif}`);
+        title += number;
+      } else {
+        var gif = data.data.url;
       }
-    });
-  };
-  requestGif();
+      return message.channel.send(`${title}\n${gif}`);
+    }
+  });
 };
 
 exports.cmdConfig = {

@@ -236,7 +236,8 @@ exports.run = async (client, message, [search, ...args]) => {
       // i have no idea what this does but it works so i leave it
       headers: {'User-Agent': 'request'}
       
-    // just naming the variables, err = error, res = response code, data = the response data
+    // we are declaring what the response are
+    // err = error, res = response (status codes), data = the JSON
     }, (err, res, data) => {
       
       // if there is an error . . .
@@ -311,7 +312,8 @@ exports.run = async (client, message, [search, ...args]) => {
       // does things beyond me
       headers: {'User-Agent': 'request'}
       
-    // same as before, err = error, res = response code, data = data/body 
+    // we are declaring what the response are
+    // err = error, res = response (status codes), data = the JSON
     }, (err, res, data) => {
       
       // i explained this before in when i was talking about test session, i don't need to explain it all again
@@ -345,7 +347,13 @@ exports.run = async (client, message, [search, ...args]) => {
       // i am having second thought on having this here but i am too scared to remove it
       // if it works it works so i am not going to touch it even though i think it is just a wasted line
       json: true,
+      
+      
+      // i have been over this twice already, you get the idea
       headers: {'User-Agent': 'request'}
+      
+    // blah blah blah declaring what the response are
+    // blah blah blah err = error, res = response (status codes), data = the JSON
     }, (err, res, data) => {
       if (err) {
         return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
