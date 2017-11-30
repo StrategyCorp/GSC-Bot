@@ -98,7 +98,7 @@ exports.run = async (client, message, [search, ...args]) => {
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   
 /*
-    Setup variables
+    Setup Variables Section
 */
   
   // this is the smite api domain just so we never have to retype or copy and paste it

@@ -7,9 +7,17 @@ const request = require("request");
 // we want to search for different commands then make everything else args
 exports.run = (client, message, [search, ...args]) => {
   
+/*
+    Setup Variables Section
+*/
+  
   // we just want to make a variable for the api key that we can use multiple times
   // i am using glitch.com to host the bot at the moment so it is in the .env file for safety
   const apiKey = process.env.GIPHY;
+  
+/*
+    Help Section
+*/
   
   // if they didn't say which command they wanted or they asked for help then show them this
   if (search === "help" || search === undefined) {
@@ -36,13 +44,28 @@ exports.run = (client, message, [search, ...args]) => {
     // we are looping through the array of arrays and splitting it into 3 variables
     for (let [cmdName, cmdUsage, cmdDesc] of cmdArray) {
       
-      // we are going to 
+      // we are going to give each command there own field
        helpEmbed.addField(cmdName, `${settings.prefix}dashboard ${cmdName} ${cmdUsage}\n${cmdDesc}`);
     }
+    
+    // now we are sending the embed and returning
     return message.channel.send({embed: helpEmbed});
+    
+/*
+    Search Section
+*/
+    
   } else if (search === "search") {
+    
+    // we want to check if they send an args
+    // if they haven't return an error
     if (!args[0]) return message.channel.send(':negative_squared_cross_mark: You must give me a term to search');
+    
+    // ok we want to check if the last value in the array is a number
+    // so we are making a variable which is the last value the in array
     var offset = args[args.length - 1];
+    
+    // we are going to use some RegEx to test if it is a number
     if (/^\d+$/.test(offset)) {
       args.pop();
       if (offset > 24) offset = 25;
