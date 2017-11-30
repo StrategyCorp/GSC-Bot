@@ -12,8 +12,16 @@ exports.run = (client, message, args) => {
   // we are just going to return an err message here
   if (user.avatarURL === null) return message.channel.send(`:negative_squared_cross_mark: \`${user.username}\` does not have an avatar`);
   
-  if (user.username.substr(user.username.length - 1) === "e") return message.channel.send("2");
-  message.channel.send(`**${user.username}'s** avatar URL: ${user.avatarURL}`);
+  // this is so we can add an s after the apostrophe
+  let s = "s";
+  
+  // so here we test if the last letter of the users name is an s
+  // if it is then we change the s variable to be "" so that the s won't appear after the apostrophe
+  // we want to make sure we are grammatically correct all the time
+  if (user.username.substr(user.username.length - 1) === "s") s = "";
+  
+  // now we are going to send a normal message with the users name and the users avatar
+  return message.channel.send(`**${user.username}'${s}** avatar URL: ${user.avatarURL}`);
 };
 
 exports.cmdConfig = {

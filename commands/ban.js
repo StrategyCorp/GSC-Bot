@@ -1,8 +1,18 @@
+// get the discord.js lib so that we can actually do stuff
 const Discord = require('discord.js');
 
+// just the standard
 exports.run = (client, message, args) => {
-  let manageMessages = message.member.hasPermission("BAN_MEMBERS");
-  if (manageMessages === false) return message.channel.send(':negative_squared_cross_mark: You do not have permission. You need \`BAN_MEMBERS\`');
+  
+  // we want to know if the person that is trying to ban has the ban permission
+  // we are going to make it into a variable just because we can; i don't know
+  let hasPermission = message.member.hasPermission("BAN_MEMBERS");
+  
+  // we are going to check if they have the permission
+  // if they don't then we return a message saying they don't have permission
+  if (hasPermission === false) return message.channel.send(':negative_squared_cross_mark: You do not have permission. You need \`BAN_MEMBERS\`');
+  
+  // 
   let user = message.mentions.users.first();
   if (message.mentions.users.size < 1) return message.channel.send(':negative_squared_cross_mark: You must mention someone to ban them');
   let reason = args.slice(1).join(' ');
@@ -24,7 +34,7 @@ exports.run = (client, message, args) => {
 exports.cmdConfig = {
   name: "ban",
   aliases: ['vac'],
-  description: "Bans the mentioned user and deletes there message from the last 2 days. Permission needed: BAN_MEMBERS.",
+  description: "Bans the mentioned user and deletes their messages from the last 2 days. Permission needed: BAN_MEMBERS.",
   usage: "Ban <@user> [reason]",
   type: "mod"
 };
