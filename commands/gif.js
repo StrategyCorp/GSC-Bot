@@ -179,20 +179,31 @@ exports.run = (client, message, [search, ...args]) => {
     // if everything was ok . . .
     } else {
       
-      // we don't use embed because there is a problem loading Gifs in the setImage part of embeds so we use normal messages
+      // we don't use embed because there is a problem loading gifs in the setImage part of embeds so we use normal messages
       // first we make the title which will be at the top of the message
+      // .toProperCase is a custom function not a vanilla javascript function
       let title = `**${q.toProperCase()}**`;
       
       // if the user used the search or the trending commands there would be a number asigned with the gif
       if (search === "search" || search === "trending") {
         
-        // first we pick which gif to actua
+        // first we pick which gif to actually use
         var gif = data.data[offset].url
+        
+        // then we make a number variable so the user knows which gif they got
         let number = ` #${parseInt(offset) + 1}`;
+        
+        // we add the number to the end of the title
         title += number;
+      
+      // if they used the random command . . .
       } else {
+        
+        // there is only one object sent back
         var gif = data.data.url;
       }
+      
+      // we are just going to return the message with the gif and the title and be done
       return message.channel.send(`${title}\n${gif}`);
     }
   });
