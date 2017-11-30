@@ -363,15 +363,28 @@ exports.run = async (client, message, [search, ...args]) => {
           // note that it is NOT case sensative
           if (!p) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
           
-          // they sent the name as '[clanTag]playerName'
+          // if the user is in a clan they sent the name as '[clanTag]playerName'
           // AARRRR
           // it is just so annoying because it is the only was to get the players clan tag without sending another request to the clanthing method
           // they also don't have another variable were they send a clean version
-          // first we get rid of the [
-          // then we split it at ] so it because an array
-          // the array would be [clanTag, playerName]
-          console.log(p.Name);
-          let name = p["Name"].replace('[', '').split(']');
+          // here we just sort it to see if they are in a clan or not
+          if (p["Name"].startsWith('[') === true) {
+            
+            // first we get rid of the [
+            // then we split it at ] so it because an array
+            // the array would be [clanTag, playerName]
+            var name = p["Name"].replace('[', '').split(']');
+            
+            // next we want to get the clan tag before we change name into a string of just the name
+            // we also display the full clan name
+            var clan = `[${name[0]}] ${p.Team_Name}`;
+            
+            // we change name into a string
+            name = name[1];
+          } else {
+            var name = p.Name;
+            var clan = 'Not in a clan';
+          }
           
           // so i made one array for each of the fields just so i can read what is going to be on each line easily
           let main = [
@@ -387,7 +400,7 @@ exports.run = async (client, message, [search, ...args]) => {
             // so i use the clantag from the name array here and get the clan name
             // for an unknown reason they refer to clans as teams in all the api stuff
             // maybe it is just to annoying people like me
-            `**Clan:** [${name[0]}] ${p.Team_Name}`,
+            `**Clan:** ${clan}`,
             
             // this is not what region they registed on but the last region they selected when they were host of a party or solo queueing
             `**Region:** ${p.Region}`,
@@ -458,7 +471,7 @@ exports.run = async (client, message, [search, ...args]) => {
           
             // we are using the array for the name becasuse it is clean
             // then we are just joining everything inside the main array with a newline
-            .addField(name[1], main.join('\n'))
+            .addField(name, main.join('\n'))
           
             // this is the winrate array
             .addField('Games', winrate.join('\n'))
