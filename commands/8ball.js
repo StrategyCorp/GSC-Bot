@@ -44,9 +44,12 @@ exports.run = (client, message, question) => {
     // we want to set the colour according to what the response is
     .setColor(answerObj[answer])
   
-    // we will make the title the embed
+    // we will make the title the embed what the question is
+    // we make the other part the random answer
     .addField(`:question: ${question.join(' ')}`, `:8ball: ${answer}`);
-  message.channel.send({embed: ballEmbed});
+  
+  // now we just send the embed
+  return message.channel.send({embed: ballEmbed});
 };
 
 exports.cmdConfig = {

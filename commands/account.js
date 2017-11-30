@@ -1,13 +1,31 @@
+// get the discord.js lib so that we can actually do stuff
 const Discord = require('discord.js');
 
+// just a standard setup
 exports.run = (client, message, args) => {
+  
+  // i know there is like 1000 better ways of doing this but this is the lazy way so it is the one i chose
+  // first we are checking to see if the user has mentioned anybody
   if (message.mentions.users.size === 0) {
+    
+    // we want to user object to be the message authors
     var user = message.author
+    
+    // we want the guild member object to also be the message authors
     var usergm = message.member;
+    
+  // if somebody was mentioned . . .
   } else {
+    
+    // the user object will be whomever the user mentioned
     var user = message.mentions.users.first();
+    
+    // the guild member object will also be whomever they mentioned
     var usergm = message.guild.member(message.mentions.users.first());
   }
+  
+  // now we check to see if they have any roles
+  // not
   if (usergm.roles.array().length === 1) {
     var colour = "#FFFFFF";
     var roleNumber = "Role [0]";
