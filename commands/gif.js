@@ -33,7 +33,7 @@ exports.run = (client, message, [search, ...args]) => {
       // we are making the title 'gif help' so they know what the commands are for
       .setTitle('**Gif Help**');
     
-    // we are looping through the array of arrays
+    // we are looping through the array of arrays and splitting it into 3 variables
     for (let [cmdName, cmdUsage, cmdDesc] of cmdArray) {
        helpEmbed.addField(cmdName, `${settings.prefix}dashboard ${cmdName} ${cmdUsage}\n${cmdDesc}`);
     }
