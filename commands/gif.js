@@ -83,6 +83,7 @@ exports.run = (client, message, [search, ...args]) => {
     
     // we join the arguments so we can request statements aswell as words
     // note that it doesn't include the number at the end if there was because it was popped
+    // q is short for query
     var q = args.join(' ');
     
     // we take one away from the offset because arrays start at 0
@@ -92,22 +93,54 @@ exports.run = (client, message, [search, ...args]) => {
     var url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${q}&limit=25&offset=${offset}&rating=G&lang=en`;
     
 /*
-    
+    Trending Section
 */
     
   } else if (search === "trending") {
+    
+    // because this is what is trending you can't search terms
+    // q is short for query
     var q = "Trending";
+    
+    // we still want to know if they want an offset so we test args[0]
+    // if args[0] is a number . . .
     if (/^\d+$/.test(args[0])) {
+      
+      // we make the offset args[0]
       var offset = args[0];
+      
+      // once again we want to limit it to 25
       if (offset > 24) offset = 25;
+      
+    // if args[0] isn't a number . . .
     } else {
+      
+      // make the offset 1
       var offset = 1;
     }
-    offset = offset - 1;
+    
+    // arrays start from 0 so we take 1 away from the offset
+    offset -= 1;
+    
+    // this is the trending endpoint url
     var url = `https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=25&rating=G`;
+    
+/*
+    Random Section
+*/
+    
   } else if (search === "random") {
+    
+    // this section is really short because we don't have to mess around with offsets
+    // i don't really know why this endpoint is here because 
+    
+    // just going to return an error if there is no term to search
     if (!args[0]) return message.channel.send(':negative_squared_cross_mark: You must give me a term to search');
+    
+    // make the query the argument
     var q = args.join(' ');
+    
+    // the random endpoint url
     var url = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${q}&rating=G`;
   }
   const requestGif = async () => {
