@@ -31,11 +31,26 @@ exports.run = (client, message, args) => {
     // we are setting the colour of the highest role to be the side colour of the embed
     // if they don't have any roles we just make the side colour black
     var colour = "#FFFFFF";
+    
+    // we may have problems getting the length of the array later so i just made this
     var roleNumber = "Role [0]";
+    
+    // we don't want it to just be blank so we fill the space with this
     var roleArray = "no roles yet . . .";
+    
+  // this is if they have atleast 1 role that isn't @everybody
   } else {
+    
+    // so we want the colour to be the highest role
     var colour = usergm.highestRole.hexColor;
+    
+    // we make all of their roles into an array and get the length of it
+    // we take one away because we don' want to include @everybody
     var roleNumber = `Role [${usergm.roles.array().length - 1}]`;
+    
+    // so this maybe a little hard to explain but bare with me
+    // first we get all of the users roles in an object
+    // then we filter it so it only shows roles from the server that we are in
     var roleArray = usergm.roles.filter(r => r.id !== message.guild.id).map(role => role.name).join(', ');
   }
   // const statusColours = {
