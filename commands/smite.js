@@ -104,7 +104,8 @@ exports.run = async (client, message, [search, ...args]) => {
   // this is the smite api domain just so we never have to retype or copy and paste it
   const domain = "http://api.smitegame.com/smiteapi.svc/";
   
-  // this loads my developer ID that was give to me by the smite api. i am using glitch.com to host the bot at the moment so it is in the .env file for safety
+  // this loads my developer ID that was give to me by the smite api
+  // i am using glitch.com to host the bot at the moment so it is in the .env file for safety
   const devID = process.env.SMITEDEVID;
   
   // uses the moment package to get the date and time

@@ -1,18 +1,39 @@
+// get the discord.js lib so that we can actually do stuff
 const Discord = require("discord.js");
+
+// require so that we can make GET requests
 const request = require("request");
 
+// we want to search for different commands then make everything else args
 exports.run = (client, message, [search, ...args]) => {
+  
+  // we just want to make a variable for the api key that we can use multiple times
+  // i am using glitch.com to host the bot at the moment so it is in the .env file for safety
   const apiKey = process.env.GIPHY;
-  if (!search) {
+  
+  // if they didn't say which command they wanted or they asked for help then show them this
+  if (search === "help" || search === undefined) {
+    
+    // this is an array of arrays which contain the command name, the usage and the description
     var cmdArray = [
       ["search", "<term> [number]", "Gives a gif from a given term"],
       ["trending", "[number]", "Gives the trending gifs on Giphy"],
       ["random", "<term>", "Gives a random gif from a given term"]
     ];
+    
+    // we load the server settings so that we know what colour they want their embeds
     const settings = client.settings.get(message.guild.id);
+    
+    // this is where we make the embed
     const helpEmbed = new Discord.RichEmbed()
+    
+      // just going to set the colour as what they want in the server settings
       .setColor(settings.embedColour)
+    
+      // we are making the title 'gif help' so they know what the commands are for
       .setTitle('**Gif Help**');
+    
+    // we are looping through the array of arrays
     for (let [cmdName, cmdUsage, cmdDesc] of cmdArray) {
        helpEmbed.addField(cmdName, `${settings.prefix}dashboard ${cmdName} ${cmdUsage}\n${cmdDesc}`);
     }

@@ -49,17 +49,25 @@ exports.run = (client, message, [mentionSpace, ...reason]) => {
     // we want the colour to be whatever is in the server settings
     .setColor(settings.embedColour)
   
-    // we set the thumbnail as the person beings banned
+    // we set the thumbnail as the person that was banned's avatar
     .setThumbnail(user.avatarURL)
     
-    // we want the time at the bottom w
+    // we want the time at the bottom so we know when they were banned
     .setTimestamp()
+  
+    // now we have a field with all the infomation in it
+    // first we have the person that was banned's username, discriminator and id just so we don't mix people up
+    // then we show the person the banned them
+    // lastly the reason. if they did't set a reason then it is /shrug
     .addField('Action: ban', `User: ${user.username}#${user.discriminator} (${user.id})\nModrator: ${message.author.username}#${message.author.discriminator} (${message.author.id})\nReason: ${reason}`);
+  
+  // now we just send the embed to the modlog channel
   return client.channels.find("name", settings.modlogChannel).send({embed: banEmbed});
 };
 
 exports.cmdConfig = {
   name: "ban",
+  // i really like this aliase
   aliases: ['vac'],
   description: "Bans the mentioned user and deletes their messages from the last 2 days. Permission needed: BAN_MEMBERS.",
   usage: "Ban <@user> [reason]",
