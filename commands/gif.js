@@ -67,14 +67,34 @@ exports.run = (client, message, [search, ...args]) => {
     
     // we are going to use some RegEx to test if it is a number
     if (/^\d+$/.test(offset)) {
+      
+      // if the last value in the array is a number then pop it (remove it)
       args.pop();
+      
+      // when we send a GET request to the giphy api we ask for 25 objects back so we don't want any more then that
       if (offset > 24) offset = 25;
+      
+    // if it isn't a number . . .
     } else {
+      
+      // we just make the offset 1
       offset = 1;
     }
+    
+    // we join the arguments so we can request statements aswell as words
+    // note that it doesn't include the number at the end if there was because it was popped
     var q = args.join(' ');
-    offset = offset - 1;
+    
+    // we take one away from the offset because arrays start at 0
+    offset -= 1;
+    
+    // this is the search endpoint url
     var url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${q}&limit=25&offset=${offset}&rating=G&lang=en`;
+    
+/*
+    
+*/
+    
   } else if (search === "trending") {
     var q = "Trending";
     if (/^\d+$/.test(args[0])) {
