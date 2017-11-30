@@ -379,10 +379,16 @@ exports.run = async (client, message, [search, ...args]) => {
             // we also display the full clan name
             var clan = `[${name[0]}] ${p.Team_Name}`;
             
-            // we change name into a string
+            // we change name into a string which is a clean version on their name
             name = name[1];
+            
+          // if they aren't in a clan . . .
           } else {
+            
+            // the name is just a clean string so it is easy to work with
             var name = p.Name;
+            
+            // we want to the clan to just say they are not in a clan instead of being blank to avoide confusion
             var clan = 'Not in a clan';
           }
           
