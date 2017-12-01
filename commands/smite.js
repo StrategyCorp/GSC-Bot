@@ -725,12 +725,22 @@ exports.run = async (client, message, [search, ...args]) => {
               } else if (i.ShortDesc !== "" && i.ShortDesc !== null) {
                 main.unshift(`**Effect:** ${i.ShortDesc}`);
               }
+              i.ItemDescription["Menuitems"].forEach(function(stat) {
+                if (stat["Description"].split(' ').includes("Physical")) {
+                  var colour = '#ff0000';
+                } else if (stat["Description"].split(' ').includes("Magical")) {
+                  var colour = '#0050ff';
+                } else {
+                  var colour = '#ff00ff';
+                }
+              });
               const itemEmbed = new Discord.RichEmbed()
+                .setColor(colour)
                 .setThumbnail(i.itemIcon_URL)
                 .addField(i.DeviceName, main.join('\n'));
               return message.channel.send({embed: itemEmbed});
             } else if (i.Type === "Active") {
-              let desc = i.ItemDescription["SecondaryDescription"].replace(/<font color='#FFFF00'>|</font>/, '').split(' Cooldown - ');
+              let desc = i.ItemDescription["SecondaryDescription"].replace("<font color='#FFFF00'>", '').replace("</font>", '').split(' Cooldown - ');
               const relicEmbed = new Discord.RichEmbed()
                 .setColor('#14ff00')
                 .setThumbnail(i.itemIcon_URL)
