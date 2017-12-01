@@ -747,7 +747,11 @@ exports.run = async (client, message, [search, ...args]) => {
                 .addField(i.DeviceName, `**Effect:** ${desc[0]}\n**Cooldown:** ${desc[1]}`);
               return message.channel.send({embed: relicEmbed});
             } else if (i.Type === "Consumable") {
-              
+              const consumableEmbed = new Discord.RichEmbed()
+                .setColor('#ff6400')
+                .setThumbnail(i.itemIcon_URL)
+                .addField(i.DeviceName, `**Effect:** ${i.ItemDescription.SecondaryDescription}\n**Cost:** ${i.Price}`);
+              return message.channel.send({embed: consumableEmbed});
             }
           }
 /*
