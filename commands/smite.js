@@ -681,13 +681,9 @@ exports.run = async (client, message, [search, ...args]) => {
             if (itemObj[args.join(' ')] === "tier") {
               var filterItemArray = [];
               for (const item of data) {
-                console.log(item);
-                for (const prop in item) {
-                  itemArray.push(prop.Name)
-                }
+                if (item.ItemTier === 1) filterItemArray.push(item.DeviceName);
               }
             }
-            console.log(filterItemArray);
             return;
           } else {
             const findItemByName = (searchItem) => {
