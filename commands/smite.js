@@ -678,13 +678,10 @@ exports.run = async (client, message, [search, ...args]) => {
 */
         } else if (search === "item") {
           if (client.isInArray(itemArray, args.join(' ')) === true) {
-            if (itemObj[args.join(' ')] === "tier") {
-              var filterItemArray = [];
-              for (const item of data) {
-                if (item.ItemTier === 1) filterItemArray.push(item.DeviceName);
-              }
+            var filterItemArray = [];
+            for (const item of data) {
+              if (item.ItemTier === 1) filterItemArray.push(item.DeviceName);
             }
-            return;
           } else {
             const findItemByName = (searchItem) => {
               return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
