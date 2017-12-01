@@ -363,6 +363,9 @@ exports.run = async (client, message, [search, ...args]) => {
       } else {
         // once we get the data we are going to sort through what the user searched for
         
+        
+        if (data.length === 0) return message.channel.send(':negative_squared_cross_mark: Infinity');
+        
 /*
     Player
 */
@@ -515,12 +518,11 @@ exports.run = async (client, message, [search, ...args]) => {
           let number = args[1];
           if (!args[1]) number = 5;
           if (number > 19) number = 20;
-          data.map(function(o){
-              console.log(o.Worshippers);
-            });
-          // for (var i=0; i < number; i++) {
+          console.log(Math.max.apply(Math, data.map(function(o){return o.Worshippers;}))
+)
+//           for (var i=0; i < number; i++) {
 
-          // }
+//           }
 /*  
     God
 */
@@ -529,7 +531,7 @@ exports.run = async (client, message, [search, ...args]) => {
           
           // so the smite api sends an array of objects
           // each object is a different God
-          // this allows use to search for the God we want
+          // this allows us to search for the God we want
           // i might make an aliese thing later but i don't how what God alieses i should add
           const findGod = (searchGod) => {
             
