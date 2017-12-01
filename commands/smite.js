@@ -695,7 +695,7 @@ exports.run = async (client, message, [search, ...args]) => {
             };
             var i = data.find(findItemByName);
             if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not an item or a searchable term`);
-            if (i.Type === "item") {
+            if (i.Type === "Item") {
               let stats = [];
               for (let stat of i.ItemDescription.Menuitems) {
                 stats.push(`${stat.Value} ${stat.Description}`);
