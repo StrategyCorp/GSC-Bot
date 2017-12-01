@@ -31,10 +31,12 @@ exports.run = async (client, message, [search, ...args]) => {
   // yes i know the names are bad but i don't know what else to name them because it is an array or arrays
   var cmdArray = [
     ["player", "<player>", "Displays a players stats", "Who would you like me to look up?"],
+    ["mastery", "<player>", "Displays a players masteries", "Who would you like me to look up?"],
     ["god", "<god>", "Displays infomation on a chosen God", "Which God would you like me to look up?"],
     ["ability", "<god> <ability number>", "Displays the God ability", "Which God would you like me to look up?"],
     ["item", "<item | term>", "not sure yet", "Which item would you like me to look up?"],
     // not sure if i should keep the friends command
+    // might be an invasion of privacy type of thing
     ["friends", "<player>", "Lists all of there friends without private profiles", "Who would you like me to look up?"]
   ];
   
@@ -73,6 +75,7 @@ exports.run = async (client, message, [search, ...args]) => {
   // here is where we make aliases for some of the commands so that it is easier to use
   // the key is what the aliase is and the value is what it should be
   var aliaseObj = {
+    "masteries": "mastery",
     "gods": "god",
     "items": "item"
   };
@@ -500,7 +503,10 @@ exports.run = async (client, message, [search, ...args]) => {
           
           // we are going to send the embed and return because we are done!
           return message.channel.send({embed: playerEmbed});
-        
+/*
+    Mastery
+*/
+        } else if (search === "mastery") {
 /*  
     God
 */
@@ -806,7 +812,9 @@ exports.run = async (client, message, [search, ...args]) => {
     // we are request the getplayer method and the parameter is the player name
     requestData("getplayer", args[0]);
     
-    // i bundled god and ability together because they use the same method
+  } else if (search === "mastery") {
+    
+  // i bundled god and ability together because they use the same method
   } else if (search === "god" || search === "ability") {
     
     // the parameter will never change because i always want it in English
