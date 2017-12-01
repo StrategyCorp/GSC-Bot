@@ -729,6 +729,13 @@ exports.run = async (client, message, [search, ...args]) => {
                 .setThumbnail(i.itemIcon_URL)
                 .addField(i.DeviceName, main.join('\n'));
               return message.channel.send({embed: itemEmbed});
+            } else if (i.Type === "Active") {
+              let cooldown = i.ItemDescription.SecondaryDescription;
+              cooldown.replace(' Cooldown - ', '+++').split('+++');
+              console.log(cooldown);
+              const relicEmbed = new Discord.RichEmbd()
+            } else if (i.Type === "Consumable") {
+              
             }
           }
 /*
