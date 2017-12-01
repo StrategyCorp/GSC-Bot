@@ -175,9 +175,9 @@ exports.run = async (client, message, [search, ...args]) => {
     "tier 1": ["ItemTier", 1],
     "tier 2": ["ItemTier", 2],
     "tier 3": ["ItemTier", 3],
-    "physical power": "Physical Power",
+    "physical power": ["Physical Power"],
     "magical power": "offensive",
-    "attack speed": "Attack Speed",
+    "attack speed": ["Attack Speed"],
     "physical lifesteal": "offensive",
     "magical lifesteal": "offensive",
     "physical penetration": "offensive",
@@ -679,7 +679,7 @@ exports.run = async (client, message, [search, ...args]) => {
             var filterItemArray = [];
               for (const item of data) {
                 if (itemObj[args.join(' ')].length === 1) {
-                  if ()
+                  item.ItemDescription["Menuitems"].forEach
                 } else if (itemObj[args.join(' ')].length === 2) {
                   if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1]) filterItemArray.push(item.DeviceName);
                 } else if (itemObj[args.join(' ')].length === 4) {
