@@ -175,9 +175,9 @@ exports.run = async (client, message, [search, ...args]) => {
     "tier 1": ["ItemTier", 1],
     "tier 2": ["ItemTier", 2],
     "tier 3": ["ItemTier", 3],
-    "physical power": "offensive",
+    "physical power": "Physical Power",
     "magical power": "offensive",
-    "attack speed": "offensive",
+    "attack speed": "Attack Speed",
     "physical lifesteal": "offensive",
     "magical lifesteal": "offensive",
     "physical penetration": "offensive",
@@ -200,10 +200,8 @@ exports.run = async (client, message, [search, ...args]) => {
     "mana": "utility",
     "mana per 5": "utility",
     "mana per five": "utility",
-    "relic": ["Type", "Active"],
-    "relics": ["Type", "Active"],
-    "base": ["Type", "Active", "ItemTier", 1],
-    "upgraded": ["Type", "Active", "ItemTier", 2],
+    "relic": ["Type", "Active", "ItemTier", 2],
+    "relics": ["Type", "Active", "ItemTier", 2],
     "consumable": ["Type", "Consumable"],
     "consumables": ["Type", "Consumable"]
   };
@@ -680,13 +678,15 @@ exports.run = async (client, message, [search, ...args]) => {
           if (client.isInArray(itemArray, args.join(' ')) === true) {
             var filterItemArray = [];
               for (const item of data) {
-                if (itemObj[args.join(' ')].length === 2) {
+                if (itemObj[args.join(' ')].length === 1) {
+                  if ()
+                } else if (itemObj[args.join(' ')].length === 2) {
                   if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1]) filterItemArray.push(item.DeviceName);
                 } else if (itemObj[args.join(' ')].length === 4) {
                   if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1] && item[itemObj[args.join(' ')][2]] === itemObj[args.join(' ')][3]) filterItemArray.push(item.DeviceName);
                 }
               }
-            return message.channel.send(filterItemArray.join(', '));
+            return message.channel.send(`**${args.join(' ').toProperCase()}:**\n` + filterItemArray.sort().join(', '));
           } else {
             const findItemByName = (searchItem) => {
               return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
