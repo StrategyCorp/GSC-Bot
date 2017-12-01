@@ -171,7 +171,7 @@ exports.run = async (client, message, [search, ...args]) => {
   
   // this is so that they can get a list of all items with a given filter
   var itemObj = {
-    "starter": "tier",
+    "starter": ["StartingItem", true],
     "tier 1": ["ItemTier", 1],
     "tier 2": ["ItemTier", 2],
     "tier 3": ["ItemTier", 3],
@@ -200,12 +200,12 @@ exports.run = async (client, message, [search, ...args]) => {
     "mana": "utility",
     "mana per 5": "utility",
     "mana per five": "utility",
-    "relic": "relic",
-    "relics": "relic",
-    "base": "relic",
-    "upgraded": "relic",
-    "consumable": "consumable",
-    "consumables": "consumable"
+    "relic": ["Type", "Active"],
+    "relics": ["Type", "Active"],
+    "base": ["Type", "Active", "ItemTier", 1],
+    "upgraded": ["Type", "Active", "ItemTier", 2],
+    "consumable": ["Type", "Consumable"],
+    "consumables": ["Type", "Consumable"]
   };
   
   // make it into an array so it can be searched easily
@@ -679,9 +679,13 @@ exports.run = async (client, message, [search, ...args]) => {
         } else if (search === "item") {
           if (client.isInArray(itemArray, args.join(' ')) === true) {
             var filterItemArray = [];
-            for (const item of data) {
-              if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1]) filterItemArray.push(item.DeviceName);
-            }
+              for (const item of data) {
+                if (itemObj[args.join(' ')].length === 2) {
+                  if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1]) filterItemArray.push(item.DeviceName);
+                } else if (itemObj[args.join(' ')].length === 4) {
+                  if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1] && item[itemObj[args.join(' ')][2]] === itemObj[args.join(' ')][3]) filterItemArray.push(item.DeviceName);
+                }
+              }
             return message.channel.send(filterItemArray.join(', '));
           } else {
             const findItemByName = (searchItem) => {
