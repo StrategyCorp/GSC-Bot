@@ -730,10 +730,12 @@ exports.run = async (client, message, [search, ...args]) => {
                 .addField(i.DeviceName, main.join('\n'));
               return message.channel.send({embed: itemEmbed});
             } else if (i.Type === "Active") {
-              let cooldown = i.ItemDescription.SecondaryDescription;
-              cooldown.replace(' Cooldown - ', '+++').split('+++');
-              console.log(cooldown);
-              const relicEmbed = new Discord.RichEmbd()
+              let desc = i.ItemDescription["SecondaryDescription"].replace(/<font color='#FFFF00'>|</font>/, '').split(' Cooldown - ');
+              const relicEmbed = new Discord.RichEmbed()
+                .setColor('#14ff00')
+                .setThumbnail(i.itemIcon_URL)
+                .addField(i.DeviceName, `**Effect:** ${desc[0]}\n**Cooldown:** ${desc[1]}`);
+              return message.channel.send({embed: relicEmbed});
             } else if (i.Type === "Consumable") {
               
             }
