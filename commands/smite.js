@@ -31,7 +31,7 @@ exports.run = async (client, message, [search, ...args]) => {
   // yes i know the names are bad but i don't know what else to name them because it is an array or arrays
   var cmdArray = [
     ["player", "<player>", "Displays a players stats", "Who would you like me to look up?"],
-    ["mastery", "<player>", "Displays a players masteries", "Who would you like me to look up?"],
+    ["mastery", "<player> [number]", "Displays a players highest masteried Gods", "Who would you like me to look up?"],
     ["god", "<god>", "Displays infomation on a chosen God", "Which God would you like me to look up?"],
     ["ability", "<god> <ability number>", "Displays the God ability", "Which God would you like me to look up?"],
     ["item", "<item | term>", "not sure yet", "Which item would you like me to look up?"],
@@ -507,6 +507,12 @@ exports.run = async (client, message, [search, ...args]) => {
     Mastery
 */
         } else if (search === "mastery") {
+          let number = args[1];
+          if (!args[1]) number = 5;
+          if (number > 19) number = 20;
+          for (var i=0; i < number; i++){
+            
+          }
 /*  
     God
 */
@@ -810,22 +816,18 @@ exports.run = async (client, message, [search, ...args]) => {
   if (search === "player") {
     
     // we are request the getplayer method and the parameter is the player name
-    requestData("getplayer", args[0]);
+    requestData("getplayer", args[0]);  
+  } else if (search === "mastery") {  
+    requestData("getgodranks", args[0]);
     
-  } else if (search === "mastery") {
-    
-  // i bundled god and ability together because they use the same method
+  // we bundled god and ability together because they use the same method
   } else if (search === "god" || search === "ability") {
     
     // the parameter will never change because i always want it in English
     requestData("getgods", "1");   
   } else if (search === "item") {
-    
-    // once again the parameter never changes because i want it in English
     requestData("getitems", "1");
   } else if (search === "friends") {
-    
-    // same as the player but the method is different
     requestData("getfriends", args[0]);
   }  
 };
