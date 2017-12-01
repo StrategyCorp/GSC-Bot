@@ -515,13 +515,12 @@ exports.run = async (client, message, [search, ...args]) => {
           let number = args[1];
           if (!args[1]) number = 5;
           if (number > 19) number = 20;
-          for (var i=0; i < number; i++) {
-            // Math.max.apply(Math, data.map(function(o){
-            //   console.log(o.Worshippers);
-            // }));
-            let result = data.map(a => Math.max(...a.map(b => b.value)));
-            console.log(result);
-          }
+          data.map(function(o){
+              console.log(o.Worshippers);
+            });
+          // for (var i=0; i < number; i++) {
+
+          // }
 /*  
     God
 */
