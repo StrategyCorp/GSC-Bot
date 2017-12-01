@@ -172,9 +172,9 @@ exports.run = async (client, message, [search, ...args]) => {
   // this is so that they can get a list of all items with a given filter
   var itemObj = {
     "starter": "tier",
-    "tier 1": "tier",
-    "tier 2": "tier",
-    "tier 3": "tier",
+    "tier 1": ["ItemTier", "1"],
+    "tier 2": ["ItemTier", "2"],
+    "tier 3": ["ItemTier", "3"],
     "physical power": "offensive",
     "magical power": "offensive",
     "attack speed": "offensive",
@@ -679,9 +679,10 @@ exports.run = async (client, message, [search, ...args]) => {
         } else if (search === "item") {
           if (client.isInArray(itemArray, args.join(' ')) === true) {
             var filterItemArray = [];
-            for (const item of data) {
-              if (item.ItemTier === 1) filterItemArray.push(item.DeviceName);
-            }
+            console.log(data[0][itemObj[args.join(' ')[0]]]);
+            // for (const item of data) {
+            //   if (item[itemObj[args.join(' ')]] === itemObj) filterItemArray.push(item.DeviceName);
+            // }
           } else {
             const findItemByName = (searchItem) => {
               return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
