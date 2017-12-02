@@ -22,11 +22,12 @@ module.exports = (client) => {
   
   client.pointsMonitor = (client, message) => {
     if (message.channel.type !=='text') return;
-    // if (message.guild.memberCount < 20) return;
     const score = client.points.get(message.author.id) || { points: 0, level: 0 };
     score.points++;
     score.level = Math.floor(0.1 * Math.sqrt(score.points));
     client.points.set(message.author.id, score);
+    
+    
     
     // const sql = require("sqlite");
     // sql.open(`./data/points/${message.guild.id}.sqlite`);
