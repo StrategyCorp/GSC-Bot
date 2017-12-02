@@ -214,14 +214,11 @@ exports.run = async (client, message, [search, ...args]) => {
           return message.channel.send({embed: playerEmbed});
         } else if (search === "mastery") {
           var m = data;
-          let s = "s";
-          if (args[0].substr(args[0].length - 1) === "s") s = "";
+          let s = args[0].substr(args[0].length - 1) === "s" ? "" : "s";
           const masteryEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .setTitle(`${args[0]}'${s} Masteries`);
-          let number = args[1];
-          if (!args[1]) number = 5;
-          if (number > 19) number = 20;
+          let number = !args[1] ? 5 : (args[1] > 19) ? 20 : args[1];
           for (var i = 0; i < number; i++) {
             var hm = m.reduce(function(l, e) {
               return e.Worshippers > l.Worshippers ? e : l;
