@@ -8,8 +8,11 @@ exports.run = (client, message, args) => {
     let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > list.length ? list.length : args[1]) : 1) : 1;
     return message.channel.send(`**Page Number ${pageNumber} of ${list.length}**\n${list[pageNumber - 1].join(', ')}`);
   }
-  if (client.isInArray(list, args.join(' ').toLowerCase()) === false) return message.channel.send(':negative_squared_cross_mark: Error 404 meme not found');
-  let url = 'https://memegen.link/buzz/memes/memes_everywhere';
+  list = list.join('|+|').toLowerCase().split('|+|');
+  args = args.join(' ').split(' | ');
+  if (client.isInArray(list, args[0].toLowerCase()) === false) return message.channel.send(':negative_squared_cross_mark: Error 404 meme not found');
+  if (!args[1]) args = [args[0], "", ""];
+  let url = `https://memegen.link/${args[0]}/${args[1]}/${args[2]}`;
   request.get({
     url: url,
     json: true,
