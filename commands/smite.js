@@ -5,7 +5,7 @@ const md5 = require('md5');
 const { inspect } = require("util");
 
 exports.run = async (client, message, [search, ...args]) => {
-  if (search) search = search.toLowerCase();
+  search = search ? search.toLowerCase() : "help";
   var cmdList = [];
   var cmdArray = [
     ["player", "<player>", "Displays a players stats", "Who would you like me to look up?"],
@@ -23,7 +23,7 @@ exports.run = async (client, message, [search, ...args]) => {
     cmdList.push(cmdName);
     helpEmbed.addField(cmdName, `${settings.prefix}smite ${cmdName} ${cmdUsage}\n${cmdDesc}`);
   }
-  if (search === "help" || search === undefined) {
+  if (search === "help") {
     return message.channel.send({embed: helpEmbed});
   }
   var aliaseObj = {
@@ -354,12 +354,7 @@ exports.run = async (client, message, [search, ...args]) => {
                 .addField(i.DeviceName, main.join('\n'));
               let colour;
               i.ItemDescription["Menuitems"].forEach(function(stat) {
-                if (stat["Description"].split(' ').includes("Physical")) {
-                  colour = '#ff0000';
-                } else if (stat["Description"].split(' ').includes("Magical")) {
-                  colour = '#0050ff';
-                }
-                if (!colour) colour = '#ff00ff';
+                colour = stat["Description"].split(' ').includes("Physical") ? '#ff0000': (stat["Description"].split(' ').includes("Magical")) ? '#0050ff' : '#ff00ff'
                 itemEmbed.setColor(colour)
               });
               return message.channel.send({embed: itemEmbed});
