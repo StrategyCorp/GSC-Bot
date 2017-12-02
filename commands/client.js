@@ -44,8 +44,7 @@ exports.run = async (client, message, [search, ...args]) => {
       client.points.set(user, score);
       return message.channel.send(`:white_check_mark: \`${points}\` points have been removed from \`${userObject.username}\``)
     }
-  } else if (search === "test") {
-    
+  } else if (search === "test") {   
 //     var Canvas = require('canvas')
 //       , Image = Canvas.Image
 //       , canvas = new Canvas(200, 200)
@@ -60,7 +59,7 @@ exports.run = async (client, message, [search, ...args]) => {
 //     ctx.lineTo(50 + te.width, 102);
 //     ctx.stroke();
     
-    var fs = require('fs')
+// var fs = require('fs')
 //       , out = fs.createWriteStream(__dirname + '/../data/canvas/test.png')
 //       , stream = canvas.pngStream();
     
@@ -71,8 +70,12 @@ exports.run = async (client, message, [search, ...args]) => {
 //     stream.on('end', function(){
 //       console.log('saved png');
 //     });
-    let image = await fs.readFile('../data/canvas/image/bonobo.png');
-    message.channel.send(image)
+// let image = await fs.readFile('../data/canvas/image/bonobo.png');
+// message.channel.send(image)
+    
+    const { inspect } = require("util");
+    const spoints = client.spoints.get(message.guild.id);
+    return message.channel.send(inspect(spoints), {code: "json"});
   } else {
     return message.channel.send(':negative_squared_cross_mark: else');
   }

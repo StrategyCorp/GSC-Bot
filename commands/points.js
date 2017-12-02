@@ -3,8 +3,8 @@ const Discord = require('discord.js');
 exports.run = (client, message, args) => {
   const settings = client.settings.get(message.guild.id);
   var user = message.mentions.users.first() || message.author;
-  let globalPoints = client.points.get(user.id).points;
-  let globalLevel = client.points.get(user.id).level;
+  let globalPoints = client.gpoints.get(user.id).points;
+  let globalLevel = client.gpoints.get(user.id).level;
   if (!globalPoints) {
     globalPoints = 1;
     globalLevel = 0;

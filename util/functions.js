@@ -22,12 +22,15 @@ module.exports = (client) => {
   
   client.pointsMonitor = (client, message) => {
     if (message.channel.type !=='text') return;
-    const score = client.points.get(message.author.id) || { points: 0, level: 0 };
+    const score = client.gpoints.get(message.author.id) || { points: 0, level: 0 };
     score.points++;
     score.level = Math.floor(0.1 * Math.sqrt(score.points));
-    client.points.set(message.author.id, score);
+    client.gpoints.set(message.author.id, score);
     
-    
+    const spoints = client.spoints.get(message.guild.id);
+    if (!spoints || spoints[message.author.id] === NaN) spoints[message.author.id] = 0;
+    spoints[message.author.id] = parseInt(spoints[message.author.id]) + 1;
+    client.spoints.set(message.guild.id, spoints);
   };
 
   

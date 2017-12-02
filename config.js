@@ -6,9 +6,7 @@ const config = {
     "rexsi": "lol"
   },
   "musicPasses": "1",
-  "serverPoints": {
-    "1": "1"
-  },
+  "serverPoints": {},
   "serverSettings": {
     "prefix": "!",
     "adminRole": "admin",
