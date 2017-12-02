@@ -15,9 +15,7 @@ exports.run = (client, message, args) => {
   args[2] = !args[2] ? "_" : args[2];
   let url = `https://memegen.link/${args[0]}/${args[1]}/${args[2]}`;
   request.get({
-    url: url,
-    json: true,
-    headers: {'User-Agent': 'request'}
+    url: url
   }, (err, res, data) => {
     if (err) {
       return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
