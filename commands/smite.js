@@ -224,7 +224,7 @@ exports.run = async (client, message, [search, ...args]) => {
           if (number > 19) number = 20;
           for (var i = 0; i < number; i++) {
             var hm = m.reduce(function(l, e) {
-              return e.Worshippers > l. Worshippers ? e : l;
+              return e.Worshippers > l.Worshippers ? e : l;
             });
             let main = [
               `**Mastery:** ${client.romanize(hm.Rank)}`,
@@ -234,8 +234,9 @@ exports.run = async (client, message, [search, ...args]) => {
               `**Minion Kills:** ${hm.MinionKills}`
             ];
             masteryEmbed.addField(hm.god, main.join('\n'));
+            client.removeObjectFromArrayOfObjectsFromKeyAndValue(m, "god", hm.god);
           }
-          return message.channel.send({embed: mas})
+          return message.channel.send({embed: masteryEmbed});
         } else if (search === "god") {
           const findGod = (searchGod) => {
             return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();

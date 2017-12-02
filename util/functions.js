@@ -110,13 +110,23 @@ module.exports = (client) => {
     }
   };
   
+  client.removeObjectFromArrayOfObjectsFromKeyAndValue = (array, key, value) => {
+    var i = array.length;
+    while (i--) {
+      if (array[i] && array[i].hasOwnProperty(key) && (arguments.length > 2 && array[i][key] === value)) {
+        array.splice(i, 1);
+      }
+    }
+    return array;
+  };
+  
   client.chunkArray = (array, chunkSize) => {
     var results = [];
     while (array.length) {
       results.push(array.splice(0, chunkSize));
     }
     return results;
-  }
+  };
   
   client.romanize = (number) => {
     if (!+number) return NaN;
