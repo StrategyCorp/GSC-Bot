@@ -28,21 +28,19 @@ module.exports = (client) => {
     client.points.set(message.author.id, score);
     
     
-    
-    // const sql = require("sqlite");
-    // sql.open(`./data/points/${message.guild.id}.sqlite`);
-    // sql.get(`SELECT * FROM points WHERE userId ="${message.author.id}"`).then(row => {
-    //   if (!row) {
-    //     sql.run(`INSERT INTO points (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
-    //   } else {
-    //     sql.run(`UPDATE points SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
-    //   }
-    // }).catch(() => {
-    //   console.error;
-    //   sql.run(`CREATE TABLE IF NOT EXISTS points (userId TEXT, points INTEGER)`).then(() => {
-    //     sql.run(`INSERT INTO points (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
-    //   });
-    // });
+    sql.open(`./data/points/${message.guild.id}.sqlite`);
+    sql.get(`SELECT * FROM points WHERE userId ="${message.author.id}"`).then(row => {
+      if (!row) {
+        sql.run(`INSERT INTO points (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
+      } else {
+        sql.run(`UPDATE points SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
+      }
+    }).catch(() => {
+      console.error;
+      sql.run(`CREATE TABLE IF NOT EXISTS points (userId TEXT, points INTEGER)`).then(() => {
+        sql.run(`INSERT INTO points (userId, points) VALUES (?, ?)`, [message.author.id, 1]);
+      });
+    });
   };
 
   
@@ -64,12 +62,10 @@ module.exports = (client) => {
     if (typeof evaled !== "string") {
       text = require("util").inspect(text, {depth: 0});
     }
-
     text = text
       .replace(/`/g, "`" + String.fromCharCode(8203))
       .replace(/@/g, "@" + String.fromCharCode(8203))
       .replace(client.token, "mfa.VkO_2G4Qv3T--NO--lWetW_tjND--TOKEN--QFTm6YGtzq9PH--4U--tG0");
-
     return text;
   };
 

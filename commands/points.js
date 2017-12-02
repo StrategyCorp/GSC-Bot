@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const sql = require("sqlite");
 
 exports.run = (client, message, args) => {
   const settings = client.settings.get(message.guild.id);
@@ -13,8 +14,10 @@ exports.run = (client, message, args) => {
   const pointsEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
     .setThumbnail(user.avatarURL)
-    .addField(message.author.username, `Level: ${level}\nPoints: ${points}`);
-  message.channel.send({embed: pointsEmbed});
+    .setAuthor(`${user.username}#${user.discriminator}`, user.avatarURL)
+    .addField(settings.currency)
+    .addField('Global Points', `Level: ${level}\nPoints: ${points}`);
+  return message.channel.send({embed: pointsEmbed});
 };
 
 exports.cmdConfig = {

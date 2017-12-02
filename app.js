@@ -14,7 +14,6 @@ client.queue = new Enmap();
 client.session = new Enmap({provider: new EnmapLevel({name: "session"})});
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 client.points = new Enmap({provider: new EnmapLevel({name: "points"})});
-client.guildPoints = new Enmap({provide: new EnmapLevel({name: "guildPoints"})});
 
 const init = async () => {
   const cmdFiles = await readdir("./commands/");
