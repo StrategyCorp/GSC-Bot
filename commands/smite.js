@@ -213,6 +213,7 @@ exports.run = async (client, message, [search, ...args]) => {
             .addField('Ranked', ranked.join('\n'));
           return message.channel.send({embed: playerEmbed});
         } else if (search === "mastery") {
+          var m = data;
           let s = "s";
           if (args[0].substr(args[0].length - 1) === "s") s = "";
           const masteryEmbed = new Discord.RichEmbed()
@@ -221,6 +222,9 @@ exports.run = async (client, message, [search, ...args]) => {
           let number = args[1];
           if (!args[1]) number = 5;
           if (number > 19) number = 20;
+          var highestMastery = m.reduce(function(l, e) {
+            return e.Worshippers > l. Worshippers ? e : l;
+          });
         } else if (search === "god") {
           const findGod = (searchGod) => {
             return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
