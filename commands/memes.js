@@ -5,13 +5,9 @@ exports.run = (client, message, [search, ...args]) => {
   if (search === "list") {
     var list = Object.keys(meme.inbuild).sort();
     list = client.chunkArray(list, 25);
-    let pageNumber = args[0];
-    if (/^\d+$/.test(pageNumber)) {
-      pageNumber = parseInt(pageNumber) - 1;
-    } else {
-      pageNumber = 0;
-    }
-    return message.channel.send(`**Page Number ${pageNumber + 1} of ${list.length}**\n${list[pageNumber].join(', ')}`);
+    let pageNumber = args[0] ? (/^\d+$/.test(args[0]) ? args[0] : 1) : 1;
+    if (pageNumber > list.length) pageNumber = list.length;
+    return message.channel.send(`**Page Number ${pageNumber} of ${list.length}**\n${list[pageNumber - 1].join(', ')}`);
   }
   let url = 'https://memegen.link/buzz/memes/memes_everywhere';
   request.get({
