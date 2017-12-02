@@ -11,7 +11,8 @@ exports.run = (client, message, args) => {
   list = list.join('|+|').toLowerCase().split('|+|');
   args = args.join(' ').split(' | ');
   if (client.isInArray(list, args[0].toLowerCase()) === false) return message.channel.send(':negative_squared_cross_mark: Error 404 meme not found');
-  if (!args[1]) args = [args[0], "", ""];
+  args[1] = !args[1] ? "_" : args[1];
+  args[2] = !args[2] ? "_" : args[2];
   let url = `https://memegen.link/${args[0]}/${args[1]}/${args[2]}`;
   request.get({
     url: url,
