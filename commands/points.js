@@ -3,17 +3,14 @@ const Discord = require('discord.js');
 exports.run = (client, message, args) => {
   const settings = client.settings.get(message.guild.id);
   var user = message.mentions.users.first() || message.author;
-  let globalPoints = client.gpoints.get(user.id).points;
-  let globalLevel = client.gpoints.get(user.id).level;
-  if (!globalPoints) {
-    globalPoints = 1;
-    globalLevel = 0;
-  }
+  let gpoints = client.gpoints.get(user.id).points || 1;
+  let glevel = client.gpoints.get(user.id).level || 0;
+  lety spoints = client.spoints.get(message.guild.id);
   const pointsEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
     .setThumbnail(user.avatarURL)
     .setAuthor(`${user.username}#${user.discriminator}`)
-    .addField('Global Points', `Level: ${globalLevel}\nPoints: ${globalPoints}`);
+    .addField('Global Points', `Level: ${glevel}\nPoints: ${gpoints}`);
   return message.channel.send({embed: pointsEmbed});
 };
 
