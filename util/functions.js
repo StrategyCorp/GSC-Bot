@@ -1,4 +1,3 @@
-const sql = require("sqlite");
 const moment = require('moment');
 const vgs = require('../data/vgs.json');
 
@@ -27,20 +26,6 @@ module.exports = (client) => {
     score.points++;
     score.level = Math.floor(0.1 * Math.sqrt(score.points));
     client.points.set(message.author.id, score);
-    
-    sql.open(`./data/points/${message.guild.id}.sqlite`);
-    sql.get(`SELECT * FROM points WHERE id ="${message.author.id}"`).then(row => {
-      if (!row) {
-        sql.run(`INSERT INTO points (id, points) VALUES (?, ?)`, [message.author.id, 1]);
-      } else {
-        sql.run(`UPDATE points SET points = ${row.points + 1} WHERE id = ${message.author.id}`);
-      }
-    }).catch(() => {
-      console.error;
-      sql.run(`CREATE TABLE IF NOT EXISTS points (id TEXT, points INTEGER)`).then(() => {
-        sql.run(`INSERT INTO points (id, points) VALUES (?, ?)`, [message.author.id, 1]);
-      });
-    });
   };
 
   

@@ -1,6 +1,6 @@
 exports.run = async (client, message, [search, ...args]) => {
   if (message.author.id !== client.config.ownerId) return;
-  if (!args) return message.channel.send(':negative_squared_cross_mark: !args');
+  if (!args[0]) return message.channel.send(':negative_squared_cross_mark: !args');
   if (search === "say") {
     message.delete()
     message.channel.send(args.join(' '));
