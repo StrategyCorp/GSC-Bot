@@ -364,7 +364,7 @@ exports.run = async (client, message, [search, ...args]) => {
         // once we get the data we are going to sort through what the user searched for
         
         
-        if (data.length === 0) return message.channel.send(':negative_squared_cross_mark: Infinity');
+        // if (data.length === 0) return message.channel.send(':negative_squared_cross_mark: Infinity error');
         
 /*
     Player
@@ -372,14 +372,14 @@ exports.run = async (client, message, [search, ...args]) => {
         
         if (search === "player") {
           
+          // if there is no player with the name that they sent this is will return before we start geting all sort of undefined errors
+          // note that it is NOT case sensative
+          if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
+          
           // we are going to asign the variable p to the data
           // even though they only send one object they always send an array
           // p is short for player if you didn't realise
           var p = data[0];
-          
-          // if there is no player with the name that they sent this is will return before we start geting all sort of undefined errors
-          // note that it is NOT case sensative
-          if (!p) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
           
           // if the user is in a clan they sent the name as '[clanTag]playerName'
           // AARRRR
