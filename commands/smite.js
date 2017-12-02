@@ -175,8 +175,8 @@ exports.run = async (client, message, [search, ...args]) => {
   // this is so that they can get a list of all items with a given filter
   var itemObj = {
     "starter": ["StartingItem", true],
-    "tier 1": ["ItemTier", 1],
-    "tier 2": ["ItemTier", 2],
+    "tier 1": ["ItemTier", 1, "StartingItem", false, "Type", "Item"],
+    "tier 2": ["ItemTier", 2, "Type", "Item"],
     "tier 3": ["ItemTier", 3],
     "physical power": ["Physical Power"],
     "magical power": ["Magical Power"],
@@ -708,9 +708,11 @@ exports.run = async (client, message, [search, ...args]) => {
                   if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1]) filterItemArray.push(item.DeviceName);
                 } else if (itemObj[args.join(' ')].length === 4) {
                   if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1] && item[itemObj[args.join(' ')][2]] === itemObj[args.join(' ')][3]) filterItemArray.push(item.DeviceName);
+                } else if (itemObj[args.join(' ')].length === 6) {
+                  if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1] && item[itemObj[args.join(' ')][2]] === itemObj[args.join(' ')][3] && item[itemObj[args.join(' ')][4]] === itemObj[args.join(' ')][5]) filterItemArray.push(item.DeviceName); 
                 }
               }
-            return message.channel.send(`**${args.join(' ').toProperCase()}:**\n` + filterItemArray.sort().join(', '));
+            return message.channel.send(`**[${filterItemArray.length}] ${args.join(' ').toProperCase()}:**\n` + filterItemArray.sort().join(', '));
           } else {
             const findItemByName = (searchItem) => {
               return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
