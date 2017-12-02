@@ -697,6 +697,7 @@ exports.run = async (client, message, [search, ...args]) => {
     Item
 */
         } else if (search === "item") {
+          if (args.join(' ').toLowerCase() === "fatalis") return message.channel.send('aids');
           if (client.isInArray(itemArray, args.join(' ')) === true) {
             var filterItemArray = [];
               for (const item of data) {
