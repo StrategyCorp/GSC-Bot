@@ -110,6 +110,14 @@ module.exports = (client) => {
     }
   };
   
+  client.chunkArray = (array, chunkSize) => {
+    var results = [];
+    while (array.length) {
+      results.push(array.splice(0, chunkSize));
+    }
+    return results;
+  }
+  
   Array.prototype.random = function() {
     return this[Math.floor(Math.random() * this.length)]
   };
