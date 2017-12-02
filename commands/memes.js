@@ -32,7 +32,7 @@ exports.run = (client, message, args) => {
 exports.cmdConfig = {
   name: "memes",
   aliases: ['meme'],
-  description: "Makes a memes. To view all available memes use !memes list",
+  description: "Makes a memes.",
   usage: "memes list || [<meme> | [top line] | [bottom line]]",
   type: "fun"
 };
