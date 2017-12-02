@@ -26,6 +26,8 @@ module.exports = (client) => {
     score.points++;
     score.level = Math.floor(0.1 * Math.sqrt(score.points));
     client.points.set(message.author.id, score);
+    
+    
   };
 
   
