@@ -28,8 +28,8 @@ module.exports = (client) => {
     client.gpoints.set(message.author.id, score);
     
     const spoints = client.spoints.get(message.guild.id);
-    if (!spoints || spoints[message.author.id] === NaN) spoints[message.author.id] = 0;
-    spoints[message.author.id] = parseInt(spoints[message.author.id]) + 1;
+    if (!spoints[message.author.id] || spoints[message.author.id] === NaN) spoints[message.author.id] = [0, 0];
+    spoints[message.author.id] = [parseInt(spoints[message.author.id][0]) + 1, parseInt(spoints[message.author.id][1]) + 1];
     client.spoints.set(message.guild.id, spoints);
   };
 
