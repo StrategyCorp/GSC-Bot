@@ -63,16 +63,18 @@ exports.run = async (client, message, [search, ...args]) => {
     } else if (res.statusCode !== 200) {
       return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
     } else {
+      data = data[region];
       if (search === "player") {    
-        var p = data[region]
+        var p = data.stats;
+        var pq = 
         for (let rankRank of rankArray) {
-          if (client.between(p.rating, rankObj[rankRank][0], rankObj[rankRank][1])) {
+          if (client.between(p.competitive.comprank, rankObj[rankRank][0], rankObj[rankRank][1])) {
             var rank = rankRank;
           }
         }
         let main = [
           `**Level:** ${p.prestige}-${p.level} (${parseInt((p.prestige * 100) + p.level)})`,
-          `**Rank:** ${rank.toProperCase()} - ${p.rating}`
+          `**Rank:** ${rank.toProperCase()} - ${p.competitive.comprank}`
         ];
         const playerEmbed = new Discord.RichEmbed()
           .setColor(settings.embedColour)
