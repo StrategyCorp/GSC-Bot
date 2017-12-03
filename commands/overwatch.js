@@ -48,11 +48,21 @@ exports.run = async (client, message, [search, ...args]) => {
     "pc": "pc"
   };
   var platformArray = Object.keys(platformObj);
+  var regionObj = {
+    "us": "us",
+    "na": "us",
+    "america": "us",
+    "eu": "eu",
+    "europe": "eu",
+    "kr": "kr",
+    "asia": "kr"
+  }
+  var regionArray = Object.keys(regionObj);
   var rankArray = Object.keys(rankObj);
   var player = args[0].split('#');
   if (!player[1]) return message.channel.send(':negative_squared_cross_mark: You must include your whole battletag. Example: name#1234');
   var platform = !args[args.length-1] ? "pc" : (client.isInArray(platformArray, args[args.length-1])) ? args[args.length-1] : (!args[args.length-2]) ? "pc" : (client.isInArray(platformArray, args[args.length-2])) ? args[args.length-2] : "pc";
-  var region = !args[args.length-1] ? "na" : (args[args.length-1].match(/^(na|eu|asia)$/)) ? args[args.length-1] : (!args[args.length-2]) ? "na" : (args[args.length-2].match(/^(na|eu|asia)$/)) ? args[args.length-2] : "na";
+  var region = !args[args.length-1] ? "na" : (client.isInArray(regionArray, args[args.length-1])) ? args[args.length-1] : (!args[args.length-2]) ? "na" : (client.isInArray(regionArray, args[args.length-2])) ? args[args.length-2] : "na";
   request.get({
     url: `https://owapi.net/api/v3/u/${player[0]}-${player[1]}/blob?platform=${platform}`,
     json: true,
@@ -65,21 +75,21 @@ exports.run = async (client, message, [search, ...args]) => {
     } else {
       data = data[region];
       if (search === "player") {    
-        var p = data.stats;
-        var pq = 
+        var p = data.stats.competitive;
+        var pq = data.stats.quickplay;
         for (let rankRank of rankArray) {
-          if (client.between(p.competitive.comprank, rankObj[rankRank][0], rankObj[rankRank][1])) {
+          if (client.between(p.comprank, rankObj[rankRank][0], rankObj[rankRank][1])) {
             var rank = rankRank;
           }
         }
         let main = [
-          `**Level:** ${p.prestige}-${p.level} (${parseInt((p.prestige * 100) + p.level)})`,
-          `**Rank:** ${rank.toProperCase()} - ${p.competitive.comprank}`
+          `**Level:** ${p.overall_stats.prestige}-${p.overall_stats.level} (${parseInt((p.overall_stats.prestige * 100) + p.overall_stats.level)})`,
+          `**Rank:** ${rank.toProperCase()} - ${p.comprank}`
         ];
         const playerEmbed = new Discord.RichEmbed()
           .setColor(settings.embedColour)
-          .setThumbnail(data.icon)
-          .addField(p.name, main.join('\n'));
+          .setThumbnail(p.overall_stats.avatar)
+          .addField(`${player}[0]#${player[1]}`, main.join('\n'));
         return message.channel.send({embed: playerEmbed});
       }
     }
