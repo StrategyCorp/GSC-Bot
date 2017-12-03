@@ -40,7 +40,7 @@ exports.run = async (client, message, [search, ...args]) => {
   }
   if (client.isInArray(aliaseArray, search) === true) search = aliaseObj[search];
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
-  const domain = "http://api.smitegame.com/smiteapi.svc/";
+  let domain = "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
   let timestamp = moment().format('YYYYMMDDHHmmss');
   const authKey = process.env.SMITEAUTHID;
@@ -387,6 +387,11 @@ exports.run = async (client, message, [search, ...args]) => {
   testSession();
   await client.wait(1000);
   if (search === "player") {
+    if (args[1]) {
+      if (args[1].toLowerCase() === "xbox" || args[1].toLowerCase() === "ps4") {
+        domain = `http://api.${args[1].toLowerCase()}.smitegame.com/smiteapi.svc`;
+      }
+    }
     requestData("getplayer", args[0]);
   } else if (search === "mastery") {
     requestData("getgodranks", args[0]);
