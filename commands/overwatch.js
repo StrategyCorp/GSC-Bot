@@ -39,9 +39,6 @@ exports.run = async (client, message, [search, ...args]) => {
     "master": [3500, 3999],
     "grand master": [4000, 5000]
   };
-  console.log(rankObj);
-  console.log(rankObj.silver);
-  return
   const requestData = (url) => {
     request.get({
       url: url,
@@ -55,7 +52,12 @@ exports.run = async (client, message, [search, ...args]) => {
       } else {
         if (search === "player") {
           var p = data;
-          
+          for (let rank of rankObj) {
+            if (client.between(p.rating, rankObj[rank][0], rankObj[rank][1])) {
+              var playerRank = rank;
+            }
+          }
+          console.log(playerRank);
           let main = [
             `**Level:** ${p.prestige}-${p.level}`,
             `**Rank:** ${p.rating}`
