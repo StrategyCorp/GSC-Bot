@@ -98,6 +98,10 @@ module.exports = (client) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
   
+  client.roundToTwo = (number) => {
+    return +(Math.round(number + "e+2")  + "e-2");
+  };
+  
   client.isInArray = (array, string) => {
     return array.indexOf(string) > -1;
   };

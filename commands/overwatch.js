@@ -108,8 +108,11 @@ exports.run = async (client, message, [search, ...args]) => {
             `- Multikills: ${p.multikills}`,
             `- Offensive Assists: ${p.offensive_assists}`,
             `- Defensive Assists: ${p.defensive_assists}`,
+            `- Recon Assits: ${p.recon_assists}`,
             `- Healing: ${p.healing_done}`,
-            `- Barrier Damage Done: ${p.barrier_damage_done}`
+            `- Damage Done: ${p.all_damage_done}`
+            `- Barrier Damage Done: ${p.barrier_damage_done}`,
+            `- Time on Fire: ${client.roundToTwo(p.time_spent_on_fire)}`
           ];
           let most = [
             `- Kills: ${p.eliminations_most_in_game}`,
@@ -120,8 +123,11 @@ exports.run = async (client, message, [search, ...args]) => {
             `- Multikills: ${p.multikills_most_in_game}`,
             `- Offensive Assists: ${p.offensive_assists_most_in_game}`,
             `- Defensive Assists: ${p.defensive_assists_most_in_game}`,
+            `- Recon Assits: ${p.recon_assists_most_in_game}`,
             `- Healing: ${p.healing_done}`,
-            `- Barrier Damage Done: ${p.barrier_damage_done_most_in_game}`
+            `- Damage Done: ${p.all_damage_done_most_in_game}`,
+            `- Barrier Damage Done: ${p.barrier_damage_done_most_in_game}`,
+            `- Time on Fire: ${client.roundToTwo(p.time_spent_on_fire_most_in_game)}`
           ];
           let stats = [
             `**Total:** ${total.join('\n')}`,
@@ -129,6 +135,7 @@ exports.run = async (client, message, [search, ...args]) => {
             `**Time Played:** ${p.time_played} Hours`,
             `**Kills per Death:** ${p.kpd}`,
             `**Deaths:** ${p.deaths}`,
+            `**Best Multi Kill:** ${p.multikill_best} People`,
             `**Best Kill Streak:** ${p.kill_streak_best}`,
             `**Medals:** Bronze: ${p.medals_bronze} / Silver: ${p.medals_silver} / Gold: ${p.medals_gold} / Total: ${p.medals}`,
             `**Cards:** ${p.cards}`
