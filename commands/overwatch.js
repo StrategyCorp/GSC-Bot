@@ -29,6 +29,13 @@ exports.run = async (client, message, [search, ...args]) => {
   }
   if (client.isInArray(aliaseArray, search) === true) search = aliaseObj[search];
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
+  var rankObj = {
+    "unranked" : 0,
+    "bronze": 1,
+    "silver": 1500,
+    "gold": 2000,
+    "platinum": 2500
+  }
   const requestData = (url) => {
     request.get({
       url: url,
@@ -40,16 +47,27 @@ exports.run = async (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
-        return data;
+        if (search === "player") {
+          var p = data;
+          let main = [
+            `**Level:** ${p.prestige}-${p.level}`,
+            `**Rating:** ${p.rating}`
+          ];
+          const playerEmbed = new Discord.RichEmbed()
+            .setColor(settings.embedColour)
+            .setThumbnail(data.icon)
+            .addField(p.name, main.join('\n'));
+          return message.channel.send({embed: playerEmbed});
+        }
       }
     });
   };
   if (search === "player") {
-    var player = args[0].replace('#', '-');
+    var player = args[0].split('#');
+    if (!player[1]) return message.channel.send(':negative_squared_cross_mark: You must include your whole battletag. Example: Gazder#2748');
     var platform = !args[1] ? "pc" : (args[1].match(/^(pc|ps4|xbox)$/)) ? args[1] : (!args[2]) ? "pc" : (args[2].match(/^(pc|ps4|xbox)$/)) ? args[2] : "pc";
     var region = !args[1] ? "na" : (args[1].match(/^(na|eu|asia)$/)) ? args[1] : (!args[2]) ? "na" : (args[2].match(/^(na|eu|asia)$/)) ? args[2] : "na";
-    console.log(platform + " " + region);
-    // requestData(`https://ow-api.com/v1/stats/pc/eu/Gazder-2748/profile`);
+    requestData(`https://ow-api.com/v1/stats/${platform}/${region}/${player[0]}-${player[1]}/profile`);
   }
 };
 
