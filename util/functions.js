@@ -144,6 +144,10 @@ module.exports = (client) => {
     return this[Math.floor(Math.random() * this.length)]
   };
   
+  Array.prototype.contains = function(obj) {
+    return this.indexOf(obj) > -1;
+  };
+  
   String.prototype.toProperCase = function() {
     return this.replace(/([^\W_]+[^\s-]*) */g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
   };

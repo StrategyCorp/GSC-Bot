@@ -5,7 +5,7 @@ exports.run = async (client, message, [search, ...args]) => {
   search = search ? search.toLowerCase() : "help";
   var cmdList = [];
   var cmdArray = [
-    ["player", "<battletag> [platform] [region]", "Displays a players stats", "Who would you like me to look up?"]
+    ["player", "<battletag> [platform && region]", "Displays a players stats", "Who would you like me to look up?"]
   ];
   const settings = client.settings.get(message.guild.id);
   const helpEmbed = new Discord.RichEmbed()
@@ -46,7 +46,7 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   if (search === "player") {
     var player = args[0].replace('#', '-');
-    
+    var platform = !args[1] ? "pc" : (args[1])
     // requestData(`https://ow-api.com/v1/stats/pc/eu/Gazder-2748/profile`);
   }
 };
