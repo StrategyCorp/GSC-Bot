@@ -110,7 +110,7 @@ exports.run = async (client, message, [search, ...args]) => {
             `- Defensive Assists: ${p.defensive_assists}`,
             `- Recon Assits: ${p.recon_assists}`,
             `- Healing: ${p.healing_done}`,
-            `- Damage Done: ${p.all_damage_done}`
+            `- Damage Done: ${p.all_damage_done}`,
             `- Barrier Damage Done: ${p.barrier_damage_done}`,
             `- Time on Fire: ${client.roundToTwo(p.time_spent_on_fire)}`
           ];
@@ -131,8 +131,8 @@ exports.run = async (client, message, [search, ...args]) => {
           ];
           let stats = [
             `**Total:** ${total.join('\n')}`,
-            `**Most in One Match:** ${most.join('\n')}`,
-            `**Time Played:** ${p.time_played} Hours`,
+            `\n**Most in One Match:** ${most.join('\n')}`,
+            `\n**Time Played:** ${p.time_played} Hours`,
             `**Kills per Death:** ${p.kpd}`,
             `**Deaths:** ${p.deaths}`,
             `**Best Multi Kill:** ${p.multikill_best} People`,
