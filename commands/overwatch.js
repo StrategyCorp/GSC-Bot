@@ -40,14 +40,14 @@ exports.run = async (client, message, [search, ...args]) => {
     "grand master": [4000, 5000]
   };
   var rankArray = Object.keys(rankObj);
-  var prestiageObj = {
+  var prestigeObj = {
     "bronze" : ["#c0392b", 0, 6],
     "silver": ["#979a9a", 7, 12],
     "gold": ["#d4ac0d ", 13, 18],
     "platinum": ["#e5e8e8", 19, 24],
     "error": ["#512e5f", 25, 1000]
   };
-  var prestiageArray = Object.keys(pres)
+  var prestigeArray = Object.keys(prestigeObj);
   var platformObj = {
     "psn": "psn",
     "ps": "psn",
@@ -89,15 +89,28 @@ exports.run = async (client, message, [search, ...args]) => {
             var rank = rankRank;
           }
         }
+        for (let prestigePrestige of prestigeArray) {
+          if (client.between(p.prestige, prestigeObj[prestigePrestige][1], prestigeObj[prestigePrestige][2])) {
+            var prestigeColour = prestigeObj[prestigePrestige][0];
+          }
+        }
         let main = [
           `**Level:** ${p.prestige}-${p.level} (${parseInt((p.prestige * 100) + p.level)})`,
           `**Rank:** ${rank.toProperCase()} - ${p.comprank}`
         ];
-        
+        const stat = (p) => {
+          let stats = [
+            `**Eliminations:** ${p.eliminations}`,
+            `**Deaths`
+          ];
+          return stats;
+        };
         const playerEmbed = new Discord.RichEmbed()
-          .setColor(settings.embedColour)
+          .setColor(prestigeColour)
           .setThumbnail(p.avatar)
-          .addField(`${player[0]}#${player[1]}`, main.join('\n'));
+          .addField(`${player[0]}#${player[1]}`, main.join('\n'))
+          .addField(`Quick Play`, stat(data.stats.quickplay.game_stats))
+          .addField(`Competitive`, stat(data.stats.competitive.game_stats));
         return message.channel.send({embed: playerEmbed});
       }
     }
