@@ -60,8 +60,8 @@ exports.run = async (client, message, [search, ...args]) => {
             }
           }
           let main = [
-            `**Level:** ${p.prestige}-${p.level}`,
-            `**Rank:** ${rank} - ${p.rating}`
+            `**Level:** ${p.prestige}-${p.level} (${parseInt((p.prestige * 100) + p.level)})`,
+            `**Rank:** ${rank.toProperCase()} - ${p.rating}`
           ];
           const playerEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
@@ -69,13 +69,7 @@ exports.run = async (client, message, [search, ...args]) => {
             .addField(p.name, main.join('\n'));
           return message.channel.send({embed: playerEmbed});
         } else if (search === "complete") {
-          var fs = require('fs');
-          fs.writeFile("./test.json", data, function(err) {
-            if(err) {
-              return console.log(err);
-            }
-            console.log("The file was saved!");
-          }); 
+          console.log(data);
         }
       }
     });
