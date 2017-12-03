@@ -35,9 +35,20 @@ exports.run = async (client, message, [search, ...args]) => {
       json: true,
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
-      
+      if (err) {
+        return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
+      } else if (res.statusCode !== 200) {
+        return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
+      } else {
+        return data;
+      }
     });
   };
+  if (search === "player") {
+    var player = args[0].replace('#', '-');
+    
+    // requestData(`https://ow-api.com/v1/stats/pc/eu/Gazder-2748/profile`);
+  }
 };
 
 exports.cmdConfig = {
