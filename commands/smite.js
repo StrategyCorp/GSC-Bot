@@ -27,6 +27,7 @@ exports.run = async (client, message, [search, ...args]) => {
     return message.channel.send({embed: helpEmbed});
   }
   var aliaseObj = {
+    "profile": "player",
     "masteries": "mastery",
     "gods": "god",
     "items": "item"
