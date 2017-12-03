@@ -100,10 +100,21 @@ exports.run = async (client, message, [search, ...args]) => {
         ];
         const statGame = (p) => {
           let eliminations = [
+            `- Total Kills: ${p.eliminations}`,
+            `- Kills: ${p.eliminations_most_in_game}`,
+            `- Total Last Hits: ${p.final_blows}`,
+            `- Most Last Hits: ${p.final_blows_most_in_game}`,
+            `- Total Melee: ${p.melee_final_blows}`,
+            `- Most Melee: ${p.melee_final_blow_most_in_game}`,
+            `- Total Solo: ${p.solo_kills}`,
+            `- Most Solo: ${p.solo_kills_most_in_game}`,
+            `- Total Objective: ${p.objective_kills}`,
             
+            `- Multikills: ${p.multikills}`
           ];
           let stats = [
-            `**Eliminations:** ${p.eliminations}`,
+            `**Kills per Death:** ${p.kpd}`,
+            `**Eliminations:**\n${eliminations.join('\n')}`,
             `**Deaths:** ${p.deaths}`,
             `**Medals:** Bronze: ${p.medals_bronze} / Silver: ${p.medals_silver} / Gold: ${p.medals_gold} / Total: ${p.medals}`
           ];
