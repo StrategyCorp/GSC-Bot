@@ -46,7 +46,9 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   if (search === "player") {
     var player = args[0].replace('#', '-');
-    var platform = !args[1] ? "pc" : (args[1])
+    var platform = !args[1] ? "pc" : (args[1].match(/^(pc|ps4|xbox)$/)) ? args[1] : (!args[2]) ? "pc" : (args[2].match(/^(pc|ps4|xbox)$/)) ? args[2] : "pc";
+    var region = !args[1] ? "na" : (args[1].match(/^(na|eu|asia)$/)) ? args[1] : (!args[2]) ? "na" : (args[2].match(/^(na|eu|asia)$/)) ? args[2] : "na";
+    console.log(platform + " " + region);
     // requestData(`https://ow-api.com/v1/stats/pc/eu/Gazder-2748/profile`);
   }
 };
