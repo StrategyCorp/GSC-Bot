@@ -8,7 +8,7 @@ exports.run = async (client, message, [search, ...args]) => {
   search = search ? search.toLowerCase() : "help";
   var cmdList = [];
   var cmdArray = [
-    ["player", "<player>", "Displays a players stats", "Who would you like me to look up?"],
+    ["player", "<player> [console]", "Displays a players stats", "Who would you like me to look up?"],
     ["mastery", "<player> [number]", "Displays a players highest masteried Gods", "Who would you like me to look up?"],
     ["god", "<god>", "Displays infomation on a chosen God", "Which God would you like me to look up?"],
     ["ability", "<god> <ability number>", "Displays the God ability", "Which God would you like me to look up?"],
