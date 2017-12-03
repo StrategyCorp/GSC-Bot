@@ -5,7 +5,8 @@ exports.run = async (client, message, [search, ...args]) => {
   search = search ? search.toLowerCase() : "help";
   var cmdList = [];
   var cmdArray = [
-    ["player", "<battletag> [platform && region]", "Displays a players stats", "Who would you like me to look up?"]
+    ["player", "<battletag> [platform && region]", "Displays a players stats", "Who would you like me to look up?"],
+    ["complete", "", "", ""]
   ];
   const settings = client.settings.get(message.guild.id);
   const helpEmbed = new Discord.RichEmbed()
@@ -67,6 +68,14 @@ exports.run = async (client, message, [search, ...args]) => {
             .setThumbnail(data.icon)
             .addField(p.name, main.join('\n'));
           return message.channel.send({embed: playerEmbed});
+        } else if (search === "complete") {
+          var fs = require('fs');
+          fs.writeFile("./test.json", data, function(err) {
+            if(err) {
+              return console.log(err);
+            }
+            console.log("The file was saved!");
+          }); 
         }
       }
     });
@@ -77,6 +86,12 @@ exports.run = async (client, message, [search, ...args]) => {
     var platform = !args[1] ? "pc" : (args[1].match(/^(pc|ps4|xbox)$/)) ? args[1] : (!args[2]) ? "pc" : (args[2].match(/^(pc|ps4|xbox)$/)) ? args[2] : "pc";
     var region = !args[1] ? "na" : (args[1].match(/^(na|eu|asia)$/)) ? args[1] : (!args[2]) ? "na" : (args[2].match(/^(na|eu|asia)$/)) ? args[2] : "na";
     requestData(`https://ow-api.com/v1/stats/${platform}/${region}/${player[0]}-${player[1]}/profile`);
+  } else if (search === "complete") {
+    var player = args[0].split('#');
+    if (!player[1]) return message.channel.send(':negative_squared_cross_mark: You must include your whole battletag. Example: name#1234');
+    var platform = !args[1] ? "pc" : (args[1].match(/^(pc|ps4|xbox)$/)) ? args[1] : (!args[2]) ? "pc" : (args[2].match(/^(pc|ps4|xbox)$/)) ? args[2] : "pc";
+    var region = !args[1] ? "na" : (args[1].match(/^(na|eu|asia)$/)) ? args[1] : (!args[2]) ? "na" : (args[2].match(/^(na|eu|asia)$/)) ? args[2] : "na";
+    requestData(`https://ow-api.com/v1/stats/${platform}/${region}/${player[0]}-${player[1]}/complete`);
   }
 };
 
