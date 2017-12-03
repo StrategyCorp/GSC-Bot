@@ -30,12 +30,15 @@ exports.run = async (client, message, [search, ...args]) => {
   if (client.isInArray(aliaseArray, search) === true) search = aliaseObj[search];
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   var rankObj = {
-    "unranked" : 0,
-    "bronze": 1,
-    "silver": 1500,
-    "gold": 2000,
-    "platinum": 2500
-  }
+    "unranked" : [0, 0],
+    "bronze": [1, 1499],
+    "silver": [1500, 1999],
+    "gold": [2000, 2499],
+    "platinum": [2500, 2999],
+    "diamond": [3000, 2499],
+    "master": [3500, 3999],
+    "grand master": [4000, 5000]
+  };
   const requestData = (url) => {
     request.get({
       url: url,
@@ -49,6 +52,7 @@ exports.run = async (client, message, [search, ...args]) => {
       } else {
         if (search === "player") {
           var p = data;
+          
           let main = [
             `**Level:** ${p.prestige}-${p.level}`,
             `**Rating:** ${p.rating}`

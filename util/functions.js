@@ -128,6 +128,10 @@ module.exports = (client) => {
     return results;
   };
   
+  client.between = (x, min, max) => {
+    return x >= min && x <= max;
+  };
+  
   client.romanize = (number) => {
     if (!+number) return NaN;
     var digits = String(+number).split("");
