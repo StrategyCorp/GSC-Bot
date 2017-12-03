@@ -40,9 +40,12 @@ exports.run = async (client, message, [search, ...args]) => {
     "grand master": [4000, 5000]
   };
   var platformObj = {
+    "psn": "psn",
     "ps": "psn",
     "ps4": "psn",
-    "xbox": "xbl"
+    "xbl": "xbl",
+    "xbox": "xbl",
+    "pc": "pc"
   };
   var platformArray = Object.keys(platformObj);
   var rankArray = Object.keys(rankObj);
@@ -58,6 +61,7 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         if (search === "player") {
+          var region = !args[1] ? "na" : (args[1].match(/^(na|eu|asia)$/)) ? args[1] : (!args[2]) ? "na" : (args[2].match(/^(na|eu|asia)$/)) ? args[2] : "na";
           var p = data;
           for (let rankRank of rankArray) {
             if (client.between(p.rating, rankObj[rankRank][0], rankObj[rankRank][1])) {
@@ -80,9 +84,8 @@ exports.run = async (client, message, [search, ...args]) => {
   if (search === "player") {
     var player = args[0].split('#');
     if (!player[1]) return message.channel.send(':negative_squared_cross_mark: You must include your whole battletag. Example: name#1234');
-    var platform = !args[1] ? "pc" : (args[1].match(/^(pc|psn|xbl)$/)) ? args[1] : (!args[2]) ? "pc" : (args[2].match(/^(pc|psn|xbl)$/)) ? args[2] : "pc";
-    var region = !args[1] ? "na" : (args[1].match(/^(na|eu|asia)$/)) ? args[1] : (!args[2]) ? "na" : (args[2].match(/^(na|eu|asia)$/)) ? args[2] : "na";
-    requestData(`https://owapi.net/api/v3/u/${player[0]}-${player[1]}/stats`);
+    var platform = !args[1] ? "pc" : (client.isInArray(platformArray, args[1])) ? args[1] : (!args[2]) ? "pc" : (client.isInArray(platformArray, args[2])) ? args[2] : "pc";
+    // requestData(`https://owapi.net/api/v3/u/${player[0]}-${player[1]}/stats`);
   }
 };
 
