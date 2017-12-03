@@ -39,6 +39,15 @@ exports.run = async (client, message, [search, ...args]) => {
     "master": [3500, 3999],
     "grand master": [4000, 5000]
   };
+  var rankArray = Object.keys(rankObj);
+  var prestiageObj = {
+    "bronze" : ["#c0392b", 0, 6],
+    "silver": ["#979a9a", 7, 12],
+    "gold": ["#d4ac0d ", 13, 18],
+    "platinum": ["#e5e8e8", 19, 24],
+    "error": ["#512e5f", 25, 1000]
+  };
+  var prestiageArray = Object.keys(pres)
   var platformObj = {
     "psn": "psn",
     "ps": "psn",
@@ -58,7 +67,6 @@ exports.run = async (client, message, [search, ...args]) => {
     "asia": "kr"
   }
   var regionArray = Object.keys(regionObj);
-  var rankArray = Object.keys(rankObj);
   var player = args[0].split('#');
   if (!player[1]) return message.channel.send(':negative_squared_cross_mark: You must include your whole battletag. Example: name#1234');
   var platform = !args[args.length-1] ? "pc" : (client.isInArray(platformArray, args[args.length-1])) ? args[args.length-1] : (!args[args.length-2]) ? "pc" : (client.isInArray(platformArray, args[args.length-2])) ? args[args.length-2] : "pc";
@@ -75,21 +83,20 @@ exports.run = async (client, message, [search, ...args]) => {
     } else {
       data = data[region];
       if (search === "player") {    
-        var p = data.stats.competitive;
-        var pos = data.stats.competitive.overall_stats;
-        var pqp = data.stats.quickplay;
+        var p = data.stats.competitive.overall_stats;
         for (let rankRank of rankArray) {
-          if (client.between(pos.comprank, rankObj[rankRank][0], rankObj[rankRank][1])) {
+          if (client.between(p.comprank, rankObj[rankRank][0], rankObj[rankRank][1])) {
             var rank = rankRank;
           }
         }
         let main = [
-          `**Level:** ${pos.prestige}-${pos.level} (${parseInt((pos.prestige * 100) + pos.level)})`,
-          `**Rank:** ${rank.toProperCase()} - ${pos.comprank}`
+          `**Level:** ${p.prestige}-${p.level} (${parseInt((p.prestige * 100) + p.level)})`,
+          `**Rank:** ${rank.toProperCase()} - ${p.comprank}`
         ];
+        
         const playerEmbed = new Discord.RichEmbed()
           .setColor(settings.embedColour)
-          .setThumbnail(pos.avatar)
+          .setThumbnail(p.avatar)
           .addField(`${player[0]}#${player[1]}`, main.join('\n'));
         return message.channel.send({embed: playerEmbed});
       }
