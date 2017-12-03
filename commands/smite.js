@@ -9,11 +9,11 @@ exports.run = async (client, message, [search, ...args]) => {
   var cmdList = [];
   var cmdArray = [
     ["player", "<player> [console]", "Displays a players stats", "Who would you like me to look up?"],
-    ["mastery", "<player> [number]", "Displays a players highest masteried Gods", "Who would you like me to look up?"],
+    ["mastery", "<player> [number] [console]", "Displays a players highest masteried Gods", "Who would you like me to look up?"],
     ["god", "<god>", "Displays infomation on a chosen God", "Which God would you like me to look up?"],
     ["ability", "<god> <ability number>", "Displays the God ability", "Which God would you like me to look up?"],
     ["item", "<item | term>", "not sure yet", "Which item would you like me to look up?"],
-    ["friends", "<player>", "Lists all of there friends without private profiles", "Who would you like me to look up?"]
+    ["friends", "<player> [console]", "Lists all of there friends without private profiles", "Who would you like me to look up?"]
   ];
   const settings = client.settings.get(message.guild.id);
   const helpEmbed = new Discord.RichEmbed()
@@ -40,8 +40,16 @@ exports.run = async (client, message, [search, ...args]) => {
   }
   if (client.isInArray(aliaseArray, search) === true) search = aliaseObj[search];
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
-  let domain = "http://api.smitegame.com/smiteapi.svc/";
-  le
+  var platformObj = {
+    "psn": "ps4",
+    "ps": "ps4",
+    "ps4": "ps4",
+    "xbox": "xbox",
+    "xbox1": "xbox"
+  };
+  var platformArray = Object.keys(platformObj);
+  let platform = client.isInArray(platformArray, args[args.length - 1]) ? platformObj[args.length - 1] : "pc";
+  let domain = platform === "xbox" ? "http://api.xbox.smitegame.com/smiteapi.svc/" : (platform === "ps4") ? "http://api.ps4.smitegame.com/smiteapi.svc/" : "http://api.smitegame.com/smiteapi.svc/";
   const devID = process.env.SMITEDEVID;
   let timestamp = moment().format('YYYYMMDDHHmmss');
   const authKey = process.env.SMITEAUTHID;
@@ -156,13 +164,13 @@ exports.run = async (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
-        client.session.set(`session{platform}`, data.session_id);
+        client.session.set(`session${platform}`, data.session_id);
       }
     });
   };
   const requestData = (method, parameters) => {
     var signature = createSignature(method);
-    let url = domain + `${method}Json/${devID}/${signature}/${client.session.get(`session{platform}`)}/${timestamp}/${parameters}`;
+    let url = domain + `${method}Json/${devID}/${signature}/${client.session.get(`session${platform}`)}/${timestamp}/${parameters}`;
     console.log(url);
     request.get({
       url: url,
@@ -177,8 +185,6 @@ exports.run = async (client, message, [search, ...args]) => {
         if (search === "player") {
           if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
           var p = data[0];
-          console.log(data);
-          return;
           if (p["Name"].startsWith('[') === true) {
             var name = p["Name"].replace('[', '').split(']');
             var clan = `[${name[0]}] ${p.Team_Name}`;
