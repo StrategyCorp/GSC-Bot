@@ -98,19 +98,31 @@ exports.run = async (client, message, [search, ...args]) => {
           `**Level:** ${p.prestige}-${p.level} (${parseInt((p.prestige * 100) + p.level)})`,
           `**Rank:** ${rank.toProperCase()} - ${p.comprank}`
         ];
-        const stat = (p) => {
+        const statGame = (p) => {
+          let eliminations = [
+            
+          ];
           let stats = [
             `**Eliminations:** ${p.eliminations}`,
-            `**Deaths`
+            `**Deaths:** ${p.deaths}`,
+            `**Medals:** Bronze: ${p.medals_bronze} / Silver: ${p.medals_silver} / Gold: ${p.medals_gold} / Total: ${p.medals}`
           ];
+          stats = stats.join('\n');
+          return stats;
+        };
+        const statAva = (p) => {
+          let stats = [
+            
+          ];
+          stats = stats.join('\n');
           return stats;
         };
         const playerEmbed = new Discord.RichEmbed()
           .setColor(prestigeColour)
           .setThumbnail(p.avatar)
           .addField(`${player[0]}#${player[1]}`, main.join('\n'))
-          .addField(`Quick Play`, stat(data.stats.quickplay.game_stats))
-          .addField(`Competitive`, stat(data.stats.competitive.game_stats));
+          .addField(`Quick Play`, statGame(data.stats.quickplay.game_stats))
+          .addField(`Competitive`, statGame(data.stats.competitive.game_stats));
         return message.channel.send({embed: playerEmbed});
       }
     }
