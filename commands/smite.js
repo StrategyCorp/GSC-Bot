@@ -41,6 +41,7 @@ exports.run = async (client, message, [search, ...args]) => {
   if (client.isInArray(aliaseArray, search) === true) search = aliaseObj[search];
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   let domain = "http://api.smitegame.com/smiteapi.svc/";
+  le
   const devID = process.env.SMITEDEVID;
   let timestamp = moment().format('YYYYMMDDHHmmss');
   const authKey = process.env.SMITEAUTHID;
@@ -123,7 +124,7 @@ exports.run = async (client, message, [search, ...args]) => {
   const testSession = async () => {
     var signature = createSignature("testsession");
     request.get({
-      url: domain + `testsessionJson/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}`,
+      url: domain + `testsessionJson/${devID}/${signature}/${client.session.get(`session{platform}`)}/${timestamp}`,
       json: true,
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
@@ -155,13 +156,14 @@ exports.run = async (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
       } else {
-        client.session.set("sessionID", data.session_id);
+        client.session.set(`session{platform}`, data.session_id);
       }
     });
   };
   const requestData = (method, parameters) => {
     var signature = createSignature(method);
-    let url = domain + `${method}Json/${devID}/${signature}/${client.session.get("sessionID")}/${timestamp}/${parameters}`;
+    let url = domain + `${method}Json/${devID}/${signature}/${client.session.get(`session{platform}`)}/${timestamp}/${parameters}`;
+    console.log(url);
     request.get({
       url: url,
       json: true,
@@ -175,6 +177,8 @@ exports.run = async (client, message, [search, ...args]) => {
         if (search === "player") {
           if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0]}\` is wrong or the profile is private`);
           var p = data[0];
+          console.log(data);
+          return;
           if (p["Name"].startsWith('[') === true) {
             var name = p["Name"].replace('[', '').split(']');
             var clan = `[${name[0]}] ${p.Team_Name}`;
@@ -387,11 +391,6 @@ exports.run = async (client, message, [search, ...args]) => {
   testSession();
   await client.wait(1000);
   if (search === "player") {
-    if (args[1]) {
-      if (args[1].toLowerCase() === "xbox" || args[1].toLowerCase() === "ps4") {
-        domain = `http://api.${args[1].toLowerCase()}.smitegame.com/smiteapi.svc`;
-      }
-    }
     requestData("getplayer", args[0]);
   } else if (search === "mastery") {
     requestData("getgodranks", args[0]);
