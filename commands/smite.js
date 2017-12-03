@@ -195,6 +195,7 @@ exports.run = async (client, message, [search, ...args]) => {
           ];
           let winrate = [
             `**Winrate:** ${parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100}%`,
+            `**Total Games Played:** ${parseInt(p.Wins) + parseInt(p.Losses)}`,
             `**Wins:** ${p.Wins}`,
             `**Losses:** ${p.Losses}`,
             `**Matches Left:** ${p.Leaves}`
