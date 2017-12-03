@@ -54,7 +54,7 @@ exports.run = async (client, message, [search, ...args]) => {
   var platform = !args[args.length-1] ? "pc" : (client.isInArray(platformArray, args[args.length-1])) ? args[args.length-1] : (!args[args.length-2]) ? "pc" : (client.isInArray(platformArray, args[args.length-2])) ? args[args.length-2] : "pc";
   var region = !args[args.length-1] ? "na" : (args[args.length-1].match(/^(na|eu|asia)$/)) ? args[args.length-1] : (!args[args.length-2]) ? "na" : (args[args.length-2].match(/^(na|eu|asia)$/)) ? args[args.length-2] : "na";
   request.get({
-    url: `https://owapi.net/api/v3/u/${player[0]}-${player[1]}/blob`,
+    url: `https://owapi.net/api/v3/u/${player[0]}-${player[1]}/blob?platform=${platform}`,
     json: true,
     headers: {'User-Agent': 'request'}
   }, (err, res, data) => {
@@ -64,7 +64,7 @@ exports.run = async (client, message, [search, ...args]) => {
       return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
     } else {
       if (search === "player") {    
-        var p = data;
+        var p = data[region]
         for (let rankRank of rankArray) {
           if (client.between(p.rating, rankObj[rankRank][0], rankObj[rankRank][1])) {
             var rank = rankRank;
