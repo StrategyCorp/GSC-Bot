@@ -39,6 +39,9 @@ exports.run = async (client, message, [search, ...args]) => {
     "master": [3500, 3999],
     "grand master": [4000, 5000]
   };
+  console.log(rankObj);
+  console.log(rankObj.silver);
+  return
   const requestData = (url) => {
     request.get({
       url: url,
@@ -55,7 +58,7 @@ exports.run = async (client, message, [search, ...args]) => {
           
           let main = [
             `**Level:** ${p.prestige}-${p.level}`,
-            `**Rating:** ${p.rating}`
+            `**Rank:** ${p.rating}`
           ];
           const playerEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
@@ -68,7 +71,7 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   if (search === "player") {
     var player = args[0].split('#');
-    if (!player[1]) return message.channel.send(':negative_squared_cross_mark: You must include your whole battletag. Example: Gazder#2748');
+    if (!player[1]) return message.channel.send(':negative_squared_cross_mark: You must include your whole battletag. Example: name#1234');
     var platform = !args[1] ? "pc" : (args[1].match(/^(pc|ps4|xbox)$/)) ? args[1] : (!args[2]) ? "pc" : (args[2].match(/^(pc|ps4|xbox)$/)) ? args[2] : "pc";
     var region = !args[1] ? "na" : (args[1].match(/^(na|eu|asia)$/)) ? args[1] : (!args[2]) ? "na" : (args[2].match(/^(na|eu|asia)$/)) ? args[2] : "na";
     requestData(`https://ow-api.com/v1/stats/${platform}/${region}/${player[0]}-${player[1]}/profile`);
