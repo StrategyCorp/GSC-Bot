@@ -48,7 +48,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "xbox1": "xbox"
   };
   var platformArray = Object.keys(platformObj);
-  let platform = client.isInArray(platformArray, args[args.length - 1]) ? platformObj[args.length - 1] : "pc";
+  let platform = client.isInArray(platformArray, args[args.length - 1]) ? platformObj[args[args.length - 1]] : "pc";
   let domain = platform === "xbox" ? "http://api.xbox.smitegame.com/smiteapi.svc/" : (platform === "ps4") ? "http://api.ps4.smitegame.com/smiteapi.svc/" : "http://api.smitegame.com/smiteapi.svc/";
   if (platform === "xbox" || platform === "ps4") args.pop();
   const devID = process.env.SMITEDEVID;
@@ -227,10 +227,10 @@ exports.run = async (client, message, [search, ...args]) => {
           return message.channel.send({embed: playerEmbed});
         } else if (search === "mastery") {
           var m = data;
-          let s = args[0].join(' ').substr(args[0].length - 1) === "s" ? "" : "s";
+          let s = args.join(' ').substr(args.length - 1) === "s" ? "" : "s";
           const masteryEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
-            .setTitle(`${args[0]}'${s} Masteries`);
+            .setTitle(`${args.join(' ')}'${s} Masteries`);
           let number = !args[1] ? 5 : (args[1] > 19) ? 20 : args[1];
           for (var i = 0; i < number; i++) {
             var hm = m.reduce(function(l, e) {
