@@ -49,44 +49,39 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   var platformArray = Object.keys(platformObj);
   var rankArray = Object.keys(rankObj);
-  const requestData = (url) => {
-    request.get({
-      url: url,
-      json: true,
-      headers: {'User-Agent': 'request'}
-    }, (err, res, data) => {
-      if (err) {
-        return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
-      } else if (res.statusCode !== 200) {
-        return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
-      } else {
-        if (search === "player") {
-          var region = !args[1] ? "na" : (args[1].match(/^(na|eu|asia)$/)) ? args[1] : (!args[2]) ? "na" : (args[2].match(/^(na|eu|asia)$/)) ? args[2] : "na";
-          var p = data;
-          for (let rankRank of rankArray) {
-            if (client.between(p.rating, rankObj[rankRank][0], rankObj[rankRank][1])) {
-              var rank = rankRank;
-            }
+  var player = args[0].split('#');
+  if (!player[1]) return message.channel.send(':negative_squared_cross_mark: You must include your whole battletag. Example: name#1234');
+  var platform = !args[args.length-1] ? "pc" : (client.isInArray(platformArray, args[args.length-1])) ? args[args.length-1] : (!args[args.length-2]) ? "pc" : (client.isInArray(platformArray, args[args.length-2])) ? args[args.length-2] : "pc";
+  var region = !args[args.length-1] ? "na" : (args[args.length-1].match(/^(na|eu|asia)$/)) ? args[args.length-1] : (!args[args.length-2]) ? "na" : (args[args.length-2].match(/^(na|eu|asia)$/)) ? args[args.length-2] : "na";
+  request.get({
+    url: `https://owapi.net/api/v3/u/${player[0]}-${player[1]}/blob`,
+    json: true,
+    headers: {'User-Agent': 'request'}
+  }, (err, res, data) => {
+    if (err) {
+      return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
+    } else if (res.statusCode !== 200) {
+      return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
+    } else {
+      if (search === "player") {    
+        var p = data;
+        for (let rankRank of rankArray) {
+          if (client.between(p.rating, rankObj[rankRank][0], rankObj[rankRank][1])) {
+            var rank = rankRank;
           }
-          let main = [
-            `**Level:** ${p.prestige}-${p.level} (${parseInt((p.prestige * 100) + p.level)})`,
-            `**Rank:** ${rank.toProperCase()} - ${p.rating}`
-          ];
-          const playerEmbed = new Discord.RichEmbed()
-            .setColor(settings.embedColour)
-            .setThumbnail(data.icon)
-            .addField(p.name, main.join('\n'));
-          return message.channel.send({embed: playerEmbed});
         }
+        let main = [
+          `**Level:** ${p.prestige}-${p.level} (${parseInt((p.prestige * 100) + p.level)})`,
+          `**Rank:** ${rank.toProperCase()} - ${p.rating}`
+        ];
+        const playerEmbed = new Discord.RichEmbed()
+          .setColor(settings.embedColour)
+          .setThumbnail(data.icon)
+          .addField(p.name, main.join('\n'));
+        return message.channel.send({embed: playerEmbed});
       }
-    });
-  };
-  if (search === "player") {
-    var player = args[0].split('#');
-    if (!player[1]) return message.channel.send(':negative_squared_cross_mark: You must include your whole battletag. Example: name#1234');
-    var platform = !args[1] ? "pc" : (client.isInArray(platformArray, args[1])) ? args[1] : (!args[2]) ? "pc" : (client.isInArray(platformArray, args[2])) ? args[2] : "pc";
-    // requestData(`https://owapi.net/api/v3/u/${player[0]}-${player[1]}/stats`);
-  }
+    }
+  });
 };
 
 exports.cmdConfig = {
