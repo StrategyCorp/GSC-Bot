@@ -99,24 +99,39 @@ exports.run = async (client, message, [search, ...args]) => {
           `**Rank:** ${rank.toProperCase()} - ${p.comprank}`
         ];
         const statGame = (p) => {
-          let eliminations = [
-            `- Total Kills: ${p.eliminations}`,
+          let total = [
+            `- Kills: ${p.eliminations}`,
+            `- Last Hits: ${p.final_blows}`,
+            `- Melee: ${p.melee_final_blows}`,  
+            `- Solo: ${p.solo_kills}`, 
+            `- Objective: ${p.objective_kills}`,  
+            `- Multikills: ${p.multikills}`,
+            `- Offensive Assists: ${p.offensive_assists}`,
+            `- Defensive Assists: ${p.defensive_assists}`,
+            `- Healing: ${p.healing_done}`,
+            `- Barrier Damage Done: ${p.barrier_damage_done}`
+          ];
+          let most = [
             `- Kills: ${p.eliminations_most_in_game}`,
-            `- Total Last Hits: ${p.final_blows}`,
-            `- Most Last Hits: ${p.final_blows_most_in_game}`,
-            `- Total Melee: ${p.melee_final_blows}`,
-            `- Most Melee: ${p.melee_final_blow_most_in_game}`,
-            `- Total Solo: ${p.solo_kills}`,
-            `- Most Solo: ${p.solo_kills_most_in_game}`,
-            `- Total Objective: ${p.objective_kills}`,
-            
-            `- Multikills: ${p.multikills}`
+            `- Last Hits: ${p.final_blows_most_in_game}`,
+            `- Melee: ${p.melee_final_blow_most_in_game}`,
+            `- Solo: ${p.solo_kills_most_in_game}`,
+            `- Objective: ${p.objective_kills_most_in_game}`, 
+            `- Multikills: ${p.multikills_most_in_game}`,
+            `- Offensive Assists: ${p.offensive_assists_most_in_game}`,
+            `- Defensive Assists: ${p.defensive_assists_most_in_game}`,
+            `- Healing: ${p.healing_done}`,
+            `- Barrier Damage Done: ${p.barrier_damage_done_most_in_game}`
           ];
           let stats = [
+            `**Total:** ${total.join('\n')}`,
+            `**Most in One Match:** ${most.join('\n')}`,
+            `**Time Played:** ${p.time_played} Hours`,
             `**Kills per Death:** ${p.kpd}`,
-            `**Eliminations:**\n${eliminations.join('\n')}`,
             `**Deaths:** ${p.deaths}`,
-            `**Medals:** Bronze: ${p.medals_bronze} / Silver: ${p.medals_silver} / Gold: ${p.medals_gold} / Total: ${p.medals}`
+            `**Best Kill Streak:** ${p.kill_streak_best}`,
+            `**Medals:** Bronze: ${p.medals_bronze} / Silver: ${p.medals_silver} / Gold: ${p.medals_gold} / Total: ${p.medals}`,
+            `**Cards:** ${p.cards}`
           ];
           stats = stats.join('\n');
           return stats;
