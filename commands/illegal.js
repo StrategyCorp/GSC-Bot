@@ -34,11 +34,11 @@ exports.run = (client, message, word) => {
             }
             setTimeout(function() {
               requestIllegal();
-            }, 2000)
+            }, 5000)
           });
         } else {
           return message.channel.send({'files': [data.url]});
-        }      
+        }
       }
     });
   }
