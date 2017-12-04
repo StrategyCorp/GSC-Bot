@@ -100,35 +100,35 @@ exports.run = async (client, message, [search, ...args]) => {
         ];
         const statGame = (p) => {
           let total = [];
-          let most = [];
+          // let most = [];
           let stat = [
             ['Kills', 'eliminations'],
-            ['Last Hits', 'final_blows'],
-            ['Melee', 'melee_final_blow'],
-            ['Solo', 'solo_kills'],
-            ['Objective', 'objective_kills'],
-            ['Multikills', 'multikills'],
+            // ['Last Hits', 'final_blows'],
+            // ['Melee', 'melee_final_blow'],
+            // ['Solo', 'solo_kills'],
+            // ['Objective', 'objective_kills'],
+            // ['Multikills', 'multikills'],
             ['Offensive Assists', 'offensive_assists'],
             ['Defensive Assists', 'defensive_assists'],
-            ['Recon Assits', 'recon_assists'],
+            // ['Recon Assits', 'recon_assists'],
             ['Healing', 'healing_done'],
-            ['Damage Done', 'all_damage_done'],
-            ['Barrier Damage Done', 'barrier_damage_done']
+            ['Damage Done', 'all_damage_done']
+            // ['Barrier Damage Done', 'barrier_damage_done']
           ];
           for (let [title, value] of stat) {
             total.push(`- ${title}: ${p[value]}`);
-            most.push(`- ${title}: ${p[value + "_most_in_game"]}`);
+            // most.push(`- ${title}: ${p[value + "_most_in_game"]}`);
           }
           let stats = [
             `**Total:**\n${total.join('\n')}`,
-            `\n**Most in One Match:**\n${most.join('\n')}`,
+            // `\n**Most in One Match:**\n${most.join('\n')}`,
             `\n**Time Played:** ${p.time_played} Hours`,
             `**Kills per Death:** ${p.kpd}`,
-            `**Deaths:** ${p.deaths}`,
-            `**Best Multi Kill:** ${p.multikill_best} People`,
-            `**Best Kill Streak:** ${p.kill_streak_best}`,
-            `**Medals:** Bronze: ${p.medals_bronze} / Silver: ${p.medals_silver} / Gold: ${p.medals_gold} / Total: ${p.medals}`,
-            `**Cards:** ${p.cards}`
+            `**Deaths:** ${p.deaths}`
+            // `**Best Multi Kill:** ${p.multikill_best} People`,
+            // `**Best Kill Streak:** ${p.kill_streak_best}`,
+            // `**Medals:** Bronze: ${p.medals_bronze} / Silver: ${p.medals_silver} / Gold: ${p.medals_gold} / Total: ${p.medals}`,
+            // `**Cards:** ${p.cards}`
           ];
           stats = stats.join('\n');
           return stats;
@@ -144,8 +144,8 @@ exports.run = async (client, message, [search, ...args]) => {
           .setColor(prestigeColour)
           .setThumbnail(p.avatar)
           .addField(`${player[0]}#${player[1]}`, main.join('\n'))
-          .addField(`Quick Play`, statGame(data.stats.quickplay.game_stats))
-          .addField(`Competitive`, statGame(data.stats.competitive.game_stats));
+          .addField(`Quick Play`, statGame(data.stats.quickplay.game_stats), true)
+          .addField(`Competitive`, statGame(data.stats.competitive.game_stats), true);
         return message.channel.send({embed: playerEmbed});
       }
     }
