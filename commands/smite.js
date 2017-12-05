@@ -401,6 +401,7 @@ exports.run = async (client, message, [search, ...args]) => {
   if (search === "player") {
     requestData("getplayer", args.join(' '));
   } else if (search === "mastery") {
+    let player = /^\d+$/.test(args[args.length - 1]) ? args.pop().join(' ') : args.join(' ');
     requestData("getgodranks", args.join(' '));
   } else if (search === "god" || search === "ability") {
     requestData("getgods", "1");
