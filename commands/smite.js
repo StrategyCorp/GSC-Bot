@@ -231,7 +231,7 @@ exports.run = async (client, message, [search, ...args]) => {
           const masteryEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .setTitle(`${args.join(' ')}'${s} Masteries`);
-          let number = !args[1] ? 5 : (args[1] > 19) ? 20 : args[1];
+          let number = !args[args.length - 1] ? 5 : (args[args.length - 1] > 19) ? 20 : args[args.length - 1];
           for (var i = 0; i < number; i++) {
             var hm = m.reduce(function(l, e) {
               return e.Worshippers > l.Worshippers ? e : l;
