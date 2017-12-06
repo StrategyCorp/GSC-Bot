@@ -51,7 +51,6 @@ exports.run = async (client, message, [search, ...args]) => {
   var platformArray = Object.keys(platformObj);
   let platform = client.isInArray(platformArray, args[args.length - 1]) ? platformObj[args[args.length - 1]] : (client.isInArray(platformArray, args[args.length - 2])) ? platformObj[args[args.length - 2]] : "pc";
   let domain = platform === "xbox" ? "http://api.xbox.smitegame.com/smiteapi.svc/" : (platform === "ps4") ? "http://api.ps4.smitegame.com/smiteapi.svc/" : "http://api.smitegame.com/smiteapi.svc/";
-  if (platform === "xbox" || platform === "ps4") args.pop();
   const devID = process.env.SMITEDEVID;
   let timestamp = moment().format('YYYYMMDDHHmmss');
   const authKey = process.env.SMITEAUTHID;
@@ -256,7 +255,7 @@ exports.run = async (client, message, [search, ...args]) => {
           }
           var g = data.find(findGod);
           if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
-          let rotation = g.OnFreeRotation === true ? "Yes" : "No";
+          let rotation = g.OnFreeRotation === "true" ? "Yes" : "No";
           let main = [
             `**Role:**${g.Roles}`,
             `**Pantheon:** ${g.Pantheon}`,
