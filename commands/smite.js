@@ -41,6 +41,7 @@ exports.run = async (client, message, [search, ...args]) => {
   if (client.isInArray(aliaseArray, search) === true) search = aliaseObj[search];
   if (client.isInArray(cmdList, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   var platformObj = {
+    "pc": "pc",
     "psn": "ps4",
     "ps": "ps4",
     "ps4": "ps4",
@@ -226,13 +227,14 @@ exports.run = async (client, message, [search, ...args]) => {
             .addField('Ranked', ranked.join('\n'));
           return message.channel.send({embed: playerEmbed});
         } else if (search === "mastery") {
+          if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
           var m = data;
           let s = args[0].replace(/_/g, ' ').substr(args.length - 1) === "s" ? "" : "s";
           const masteryEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .setTitle(`${args.join(' ')}'${s} Masteries`);
+          console.log(args);
           let number = /^\d+$/.test(args[args.length - 1]) ? (args[args.length - 1] > 19) ? 20 : args[args.length - 1] : 5;
-          console.log(number);
           for (var i = 0; i < number; i++) {
             var hm = m.reduce(function(l, e) {
               return e.Worshippers > l.Worshippers ? e : l;
@@ -253,18 +255,15 @@ exports.run = async (client, message, [search, ...args]) => {
             return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
           }
           var g = data.find(findGod);
-          if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not a God`);
+          if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
+          let rotation = g.OnFreeRotation === true ? "Yes" : "No";
           let main = [
             `**Role:**${g.Roles}`,
             `**Pantheon:** ${g.Pantheon}`,
             `**Attack Type:**${g.Type}`,
-            `**Pros:**${g.Pros}`
+            `**Pros:**${g.Pros}`,
+            `**Free Rotation:** ${rotation}`
           ];
-          if (g.OnFreeRotation === "true") {
-            main.push(`**Free Rotation:** Yes`);
-          } else {
-            main.push(`**Free Rotation:** No`);
-          }
           if (g.latestGod === "y") main.push(`Currently the newest God`);
           let abilities = [
             `**P:** ${g.Ability1}`,
@@ -329,7 +328,7 @@ exports.run = async (client, message, [search, ...args]) => {
               return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
             };
             var i = data.find(findItemByName);
-            if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ')}\` is not an item or a searchable term`);
+            if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not an item or a searchable term`);
             if (i.Type === "Item") {
               let stats = [];
               for (let stat of i.ItemDescription.Menuitems) {
