@@ -235,7 +235,8 @@ exports.run = async (client, message, [search, ...args]) => {
           console.log(args);
           let number = /^\d+$/.test(args[args.length - 1]) ? (args[args.length - 1] > 19) ? 20 : args[args.length - 1] : 5;
           for (var i = 0; i < number; i++) {
-            var hm = m.reduce(function(l, e) {
+            if (m.length > 0) {
+              var hm = m.reduce(function(l, e) {
               return e.Worshippers > l.Worshippers ? e : l;
             });
             let main = [
@@ -247,6 +248,7 @@ exports.run = async (client, message, [search, ...args]) => {
             ];
             masteryEmbed.addField(hm.god, main.join('\n'));
             client.removeObjectFromArrayOfObjectsFromKeyAndValue(m, "god", hm.god);
+            }
           }
           return message.channel.send({embed: masteryEmbed});
         } else if (search === "god") {

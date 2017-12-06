@@ -137,6 +137,7 @@ module.exports = (client) => {
   };
   
   client.romanize = (number) => {
+    if (number === 0) return 0;
     if (!+number) return NaN;
     var digits = String(+number).split("");
     var key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","","X","XX","XXX","XL","L","LX","LXX","LXXX","XC","","I","II","III","IV","V","VI","VII","VIII","IX"];
