@@ -399,16 +399,15 @@ exports.run = async (client, message, [search, ...args]) => {
   testSession();
   await client.wait(1000);
   if (search === "player") {
-    requestData("getplayer", args.join(' '));
+    requestData("getplayer", args.join(' ').split('_', ' ').join(' '));
   } else if (search === "mastery") {
-    let player = /^\d+$/.test(args[args.length - 1]) ? args.pop().join(' ') : args.join(' ');
-    requestData("getgodranks", args.join(' '));
+    requestData("getgodranks", args.join(' ').split('_', ' ').join(' '));
   } else if (search === "god" || search === "ability") {
     requestData("getgods", "1");
   } else if (search === "item") {
     requestData("getitems", "1");
   } else if (search === "friends") {
-    requestData("getfriends", args.join(' '));
+    requestData("getfriends", args.join(' ').split('_', ' ').join(' '));
   }
 };
 
