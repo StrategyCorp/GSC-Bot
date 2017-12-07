@@ -12,7 +12,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "aliase": ["h"],
       "usage": "",
       "desc": "Displayes all smite commands and how to use them",
-      "error": null,
+      "args": null,
       "api": false,
       "method": null,
       "parameter": null
@@ -22,7 +22,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "aliase": ["profile"],
       "usage": "<player> [console]",
       "desc": "Displays a players stats",
-      "error": "Who would you like me to look up?",
+      "args": "Who would you like me to look up?",
       "api": true,
       "method": "getplayer",
       "parameter": args[0].replace(/_/g, ' ')
@@ -32,7 +32,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "aliase": ["masteries"],
       "usage": "<player> [console] [number]",
       "desc": "Displays a players highest masteried Gods",
-      "error": "Who would you like me to look up?",
+      "args": "Who would you like me to look up?",
       "api": true,
       "method": "getgodranks",
       "parameter": args[0].replace(/_/g, ' ')
@@ -42,7 +42,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "aliase": ["gods"],
       "usage": "<god>",
       "desc": "Displays infomation on a chosen God",
-      "error": "Which God would you like me to look up?",
+      "args": "Which God would you like me to look up?",
       "api": true,
       "method": "getgods",
       "parameter": "1"
@@ -52,7 +52,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "aliase": [],
       "usage": "<god> <ability number>",
       "desc": "Not sure yet, not done",
-      "error": "Which God would you like me to look up?",
+      "args": "Which God would you like me to look up?",
       "api": true,
       "method": "getgods",
       "parameter": "1"
@@ -62,7 +62,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "aliase": ["items"],
       "usage": "<item || term>",
       "desc": "Displayes an item or a list of items",
-      "error": "Which item or term would you like me to look up?",
+      "args": "Which item or term would you like me to look up?",
       "api": true,
       "method": "getitems",
       "parameter": "1"
@@ -72,7 +72,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "aliase": ["friend"],
       "usage": "<player> [console]",
       "desc": "Displayes a list of the users friends (without private profiles)",
-      "error": "Who would you like me to look up?",
+      "args": "Who would you like me to look up?",
       "api": true,
       "method": "getfriends",
       "parameter": args[0].replace(/_/g, ' ')
@@ -86,12 +86,8 @@ exports.run = async (client, message, [search, ...args]) => {
   for (let cmd of cmdArray) {
     helpEmbed.addField(cmd.name, `${settings.prefix}smite ${cmd.usage}\n${cmd.desc}`);
   }
-  if (!args[0]) {
-    for (let [cmdName, cmdUsage, cmdDesc, cmdError, method, parameters] of cmdArray) {
-      if (search === cmdName) return message.channel.send(`:negative_squared_cross_mark: ${cmdError}`);
-    }
-  }
   if (client.isInArray(cmdArray, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
+  if (cmdObj[search].args !== null && !args[0]) return message.channel.send(cmdObj[search].args);
   var platformObj = {
     "pc": "pc",
     "psn": "ps4",
@@ -182,32 +178,9 @@ exports.run = async (client, message, [search, ...args]) => {
     "consumables": ["Type", "Consumable"]
   };
   var itemArray = Object.keys(itemObj);
-  // switch (search) {
-  //   case "player":
-  //     requestData("getplayer", args[0].replace(/_/g, ' '))
-  //     break;
-  //   case "mastery":
-  //     requestData("getgodranks", args[0].replace(/_/g, ' '))
-  //     break;
-  //   case "god":
-  //     requestData("getgods", "1")
-  //     break;
-  //   case "ability":
-  //     requestData("getgods", "1")
-  //     break;
-  //   case "item":
-  //     requestData("getitems", "1")
-  //     break;
-  //   case "friends":
-  //     requestData("getfriends", args[0].replace(/_/g, ' '))
-  //     break;
-  //   default:
-  //     return message.channel.send(':negative_squared_cross_mark: Unknown command');
-  // }
-  for (let [cmdName, cmdUsage, cmdDesc, cmdError, method, parameters] of cmdArray) {
-    if (search === cmdName) {
-    }
-  }
+  
+  requestData(cmdObj[search].method, cmdObj[search].parameter);
+  
   function testSession() {
     var signature = createSignature("testsession");
     request.get({
@@ -216,9 +189,9 @@ exports.run = async (client, message, [search, ...args]) => {
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
       if (err) {
-        return message.channel.send(':negative_squared_cross_mark: Error:' + err);
+        return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
       } else if (res.statusCode !== 200) {
-        return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
+        return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         let message = data.split(' ');
         message = message[0] + message[1] + message[2];
@@ -238,9 +211,9 @@ exports.run = async (client, message, [search, ...args]) => {
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
       if (err) {
-        return message.channel.send(':negative_squared_cross_mark: Error:' + err);
+        return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
       } else if (res.statusCode !== 200) {
-        return message.channel.send(':negative_squared_cross_mark: Status:' + res.statusCode);
+        return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         client.session.set(`session${platform}`, data.session_id);
       }
@@ -251,6 +224,7 @@ exports.run = async (client, message, [search, ...args]) => {
     await client.wait(1000);
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.session.get(`session${platform}`)}/${timestamp}/${parameters}`;
+    console.log(url);
     request.get({
       url: url,
       json: true,
