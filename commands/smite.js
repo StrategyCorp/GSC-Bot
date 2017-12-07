@@ -6,7 +6,6 @@ const { inspect } = require("util");
 
 exports.run = async (client, message, [search, ...args]) => {
   search = search ? search.toLowerCase() : "help";
-  if (!args[0]) return;
   var cmdObj = {
     "help": {
       "name": "help",
@@ -26,7 +25,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "args": "Who would you like me to look up?",
       "api": true,
       "method": "getplayer",
-      "parameter": args[0].replace(/_/g, ' ')
+      "parameter": args.join('-=++').replace(/_/g, ' ').split('-=++')
     },
     "mastery": {
       "name": "mastery",
@@ -36,7 +35,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "args": "Who would you like me to look up?",
       "api": true,
       "method": "getgodranks",
-      "parameter": args[0].replace(/_/g, ' ')
+      "parameter": args.join('-=++').replace(/_/g, ' ').split('-=++')
     },
     "god": {
       "name": "god",
@@ -76,7 +75,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "args": "Who would you like me to look up?",
       "api": true,
       "method": "getfriends",
-      "parameter": args[0].replace(/_/g, ' ')
+      "parameter": args.join('-=++').replace(/_/g, ' ').split('-=++')
     }
   };
   var cmdArray = Object.keys(cmdObj);
