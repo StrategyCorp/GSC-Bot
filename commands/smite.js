@@ -8,24 +8,23 @@ exports.run = async (client, message, [search, ...args]) => {
   search = search ? search.toLowerCase() : "help";
   var cmdList = [];
   var cmdArray = [
-    ["player", "<player> [console]", "Displays a players stats", "Who would you like me to look up?"],
-    ["mastery", "<player> [number] [console]", "Displays a players highest masteried Gods", "Who would you like me to look up?"],
-    ["god", "<god>", "Displays infomation on a chosen God", "Which God would you like me to look up?"],
-    ["ability", "<god> <ability number>", "Displays the God ability", "Which God would you like me to look up?"],
-    ["item", "<item | term>", "not sure yet", "Which item would you like me to look up?"],
-    ["friends", "<player> [console]", "Lists all of there friends without private profiles", "Who would you like me to look up?"]
+    ["player", "<player> [console]", "Displays a players stats", "Who would you like me to look up?", true],
+    ["mastery", "<player> [number] [console]", "Displays a players highest masteried Gods", "Who would you like me to look up?", true],
+    ["god", "<god>", "Displays infomation on a chosen God", "Which God would you like me to look up?", true],
+    ["ability", "<god> <ability number>", "Displays the God ability", "Which God would you like me to look up?", true],
+    ["item", "<item | term>", "not sure yet", "Which item would you like me to look up?", true],
+    ["friends", "<player> [console]", "Lists all of there friends without private profiles", "Who would you like me to look up?", true]
   ];
   const settings = client.settings.get(message.guild.id);
   const helpEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
     .setTitle('**Smite Help**');
-  for (let [cmdName, cmdUsage, cmdDesc, cmdError] of cmdArray) {
+  for (let [cmdName, cmdUsage, cmdDesc, cmdError, api] of cmdArray) {
     cmdList.push(cmdName);
     helpEmbed.addField(cmdName, `${settings.prefix}smite ${cmdName} ${cmdUsage}\n${cmdDesc}`);
   }
   if (search === "help") {
     return message.channel.send({embed: helpEmbed});
-  }
   var aliaseObj = {
     "profile": "player",
     "masteries": "mastery",
@@ -34,7 +33,7 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   var aliaseArray = Object.keys(aliaseObj);
   if (!args[0]) {
-    for (let [cmdName, cmdUsage, cmdDesc, cmdError] of cmdArray) {
+    for (let [cmdName, cmdUsage, cmdDesc, cmdError, api] of cmdArray) {
       if (search === cmdName) return message.channel.send(`:negative_squared_cross_mark: ${cmdError}`);
     }
   }
@@ -130,7 +129,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "consumables": ["Type", "Consumable"]
   };
   var itemArray = Object.keys(itemObj);
-  const testSession = async () => {
+  function testSession() {
     var signature = createSignature("testsession");
     request.get({
       url: domain + `testsessionJson/${devID}/${signature}/${client.session.get(`session{platform}`)}/${timestamp}`,
@@ -153,7 +152,7 @@ exports.run = async (client, message, [search, ...args]) => {
       }
     });
   };
-  const createSession = async () => {
+  function createSession () {
     var signature = createSignature("createsession");
     request.get({
       url: domain + `createsessionJson/${devID}/${signature}/${timestamp}`,
@@ -169,10 +168,9 @@ exports.run = async (client, message, [search, ...args]) => {
       }
     });
   };
-  const requestData = (method, parameters) => {
+  function requestData (method, parameters) {
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.session.get(`session${platform}`)}/${timestamp}/${parameters}`;
-    console.log(url);
     request.get({
       url: url,
       json: true,
@@ -232,7 +230,6 @@ exports.run = async (client, message, [search, ...args]) => {
           const masteryEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .setTitle(`${args.join(' ')}'${s} Masteries`);
-          console.log(args);
           let number = /^\d+$/.test(args[args.length - 1]) ? (args[args.length - 1] > 19) ? 20 : args[args.length - 1] : 5;
           for (var i = 0; i < number; i++) {
             if (m.length > 0) {
