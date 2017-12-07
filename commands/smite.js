@@ -79,6 +79,14 @@ exports.run = async (client, message, [search, ...args]) => {
     }
   };
   var cmdArray = Object.keys(cmdObj);
+  for (let cmd of cmdArray) {
+    for (let i = 0; i < cmdObj[cmd].aliase; i++) {
+      console.log(cmdObj[cmd].aliase[i]);
+      if (search === cmdObj[cmd].aliase[i]) {
+        search === cmdObj[cmd].aliase[i]
+      }
+    }
+  }
   if (client.isInArray(cmdArray, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   if (cmdObj[search].args !== null && !args[0]) return message.channel.send(cmdObj[search].args);
   var platformObj = {
@@ -183,7 +191,7 @@ exports.run = async (client, message, [search, ...args]) => {
         .setColor(settings.embedColour)
         .setTitle('**Smite Help**');
       for (let cmd of cmdArray) {
-        helpEmbed.addField(cmd.name, `${settings.prefix}smite ${cmd.usage}\n${cmd.desc}`);
+        helpEmbed.addField(cmdObj[cmd].name, `${settings.prefix}smite ${cmdObj[cmd].usage}\n${cmdObj[cmd].desc}`);
       }
       return message.channel.send({embed: helpEmbed});
     }
@@ -231,7 +239,6 @@ exports.run = async (client, message, [search, ...args]) => {
     await client.wait(1000);
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.session.get(`session${platform}`)}/${timestamp}/${parameters}`;
-    console.log(url);
     request.get({
       url: url,
       json: true,
