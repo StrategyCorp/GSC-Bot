@@ -18,6 +18,15 @@ exports.run = async (client, message, [search, ...args]) => {
       "method": "getgods",
       "parameter": "1"
     },
+    "builds": {
+      "name": "builds",
+      "aliase": ["build"],
+      "usage": "<god>",
+      "args": "Which God would you like builds for?",
+      "api": true,
+      "method": "getitems",
+      "parameter": "1"
+    },
     "god": {
       "name": "god",
       "aliase": ["gods"],
@@ -274,7 +283,9 @@ exports.run = async (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
-        if (search === "player") {
+        if (search === "builds") {
+          
+        } else if (search === "player") {
           if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
           var p = data[0];
           if (p["Name"].startsWith('[') === true) {
