@@ -212,12 +212,12 @@ exports.run = async (client, message, [search, ...args]) => {
       ];
       let jokeArray = Object.keys(jokeArrayArray);
       let jokeNumber = /^\d+$/.test(args[0]) ? (jokeArrayArray.length < args[0]) ? client.randomNum(1, jokeArrayArray.length) : args[0] : client.randomNum(1, jokeArrayArray.length);
-      let credit = jokeArrayArray[jokeNumber - 1]
+      let credit = /^\d+$/.test(jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1]) ? `${client.users.get("166641492113358848").username}` : jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1];
       const jokeEmbed = new Discord.RichEmbed()
         .setColor(settings.embedColour)
-        .setFooter(`#${jokeNumber}`);
-      if (jokeArrayArray[jokeNumber - 1].length === 1) jokeEmbed.setTitle(jokeArrayArray[jokeNumber - 1][0]);
-      if (jokeArrayArray[jokeNumber - 1].length === 2) jokeEmbed.addField(`:regional_indicator_q: ${jokeArrayArray[jokeNumber - 1][0]}`, `:regional_indicator_a: ${jokeArrayArray[jokeNumber - 1][1]}`);
+        .setFooter(`#${jokeNumber} credit: ${credit}`);
+      if (jokeArrayArray[jokeNumber - 1].length === 2) jokeEmbed.setTitle(jokeArrayArray[jokeNumber - 1][0]);
+      if (jokeArrayArray[jokeNumber - 1].length === 3) jokeEmbed.addField(`:regional_indicator_q: ${jokeArrayArray[jokeNumber - 1][0]}`, `:regional_indicator_a: ${jokeArrayArray[jokeNumber - 1][1]}`);
       return message.channel.send({embed: jokeEmbed});
     }
   }
