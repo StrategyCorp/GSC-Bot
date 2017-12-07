@@ -15,7 +15,7 @@ exports.run = (client, message, args) => {
     "Rexsi's winrate": ". . ."
   };
   let jokeArray = Object.keys(jokeList);
-  let forceNumber = parseInt(args);
+  let forceNumber = parseInt(args[0]);
   forceNumber--;
   let joke = jokeArray[Math.floor(Math.random() * jokeArray.length)];
   if (jokeArray[forceNumber] !== undefined) joke = jokeArray[forceNumber];

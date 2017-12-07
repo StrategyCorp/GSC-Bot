@@ -5,6 +5,7 @@ const md5 = require('md5');
 const { inspect } = require("util");
 
 exports.run = async (client, message, [search, ...args]) => {
+  const settings = client.settings.get(message.guild.id);
   search = search ? search.toLowerCase() : "help";
   var cmdObj = {
     "ability": {
@@ -60,6 +61,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "aliase": [],
       "usage": "[number]",
       "desc": "Tells you a smite joke",
+      "args": null,
       "api": false
     },
     "mastery": {
@@ -188,7 +190,6 @@ exports.run = async (client, message, [search, ...args]) => {
   }
   function commands() {
     if (search === "help") {
-      const settings = client.settings.get(message.guild.id);
       const helpEmbed = new Discord.RichEmbed()
         .setColor(settings.embedColour)
         .setTitle('**Smite Help**');
@@ -196,6 +197,26 @@ exports.run = async (client, message, [search, ...args]) => {
         helpEmbed.addField(cmdObj[cmd].name, `${settings.prefix}smite ${cmdObj[cmd].usage}\n${cmdObj[cmd].desc}`);
       }
       return message.channel.send({embed: helpEmbed});
+    } else if (search === "joke") {
+      var jokeArrayArray = [
+        ["Why does everyone think Bacchus is so annoying?", "Because he's always whining"],
+        ["What is Sol's favourite movie?", "Twilight: Breaking Down"],
+        ["Why does everyone think that Xing Tian uses drugs?", "Because he's always Xing things"],
+        ["What type of camera does Vulcan use?", "A cannon"],
+        ["Why does Medusa make the best weed dealer?", "She loves to help people get stoned"],
+        ["Did you hear He Bo used to be a celebrity?", "Now he's all washed up"],
+        ["I told a joke about Awilix to my friend,", "but it went over his head"],
+        ["Why isn't Sobek ever in a serious relationship?", "Because all he's ever looking for is a fling"],
+        ["What's Bellona's favourite restaurant?", "Taco Bellona"],
+        ["Rexsi's winrate", ". . ."]
+      ];
+      let jokeArray = Object.keys(jokeArrayArray);
+      let jokeNumber = /^\d+$/.test(args[0]) ? (args[0]) : client.randomNum(1, jokeArrayArray.length);
+      const jokeEmbed = new Discord.RichEmbed()
+        .setColor(settings.embedColour)
+        // .addField(`:regional_indicator_q: ${joke}`, `:regional_indicator_a: ${jokeArrayArray[joke]}`)
+        .setFooter(`#${jokeNumber}`);
+      return message.channel.send({embed: jokeEmbed});
     }
   }
   function testSession() {
