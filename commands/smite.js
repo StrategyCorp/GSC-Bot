@@ -208,11 +208,11 @@ exports.run = async (client, message, [search, ...args]) => {
         ["I told a joke about Awilix to my friend,", "but it went over his head", "/u/barblebapkins"],
         ["Why isn't Sobek ever in a serious relationship?", "Because all he's ever looking for is a fling", "/u/xdapenguinx"],
         ["What's Bellona's favourite restaurant?", "Taco Bellona", "/u/MaggehG"],
-        ["Rexsi's winrate", 166641492113358848]
+        ["Rexsi's winrate", "166641492113358848"]
       ];
       let jokeArray = Object.keys(jokeArrayArray);
       let jokeNumber = /^\d+$/.test(args[0]) ? (jokeArrayArray.length < args[0]) ? client.randomNum(1, jokeArrayArray.length) : args[0] : client.randomNum(1, jokeArrayArray.length);
-      let credit = /^\d+$/.test(jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1]) ? `${client.users.get("166641492113358848").username}` : jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1];
+      let credit = /^\d+$/.test(jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1]) ? `${client.users.get(jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1]).username}#${client.users.get(jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1]).discriminator}` : jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1];
       const jokeEmbed = new Discord.RichEmbed()
         .setColor(settings.embedColour)
         .setFooter(`#${jokeNumber} credit: ${credit}`);
