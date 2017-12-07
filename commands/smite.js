@@ -128,12 +128,6 @@ exports.run = async (client, message, [search, ...args]) => {
     "consumables": ["Type", "Consumable"]
   };
   var itemArray = Object.keys(itemObj);
-  for (let [cmdName, cmdUsage, cmdDesc, cmdError, api] of cmdArray) {
-    if (search === cmdName && api === true) {
-      testSession();
-      await client.wait(1000);
-    }
-  }
   if (search === "player") {
     requestData("getplayer", args[0].replace(/_/g, ' '));
   } else if (search === "mastery") {
@@ -163,7 +157,6 @@ exports.run = async (client, message, [search, ...args]) => {
           createSession();
         } else if (message === "Invalidsignature.Your") {
           return message.channel.send(':negative_squared_cross_mark: Invaid signature? If this error pops up the bot is really broken. Lets hope i never have to read this again!');
-        } else if (message === "Thiswasa") {
         }
       }
     });
@@ -184,7 +177,9 @@ exports.run = async (client, message, [search, ...args]) => {
       }
     });
   };
-  function requestData (method, parameters) {
+  async function requestData (method, parameters) {
+    testSession();
+    await client.wait(1000);
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.session.get(`session${platform}`)}/${timestamp}/${parameters}`;
     request.get({
