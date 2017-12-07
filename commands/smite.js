@@ -128,16 +128,27 @@ exports.run = async (client, message, [search, ...args]) => {
     "consumables": ["Type", "Consumable"]
   };
   var itemArray = Object.keys(itemObj);
-  if (search === "player") {
-    requestData("getplayer", args[0].replace(/_/g, ' '));
-  } else if (search === "mastery") {
-    requestData("getgodranks", args[0].replace(/_/g, ' '));
-  } else if (search === "god" || search === "ability") {
-    requestData("getgods", "1");
-  } else if (search === "item") {
-    requestData("getitems", "1");
-  } else if (search === "friends") {
-    requestData("getfriends", args[0].replace(/_/g, ' '));
+  switch (search) {
+    case "player":
+      requestData("getplayer", args[0].replace(/_/g, ' '));
+      break;
+    case "mastery":
+      requestData("getgodranks", args[0].replace(/_/g, ' '));
+      break;
+    case "god":
+      requestData("getgods", "1");
+      break;
+    case "ability":
+      requestData("getgods", "1");
+      break;
+    case "item":
+      requestData("getitems", "1");
+      break;
+    case "friends":
+      requestData("getfriends", args[0].replace(/_/g, ' '));
+      break;
+    default:
+      return message.channel.send(':negative_squared_cross_mark: Unknown command');
   }
   function testSession() {
     var signature = createSignature("testsession");
