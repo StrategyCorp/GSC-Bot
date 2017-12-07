@@ -6,6 +6,7 @@ const { inspect } = require("util");
 
 exports.run = async (client, message, [search, ...args]) => {
   search = search ? search.toLowerCase() : "help";
+  if (!args[0]) return;
   var cmdObj = {
     "help": {
       "name": "help",
