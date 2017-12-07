@@ -134,6 +134,17 @@ exports.run = async (client, message, [search, ...args]) => {
       await client.wait(1000);
     }
   }
+  if (search === "player") {
+    requestData("getplayer", args[0].replace(/_/g, ' '));
+  } else if (search === "mastery") {
+    requestData("getgodranks", args[0].replace(/_/g, ' '));
+  } else if (search === "god" || search === "ability") {
+    requestData("getgods", "1");
+  } else if (search === "item") {
+    requestData("getitems", "1");
+  } else if (search === "friends") {
+    requestData("getfriends", args[0].replace(/_/g, ' '));
+  }
   function testSession() {
     var signature = createSignature("testsession");
     request.get({
@@ -397,17 +408,6 @@ exports.run = async (client, message, [search, ...args]) => {
         }
       }
     });
-  }
-  if (search === "player") {
-    requestData("getplayer", args[0].replace(/_/g, ' '));
-  } else if (search === "mastery") {
-    requestData("getgodranks", args[0].replace(/_/g, ' '));
-  } else if (search === "god" || search === "ability") {
-    requestData("getgods", "1");
-  } else if (search === "item") {
-    requestData("getitems", "1");
-  } else if (search === "friends") {
-    requestData("getfriends", args[0].replace(/_/g, ' '));
   }
 };
 
