@@ -7,35 +7,15 @@ const { inspect } = require("util");
 exports.run = async (client, message, [search, ...args]) => {
   search = search ? search.toLowerCase() : "help";
   var cmdObj = {
-    "help": {
-      "name": "help",
-      "aliase": ["h"],
-      "usage": "",
-      "desc": "Displayes all smite commands and how to use them",
-      "args": null,
-      "api": false,
-      "method": null,
-      "parameter": null
-    },
-    "player": {
-      "name": "player",
-      "aliase": ["profile"],
-      "usage": "<player> [console]",
-      "desc": "Displays a players stats",
-      "args": "Who would you like me to look up?",
+    "ability": {
+      "name": "ability",
+      "aliase": [],
+      "usage": "<god> <ability number>",
+      "desc": "Not sure yet, not done",
+      "args": "Which God would you like me to look up?",
       "api": true,
-      "method": "getplayer",
-      "parameter": args.join('-=++').replace(/_/g, ' ').split('-=++')
-    },
-    "mastery": {
-      "name": "mastery",
-      "aliase": ["masteries"],
-      "usage": "<player> [console] [number]",
-      "desc": "Displays a players highest masteried Gods",
-      "args": "Who would you like me to look up?",
-      "api": true,
-      "method": "getgodranks",
-      "parameter": args.join('-=++').replace(/_/g, ' ').split('-=++')
+      "method": "getgods",
+      "parameter": "1"
     },
     "god": {
       "name": "god",
@@ -47,15 +27,23 @@ exports.run = async (client, message, [search, ...args]) => {
       "method": "getgods",
       "parameter": "1"
     },
-    "ability": {
-      "name": "ability",
-      "aliase": [],
-      "usage": "<god> <ability number>",
-      "desc": "Not sure yet, not done",
-      "args": "Which God would you like me to look up?",
+    "friends": {
+      "name": "friends",
+      "aliase": ["friend"],
+      "usage": "<player> [console]",
+      "desc": "Displayes a list of the users friends (without private profiles)",
+      "args": "Who would you like me to look up?",
       "api": true,
-      "method": "getgods",
-      "parameter": "1"
+      "method": "getfriends",
+      "parameter": args.join('-=++').replace(/_/g, ' ').split('-=++')
+    },
+    "help": {
+      "name": "help",
+      "aliase": ["h"],
+      "usage": "",
+      "desc": "Displayes all smite commands and how to use them",
+      "args": null,
+      "api": false
     },
     "item": {
       "name": "item",
@@ -67,24 +55,38 @@ exports.run = async (client, message, [search, ...args]) => {
       "method": "getitems",
       "parameter": "1"
     },
-    "friends": {
-      "name": "friends",
-      "aliase": ["friend"],
-      "usage": "<player> [console]",
-      "desc": "Displayes a list of the users friends (without private profiles)",
+    "joke": {
+      "name": "joke",
+      "aliase": [],
+      "usage": "[number]",
+      "desc": "Tells you a smite joke",
+      "api": false
+    },
+    "mastery": {
+      "name": "mastery",
+      "aliase": ["masteries"],
+      "usage": "<player> [console] [number]",
+      "desc": "Displays a players highest masteried Gods",
       "args": "Who would you like me to look up?",
       "api": true,
-      "method": "getfriends",
+      "method": "getgodranks",
+      "parameter": args.join('-=++').replace(/_/g, ' ').split('-=++')
+    },
+    "player": {
+      "name": "player",
+      "aliase": ["profile"],
+      "usage": "<player> [console]",
+      "desc": "Displays a players stats",
+      "args": "Who would you like me to look up?",
+      "api": true,
+      "method": "getplayer",
       "parameter": args.join('-=++').replace(/_/g, ' ').split('-=++')
     }
   };
   var cmdArray = Object.keys(cmdObj);
   for (let cmd of cmdArray) {
-    for (let i = 0; i < cmdObj[cmd].aliase; i++) {
-      console.log(cmdObj[cmd].aliase[i]);
-      if (search === cmdObj[cmd].aliase[i]) {
-        search === cmdObj[cmd].aliase[i]
-      }
+    for (let i = 0; i < cmdObj[cmd]["aliase"].length; i++) {
+      if (search === cmdObj[cmd].aliase[i]) search = cmd;
     }
   }
   if (client.isInArray(cmdArray, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
