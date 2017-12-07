@@ -8,18 +8,18 @@ exports.run = async (client, message, [search, ...args]) => {
   search = search ? search.toLowerCase() : "help";
   var cmdList = [];
   var cmdArray = [
-    ["player", "<player> [console]", "Displays a players stats", "Who would you like me to look up?", true],
-    ["mastery", "<player> [number] [console]", "Displays a players highest masteried Gods", "Who would you like me to look up?", true],
-    ["god", "<god>", "Displays infomation on a chosen God", "Which God would you like me to look up?", true],
-    ["ability", "<god> <ability number>", "Displays the God ability", "Which God would you like me to look up?", true],
-    ["item", "<item | term>", "not sure yet", "Which item would you like me to look up?", false],
-    ["friends", "<player> [console]", "Lists all of there friends without private profiles", "Who would you like me to look up?", true],
+    ["player", "<player> [console]", "Displays a players stats", "Who would you like me to look up?", requestData("getplayer", args[0].replace(/_/g, ' '))],
+    ["mastery", "<player> [number] [console]", "Displays a players highest masteried Gods", "Who would you like me to look up?", requestData("getgodranks", args[0].replace(/_/g, ' '))],
+    ["god", "<god>", "Displays infomation on a chosen God", "Which God would you like me to look up?", requestData("getgods", "1")],
+    ["ability", "<god> <ability number>", "Displays the God ability", "Which God would you like me to look up?", requestData("getgods", "1")],
+    ["item", "<item | term>", "not sure yet", "Which item would you like me to look up?", requestData("getitems", "1")],
+    ["friends", "<player> [console]", "Lists all of there friends without private profiles", "Who would you like me to look up?", requestData("getfriends", args[0].replace(/_/g, ' '))]
   ];
   const settings = client.settings.get(message.guild.id);
   const helpEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
     .setTitle('**Smite Help**');
-  for (let [cmdName, cmdUsage, cmdDesc, cmdError, api] of cmdArray) {
+  for (let [cmdName, cmdUsage, cmdDesc, cmdError, func] of cmdArray) {
     cmdList.push(cmdName);
     helpEmbed.addField(cmdName, `${settings.prefix}smite ${cmdName} ${cmdUsage}\n${cmdDesc}`);
   }
@@ -32,7 +32,7 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   var aliaseArray = Object.keys(aliaseObj);
   if (!args[0]) {
-    for (let [cmdName, cmdUsage, cmdDesc, cmdError, api] of cmdArray) {
+    for (let [cmdName, cmdUsage, cmdDesc, cmdError, func] of cmdArray) {
       if (search === cmdName) return message.channel.send(`:negative_squared_cross_mark: ${cmdError}`);
     }
   }
@@ -47,11 +47,11 @@ exports.run = async (client, message, [search, ...args]) => {
     "xbox1": "xbox"
   };
   var platformArray = Object.keys(platformObj);
-  let platform = client.isInArray(platformArray, args[args.length - 1]) ? platformObj[args[args.length - 1]] : (client.isInArray(platformArray, args[args.length - 2])) ? platformObj[args[args.length - 2]] : "pc";
-  let domain = platform === "xbox" ? "http://api.xbox.smitegame.com/smiteapi.svc/" : (platform === "ps4") ? "http://api.ps4.smitegame.com/smiteapi.svc/" : "http://api.smitegame.com/smiteapi.svc/";
-  const devID = process.env.SMITEDEVID;
-  let timestamp = moment().format('YYYYMMDDHHmmss');
-  const authKey = process.env.SMITEAUTHID;
+  var platform = client.isInArray(platformArray, args[args.length - 1]) ? platformObj[args[args.length - 1]] : (client.isInArray(platformArray, args[args.length - 2])) ? platformObj[args[args.length - 2]] : "pc";
+  var domain = platform === "xbox" ? "http://api.xbox.smitegame.com/smiteapi.svc/" : (platform === "ps4") ? "http://api.ps4.smitegame.com/smiteapi.svc/" : "http://api.smitegame.com/smiteapi.svc/";
+  var devID = process.env.SMITEDEVID;
+  var timestamp = moment().format('YYYYMMDDHHmmss');
+  var authKey = process.env.SMITEAUTHID;
   function createSignature(method) {
     return md5(`${devID}${method}${authKey}${timestamp}`);
   }
@@ -130,26 +130,31 @@ exports.run = async (client, message, [search, ...args]) => {
   var itemArray = Object.keys(itemObj);
   switch (search) {
     case "player":
-      requestData("getplayer", args[0].replace(/_/g, ' '));
+      requestData("getplayer", args[0].replace(/_/g, ' '))
       break;
     case "mastery":
-      requestData("getgodranks", args[0].replace(/_/g, ' '));
+      requestData("getgodranks", args[0].replace(/_/g, ' '))
       break;
     case "god":
-      requestData("getgods", "1");
+      requestData("getgods", "1")
       break;
     case "ability":
-      requestData("getgods", "1");
+      requestData("getgods", "1")
       break;
     case "item":
-      requestData("getitems", "1");
+      requestData("getitems", "1")
       break;
     case "friends":
-      requestData("getfriends", args[0].replace(/_/g, ' '));
+      requestData("getfriends", args[0].replace(/_/g, ' '))
       break;
     default:
       return message.channel.send(':negative_squared_cross_mark: Unknown command');
   }
+  // for (let [cmdName, cmdUsage, cmdDesc, cmdError, func] of cmdArray) {
+  //   if (search === cmdName) {
+  //     func;
+  //   }
+  // }
   function testSession() {
     var signature = createSignature("testsession");
     request.get({
