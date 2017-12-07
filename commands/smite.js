@@ -7,19 +7,44 @@ const { inspect } = require("util");
 exports.run = async (client, message, [search, ...args]) => {
   search = search ? search.toLowerCase() : "help";
   var cmdList = [];
+  var cmdObj = {
+    "player": {
+      "name": "player",
+      "aliase": ["profile"],
+      "usage": "<player> [console]",
+      "desc": "Displays a players stats",
+      "error": "Who would you like me to look up?",
+      "api": true,
+      "method": "getplayer",
+      "parameter": args[0].replace(/_/g, ' ')
+    },
+    "mastery": {
+      "name": "mastery",
+      "aliase": ["masteries"],
+      "usage": "<player> [console] [number]",
+      "desc": "Displays a players highest masteried Gods",
+      "error": "Who would you like me to look up?",
+      "api": true,
+      "method": "getgodranks",
+      "parameter": args[0].replace(/_/g, ' ')
+    },
+    "god": {
+      "name": ""
+    }
+  };
   var cmdArray = [
-    ["player", "<player> [console]", "Displays a players stats", "Who would you like me to look up?", requestData("getplayer", args[0].replace(/_/g, ' '))],
-    ["mastery", "<player> [number] [console]", "Displays a players highest masteried Gods", "Who would you like me to look up?", requestData("getgodranks", args[0].replace(/_/g, ' '))],
-    ["god", "<god>", "Displays infomation on a chosen God", "Which God would you like me to look up?", requestData("getgods", "1")],
-    ["ability", "<god> <ability number>", "Displays the God ability", "Which God would you like me to look up?", requestData("getgods", "1")],
-    ["item", "<item | term>", "not sure yet", "Which item would you like me to look up?", requestData("getitems", "1")],
-    ["friends", "<player> [console]", "Lists all of there friends without private profiles", "Who would you like me to look up?", requestData("getfriends", args[0].replace(/_/g, ' '))]
+    ["player", "<player> [console]", "Displays a players stats", "Who would you like me to look up?", "getplayer", "args[0].replace(/_/g, ' ')"],
+    ["mastery", "<player> [number] [console]", "Displays a players highest masteried Gods", "Who would you like me to look up?", "getgodranks", "args[0].replace(/_/g, ' ')"],
+    ["god", "<god>", "Displays infomation on a chosen God", "Which God would you like me to look up?", "getgods", "1"],
+    ["ability", "<god> <ability number>", "Displays the God ability", "Which God would you like me to look up?", "getgods", "1"],
+    ["item", "<item | term>", "not sure yet", "Which item would you like me to look up?", "getitems", "1"],
+    ["friends", "<player> [console]", "Lists all of there friends without private profiles", "Who would you like me to look up?", "getfriends", "args[0].replace(/_/g, ' ')"]
   ];
   const settings = client.settings.get(message.guild.id);
   const helpEmbed = new Discord.RichEmbed()
     .setColor(settings.embedColour)
     .setTitle('**Smite Help**');
-  for (let [cmdName, cmdUsage, cmdDesc, cmdError, func] of cmdArray) {
+  for (let [cmdName, cmdUsage, cmdDesc, cmdError, method, parameters] of cmdArray) {
     cmdList.push(cmdName);
     helpEmbed.addField(cmdName, `${settings.prefix}smite ${cmdName} ${cmdUsage}\n${cmdDesc}`);
   }
@@ -32,7 +57,7 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   var aliaseArray = Object.keys(aliaseObj);
   if (!args[0]) {
-    for (let [cmdName, cmdUsage, cmdDesc, cmdError, func] of cmdArray) {
+    for (let [cmdName, cmdUsage, cmdDesc, cmdError, method, parameters] of cmdArray) {
       if (search === cmdName) return message.channel.send(`:negative_squared_cross_mark: ${cmdError}`);
     }
   }
@@ -128,33 +153,32 @@ exports.run = async (client, message, [search, ...args]) => {
     "consumables": ["Type", "Consumable"]
   };
   var itemArray = Object.keys(itemObj);
-  switch (search) {
-    case "player":
-      requestData("getplayer", args[0].replace(/_/g, ' '))
-      break;
-    case "mastery":
-      requestData("getgodranks", args[0].replace(/_/g, ' '))
-      break;
-    case "god":
-      requestData("getgods", "1")
-      break;
-    case "ability":
-      requestData("getgods", "1")
-      break;
-    case "item":
-      requestData("getitems", "1")
-      break;
-    case "friends":
-      requestData("getfriends", args[0].replace(/_/g, ' '))
-      break;
-    default:
-      return message.channel.send(':negative_squared_cross_mark: Unknown command');
-  }
-  // for (let [cmdName, cmdUsage, cmdDesc, cmdError, func] of cmdArray) {
-  //   if (search === cmdName) {
-  //     func;
-  //   }
+  // switch (search) {
+  //   case "player":
+  //     requestData("getplayer", args[0].replace(/_/g, ' '))
+  //     break;
+  //   case "mastery":
+  //     requestData("getgodranks", args[0].replace(/_/g, ' '))
+  //     break;
+  //   case "god":
+  //     requestData("getgods", "1")
+  //     break;
+  //   case "ability":
+  //     requestData("getgods", "1")
+  //     break;
+  //   case "item":
+  //     requestData("getitems", "1")
+  //     break;
+  //   case "friends":
+  //     requestData("getfriends", args[0].replace(/_/g, ' '))
+  //     break;
+  //   default:
+  //     return message.channel.send(':negative_squared_cross_mark: Unknown command');
   // }
+  for (let [cmdName, cmdUsage, cmdDesc, cmdError, method, parameters] of cmdArray) {
+    if (search === cmdName) {
+    }
+  }
   function testSession() {
     var signature = createSignature("testsession");
     request.get({
