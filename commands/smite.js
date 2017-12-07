@@ -79,13 +79,6 @@ exports.run = async (client, message, [search, ...args]) => {
     }
   };
   var cmdArray = Object.keys(cmdObj);
-  const settings = client.settings.get(message.guild.id);
-  const helpEmbed = new Discord.RichEmbed()
-    .setColor(settings.embedColour)
-    .setTitle('**Smite Help**');
-  for (let cmd of cmdArray) {
-    helpEmbed.addField(cmd.name, `${settings.prefix}smite ${cmd.usage}\n${cmd.desc}`);
-  }
   if (client.isInArray(cmdArray, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   if (cmdObj[search].args !== null && !args[0]) return message.channel.send(cmdObj[search].args);
   var platformObj = {
@@ -178,9 +171,23 @@ exports.run = async (client, message, [search, ...args]) => {
     "consumables": ["Type", "Consumable"]
   };
   var itemArray = Object.keys(itemObj);
-  
-  requestData(cmdObj[search].method, cmdObj[search].parameter);
-  
+  if (cmdObj[search].api === true) {
+    requestData(cmdObj[search].method, cmdObj[search].parameter);
+  } else {
+    commands();
+  }
+  function commands() {
+    if (search === "help") {
+      const settings = client.settings.get(message.guild.id);
+      const helpEmbed = new Discord.RichEmbed()
+        .setColor(settings.embedColour)
+        .setTitle('**Smite Help**');
+      for (let cmd of cmdArray) {
+        helpEmbed.addField(cmd.name, `${settings.prefix}smite ${cmd.usage}\n${cmd.desc}`);
+      }
+      return message.channel.send({embed: helpEmbed});
+    }
+  }
   function testSession() {
     var signature = createSignature("testsession");
     request.get({
