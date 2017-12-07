@@ -12,8 +12,8 @@ exports.run = async (client, message, [search, ...args]) => {
     ["mastery", "<player> [number] [console]", "Displays a players highest masteried Gods", "Who would you like me to look up?", true],
     ["god", "<god>", "Displays infomation on a chosen God", "Which God would you like me to look up?", true],
     ["ability", "<god> <ability number>", "Displays the God ability", "Which God would you like me to look up?", true],
-    ["item", "<item | term>", "not sure yet", "Which item would you like me to look up?", true],
-    ["friends", "<player> [console]", "Lists all of there friends without private profiles", "Who would you like me to look up?", true]
+    ["item", "<item | term>", "not sure yet", "Which item would you like me to look up?", false],
+    ["friends", "<player> [console]", "Lists all of there friends without private profiles", "Who would you like me to look up?", true],
   ];
   const settings = client.settings.get(message.guild.id);
   const helpEmbed = new Discord.RichEmbed()
@@ -23,8 +23,7 @@ exports.run = async (client, message, [search, ...args]) => {
     cmdList.push(cmdName);
     helpEmbed.addField(cmdName, `${settings.prefix}smite ${cmdName} ${cmdUsage}\n${cmdDesc}`);
   }
-  if (search === "help") {
-    return message.channel.send({embed: helpEmbed});
+  if (search === "help") return message.channel.send({embed: helpEmbed});
   var aliaseObj = {
     "profile": "player",
     "masteries": "mastery",
@@ -129,6 +128,12 @@ exports.run = async (client, message, [search, ...args]) => {
     "consumables": ["Type", "Consumable"]
   };
   var itemArray = Object.keys(itemObj);
+  for (let [cmdName, cmdUsage, cmdDesc, cmdError, api] of cmdArray) {
+    if (search === cmdName && api === true) {
+      testSession();
+      await client.wait(1000);
+    }
+  }
   function testSession() {
     var signature = createSignature("testsession");
     request.get({
@@ -393,8 +398,6 @@ exports.run = async (client, message, [search, ...args]) => {
       }
     });
   }
-  testSession();
-  await client.wait(1000);
   if (search === "player") {
     requestData("getplayer", args[0].replace(/_/g, ' '));
   } else if (search === "mastery") {
