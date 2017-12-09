@@ -23,6 +23,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "name": "builds",
       "aliase": ["build"],
       "usage": "<god>",
+      "desc": "Looks up a build for a God",
       "args": "Which God would you like builds for?",
       "api": true,
       "method": "getitems",
@@ -285,7 +286,8 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         if (search === "builds") {
-          
+          if (!builds[args.join(' ')]) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
+          return message.channel.send('ok!');
         } else if (search === "player") {
           if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
           var p = data[0];
