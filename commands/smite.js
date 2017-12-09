@@ -3,6 +3,7 @@ const request = require('request');
 const moment = require('moment');
 const md5 = require('md5');
 const { inspect } = require("util");
+const builds = require('../data/smitebuilds');
 
 exports.run = async (client, message, [search, ...args]) => {
   const settings = client.settings.get(message.guild.id);
