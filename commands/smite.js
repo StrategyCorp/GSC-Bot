@@ -194,6 +194,11 @@ exports.run = async (client, message, [search, ...args]) => {
     "consumables": ["Type", "Consumable"]
   };
   var itemArray = Object.keys(itemObj);
+  var gamemodeObj = {
+    "arena": "normalArena",
+    "assault": "normalA"
+  };
+  var gamemodeArray = Object.keys(gamemodeObj);
   if (cmdObj[search].api === true) {
     requestData(cmdObj[search].method, cmdObj[search].parameter);
   } else {
@@ -286,12 +291,12 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         if (search === "builds") {
-          let gm = args[args.length - 2] === "ranked" ? 
+          let gm = args[args.length - 2] === "ranked" ? args.splice(args.length - 2) : args.splice(args.length - 1);
           if (!builds[args.join(' ')]) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
+          if (gm) return
           const buildEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .setTitle(`Builds for ${args.join(' ').toProperCase()}`)
-            .addField('')
         } else if (search === "player") {
           if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
           var p = data[0];
