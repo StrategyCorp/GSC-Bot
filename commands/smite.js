@@ -196,7 +196,16 @@ exports.run = async (client, message, [search, ...args]) => {
   var itemArray = Object.keys(itemObj);
   var gamemodeObj = {
     "arena": "normalArena",
-    "assault": "normalA"
+    "assault": "normalAssault",
+    "joust": "normalJoust",
+    "siege": "normalSiege",
+    "conq": "normalConquest",
+    "conquest": "normalConquest",
+    "clash": "normalClash",
+    "rConq": "rankedConquest",
+    "rConquest": "rankedConquest",
+    "rDuels": "rankedDuels",
+    "rJoust": "rankedJoust"
   };
   var gamemodeArray = Object.keys(gamemodeObj);
   if (cmdObj[search].api === true) {
@@ -291,8 +300,10 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         if (search === "builds") {
-          let gm = args[args.length - 2] === "ranked" ? args.splice(args.length - 2) : args.splice(args.length - 1);
+          let gm =  ? (args[args.length - 2].toLowerCase() === "ranked") ? args.splice(args.length - 2) : args.splice(args.length - 1) : ""
+          gm = gm.length === 2 ? 'r' + gm[1].toProperCase() : gm[0].toLowerCase();
           if (!builds[args.join(' ')]) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
+          if (client.isInArray(gamemodeArray, gm) === false) return (`:negative_squared_cross_mark: \`${gm}\` is not a gamemode`);
           if (gm) return
           const buildEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
