@@ -100,7 +100,10 @@ exports.run = async (client, message, [search, ...args]) => {
       "aliase": [],
       "usage": "",
       "desc": "",
-      "args";
+      "args": null,
+      "api": true,
+      "method": "getgodrecommendeditems",
+      "parameter": "2260/1"
     }
   };
   var cmdArray = Object.keys(cmdObj);
@@ -226,7 +229,7 @@ exports.run = async (client, message, [search, ...args]) => {
         .setColor(settings.embedColour)
         .setTitle('**Smite Help**');
       for (let cmd of cmdArray) {
-        helpEmbed.addField(cmdObj[cmd].name, `${settings.prefix}smite ${cmdObj[cmd].usage}\n${cmdObj[cmd].desc}`);
+        helpEmbed.addField(cmdObj[cmd]["name"].toProperCase(), `${settings.prefix}smite ${cmdObj[cmd].usage}\n${cmdObj[cmd].desc}`);
       }
       return message.channel.send({embed: helpEmbed});
     } else if (search === "joke") {
@@ -296,6 +299,7 @@ exports.run = async (client, message, [search, ...args]) => {
     await client.wait(1000);
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.session.get(`session${platform}`)}/${timestamp}/${parameters}`;
+    console.log(url);
     request.get({
       url: url,
       json: true,
@@ -401,6 +405,7 @@ exports.run = async (client, message, [search, ...args]) => {
             `**Pantheon:** ${g.Pantheon}`,
             `**Attack Type:**${g.Type}`,
             `**Pros:**${g.Pros}`,
+            `**ID:** ${g.id}`,
             `**Free Rotation:** ${rotation}`
           ];
           if (g.latestGod === "y") main.push(`Currently the newest God`);
@@ -474,6 +479,7 @@ exports.run = async (client, message, [search, ...args]) => {
                 stats.push(`${stat.Value} ${stat.Description}`);
               }
               let main = [
+                `**ID:** ${i.ItemId}`,
                 `**Stats:**\n${stats.join('\n')}`
               ];
               var child = client.searchArrayOfObjects(data, "ItemId", i.ChildItemId);
@@ -530,6 +536,8 @@ exports.run = async (client, message, [search, ...args]) => {
             if (name.name !== "") friendsArray.push(name.name)
           }
           return message.channel.send(`== ${args[0].replace(/_/g, ' ')} ==\n[Total Friends - ${f.length}]\n\n${friendsArray.join(', ')}`, {code: "asciidoc"});
+        } else if (search === "test") {
+          console.log(data);
         }
       }
     });
