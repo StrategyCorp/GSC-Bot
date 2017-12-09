@@ -22,7 +22,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "builds": {
       "name": "builds",
       "aliase": ["build"],
-      "usage": "<god>",
+      "usage": "<god> <gamemode>",
       "desc": "Looks up a build for a God",
       "args": "Which God would you like builds for?",
       "api": true,
@@ -286,8 +286,12 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         if (search === "builds") {
+          if ()
           if (!builds[args.join(' ')]) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
-          return message.channel.send('ok!');
+          const buildEmbed = new Discord.RichEmbed()
+            .setColor(settings.embedColour)
+            .setTitle(`Builds for ${args.join(' ').toProperCase()}`)
+            .addField('')
         } else if (search === "player") {
           if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
           var p = data[0];
