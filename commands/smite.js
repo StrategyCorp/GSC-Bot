@@ -300,14 +300,15 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         if (search === "builds") {
-          let gm =  ? (args[args.length - 2].toLowerCase() === "ranked") ? args.splice(args.length - 2) : args.splice(args.length - 1) : ""
+          let gm = args.length > 1 ? (args[args.length - 2].toLowerCase() === "ranked") ? args.splice(args.length - 2) : args.splice(args.length - 1) : ["conquest"];
           gm = gm.length === 2 ? 'r' + gm[1].toProperCase() : gm[0].toLowerCase();
           if (!builds[args.join(' ')]) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
           if (client.isInArray(gamemodeArray, gm) === false) return (`:negative_squared_cross_mark: \`${gm}\` is not a gamemode`);
-          if (gm) return
           const buildEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
-            .setTitle(`Builds for ${args.join(' ').toProperCase()}`)
+            .setTitle(`Builds for ${args.join(' ').toProperCase()} in ${gamemodeObj[gm].replace('normal', '').replace('ranked', '').toProperCase()}`)
+            .setDescription(builds[args.join(' ')][gamemodeObj[gm]]);
+          return message.channel.send({embed: buildEmbed});
         } else if (search === "player") {
           if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
           var p = data[0];
