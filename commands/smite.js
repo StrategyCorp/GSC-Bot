@@ -286,7 +286,7 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         if (search === "builds") {
-          if ()
+          let gm = args[args.length - 2] === "ranked" ? 
           if (!builds[args.join(' ')]) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
           const buildEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
