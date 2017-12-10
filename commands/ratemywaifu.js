@@ -15,9 +15,9 @@ exports.run = (client, message, waifu) => {
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
       if (err) {
-        console.log('Error:', err);
+        return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
       } else if (res.statusCode !== 200) {
-        console.log('Status:', res.statusCode);
+        return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         let resultArray = data.data.result.items;
         if (resultArray.length > 0)  {
