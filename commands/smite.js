@@ -219,7 +219,7 @@ exports.run = async (client, message, [search, ...args]) => {
         .setColor(settings.embedColour)
         .setTitle('**Smite Help**');
       for (let cmd of cmdArray) {
-        helpEmbed.addField(cmdObj[cmd]["name"].toProperCase(), `${settings.prefix}smite ${cmdObj[cmd].usage}\n${cmdObj[cmd].desc}`);
+        helpEmbed.addField(cmdObj[cmd]["name"].toProperCase(), `${settings.prefix}smite ${cmdObj[cmd].name} ${cmdObj[cmd].usage}\n${cmdObj[cmd].desc}`);
       }
       return message.channel.send({embed: helpEmbed});
     } else if (search === "joke") {
