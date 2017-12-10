@@ -3,8 +3,7 @@ const config = {
   "games": ["SMITE", "with your mind", "nothing", "with fire", "with Kuzenbo's nene"],
   "gameChangeTime": "20",
   "replyObj": {
-    "rexsi": "lol",
-    "^": "What this respected individual said"
+    "rexsi": "lol"
   },
   "musicPasses": "1",
   "serverPoints": {},
