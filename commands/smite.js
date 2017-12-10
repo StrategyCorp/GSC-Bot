@@ -363,7 +363,7 @@ exports.run = async (client, message, [search, ...args]) => {
           let s = args[0].replace(/_/g, ' ').substr(args.length - 1) === "s" ? "" : "s";
           const masteryEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
-            .setTitle(`${args.join(' ')}'${s} Masteries`);
+            .setTitle(`${args[0]}'${s} Masteries`);
           let number = /^\d+$/.test(args[args.length - 1]) ? (args[args.length - 1] > 19) ? 20 : args[args.length - 1] : 5;
           for (var i = 0; i < number; i++) {
             if (m.length > 0) {
