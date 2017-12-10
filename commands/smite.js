@@ -114,6 +114,7 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   var platformArray = Object.keys(platformObj);
   var platform = client.isInArray(platformArray, args[args.length - 1]) ? platformObj[args[args.length - 1]] : (client.isInArray(platformArray, args[args.length - 2])) ? platformObj[args[args.length - 2]] : "pc";
+  if (client.isInArray(platformArray, args[args.length - 1]) === true) args.pop();
   var domain = platform === "xbox" ? "http://api.xbox.smitegame.com/smiteapi.svc/" : (platform === "ps4") ? "http://api.ps4.smitegame.com/smiteapi.svc/" : "http://api.smitegame.com/smiteapi.svc/";
   var devID = process.env.SMITEDEVID;
   var timestamp = moment().format('YYYYMMDDHHmmss');
