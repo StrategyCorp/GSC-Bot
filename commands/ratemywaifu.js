@@ -3,7 +3,7 @@ const request = require('request');
 
 exports.run = (client, message, waifu) => {
   if (!waifu[0]) return message.channel.send(':negative_squared_cross_mark: You must tell me who your waifu is');
-  waifu = waifu.join(' ');
+  waifu = waifu.join(' ').toLower;
   waifu = waifu.toLowerCase();
   const settings = client.settings.get(message.guild.id);
   let score = client.randomNum(4, 10);
