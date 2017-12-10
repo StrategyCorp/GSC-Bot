@@ -94,16 +94,6 @@ exports.run = async (client, message, [search, ...args]) => {
       "api": true,
       "method": "getplayer",
       "parameter": args.join('-=++').replace(/_/g, ' ').split('-=++')
-    },
-    "test": {
-      "name": "test",
-      "aliase": [],
-      "usage": "",
-      "desc": "",
-      "args": null,
-      "api": true,
-      "method": "getgodrecommendeditems",
-      "parameter": "2260/1"
     }
   };
   var cmdArray = Object.keys(cmdObj);
@@ -299,7 +289,6 @@ exports.run = async (client, message, [search, ...args]) => {
     await client.wait(1000);
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.session.get(`session${platform}`)}/${timestamp}/${parameters}`;
-    console.log(url);
     request.get({
       url: url,
       json: true,
@@ -536,8 +525,6 @@ exports.run = async (client, message, [search, ...args]) => {
             if (name.name !== "") friendsArray.push(name.name)
           }
           return message.channel.send(`== ${args[0].replace(/_/g, ' ')} ==\n[Total Friends - ${f.length}]\n\n${friendsArray.join(', ')}`, {code: "asciidoc"});
-        } else if (search === "test") {
-          console.log(data);
         }
       }
     });
