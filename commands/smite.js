@@ -209,14 +209,14 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   var gamemodeArray = Object.keys(gamemodeObj);
   var abilityObj = {
-    "passive": "0",
-    "0": "0",
-    "1": "1",
-    "2": "2",
-    "3": "3",
-    "ult": "4",
-    "ultimate": "4",
-    "4": "4"
+    "passive": "Ability_5",
+    "0": "Ability_5",
+    "1": "Ability_1",
+    "2": "Ability_2",
+    "3": "Ability_3",
+    "ult": "Ability_4",
+    "ultimate": "Ability_4",
+    "4": "Ability_4"
   };
   var abilityArray = Object.keys(abilityObj);
   if (cmdObj[search].api === true) {
@@ -311,14 +311,20 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         if (search === "ability") {
+          var a = client.isInArray(abilityArray, args[args.length - 1]) ? args.pop() : "1";
           const findGod = (searchGod) => {
             return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
           }
           var g = data.find(findGod);
           if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
-          var a = client.isInArray(abilityArray, args[args.length - 1]) ? abilityObj[args[args.length - 1]] : 
+          a = g[abilityObj[a]];
+          let cooldown = a.Description.itemDescription
+          let main = [
+            
+          ];
           const abilityEmbed = new Discord.RichEmbed()
             .setColor(roleObj[g["Roles"].replace(' ', '').toLowerCase()])
+            .setThumbnail(a.URL)
           return message.channel.send({embed: abilityEmbed});
         } else if (search === "builds") {
           let gm = args.length > 1 ? (args[args.length - 2].toLowerCase() === "ranked") ? args.splice(args.length - 2) : args.splice(args.length - 1) : ["conquest"];
