@@ -1,11 +1,13 @@
 const Discord = require('discord.js');
 const request = require('request');
+const md5 = require('md5');
 
 exports.run = (client, message, waifu) => {
   if (!waifu[0]) return message.channel.send(':negative_squared_cross_mark: You must tell me who your waifu is');
   waifu = waifu.join(' ').toLowerCase();
   const settings = client.settings.get(message.guild.id);
-  let score = client.randomNum(4, 10);
+  let score = md5(waifu.toLowerCase()).replace(/\D/g,'');
+  score = 10 - parseInt(score.charAt(0));
   if (waifu === "blake" || waifu === "blake belladonna") score = 10;
   let url = `https://api.qwant.com/api/search/images?count=1&offset=1&q=anime ` + waifu;
   request.get({
