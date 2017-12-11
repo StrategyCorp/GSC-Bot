@@ -114,7 +114,6 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   var platformArray = Object.keys(platformObj);
   var platform = client.isInArray(platformArray, args[args.length - 1]) ? platformObj[args[args.length - 1]] : (client.isInArray(platformArray, args[args.length - 2])) ? platformObj[args[args.length - 2]] : "pc";
-  // if (client.isInArray(platformArray, args[args.length - 1]) === true) args.pop();
   var domain = platform === "xbox" ? "http://api.xbox.smitegame.com/smiteapi.svc/" : (platform === "ps4") ? "http://api.ps4.smitegame.com/smiteapi.svc/" : "http://api.smitegame.com/smiteapi.svc/";
   var devID = process.env.SMITEDEVID;
   var timestamp = moment().format('YYYYMMDDHHmmss');
@@ -209,6 +208,17 @@ exports.run = async (client, message, [search, ...args]) => {
     "rJoust": "rankedJoust"
   };
   var gamemodeArray = Object.keys(gamemodeObj);
+  var abilityObj = {
+    "passive": "0",
+    "0": "0",
+    "1": "1",
+    "2": "2",
+    "3": "3",
+    "ult": "4",
+    "ultimate": "4",
+    "4": "4"
+  };
+  var abilityArray = Object.keys(abilityObj);
   if (cmdObj[search].api === true) {
     requestData(cmdObj[search].method, cmdObj[search].parameter);
   } else {
@@ -301,7 +311,15 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         if (search === "ability") {
-          
+          const findGod = (searchGod) => {
+            return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
+          }
+          var g = data.find(findGod);
+          if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
+          var a = client.isInArray(abilityArray, args[args.length - 1]) ? abilityObj[args[args.length - 1]] : 
+          const abilityEmbed = new Discord.RichEmbed()
+            .setColor(roleObj[g["Roles"].replace(' ', '').toLowerCase()])
+          return message.channel.send({embed: abilityEmbed});
         } else if (search === "builds") {
           let gm = args.length > 1 ? (args[args.length - 2].toLowerCase() === "ranked") ? args.splice(args.length - 2) : args.splice(args.length - 1) : ["conquest"];
           gm = gm.length === 2 ? 'r' + gm[1].toProperCase() : gm[0].toLowerCase();
