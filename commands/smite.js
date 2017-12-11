@@ -325,10 +325,20 @@ exports.run = async (client, message, [search, ...args]) => {
             `**Cooldown:** ${cooldown}`,
             `**Cost:** ${cost}`
           ];
+          let stats = [];
+          for (let stat of a.Description.itemDescription.menuitems) {
+            stats.push(`**${stat.description}** ${stat.value}`);
+          }
+          let values = [];
+          for (let stat of a.Description.itemDescription.rankitems) {
+            values.push(`**${stat.description}** ${stat.value}`);
+          }
           const abilityEmbed = new Discord.RichEmbed()
             .setColor(roleObj[g["Roles"].replace(' ', '').toLowerCase()])
             .setThumbnail(a.URL)
-            .addField(a.Summary, main.join('\n'));
+            .addField(a.Summary, main.join('\n'))
+            .addField('Stats', stats.join('\n'))
+            .addField('Values', values.join('\n'));
           return message.channel.send({embed: abilityEmbed});
         } else if (search === "builds") {
           let gm = args.length > 1 ? (args[args.length - 2].toLowerCase() === "ranked") ? args.splice(args.length - 2) : args.splice(args.length - 1) : ["conquest"];
