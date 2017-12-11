@@ -18,8 +18,8 @@ exports.run = async (client, message, args) => {
 
 exports.cmdConfig = {
   name: "google",
-  aliases: [],
-  description: "Googles.",
+  aliases: ['lmgtfu'],
+  description: "Googles. Enough said.",
   usage: "google <question>",
   type: "info"
 };
