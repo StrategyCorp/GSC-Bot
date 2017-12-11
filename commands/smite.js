@@ -311,39 +311,36 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         if (search === "ability") {
-          const ability = async () => {
-            var a = client.isInArray(abilityArray, args[args.length - 1]) ? args.pop() : "1";
-            const findGod = (searchGod) => {
-              return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
-            }
-            var g = data.find(findGod);
-            if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
-            a = g[abilityObj[a]];
-            let cooldown = a.Description.itemDescription.cooldown === "" ? "none" : a.Description.itemDescription.cooldown;
-            let cost = a.Description.itemDescription.cost === "" ? "none" : a.Description.itemDescription.cost;
-            let main = [
-              `**Description:** ${a.Description.itemDescription.description}`
-            ];
-            let stats = [];
-            for (let stat of a.Description.itemDescription.menuitems) {
-              stats.push(`**${stat.description}** ${stat.value}`);
-            }
-            let values = [
-              `**Cooldown:** ${cooldown}`,
-              `**Cost:** ${cost}`
-            ];
-            for (let stat of a.Description.itemDescription.rankitems) {
-              values.push(`**${stat.description}** ${stat.value}`);
-            }
-            const abilityEmbed = new Discord.RichEmbed()
-              .setColor(roleObj[g["Roles"].replace(' ', '').toLowerCase()])
-              .setThumbnail(a.URL)
-              .addField(a.Summary, main.join('\n'))
-              .addField('Stats', stats.join('\n'))
-              .addField('Values', values.join('\n'));
-            let abilityM = await message.channel.send({embed: abilityEmbed});
+          var a = client.isInArray(abilityArray, args[args.length - 1]) ? args.pop() : "1";
+          const findGod = (searchGod) => {
+            return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
           }
-          ability();
+          var g = data.find(findGod);
+          if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
+          a = g[abilityObj[a]];
+          let cooldown = a.Description.itemDescription.cooldown === "" ? "none" : a.Description.itemDescription.cooldown;
+          let cost = a.Description.itemDescription.cost === "" ? "none" : a.Description.itemDescription.cost;
+          let main = [
+            `**Description:** ${a.Description.itemDescription.description}`
+          ];
+          let stats = [];
+          for (let stat of a.Description.itemDescription.menuitems) {
+            stats.push(`**${stat.description}** ${stat.value}`);
+          }
+          let values = [
+            `**Cooldown:** ${cooldown}`,
+            `**Cost:** ${cost}`
+          ];
+          for (let stat of a.Description.itemDescription.rankitems) {
+            values.push(`**${stat.description}** ${stat.value}`);
+          }
+          const abilityEmbed = new Discord.RichEmbed()
+            .setColor(roleObj[g["Roles"].replace(' ', '').toLowerCase()])
+            .setThumbnail(a.URL)
+            .addField(a.Summary, main.join('\n'))
+            .addField('Stats', stats.join('\n'))
+            .addField('Values', values.join('\n'));
+          return message.channel.send({embed: abilityEmbed});
         } else if (search === "builds") {
           let gm = args.length > 1 ? (args[args.length - 2].toLowerCase() === "ranked") ? args.splice(args.length - 2) : args.splice(args.length - 1) : ["conquest"];
           gm = gm.length === 2 ? 'r' + gm[1].toProperCase() : gm[0].toLowerCase();
