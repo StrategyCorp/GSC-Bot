@@ -318,13 +318,17 @@ exports.run = async (client, message, [search, ...args]) => {
           var g = data.find(findGod);
           if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
           a = g[abilityObj[a]];
-          let cooldown = a.Description.itemDescription
+          let cooldown = a.Description.itemDescription.cooldown === "" ? "none" : a.Description.itemDescription.cooldown;
+          let cost = a.Description.itemDescription.cost === "" ? "none" : a.Description.itemDescription.cost;
           let main = [
-            
+            `**Description:** ${a.Description.itemDescription.description}`,
+            `**Cooldown:** ${cooldown}`,
+            `**Cost:** ${cost}`
           ];
           const abilityEmbed = new Discord.RichEmbed()
             .setColor(roleObj[g["Roles"].replace(' ', '').toLowerCase()])
             .setThumbnail(a.URL)
+            .addField(a.Summary, main.join('\n'));
           return message.channel.send({embed: abilityEmbed});
         } else if (search === "builds") {
           let gm = args.length > 1 ? (args[args.length - 2].toLowerCase() === "ranked") ? args.splice(args.length - 2) : args.splice(args.length - 1) : ["conquest"];
