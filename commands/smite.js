@@ -300,7 +300,9 @@ exports.run = async (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
-        if (search === "builds") {
+        if (search === "ability") {
+          
+        } else if (search === "builds") {
           let gm = args.length > 1 ? (args[args.length - 2].toLowerCase() === "ranked") ? args.splice(args.length - 2) : args.splice(args.length - 1) : ["conquest"];
           gm = gm.length === 2 ? 'r' + gm[1].toProperCase() : gm[0].toLowerCase();
           if (!smiteBuilds[args.join(' ')]) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
@@ -310,7 +312,6 @@ exports.run = async (client, message, [search, ...args]) => {
           let builds = [];
           for (let b of buildArray) {
             let patch = build[b].splice(0, 1);
-            
           }
           const buildEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
@@ -437,10 +438,7 @@ exports.run = async (client, message, [search, ...args]) => {
             .addField("Base Stats", baseStats.join('\n'), true)
             .addField("Per level", perLevel.join('\n'), true);
           return message.channel.send({embed: godEmbed});
-        } else if (search === "ability") {
-          return message.channel.send('WIP');
         } else if (search === "item") {
-          if (args.join(' ').toLowerCase() === "fatalis") return message.channel.send('aids');
           if (client.isInArray(itemArray, args.join(' ')) === true) {
             var filterItemArray = [];
               for (const item of data) {
