@@ -21,12 +21,13 @@ exports.run = (client, message, waifu) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         var image = data.data.result["items"].length > 0 ? data.data.result.items[0].media : null;
-      }
-    const waifuEmbed = new Discord.RichEmbed()
+        const waifuEmbed = new Discord.RichEmbed()
       .setColor(settings.embedColour)
       .addField(waifu.toProperCase(), `${score} / 10`);
     if (image !== null) waifuEmbed.setImage(image);
     return message.channel.send({embed: waifuEmbed});
+      }
+    
   });
 };
 
