@@ -300,6 +300,7 @@ exports.run = async (client, message, [search, ...args]) => {
     await client.wait(1000);
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.session.get(`session${platform}`)}/${timestamp}/${parameters}`;
+    console.log(url);
     request.get({
       url: url,
       json: true,
