@@ -497,11 +497,11 @@ exports.run = async (client, message, [search, ...args]) => {
           if (args[0] === "create") {
             
           } else {
-            if (client.isInArray(db.gods, args.join(' ').toLowerCase())) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
-            let gm = args.length > 1 ? (client.isInArray(gamemodeArray, args[args.length - 1]) === true) ? gamemodeObj[args[args.length - 1]]
+            let gm = args.length > 1 ? (client.isInArray(gamemodeArray, args[args.length - 1]) === true) ? args.splice(-1, 1) : "conquest" : "conquest";
+            if (client.isInArray(db.gods, args.join(' ').toLowerCase()) === false) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);      
             const buildEmbed = new Discord.RichEmbed()
               .setColor(settings.embedColour)
-              .setTitle(`Builds for ${args.join(' ').toProperCase()} in ${gamemodeObj[gm].replace('normal', '').replace('ranked', '').toProperCase()}`);
+              .setTitle(`Builds for ${args.join(' ').toProperCase()} in ${gamemodeObj[gm].toProperCase()}`);
             return message.channel.send({embed: buildEmbed});
           }
         } else if (search === "player") {
