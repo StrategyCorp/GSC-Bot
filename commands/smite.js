@@ -195,17 +195,13 @@ exports.run = async (client, message, [search, ...args]) => {
   };
   var itemArray = Object.keys(itemObj);
   var gamemodeObj = {
-    "arena": "normalArena",
-    "assault": "normalAssault",
-    "joust": "normalJoust",
-    "siege": "normalSiege",
-    "conq": "normalConquest",
-    "conquest": "normalConquest",
-    "clash": "normalClash",
-    "rConq": "rankedConquest",
-    "rConquest": "rankedConquest",
-    "rDuels": "rankedDuels",
-    "rJoust": "rankedJoust"
+    "arena": "arena",
+    "assault": "assault",
+    "joust": "joust",
+    "siege": "siege",
+    "conq": "conquest",
+    "conquest": "conquest",
+    "clash": "clash"
   };
   var gamemodeArray = Object.keys(gamemodeObj);
   var abilityObj = {
@@ -501,10 +497,8 @@ exports.run = async (client, message, [search, ...args]) => {
           if (args[0] === "create") {
             
           } else {
-            let gm = args.length > 1 ? (args[args.length - 2].toLowerCase() === "ranked") ? args.splice(args.length - 2) : args.splice(args.length - 1) : ["conquest"];
-            gm = gm.length === 2 ? 'r' + gm[1].toProperCase() : gm[0].toLowerCase();
-            if (!smiteBuilds[args.join(' ')]) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
-            if (client.isInArray(gamemodeArray, gm) === false) return (`:negative_squared_cross_mark: \`${gm}\` is not a gamemode`);
+            if (client.isInArray(db.gods, args.join(' ').toLowerCase())) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
+            let gm = args.length > 1 ? (client.isInArray(gamemodeArray, args[args.length - 1]) === true) ? gamemodeObj[args[args.length - 1]]
             const buildEmbed = new Discord.RichEmbed()
               .setColor(settings.embedColour)
               .setTitle(`Builds for ${args.join(' ').toProperCase()} in ${gamemodeObj[gm].replace('normal', '').replace('ranked', '').toProperCase()}`);
