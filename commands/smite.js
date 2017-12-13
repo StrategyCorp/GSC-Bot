@@ -3,7 +3,7 @@ const request = require('request');
 const moment = require('moment');
 const md5 = require('md5');
 const { inspect } = require("util");
-const smiteBuilds = require('../data/smitebuilds');
+const db = require('../data/smite.json');
 
 exports.run = async (client, message, [search, ...args]) => {
   const settings = client.settings.get(message.guild.id);
@@ -22,7 +22,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "builds": {
       "name": "builds",
       "aliase": ["build"],
-      "usage": "<god> <gamemode>",
+      "usage": "<god> [gamemode] || create <god> <gamemode> <item1> | <item2> | <item3> | <item4> | <item5> | <item6>",
       "desc": "Looks up a build for a God",
       "args": "Which God would you like builds for?",
       "api": true,
@@ -498,20 +498,18 @@ exports.run = async (client, message, [search, ...args]) => {
             .addField('Values', values.join('\n'));
           return message.channel.send({embed: abilityEmbed});
         } else if (search === "builds") {
-          let gm = args.length > 1 ? (args[args.length - 2].toLowerCase() === "ranked") ? args.splice(args.length - 2) : args.splice(args.length - 1) : ["conquest"];
-          gm = gm.length === 2 ? 'r' + gm[1].toProperCase() : gm[0].toLowerCase();
-          if (!smiteBuilds[args.join(' ')]) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
-          if (client.isInArray(gamemodeArray, gm) === false) return (`:negative_squared_cross_mark: \`${gm}\` is not a gamemode`);
-          let build = smiteBuilds[args.join(' ')][gamemodeObj[gm]];
-          let buildArray = Object.keys(build);
-          let builds = [];
-          for (let b of buildArray) {
-            let patch = build[b].splice(0, 1);
+          if (args[0] === "create") {
+            
+          } else {
+            let gm = args.length > 1 ? (args[args.length - 2].toLowerCase() === "ranked") ? args.splice(args.length - 2) : args.splice(args.length - 1) : ["conquest"];
+            gm = gm.length === 2 ? 'r' + gm[1].toProperCase() : gm[0].toLowerCase();
+            if (!smiteBuilds[args.join(' ')]) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
+            if (client.isInArray(gamemodeArray, gm) === false) return (`:negative_squared_cross_mark: \`${gm}\` is not a gamemode`);
+            const buildEmbed = new Discord.RichEmbed()
+              .setColor(settings.embedColour)
+              .setTitle(`Builds for ${args.join(' ').toProperCase()} in ${gamemodeObj[gm].replace('normal', '').replace('ranked', '').toProperCase()}`);
+            return message.channel.send({embed: buildEmbed});
           }
-          const buildEmbed = new Discord.RichEmbed()
-            .setColor(settings.embedColour)
-            .setTitle(`Builds for ${args.join(' ').toProperCase()} in ${gamemodeObj[gm].replace('normal', '').replace('ranked', '').toProperCase()}`);
-          return message.channel.send({embed: buildEmbed});
         } else if (search === "player") {
           if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
           var p = data[0];
