@@ -1,26 +1,53 @@
 {
   "agni": "https://web2.hirez.com/smite/god-cards/agni.jpg",
   "ah muzen cab": "https://web2.hirez.com/smite/god-cards/ah-muzen-cab.jpg",
-  "ah puch"
-  "amaterasu"
-  "anhur"
-  "anubis"
-  "ao kuang"
-  "aphrodite"
-  "apollo"
-  "arachne"
-  "ares"
-  "artemis"
-  "artio"
-  "athena"
-  "awilix"
-  "bacchus"
-  "bakasura"
-  "bastet"
-  "bellona"
-  "cabrakan"
-  "camazotoz"
-  "cernunnos"
-  "chaac"
-  "chang'e"
+  "ah puch": "https://web2.hirez.com/smite/god-cards/ah-puch.jpg",
+  "amaterasu": "https://web2.hirez.com/smite/god-cards/amaterasu.jpg",
+  "anhur": "https://web2.hirez.com/smite/god-cards/anhur.jpg",
+  "anubis": "https://web2.hirez.com/smite/god-cards/anubis.jpg",
+  "ao kuang": "https://web2.hirez.com/smite/god-cards/ao-kuang.jpg",
+  "aphrodite": "https://web2.hirez.com/smite/god-cards/aphrodite.jpg",
+  "apollo": "https://web2.hirez.com/smite/god-cards/apollo.jpg",
+  "arachne": "https://web2.hirez.com/smite/god-cards/arachne.jpg",
+  "ares": "https://web2.hirez.com/smite/god-cards/ares.jpg",
+  "artemis": "https://web2.hirez.com/smite/god-cards/artemis.jpg",
+  "artio": "https://web2.hirez.com/smite/god-cards/artio.jpg",
+  "athena": "https://web2.hirez.com/smite/god-cards/athena.jpg",
+  "awilix": "https://web2.hirez.com/smite/god-cards/awilix.jpg",
+  "bacchus": "https://web2.hirez.com/smite/god-cards/bacchus.jpg",
+  "bakasura": "https://web2.hirez.com/smite/god-cards/bakasura.jpg",
+  "bastet": "https://web2.hirez.com/smite/god-cards/bastet.jpg",
+  "bellona": "https://web2.hirez.com/smite/god-cards/bellona.jpg",
+  "cabrakan": "https://web2.hirez.com/smite/god-cards/cabrakan.jpg",
+  "camazotoz": "https://web2.hirez.com/smite/god-cards/camazotoz.jpg",
+  "cernunnos": "https://web2.hirez.com/smite/god-cards/cernunnos.jpg",
+  "chaac": "https://web2.hirez.com/smite/god-cards/chaac.jpg",
+  "chang'e": "https://web2.hirez.com/smite/god-cards/change.jpg",
+  "chiron": "https://web2.hirez.com/smite/god-cards/chiron.jpg",
+  "chronos": "https://web2.hirez.com/smite/god-cards/chronos.jpg",
+  "cu chulainn": "https://web2.hirez.com/smite/god-cards/cu-chulainn.jpg",
+  "cupid": "https://web2.hirez.com/smite/god-cards/cupid.jpg",
+  "da ji": "https://web2.hirez.com/smite/god-icons/da-ji.jpg",
+  "discordia": "https://web2.hirez.com/smite/god-cards/discordia.jpg",
+  "erlang shen": "https://web2.hirez.com/smite/god-cards/erlang-shen.jpg",
+  "fafnir": "https://web2.hirez.com/smite/god-cards/fafnir.jpg",
+  "fenrir": "https://web2.hirez.com/smite/god-cards/fenrir.jpg",
+  "freya": "https://web2.hirez.com/smite/god-cards/freya.jpg",
+  "ganesha": "https://web2.hirez.com/smite/god-cards/ganesha.jpg",
+  "geb": "https://web2.hirez.com/smite/god-cards/geb.jpg",
+  "guan yu": "https://web2.hirez.com/smite/god-cards/guan-yu.jpg",
+  "hachiman": "https://web2.hirez.com/smite/god-cards/hachiman.jpg",
+  "hades": "https://web2.hirez.com/smite/god-cards/hades.jpg",
+  "he bo": "https://web2.hirez.com/smite/god-cards/he-bo.jpg",
+  "hel": "https://web2.hirez.com/smite/god-cards/hel.jpg",
+  "hercules": "https://web2.hirez.com/smite/god-cards/hercules.jpg",
+  "hou yi": "https://web2.hirez.com/smite/god-cards/hou-yi.jpg",
+  "hun batz": "https://web2.hirez.com/smite/god-cards/hun-batz.jpg",
+  "isis": "https://web2.hirez.com/smite/god-cards/isis.jpg",
+  "izanami": "https://web2.hirez.com/smite/god-cards/izanami.jpg",
+  "janus": "https://web2.hirez.com/smite/god-cards/janus.jpg",
+  "jing wei": "https://web2.hirez.com/smite/god-cards/jing-wei.jpg",
+  "kali": "https://web2.hirez.com/smite/god-cards/kali.jpg",
+  "khepri": "https://web2.hirez.com/smite/god-cards/khepri.jpg",
+  "kukulkan": "https://web2.hirez.com/smite/god-cards/kukulkan.jpg"
 }
