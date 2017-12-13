@@ -495,7 +495,9 @@ exports.run = async (client, message, [search, ...args]) => {
           return message.channel.send({embed: abilityEmbed});
         } else if (search === "builds") {
           if (args[0] === "create") {
-            
+            if (client.isInArray(client.config.smiteBuild, message.author.id) === false) return message.channel.send(':negative_squared_cross_mark: You do not have permission to create a build.');
+            args = args.join(' ').split('|');
+            console.log(args);
           } else {
             let gm = args.length > 1 ? (client.isInArray(gamemodeArray, args[args.length - 1]) === true) ? args.splice(-1, 1) : "conquest" : "conquest";
             if (client.isInArray(db.gods, args.join(' ').toLowerCase()) === false) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);      
