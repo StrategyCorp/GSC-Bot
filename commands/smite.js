@@ -260,7 +260,7 @@ exports.run = async (client, message, [search, ...args]) => {
   function testSession() {
     var signature = createSignature("testsession");
     request.get({
-      url: domain + `testsessionJson/${devID}/${signature}/${client.session.get(`session{platform}`)}/${timestamp}`,
+      url: domain + `testsessionJson/${devID}/${signature}/${client.smite.get(`session{platform}`)}/${timestamp}`,
       json: true,
       headers: {'User-Agent': 'request'}
     }, (err, res, data) => {
@@ -291,7 +291,7 @@ exports.run = async (client, message, [search, ...args]) => {
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
-        client.session.set(`session${platform}`, data.session_id);
+        client.smite.set(`session${platform}`, data.session_id);
       }
     });
   };
@@ -299,8 +299,7 @@ exports.run = async (client, message, [search, ...args]) => {
     testSession();
     await client.wait(1000);
     var signature = createSignature(method);
-    let url = domain + `${method}Json/${devID}/${signature}/${client.session.get(`session${platform}`)}/${timestamp}/${parameters}`;
-    console.log(url);
+    let url = domain + `${method}Json/${devID}/${signature}/${client.smite.get(`session${platform}`)}/${timestamp}/${parameters}`;
     request.get({
       url: url,
       json: true,

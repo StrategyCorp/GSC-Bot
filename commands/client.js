@@ -44,6 +44,7 @@ exports.run = async (client, message, [search, ...args]) => {
       client.points.set(user, score);
       return message.channel.send(`:white_check_mark: \`${points}\` points have been removed from \`${userObject.username}\``)
     }
+  } else if (search === "smite") {
   } else if (search === "test") {   
 //     var Canvas = require('canvas')
 //       , Image = Canvas.Image
