@@ -354,7 +354,25 @@ exports.run = async (client, message, [search, ...args]) => {
     "meditaion": "meditation cloak",
     "shell": "magic shell",
     "thorns": "shield of thorns",
-    ""
+    "sunder": "sundering spear",
+    "phantom": "phantom veil",
+    "anti odin": "phantom veil",
+    "antiodin": "phantom veil",
+    "bracer": "bracer of undoing",
+    "frenzy": "belt of frenzy",
+    "gaia": "stone of gaia",
+    "regrowth": "shield of regrowth",
+    "renewal": "mail of renewal",
+    "thebes": "guantlet of thebes",
+    "stone cutting": "stone cutting sword",
+    "genjis": "genji's guard",
+    "genji's": "genji's guard",
+    "genjis guard": "genji's guard",
+    "kusari": "shogun's kusari",
+    "chalice": "chalice of healing",
+    "rangda": "rangda's mask",
+    "rangdas": "rangda's mask",
+    "rangda's": "rangda's mask"
   };
   var itemAliaseArray = Object.keys(itemAliaseObj);
   if (cmdObj[search].api === true) {
@@ -633,6 +651,7 @@ exports.run = async (client, message, [search, ...args]) => {
               }
             return message.channel.send(`**[${filterItemArray.length}] ${args.join(' ').toProperCase()}:**\n` + filterItemArray.sort().join(', '));
           } else {
+            if (client.isInArray(itemAliaseArray, args.join(' ').toLowerCase()) === true) args = [itemAliaseObj[args.join(' ').toLowerCase()]];
             const findItemByName = (searchItem) => {
               return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
             };
