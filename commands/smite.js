@@ -22,7 +22,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "builds": {
       "name": "builds",
       "aliase": ["build"],
-      "usage": "<god> [gamemode] || create <god> <gamemode> <item1> | <item2> | <item3> | <item4> | <item5> | <item6>",
+      "usage": "<god> [gamemode] || create <god> <gamemode> | <item1> | <item2> | <item3> | <item4> | <item5> | <item6>",
       "desc": "Looks up a build for a God",
       "args": "Which God would you like builds for?",
       "api": true,
@@ -496,8 +496,12 @@ exports.run = async (client, message, [search, ...args]) => {
         } else if (search === "builds") {
           if (args[0] === "create") {
             if (client.isInArray(client.config.smiteBuild, message.author.id) === false) return message.channel.send(':negative_squared_cross_mark: You do not have permission to create a build.');
-            args = args.join(' ').split('|');
+            args = args.join(' ').trim().split('|');
+            let god = args.splice(0, 1);
+            god.splice(0, 1);
+            let gm = god.splice(1, 0);
             console.log(args);
+            console.log(god);
           } else {
             let gm = args.length > 1 ? (client.isInArray(gamemodeArray, args[args.length - 1]) === true) ? args.splice(-1, 1) : "conquest" : "conquest";
             if (client.isInArray(db.gods, args.join(' ').toLowerCase()) === false) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);      
