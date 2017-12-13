@@ -219,6 +219,26 @@ exports.run = async (client, message, [search, ...args]) => {
     "4": "Ability_4"
   };
   var abilityArray = Object.keys(abilityObj);
+  var itemAliaseObj = {
+    "sov": "sovereignty",
+    "mystical": "mystial mail",
+    "midgardian": "midgardian mail",
+    "emperor": "emperor's armor",
+    "emperors": "emperor's armor",
+    "emperor's": "emperor's armor",
+    "emperors armour": "emperor's armor",
+    "emperor's armour": "emperor's armor",
+    "magic pot": "potion of magical might",
+    "physical pot": "potion of physical might",
+    "power pot": "potion of physical might",
+    "exe": "the executioner",
+    "executioner": "the executioner",
+    "qin": "qin's sais",
+    "qins": "qin's sais",
+    "qin's": "qin's sais",
+    "qins sais": "qin's sais",
+  };
+  var itemAliaseArray = Object.keys(itemAliaseObj);
   if (cmdObj[search].api === true) {
     requestData(cmdObj[search].method, cmdObj[search].parameter);
   } else {
