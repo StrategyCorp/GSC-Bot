@@ -13,11 +13,17 @@ exports.run = (client, message, waifu) => {
   if (client.isInArray(waifus, waifu)) {
     if (typeof db[waifu] === "string") {
       embed(db[waifu]);
+    } else if (Number.isInteger(db[waifu])) {
+      var score = db[waifu];
+      requestImage();
     } else {
       var score = db[waifu][0];
       embed(db[waifu][1]);
     }
   } else {
+    requestImage();
+  }
+  function requestImage() {
     var url = `https://api.qwant.com/api/search/images?count=1&offset=1&q=anime ` + waifu;
     request.get({
       url: url,

@@ -5,7 +5,7 @@ const config = {
   "replyObj": {
     "rexsi": "lol"
   },
-  "smiteBuild": ["166641492113358848"],
+  "smiteBuild": ["166641492113358848", "176156067032596480"],
   "musicPasses": "1",
   "serverPoints": {},
   "serverSettings": {
