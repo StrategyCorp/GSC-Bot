@@ -9,10 +9,14 @@ exports.run = (client, message, waifu) => {
   const settings = client.settings.get(message.guild.id);
   var score = md5(waifu.toLowerCase()).replace(/\D/g,'');
   score = 10 - parseInt(score.charAt(0));
-  if (waifu === "blake" || waifu === "blake belladonna") score = 10;
   var waifus = Object.keys(db);
   if (client.isInArray(waifus, waifu)) {
-    embed(db[waifu]);
+    if (typeof db[waifu] === "string") {
+      embed(db[waifu]);
+    } else {
+      var score = db[waifu][0];
+      embed(db[waifu][1]);
+    }
   } else {
     var url = `https://api.qwant.com/api/search/images?count=1&offset=1&q=anime ` + waifu;
     request.get({
