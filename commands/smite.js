@@ -96,6 +96,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "parameter": args[0] ? args[0].replace(/_/g, ' ') : args
     }
   };
+  
   var cmdArray = Object.keys(cmdObj);
   for (let cmd of cmdArray) {
     for (let i = 0; i < cmdObj[cmd]["aliase"].length; i++) {
@@ -121,6 +122,7 @@ exports.run = async (client, message, [search, ...args]) => {
   function createSignature(method) {
     return md5(`${devID}${method}${authKey}${timestamp}`);
   }
+  
   var rankedTierObj = {
     "Unranked": "#ff0000",
     "Bronze V": "#a0460a",
@@ -151,6 +153,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "Masters": "#ff00ff"
   };
   var rankedTierArray = Object.keys(rankedTierObj);
+  
   var roleObj = {
     "assassin": "#ffff00",
     "guardian": "#14ff00",
@@ -158,6 +161,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "mage": "#ff00ff",
     "warrior": "#ff0000"
   };
+  
   var itemObj = {
     "starter": ["StartingItem", true],
     "tier 1": ["ItemTier", 1, "StartingItem", false, "Type", "Item"],
@@ -194,6 +198,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "consumables": ["Type", "Consumable"]
   };
   var itemArray = Object.keys(itemObj);
+  
   var gamemodeObj = {
     "all": "all gamemodes",
     "arena": "arena",
@@ -205,6 +210,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "clash": "clash"
   };
   var gamemodeArray = Object.keys(gamemodeObj);
+  
   var abilityObj = {
     "passive": "Ability_5",
     "0": "Ability_5",
@@ -216,6 +222,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "4": "Ability_4"
   };
   var abilityArray = Object.keys(abilityObj);
+  
   var itemAliaseObj = {
     "sov": "sovereignty",
     "mystical": "mystial mail",
@@ -372,44 +379,21 @@ exports.run = async (client, message, [search, ...args]) => {
     "rangda's": "rangda's mask"
   };
   var itemAliaseArray = Object.keys(itemAliaseObj);
+  
   if (cmdObj[search].api === true) {
     requestData(cmdObj[search].method, cmdObj[search].parameter);
   } else {
     commands();
   }
+  
   function commands() {
     if (search === "help") {
-      const helpEmbed = new Discord.RichEmbed()
-        .setColor(settings.embedColour)
-        .setTitle('**Smite Help**');
-      for (let cmd of cmdArray) {
-        helpEmbed.addField(cmdObj[cmd]["name"].toProperCase(), `${settings.prefix}smite ${cmdObj[cmd].name} ${cmdObj[cmd].usage}\n${cmdObj[cmd].desc}`);
-      }
-      return message.channel.send({embed: helpEmbed});
+      help();
     } else if (search === "joke") {
-      var jokeArrayArray = [
-        ["Why does everyone think Bacchus is so annoying?", "Because he's always whining", "/u/MaggehG"],
-        ["What is Sol's favourite movie?", "Twilight: Breaking Down", "/u/MaggehG"],
-        ["Why does everyone think that Xing Tian uses drugs?", "Because he's always Xing things", "/u/MaggehG"],
-        ["What type of camera does Vulcan use?", "A cannon", "/u/barblebapkins"],
-        ["Why does Medusa make the best weed dealer?", "She loves to help people get stoned", "/u/barblebapkins"],
-        ["Did you hear He Bo used to be a celebrity?", "Now he's all washed up", "/u/barblebapkins"],
-        ["I told a joke about Awilix to my friend,", "but it went over his head", "/u/barblebapkins"],
-        ["Why isn't Sobek ever in a serious relationship?", "Because all he's ever looking for is a fling", "/u/xdapenguinx"],
-        ["What's Bellona's favourite restaurant?", "Taco Bellona", "/u/MaggehG"],
-        ["Rexsi's winrate", "166641492113358848"]
-      ];
-      let jokeArray = Object.keys(jokeArrayArray);
-      let jokeNumber = /^\d+$/.test(args[0]) ? (jokeArrayArray.length < args[0]) ? client.randomNum(1, jokeArrayArray.length) : args[0] : client.randomNum(1, jokeArrayArray.length);
-      let credit = /^\d+$/.test(jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1]) ? `${client.users.get(jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1]).username}#${client.users.get(jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1]).discriminator}` : jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1];
-      const jokeEmbed = new Discord.RichEmbed()
-        .setColor(settings.embedColour)
-        .setFooter(`#${jokeNumber} credit: ${credit}`);
-      if (jokeArrayArray[jokeNumber - 1].length === 2) jokeEmbed.setTitle(jokeArrayArray[jokeNumber - 1][0]);
-      if (jokeArrayArray[jokeNumber - 1].length === 3) jokeEmbed.addField(`:regional_indicator_q: ${jokeArrayArray[jokeNumber - 1][0]}`, `:regional_indicator_a: ${jokeArrayArray[jokeNumber - 1][1]}`);
-      return message.channel.send({embed: jokeEmbed});
+      joke(args[0]);
     }
   }
+  
   function testSession() {
     var signature = createSignature("testsession");
     request.get({
@@ -448,9 +432,8 @@ exports.run = async (client, message, [search, ...args]) => {
       }
     });
   };
-  async function requestData (method, parameters) {
+  function requestData (method, parameters) {
     testSession();
-    await client.wait(1000);
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.smite.get(`session${platform}`)}/${timestamp}/${parameters}`;
     request.get({
@@ -464,55 +447,9 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         if (search === "ability") {
-          var a = client.isInArray(abilityArray, args[args.length - 1]) ? args.pop() : "1";
-          const findGod = (searchGod) => {
-            return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
-          }
-          var g = data.find(findGod);
-          if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
-          a = g[abilityObj[a]];
-          let cooldown = a.Description.itemDescription.cooldown === "" ? "none" : a.Description.itemDescription.cooldown;
-          let cost = a.Description.itemDescription.cost === "" ? "none" : a.Description.itemDescription.cost;
-          let main = [
-            `**Description:** ${a.Description.itemDescription.description}`
-          ];
-          let stats = [];
-          for (let stat of a.Description.itemDescription.menuitems) {
-            stats.push(`**${stat.description}** ${stat.value}`);
-          }
-          let values = [
-            `**Cooldown:** ${cooldown}`,
-            `**Cost:** ${cost}`
-          ];
-          for (let stat of a.Description.itemDescription.rankitems) {
-            values.push(`**${stat.description}** ${stat.value}`);
-          }
-          const abilityEmbed = new Discord.RichEmbed()
-            .setColor(roleObj[g["Roles"].replace(' ', '').toLowerCase()])
-            .setThumbnail(a.URL)
-            .addField(a.Summary, main.join('\n'))
-            .addField('Stats', stats.join('\n'))
-            .addField('Values', values.join('\n'));
-          return message.channel.send({embed: abilityEmbed});
+          ability(data);
         } else if (search === "builds") {
-          if (args[0] === "create") {
-            if (client.isInArray(client.config.smiteBuild, message.author.id) === false) return message.channel.send(':negative_squared_cross_mark: You do not have permission to create a build.');
-            args = args.join(' ').trim().split('|');
-            let god = args.splice(0, 1);
-            god = god[0].trim().split(' ');
-            god.splice(0, 1);
-            let gm = god.pop();
-            god = god.join(' ');
-            if (client.isInArray(db.gods, god.toLowerCase()) === false) return message.channel.send(`:negative_squared_cross_mark: \`${god.toProperCase()}\` is not a God`);
-            if (client.isInArray(gamemodeArray, gm.toLowerCase()) === false) gm = "all";
-          } else {
-            let gm = args.length > 1 ? (client.isInArray(gamemodeArray, args[args.length - 1]) === true) ? args.splice(-1, 1) : "all" : "all";
-            if (client.isInArray(db.gods, args.join(' ').toLowerCase()) === false) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);      
-            const buildEmbed = new Discord.RichEmbed()
-              .setColor(settings.embedColour)
-              .setTitle(`Builds for ${args.join(' ').toProperCase()} in ${gamemodeObj[gm].toProperCase()}`);
-            return message.channel.send({embed: buildEmbed});
-          }
+          build(data);
         } else if (search === "player") {
           if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
           var p = data[0];
@@ -581,59 +518,7 @@ exports.run = async (client, message, [search, ...args]) => {
           }
           return message.channel.send({embed: masteryEmbed});
         } else if (search === "god") {
-          const findGod = (searchGod) => {
-            return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
-          }
-          var g = data.find(findGod);
-          if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
-          let rotation = g.OnFreeRotation === "true" ? "Yes" : "No";
-          let main = [
-            `**Role:**${g.Roles}`,
-            `**Pantheon:** ${g.Pantheon}`,
-            `**Attack Type:**${g.Type}`,
-            `**Pros:**${g.Pros}`,
-            `**ID:** ${g.id}`,
-            `**Free Rotation:** ${rotation}`
-          ];
-          if (g.latestGod === "y") main.push(`Currently the newest God`);
-          let abilities = [
-            `**P:** ${g.Ability1}`,
-            `**1:** ${g.Ability2}`,
-            `**2:** ${g.Ability3}`,
-            `**3:** ${g.Ability4}`,
-            `**4:** ${g.Ability5}`
-          ];
-          let stats = [
-            [`**Attack Speed:** ${g.AttackSpeed}`, g.AttackSpeedPerLevel],
-            [`**Health:** ${g.Health}`, g.HealthPerLevel],
-            [`**HP5:** ${g.HealthPerFive}`, g.HP5PerLevel],
-            [`**Mana:** ${g.Mana}`, g.ManaPerLevel],
-            [`**MP5:** ${g.ManaPerFive}`, g.MP5PerLevel],
-            [`**Magical Protection:** ${g.MagicProtection}`, g.MagicProtectionPerLevel],
-            [`**Physical Protection:** ${g.PhysicalProtection}`, g.PhysicalProtectionPerLevel]
-          ];
-          if (g.MagicalPower === 0) {
-            stats.unshift([`**Physical Power:** ${g.PhysicalPower}`, g.PhysicalPowerPerLevel]);
-          } else {
-            stats.unshift([`**Magical Power:** ${g.MagicalPower}`, g.MagicalPowerPerLevel]);
-          }
-          let basicDamage = g.basicAttack.itemDescription.menuitems[0].value;
-          basicDamage = basicDamage.replace('/', ' ').split(' ');
-          stats.push([`**Basic Damage:** ${basicDamage[0]} ${basicDamage[4].replace('(', '')}`, basicDamage[2]]);
-          let baseStats = [];
-          let perLevel = [];
-          for (let [base, level] of stats) {
-            baseStats.push(base);
-            perLevel.push(level);
-          }
-          const godEmbed = new Discord.RichEmbed()
-            .setColor(roleObj[g["Roles"].replace(' ', '').toLowerCase()])
-            .setThumbnail(g.godIcon_URL)
-            .addField(`${g.Name} - ${g.Title}`, main.join('\n'))
-            .addField('Abilities', abilities.join('\n'))
-            .addField("Base Stats", baseStats.join('\n'), true)
-            .addField("Per level", perLevel.join('\n'), true);
-          return message.channel.send({embed: godEmbed});
+          god(data);
         } else if (search === "item") {
           if (client.isInArray(itemArray, args.join(' ')) === true) {
             var filterItemArray = [];
@@ -714,16 +599,172 @@ exports.run = async (client, message, [search, ...args]) => {
             }
           }
         } else if (search === "friends") {
-          var f = data;
-          if (!f) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
-          let friendsArray = [];
-          for (let name of f) {
-            if (name.name !== "") friendsArray.push(name.name)
-          }
-          return message.channel.send(`== ${args[0].replace(/_/g, ' ')} ==\n[Total Friends - ${f.length}]\n\n${friendsArray.join(', ')}`, {code: "asciidoc"});
+          friend(data);
         }
       }
     });
+  }
+  
+  function ability(data) {
+    var a = client.isInArray(abilityArray, args[args.length - 1]) ? args.pop() : "1";
+    const findGod = (searchGod) => {
+      return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
+    }
+    var g = data.find(findGod);
+    if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
+    a = g[abilityObj[a]];
+    let cooldown = a.Description.itemDescription.cooldown === "" ? "none" : a.Description.itemDescription.cooldown;
+    let cost = a.Description.itemDescription.cost === "" ? "none" : a.Description.itemDescription.cost;
+    let main = [
+      `**Description:** ${a.Description.itemDescription.description}`
+    ];
+    let stats = [];
+    for (let stat of a.Description.itemDescription.menuitems) {
+      stats.push(`**${stat.description}** ${stat.value}`);
+    }
+    let values = [
+      `**Cooldown:** ${cooldown}`,
+      `**Cost:** ${cost}`
+    ];
+    for (let stat of a.Description.itemDescription.rankitems) {
+      values.push(`**${stat.description}** ${stat.value}`);
+    }
+    const abilityEmbed = new Discord.RichEmbed()
+      .setColor(roleObj[g["Roles"].replace(' ', '').toLowerCase()])
+      .setThumbnail(a.URL)
+      .addField(a.Summary, main.join('\n'))
+      .addField('Stats', stats.join('\n'))
+      .addField('Values', values.join('\n'));
+    return message.channel.send({embed: abilityEmbed});
+  }
+  
+  function build(data) {
+    if (args[0] === "create") {
+      if (client.isInArray(client.config.smiteBuild, message.author.id) === false) return message.channel.send(':negative_squared_cross_mark: You do not have permission to create a build.');
+      args = args.join(' ').trim().split('|');
+      let god = args.splice(0, 1);
+      god = god[0].trim().split(' ');
+      god.splice(0, 1);
+      let gm = god.pop();
+      god = god.join(' ');
+      if (client.isInArray(db.gods, god.toLowerCase()) === false) return message.channel.send(`:negative_squared_cross_mark: \`${god.toProperCase()}\` is not a God`);
+      if (client.isInArray(gamemodeArray, gm.toLowerCase()) === false) gm = "all";
+    } else {
+      let gm = args.length > 1 ? (client.isInArray(gamemodeArray, args[args.length - 1]) === true) ? args.splice(-1, 1) : "all" : "all";
+      if (client.isInArray(db.gods, args.join(' ').toLowerCase()) === false) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);      
+      const buildEmbed = new Discord.RichEmbed()
+        .setColor(settings.embedColour)
+        .setTitle(`Builds for ${args.join(' ').toProperCase()} in ${gamemodeObj[gm].toProperCase()}`);
+      return message.channel.send({embed: buildEmbed});
+    }
+  }
+  
+  function god(data) {
+    const findGod = (searchGod) => {
+      return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
+    }
+    var g = data.find(findGod);
+    if (!g) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);
+    let rotation = g.OnFreeRotation === "true" ? "Yes" : "No";
+    let main = [
+      `**Role:**${g.Roles}`,
+      `**Pantheon:** ${g.Pantheon}`,
+      `**Attack Type:**${g.Type}`,
+      `**Pros:**${g.Pros}`,
+      `**ID:** ${g.id}`,
+      `**Free Rotation:** ${rotation}`
+    ];
+    if (g.latestGod === "y") main.push(`Currently the newest God`);
+    let abilities = [
+      `**P:** ${g.Ability1}`,
+      `**1:** ${g.Ability2}`,
+      `**2:** ${g.Ability3}`,
+      `**3:** ${g.Ability4}`,
+      `**4:** ${g.Ability5}`
+    ];
+    let stats = [
+      [`**Attack Speed:** ${g.AttackSpeed}`, g.AttackSpeedPerLevel],
+      [`**Health:** ${g.Health}`, g.HealthPerLevel],
+      [`**HP5:** ${g.HealthPerFive}`, g.HP5PerLevel],
+      [`**Mana:** ${g.Mana}`, g.ManaPerLevel],
+      [`**MP5:** ${g.ManaPerFive}`, g.MP5PerLevel],
+      [`**Magical Protection:** ${g.MagicProtection}`, g.MagicProtectionPerLevel],
+      [`**Physical Protection:** ${g.PhysicalProtection}`, g.PhysicalProtectionPerLevel]
+    ];
+    if (g.MagicalPower === 0) {
+      stats.unshift([`**Physical Power:** ${g.PhysicalPower}`, g.PhysicalPowerPerLevel]);
+    } else {
+      stats.unshift([`**Magical Power:** ${g.MagicalPower}`, g.MagicalPowerPerLevel]);
+    }
+    let basicDamage = g.basicAttack.itemDescription.menuitems[0].value;
+    basicDamage = basicDamage.replace('/', ' ').split(' ');
+    stats.push([`**Basic Damage:** ${basicDamage[0]} ${basicDamage[4].replace('(', '')}`, basicDamage[2]]);
+    let baseStats = [];
+    let perLevel = [];
+    for (let [base, level] of stats) {
+      baseStats.push(base);
+      perLevel.push(level);
+    }
+    const godEmbed = new Discord.RichEmbed()
+      .setColor(roleObj[g["Roles"].replace(' ', '').toLowerCase()])
+      .setThumbnail(g.godIcon_URL)
+      .addField(`${g.Name} - ${g.Title}`, main.join('\n'))
+      .addField('Abilities', abilities.join('\n'))
+      .addField("Base Stats", baseStats.join('\n'), true)
+      .addField("Per level", perLevel.join('\n'), true);
+    return message.channel.send({embed: godEmbed});
+  }
+  
+  function friend(data) {
+    var f = data;
+    if (!f) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
+    let friendsArray = [];
+    for (let name of f) {
+      if (name.name !== "") friendsArray.push(name.name)
+    }
+    return message.channel.send(`== ${args[0].replace(/_/g, ' ')} ==\n[Total Friends - ${f.length}]\n\n${friendsArray.join(', ')}`, {code: "asciidoc"}); 
+  }
+  
+  function help() {
+    const helpEmbed = new Discord.RichEmbed()
+      .setColor(settings.embedColour)
+      .setTitle('**Smite Help**');
+    for (let cmd of cmdArray) {
+      helpEmbed.addField(cmdObj[cmd]["name"].toProperCase(), `${settings.prefix}smite ${cmdObj[cmd].name} ${cmdObj[cmd].usage}\n${cmdObj[cmd].desc}`);
+    }
+    return message.channel.send({embed: helpEmbed});
+  }
+  
+  function joke(number) {
+    var jokeArrayArray = [
+      ["Why does everyone think Bacchus is so annoying?", "Because he's always whining", "/u/MaggehG"],
+      ["What is Sol's favourite movie?", "Twilight: Breaking Down", "/u/MaggehG"],
+      ["Why does everyone think that Xing Tian uses drugs?", "Because he's always Xing things", "/u/MaggehG"],
+      ["What type of camera does Vulcan use?", "A cannon", "/u/barblebapkins"],
+      ["Why does Medusa make the best weed dealer?", "She loves to help people get stoned", "/u/barblebapkins"],
+      ["Did you hear He Bo used to be a celebrity?", "Now he's all washed up", "/u/barblebapkins"],
+      ["I told a joke about Awilix to my friend,", "but it went over his head", "/u/barblebapkins"],
+      ["Why isn't Sobek ever in a serious relationship?", "Because all he's ever looking for is a fling", "/u/xdapenguinx"],
+      ["What's Bellona's favourite restaurant?", "Taco Bellona", "/u/MaggehG"],
+      ["Rexsi's winrate", "166641492113358848"]
+    ];
+    let jokeArray = Object.keys(jokeArrayArray);
+    let jokeNumber = /^\d+$/.test(number) ? (jokeArrayArray.length < number) ? client.randomNum(1, jokeArrayArray.length) : number : client.randomNum(1, jokeArrayArray.length);
+    let credit = /^\d+$/.test(jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1]) ? `${client.users.get(jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1]).username}#${client.users.get(jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1]).discriminator}` : jokeArrayArray[jokeNumber - 1][jokeArrayArray[jokeNumber - 1].length - 1];
+    const jokeEmbed = new Discord.RichEmbed()
+      .setColor(settings.embedColour)
+      .setFooter(`#${jokeNumber} credit: ${credit}`);
+    if (jokeArrayArray[jokeNumber - 1].length === 2) jokeEmbed.setTitle(jokeArrayArray[jokeNumber - 1][0]);
+    if (jokeArrayArray[jokeNumber - 1].length === 3) jokeEmbed.addField(`:regional_indicator_q: ${jokeArrayArray[jokeNumber - 1][0]}`, `:regional_indicator_a: ${jokeArrayArray[jokeNumber - 1][1]}`);
+    return message.channel.send({embed: jokeEmbed});
+  }
+  
+  function mastery(data) {
+    
+  }
+  
+  function player(data) {
+    
   }
 };
 
