@@ -105,6 +105,7 @@ exports.run = async (client, message, [search, ...args]) => {
   }
   if (client.isInArray(cmdArray, search) === false) return message.channel.send(':negative_squared_cross_mark: Unknown command');
   if (cmdObj[search].args !== null && !args[0]) return message.channel.send(cmdObj[search].args);
+  
   var platformObj = {
     "pc": "pc",
     "psn": "ps4",
@@ -451,153 +452,13 @@ exports.run = async (client, message, [search, ...args]) => {
         } else if (search === "builds") {
           build(data);
         } else if (search === "player") {
-          if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
-          var p = data[0];
-          if (p["Name"].startsWith('[') === true) {
-            var name = p["Name"].replace('[', '').split(']');
-            var clan = `[${name[0]}] ${p.Team_Name}`;
-            name = name[1];
-          } else {
-            var name = p.Name;
-            var clan = 'Not in a clan';
-          }
-          let main = [
-            `**Level:** ${p.Level}`,
-            `**Status:** ${p.Personal_Status_Message}`,
-            `**Clan:** ${clan}`,
-            `**Region:** ${p.Region}`,
-            `**Mastery:** ${p.MasteryLevel} Gods, ${p.Total_Worshippers} total Worshippers`,
-            `**Account Created:** ${p.Created_Datetime}`,
-            `**Last Login:** ${p.Last_Login_Datetime}`,
-            `**Achievements:** ${p.Total_Achievements}`
-          ];
-          let winrate = [
-            `**Winrate:** ${parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100}%`,
-            `**Total Games Played:** ${parseInt(p.Wins) + parseInt(p.Losses)}`,
-            `**Wins:** ${p.Wins}`,
-            `**Losses:** ${p.Losses}`,
-            `**Matches Left:** ${p.Leaves}`
-          ];
-          let ranked = [
-            `**Conquest:** ${rankedTierArray[p.Tier_Conquest]}`,
-            `**Duel:** ${rankedTierArray[p.Tier_Duel]}`,
-            `**Joust:** ${rankedTierArray[p.Tier_Joust]}`
-          ];
-          let rankColour = [p.Tier_Conquest, p.Tier_Duel, p.Tier_Joust];
-          rankColour = rankedTierObj[rankedTierArray[Math.max.apply(Math, rankColour)]];
-          const playerEmbed = new Discord.RichEmbed()
-            .setColor(rankColour)
-            .setThumbnail(p.Avatar_URL)
-            .addField(name, main.join('\n'))
-            .addField('Games', winrate.join('\n'))
-            .addField('Ranked', ranked.join('\n'));
-          return message.channel.send({embed: playerEmbed});
+          player(data);
         } else if (search === "mastery") {
-          if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
-          var m = data;
-          let s = args[0].replace(/_/g, ' ').substr(args.length - 1) === "s" ? "" : "s";
-          const masteryEmbed = new Discord.RichEmbed()
-            .setColor(settings.embedColour)
-            .setTitle(`${args[0]}'${s} Masteries`);
-          let number = /^\d+$/.test(args[args.length - 1]) ? (args[args.length - 1] > 19) ? 20 : args[args.length - 1] : 5;
-          for (var i = 0; i < number; i++) {
-            if (m.length > 0) {
-              var hm = m.reduce(function(l, e) {
-              return e.Worshippers > l.Worshippers ? e : l;
-            });
-            let main = [
-              `**Mastery:** ${client.romanize(hm.Rank)}`,
-              `**Worshippers:** ${hm.Worshippers}`,
-              `**Win / Lose:** ${hm.Wins} / ${hm.Losses}`,
-              `**K / D / A:** ${hm.Kills} / ${hm.Deaths} / ${hm.Assists}`,
-              `**Minion Kills:** ${hm.MinionKills}`
-            ];
-            masteryEmbed.addField(hm.god, main.join('\n'));
-            client.removeObjectFromArrayOfObjectsFromKeyAndValue(m, "god", hm.god);
-            }
-          }
-          return message.channel.send({embed: masteryEmbed});
+          mastery(data);
         } else if (search === "god") {
           god(data);
         } else if (search === "item") {
-          if (client.isInArray(itemArray, args.join(' ')) === true) {
-            var filterItemArray = [];
-              for (const item of data) {
-                if (itemObj[args.join(' ')].length === 1) {
-                  item.ItemDescription["Menuitems"].forEach(function(stat) {
-                    if (stat.Description === itemObj[args.join(' ')][0]) filterItemArray.push(item.DeviceName);
-                  });
-                } else if (itemObj[args.join(' ')].length === 2) {
-                  if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1]) filterItemArray.push(item.DeviceName);
-                } else if (itemObj[args.join(' ')].length === 4) {
-                  if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1] && item[itemObj[args.join(' ')][2]] === itemObj[args.join(' ')][3]) filterItemArray.push(item.DeviceName);
-                } else if (itemObj[args.join(' ')].length === 6) {
-                  if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1] && item[itemObj[args.join(' ')][2]] === itemObj[args.join(' ')][3] && item[itemObj[args.join(' ')][4]] === itemObj[args.join(' ')][5]) filterItemArray.push(item.DeviceName);
-                }
-              }
-            return message.channel.send(`**[${filterItemArray.length}] ${args.join(' ').toProperCase()}:**\n` + filterItemArray.sort().join(', '));
-          } else {
-            if (client.isInArray(itemAliaseArray, args.join(' ').toLowerCase()) === true) args = [itemAliaseObj[args.join(' ').toLowerCase()]];
-            const findItemByName = (searchItem) => {
-              return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
-            };
-            var i = data.find(findItemByName);
-            if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not an item or a searchable term`);
-            if (i.Type === "Item") {
-              let stats = [];
-              for (let stat of i.ItemDescription.Menuitems) {
-                stats.push(`${stat.Value} ${stat.Description}`);
-              }
-              let main = [
-                `**ID:** ${i.ItemId}`,
-                `**Stats:**\n${stats.join('\n')}`
-              ];
-              var child = client.searchArrayOfObjects(data, "ItemId", i.ChildItemId);
-              var root = client.searchArrayOfObjects(data, "ItemId", i.RootItemId);
-              if (i.StartingItem) {
-                main.unshift(`**Item Tier:** Starter`);
-                main.unshift(`**Price:** ${i.Price}`);
-              } else {
-                main.unshift(`**Item Tier:** ${i.ItemTier}`);
-                if (i.ItemTier === 1) {
-                  main.unshift(`**Price:** ${i.Price}`);
-                } else if (i.ItemTier === 2) {
-                  main.unshift(`**Price:** ${i.Price} (${child.Price})`);
-                } else if (i.ItemTier === 3) {
-                  main.unshift(`**Price:** ${i.Price} (${parseInt(child.Price) + parseInt(root.Price)})`);
-                }
-              }
-              if (i.ItemDescription.SecondaryDescription !== "" && i.ItemDescription.SecondaryDescription !== null) {
-                main.unshift(`**Effect:** ${i.ItemDescription.SecondaryDescription}`);
-              } else if (i.ItemDescription.Description !== "" && i.ItemDescription.Description !== null) {
-                main.unshift(`**Effect:** ${i.ItemDescription.Description}`);
-              } else if (i.ShortDesc !== "" && i.ShortDesc !== null) {
-                main.unshift(`**Effect:** ${i.ShortDesc}`);
-              }
-              const itemEmbed = new Discord.RichEmbed()
-                .setThumbnail(i.itemIcon_URL)
-                .addField(i.DeviceName, main.join('\n'));
-              let colour;
-              i.ItemDescription["Menuitems"].forEach(function(stat) {
-                colour = stat["Description"].split(' ').includes("Physical") ? '#ff0000': (stat["Description"].split(' ').includes("Magical")) ? '#0050ff' : '#ff00ff'
-                itemEmbed.setColor(colour)
-              });
-              return message.channel.send({embed: itemEmbed});
-            } else if (i.Type === "Active") {
-              let desc = i.ItemDescription["SecondaryDescription"].replace("<font color='#FFFF00'>", '').replace("</font>", '').split(' Cooldown - ');
-              const relicEmbed = new Discord.RichEmbed()
-                .setColor('#14ff00')
-                .setThumbnail(i.itemIcon_URL)
-                .addField(i.DeviceName, `**Effect:** ${desc[0]}\n**Cooldown:** ${desc[1]}`);
-              return message.channel.send({embed: relicEmbed});
-            } else if (i.Type === "Consumable") {
-              const consumableEmbed = new Discord.RichEmbed()
-                .setColor('#ff6400')
-                .setThumbnail(i.itemIcon_URL)
-                .addField(i.DeviceName, `**Effect:** ${i.ItemDescription.SecondaryDescription}\n**Cost:** ${i.Price}`);
-              return message.channel.send({embed: consumableEmbed});
-            }
-          }
+          item(data);
         } else if (search === "friends") {
           friend(data);
         }
@@ -735,6 +596,87 @@ exports.run = async (client, message, [search, ...args]) => {
     return message.channel.send({embed: helpEmbed});
   }
   
+  function item(data) {
+    if (client.isInArray(itemArray, args.join(' ')) === true) {
+      var filterItemArray = [];
+        for (const item of data) {
+          if (itemObj[args.join(' ')].length === 1) {
+            item.ItemDescription["Menuitems"].forEach(function(stat) {
+              if (stat.Description === itemObj[args.join(' ')][0]) filterItemArray.push(item.DeviceName);
+            });
+          } else if (itemObj[args.join(' ')].length === 2) {
+            if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1]) filterItemArray.push(item.DeviceName);
+          } else if (itemObj[args.join(' ')].length === 4) {
+            if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1] && item[itemObj[args.join(' ')][2]] === itemObj[args.join(' ')][3]) filterItemArray.push(item.DeviceName);
+          } else if (itemObj[args.join(' ')].length === 6) {
+            if (item[itemObj[args.join(' ')][0]] === itemObj[args.join(' ')][1] && item[itemObj[args.join(' ')][2]] === itemObj[args.join(' ')][3] && item[itemObj[args.join(' ')][4]] === itemObj[args.join(' ')][5]) filterItemArray.push(item.DeviceName);
+          }
+        }
+      return message.channel.send(`**[${filterItemArray.length}] ${args.join(' ').toProperCase()}:**\n` + filterItemArray.sort().join(', '));
+    } else {
+      if (client.isInArray(itemAliaseArray, args.join(' ').toLowerCase()) === true) args = [itemAliaseObj[args.join(' ').toLowerCase()]];
+      const findItemByName = (searchItem) => {
+        return searchItem["DeviceName"].toLowerCase() === args.join(' ').toLowerCase();
+      };
+      var i = data.find(findItemByName);
+      if (!i) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not an item or a searchable term`);
+      if (i.Type === "Item") {
+        let stats = [];
+        for (let stat of i.ItemDescription.Menuitems) {
+          stats.push(`${stat.Value} ${stat.Description}`);
+        }
+        let main = [
+          `**ID:** ${i.ItemId}`,
+          `**Stats:**\n${stats.join('\n')}`
+        ];
+        var child = client.searchArrayOfObjects(data, "ItemId", i.ChildItemId);
+        var root = client.searchArrayOfObjects(data, "ItemId", i.RootItemId);
+        if (i.StartingItem) {
+          main.unshift(`**Item Tier:** Starter`);
+          main.unshift(`**Price:** ${i.Price}`);
+        } else {
+          main.unshift(`**Item Tier:** ${i.ItemTier}`);
+          if (i.ItemTier === 1) {
+            main.unshift(`**Price:** ${i.Price}`);
+          } else if (i.ItemTier === 2) {
+            main.unshift(`**Price:** ${i.Price} (${child.Price})`);
+          } else if (i.ItemTier === 3) {
+            main.unshift(`**Price:** ${i.Price} (${parseInt(child.Price) + parseInt(root.Price)})`);
+          }
+        }
+        if (i.ItemDescription.SecondaryDescription !== "" && i.ItemDescription.SecondaryDescription !== null) {
+          main.unshift(`**Effect:** ${i.ItemDescription.SecondaryDescription}`);
+        } else if (i.ItemDescription.Description !== "" && i.ItemDescription.Description !== null) {
+          main.unshift(`**Effect:** ${i.ItemDescription.Description}`);
+        } else if (i.ShortDesc !== "" && i.ShortDesc !== null) {
+          main.unshift(`**Effect:** ${i.ShortDesc}`);
+        }
+        const itemEmbed = new Discord.RichEmbed()
+          .setThumbnail(i.itemIcon_URL)
+          .addField(i.DeviceName, main.join('\n'));
+        let colour;
+        i.ItemDescription["Menuitems"].forEach(function(stat) {
+          colour = stat["Description"].split(' ').includes("Physical") ? '#ff0000': (stat["Description"].split(' ').includes("Magical")) ? '#0050ff' : '#ff00ff'
+          itemEmbed.setColor(colour)
+        });
+        return message.channel.send({embed: itemEmbed});
+      } else if (i.Type === "Active") {
+        let desc = i.ItemDescription["SecondaryDescription"].replace("<font color='#FFFF00'>", '').replace("</font>", '').split(' Cooldown - ');
+        const relicEmbed = new Discord.RichEmbed()
+          .setColor('#14ff00')
+          .setThumbnail(i.itemIcon_URL)
+          .addField(i.DeviceName, `**Effect:** ${desc[0]}\n**Cooldown:** ${desc[1]}`);
+        return message.channel.send({embed: relicEmbed});
+      } else if (i.Type === "Consumable") {
+        const consumableEmbed = new Discord.RichEmbed()
+          .setColor('#ff6400')
+          .setThumbnail(i.itemIcon_URL)
+          .addField(i.DeviceName, `**Effect:** ${i.ItemDescription.SecondaryDescription}\n**Cost:** ${i.Price}`);
+        return message.channel.send({embed: consumableEmbed});
+      }
+    }
+  }
+  
   function joke(number) {
     var jokeArrayArray = [
       ["Why does everyone think Bacchus is so annoying?", "Because he's always whining", "/u/MaggehG"],
@@ -760,11 +702,74 @@ exports.run = async (client, message, [search, ...args]) => {
   }
   
   function mastery(data) {
-    
+    if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
+    var m = data;
+    let s = args[0].replace(/_/g, ' ').substr(args.length - 1) === "s" ? "" : "s";
+    const masteryEmbed = new Discord.RichEmbed()
+      .setColor(settings.embedColour)
+      .setTitle(`${args[0]}'${s} Masteries`);
+    let number = /^\d+$/.test(args[args.length - 1]) ? (args[args.length - 1] > 19) ? 20 : args[args.length - 1] : 5;
+    for (var i = 0; i < number; i++) {
+      if (m.length > 0) {
+        var hm = m.reduce(function(l, e) {
+        return e.Worshippers > l.Worshippers ? e : l;
+      });
+      let main = [
+        `**Mastery:** ${client.romanize(hm.Rank)}`,
+        `**Worshippers:** ${hm.Worshippers}`,
+        `**Win / Lose:** ${hm.Wins} / ${hm.Losses}`,
+        `**K / D / A:** ${hm.Kills} / ${hm.Deaths} / ${hm.Assists}`,
+        `**Minion Kills:** ${hm.MinionKills}`
+      ];
+      masteryEmbed.addField(hm.god, main.join('\n'));
+      client.removeObjectFromArrayOfObjectsFromKeyAndValue(m, "god", hm.god);
+      }
+    }
+    return message.channel.send({embed: masteryEmbed});
   }
   
   function player(data) {
-    
+    if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
+    var p = data[0];
+    if (p["Name"].startsWith('[') === true) {
+      var name = p["Name"].replace('[', '').split(']');
+      var clan = `[${name[0]}] ${p.Team_Name}`;
+      name = name[1];
+    } else {
+      var name = p.Name;
+      var clan = 'Not in a clan';
+    }
+    let main = [
+      `**Level:** ${p.Level}`,
+      `**Status:** ${p.Personal_Status_Message}`,
+      `**Clan:** ${clan}`,
+      `**Region:** ${p.Region}`,
+      `**Mastery:** ${p.MasteryLevel} Gods, ${p.Total_Worshippers} total Worshippers`,
+      `**Account Created:** ${p.Created_Datetime}`,
+      `**Last Login:** ${p.Last_Login_Datetime}`,
+      `**Achievements:** ${p.Total_Achievements}`
+    ];
+    let winrate = [
+      `**Winrate:** ${parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100}%`,
+      `**Total Games Played:** ${parseInt(p.Wins) + parseInt(p.Losses)}`,
+      `**Wins:** ${p.Wins}`,
+      `**Losses:** ${p.Losses}`,
+      `**Matches Left:** ${p.Leaves}`
+    ];
+    let ranked = [
+      `**Conquest:** ${rankedTierArray[p.Tier_Conquest]}`,
+      `**Duel:** ${rankedTierArray[p.Tier_Duel]}`,
+      `**Joust:** ${rankedTierArray[p.Tier_Joust]}`
+    ];
+    let rankColour = [p.Tier_Conquest, p.Tier_Duel, p.Tier_Joust];
+    rankColour = rankedTierObj[rankedTierArray[Math.max.apply(Math, rankColour)]];
+    const playerEmbed = new Discord.RichEmbed()
+      .setColor(rankColour)
+      .setThumbnail(p.Avatar_URL)
+      .addField(name, main.join('\n'))
+      .addField('Games', winrate.join('\n'))
+      .addField('Ranked', ranked.join('\n'));
+    return message.channel.send({embed: playerEmbed});
   }
 };
 
