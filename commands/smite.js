@@ -499,12 +499,12 @@ exports.run = async (client, message, [search, ...args]) => {
             if (client.isInArray(client.config.smiteBuild, message.author.id) === false) return message.channel.send(':negative_squared_cross_mark: You do not have permission to create a build.');
             args = args.join(' ').trim().split('|');
             let god = args.splice(0, 1);
-            god = god[0].split(' ');
+            god = god[0].trim().split(' ');
             god.splice(0, 1);
-            // let gm = god.pop();
-            console.log(args);
-            console.log(god);
-            // console.log(gm);
+            let gm = god.pop();
+            god = god.join(' ');
+            if (client.isInArray(db.gods, god.toLowerCase()) === false) return message.channel.send(`:negative_squared_cross_mark: \`${god.toProperCase()}\` is not a God`);
+            if (client.isInArray(gamemodeArray, gm.toLowerCase()) === false) gm = "all";
           } else {
             let gm = args.length > 1 ? (client.isInArray(gamemodeArray, args[args.length - 1]) === true) ? args.splice(-1, 1) : "all" : "all";
             if (client.isInArray(db.gods, args.join(' ').toLowerCase()) === false) return message.channel.send(`:negative_squared_cross_mark: \`${args.join(' ').toProperCase()}\` is not a God`);      
