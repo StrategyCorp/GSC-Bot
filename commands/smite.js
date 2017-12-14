@@ -16,7 +16,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "desc": "Not sure yet, not done",
       "args": "Which God would you like me to look up?",
       "api": [true, "getgods", "1"],
-      "func": function (data) {
+      "func": function ability(data) {
         var a = client.isInArray(abilityArray, args[args.length - 1]) ? args.pop() : "1";
         const findGod = (searchGod) => {
           return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
@@ -404,6 +404,11 @@ exports.run = async (client, message, [search, ...args]) => {
   function createSignature(method) {
     return md5(`${devID}${method}${authKey}${timestamp}`);
   }
+  if (cmdObj[search].api[0] === true) {
+    testSession();
+  } else {
+    cmdObj[search].func();
+  }
   var rankedTierObj = {
     "Unranked": "#ff0000",
     "Bronze V": "#a0460a",
@@ -655,11 +660,6 @@ exports.run = async (client, message, [search, ...args]) => {
     "rangda's": "rangda's mask"
   };
   var itemAliaseArray = Object.keys(itemAliaseObj);
-  if (cmdObj[search].api[0] === true) {
-    requestData(cmdObj[search].api[1], cmdObj[search].api[2]);
-  } else {
-    cmdObj[search].func();
-  }
   function testSession() {
     var signature = createSignature("testsession");
     request.get({
@@ -676,8 +676,8 @@ exports.run = async (client, message, [search, ...args]) => {
         message = message[0] + message[1] + message[2];
         if (message === "Invalidsessionid.") {
           createSession();
-        } else if (message === "Invalidsignature.Your") {
-          return message.channel.send(':negative_squared_cross_mark: Invaid signature? If this error pops up the bot is really broken. Lets hope i never have to read this again!');
+        } else {
+          requestData(cmdObj[search].api[1], cmdObj[search].api[2]);
         }
       }
     });
@@ -695,11 +695,11 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
         client.smite.set(`session${platform}`, data.session_id);
+        requestData(cmdObj[search].api[1], cmdObj[search].api[2]);
       }
     });
   };
   function requestData(method, parameters) {
-    testSession();
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.smite.get(`session${platform}`)}/${timestamp}/${parameters}`;
     request.get({
