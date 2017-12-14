@@ -16,7 +16,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "desc": "Not sure yet, not done",
       "args": "Which God would you like me to look up?",
       "api": [true, "getgods", "1"],
-      "func": function ability(data) {
+      "func": function (data) {
         var a = client.isInArray(abilityArray, args[args.length - 1]) ? args.pop() : "1";
         const findGod = (searchGod) => {
           return searchGod["Name"].toLowerCase() === args.join(' ').toLowerCase();
