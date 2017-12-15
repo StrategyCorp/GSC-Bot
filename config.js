@@ -3,7 +3,8 @@ const config = {
   "games": ["SMITE", "with your mind", "nothing", "with fire", "with Kuzenbo's nene"],
   "gameChangeTime": "20",
   "replyObj": {
-    "rexsi": "lol"
+    "rexsi": "lol",
+    "what do i build on ganesha?": "lotus crown"
   },
   "smiteBuild": ["166641492113358848"],
   "musicPasses": "1",
