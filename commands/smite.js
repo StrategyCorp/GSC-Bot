@@ -192,9 +192,10 @@ exports.run = async (client, message, [search, ...args]) => {
           let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > pages.length ? pages.length : args[1]) : 1) : 1;
           const main = (m) => {
             let stats = [
-              `**God:** ${m["God"].replace(/_/g, ' ')}`,
+              `**K / D / A:** ${m.Kills} / ${m.Deaths} / ${m.Assists}`,
               `**Gamemod:** ${m.Queue}`,
-              `**Match`
+              `**Time:** ${m.Minutes} Minutes, ${m.Time_In_Match_Seconds - (m.Minutes * 60)} Seconds`,
+              `**Match Time:** ${m.Match_Time}`
             ];
             return stats
           }
@@ -204,7 +205,7 @@ exports.run = async (client, message, [search, ...args]) => {
           for (var i = 0; i < 5; i++) {
             if (pages[pageNumber - 1].length > 0) {
               let m = pages[pageNumber - 1].shift();
-              historyEmbed.addField(`${m.Win_Status}`, main(m));
+              historyEmbed.addField(`${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main(m));
             }
           }
         }
