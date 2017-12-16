@@ -190,9 +190,23 @@ exports.run = async (client, message, [search, ...args]) => {
         } else {
           let pages = client.chunkArray(h, 5);
           let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > pages.length ? pages.length : args[1]) : 1) : 1;
+          const main = (m) => {
+            let stats = [
+              `**God:** ${m["God"].replace(/_/g, ' ')}`,
+              `**Gamemod:** ${m.Queue}`,
+              `**Match`
+            ];
+            return stats
+          }
           var historyEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
-            .addField(`${args[0]}'${s} History`, `Page`);
+            .addField(`${args[0]}'${s} History`, `Page ${pageNumber} of ${pages.length}`);
+          for (var i = 0; i < 5; i++) {
+            if (pages[pageNumber - 1].length > 0) {
+              let m = pages[pageNumber - 1].shift();
+              historyEmbed.addField(`${m.Win_Status}`, main(m));
+            }
+          }
         }
         return message.channel.send({embed: historyEmbed});
       }
@@ -341,7 +355,7 @@ exports.run = async (client, message, [search, ...args]) => {
             `**K / D / A:** ${g.Kills} / ${g.Deaths} / ${g.Assists}`,
             `**Minion Kills:** ${g.MinionKills}`
           ];
-          return stats;
+          return stats.join('\n');
         }
         let s = user.replace(/_/g, ' ').substr(user.length - 1) === "s" ? "" : "s";
         if (client.isInArray(gods, args) === true) {
@@ -742,7 +756,7 @@ exports.run = async (client, message, [search, ...args]) => {
   function requestData(method, parameters) {
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.smite.get(`session${platform}`)}/${timestamp}/${parameters}`;
-    console.log(url);
+    // console.log(url);
     request.get({
       url: url,
       json: true,
