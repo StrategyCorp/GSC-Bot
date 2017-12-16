@@ -185,9 +185,15 @@ exports.run = async (client, message, [search, ...args]) => {
         var h = data;
         if (h[0].ret_msg !== null) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
         let s = args[0].replace(/_/g, ' ').substr(args[0].length - 1) === "s" ? "" : "s";
-        const historyEmbed = new Discord.RichEmbed()
-          .setColor(settings.embedColour)
-          .addField(`${args[0]}'${s} History`, `${h.length}`);
+        if (args[1] === "view") {
+          return;
+        } else {
+          let pages = client.chunkArray(h, 5);
+          let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > pages.length ? pages.length : args[1]) : 1) : 1;
+          var historyEmbed = new Discord.RichEmbed()
+            .setColor(settings.embedColour)
+            .addField(`${args[0]}'${s} History`, `Page`);
+        }
         return message.channel.send({embed: historyEmbed});
       }
     },
