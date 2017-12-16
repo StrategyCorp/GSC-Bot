@@ -174,6 +174,9 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send({embed: helpEmbed});
       }
     },
+    "": {
+      
+    },
     "item": {
       "name": "item",
       "aliase": ["items"],
