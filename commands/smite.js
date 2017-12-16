@@ -213,7 +213,7 @@ exports.run = async (client, message, [search, ...args]) => {
           for (var i = 0; i < 5; i++) {
             if (pages[pageNumber - 1].length > 0) {
               let m = pages[pageNumber - 1].shift();
-              historyEmbed.addField(`[${i}] ${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main(m));
+              historyEmbed.addField(`[${data.findIndex(i => i.Match === m.Match)}] ${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main(m));
             }
           }
         }
