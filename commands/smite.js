@@ -186,10 +186,13 @@ exports.run = async (client, message, [search, ...args]) => {
         if (h[0].ret_msg !== null) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
         let s = args[0].replace(/_/g, ' ').substr(args[0].length - 1) === "s" ? "" : "s";
         if (args[1] === "view") {
-          return;
+          if (!args[2]) return message.channel.send(':negative_squared_cross_mark: Which match would you like to view');
+          let number = args[2];
         } else {
           let pages = client.chunkArray(h, 5);
-          let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > pages.length ? pages.length : args[1]) : 1) : 1;
+          let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > pages.length ? pages.length : (args[1] === "0" ? 1 : args[1])) : 1) : 1;
+          console.log(pageNumber);
+          return
           const main = (m) => {
             let stats = [
               `**K / D / A:** ${m.Kills} / ${m.Deaths} / ${m.Assists}`,
@@ -197,7 +200,7 @@ exports.run = async (client, message, [search, ...args]) => {
               `**Time:** ${m.Minutes} Minutes, ${m.Time_In_Match_Seconds - (m.Minutes * 60)} Seconds`,
               `**Match Time:** ${m.Match_Time}`
             ];
-            return stats
+            return stats.join('\n');
           }
           var historyEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
