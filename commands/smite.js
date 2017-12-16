@@ -303,6 +303,11 @@ exports.run = async (client, message, [search, ...args]) => {
       "func": function(data) {
         if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
         var m = data;
+        let gods = [];
+        for (let god of m) {
+          gods.push(god.god);
+        }
+        let user = 
         let s = args[0].replace(/_/g, ' ').substr(args.length - 1) === "s" ? "" : "s";
         const masteryEmbed = new Discord.RichEmbed()
           .setColor(settings.embedColour)
@@ -311,17 +316,17 @@ exports.run = async (client, message, [search, ...args]) => {
         for (var i = 0; i < number; i++) {
           if (m.length > 0) {
             var hm = m.reduce(function(l, e) {
-            return e.Worshippers > l.Worshippers ? e : l;
-          });
-          let main = [
-            `**Mastery:** ${client.romanize(hm.Rank)}`,
-            `**Worshippers:** ${hm.Worshippers}`,
-            `**Win / Lose:** ${hm.Wins} / ${hm.Losses}`,
-            `**K / D / A:** ${hm.Kills} / ${hm.Deaths} / ${hm.Assists}`,
-            `**Minion Kills:** ${hm.MinionKills}`
-          ];
-          masteryEmbed.addField(hm.god, main.join('\n'));
-          client.removeObjectFromArrayOfObjectsFromKeyAndValue(m, "god", hm.god);
+              return e.Worshippers > l.Worshippers ? e : l;
+            });
+            let main = [
+              `**Mastery:** ${client.romanize(hm.Rank)}`,
+              `**Worshippers:** ${hm.Worshippers}`,
+              `**Win / Lose:** ${hm.Wins} / ${hm.Losses}`,
+              `**K / D / A:** ${hm.Kills} / ${hm.Deaths} / ${hm.Assists}`,
+              `**Minion Kills:** ${hm.MinionKills}`
+            ];
+            masteryEmbed.addField(hm.god, main.join('\n'));
+            client.removeObjectFromArrayOfObjectsFromKeyAndValue(m, "god", hm.god);
           }
         }
         return message.channel.send({embed: masteryEmbed});
