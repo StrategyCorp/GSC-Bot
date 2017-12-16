@@ -189,12 +189,18 @@ exports.run = async (client, message, [search, ...args]) => {
           let number = args[2] ? (/^\d+$/.test(args[2]) ? (args[2] > h.length ? h.length : (args[2] === "0" ? 1 : args[2])) : 1) : 1;
           let m = h[number - 1];
           let main = [
-            `a`,
-            `b`
+            `**K / D / A:** ${m.Kills} / ${m.Deaths} / ${m.Assists}`,
+            `**Gamemod:** ${m.Queue}`,
+            `**Time:** ${m.Minutes} Minutes, ${m.Time_In_Match_Seconds - (m.Minutes * 60)} Seconds`,
+            `**Match Time:** ${m.Match_Time}`
+          ];
+          let items = [
+            
           ];
           var historyEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
-            .addField(`${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main.join('\n'));
+            .addField(`${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main.join('\n'))
+            .addField('Items', items.join('\n'));
         } else {
           let pages = client.chunkArray(h, 5);
           let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > pages.length ? pages.length : (args[1] === "0" ? 1 : args[1])) : 1) : 1;
@@ -213,7 +219,7 @@ exports.run = async (client, message, [search, ...args]) => {
           for (var i = 0; i < 5; i++) {
             if (pages[pageNumber - 1].length > 0) {
               let m = pages[pageNumber - 1].shift();
-              historyEmbed.addField(`[${data.indexOf(379247575)}] ${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main(m));
+              historyEmbed.addField(`[${((pageNumber - 1) * 5) + i + 1}] ${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main(m));
             }
           }
         }
