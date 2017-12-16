@@ -192,7 +192,8 @@ exports.run = async (client, message, [search, ...args]) => {
             `**K / D / A:** ${m.Kills} / ${m.Deaths} / ${m.Assists}`,
             `**Gamemod:** ${m.Queue}`,
             `**Time:** ${m.Minutes} Minutes, ${m.Time_In_Match_Seconds - (m.Minutes * 60)} Seconds`,
-            `**Match Time:** ${m.Match_Time}`
+            `**Match Time:** ${m.Match_Time}`,
+            `**Region:** ${m.Region}`
           ];
           let items = [];
           let item = [
@@ -206,8 +207,16 @@ exports.run = async (client, message, [search, ...args]) => {
             'Item_6'
           ];
           for (let i of item) {
-            if (m[i] !== '' || m[i] !== 'relic') items.push(`**${i.replace(/_/g, ' ')}:** ${m[i]}`);
+            if (m[i] !== '' && m[i] !== 'Relic') items.push(`**${i.replace(/_/g, ' ')}:** ${m[i]}`);
           }
+          let stats = [
+            `**Damage Dealt:** ${m.Damage}`,
+            `**Damage Taken:** ${m.Damage_Taken}`,
+            `**Damage Mitigated:** ${m.Damage_Mitigated}`,
+            `**Structure Damage:** ${m.Damage_Structure}`,
+            `**Minions Killed:** ${m.Creeps}`,
+            `**Distance Traveled:** ${m.Distance_Traveled}`
+          ];
           var historyEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .addField(`${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main.join('\n'))
