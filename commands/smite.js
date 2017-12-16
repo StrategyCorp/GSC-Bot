@@ -177,16 +177,17 @@ exports.run = async (client, message, [search, ...args]) => {
     "history": {
       "name": "history",
       "aliase": [],
-      "usage": "<player>",
+      "usage": "<player> [page] || <player> view <number>",
       "desc": "Displays a players match history",
       "args": "Who would you like me to look up?",
       "api": [true, "getmatchhistory", args[0] ? args[0].replace(/_/g, ' ') : args],
       "func": function history(data) {
         var h = data;
-        if (!h) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
+        if (h[0].ret_msg !== null) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
+        let s = args[0].replace(/_/g, ' ').substr(args[0].length - 1) === "s" ? "" : "s";
         const historyEmbed = new Discord.RichEmbed()
           .setColor(settings.embedColour)
-          .addField(`${args[0]}'`, 'a');
+          .addField(`${args[0]}'${s} History`, `${h.length}`);
         return message.channel.send({embed: historyEmbed});
       }
     },
@@ -735,7 +736,7 @@ exports.run = async (client, message, [search, ...args]) => {
   function requestData(method, parameters) {
     var signature = createSignature(method);
     let url = domain + `${method}Json/${devID}/${signature}/${client.smite.get(`session${platform}`)}/${timestamp}/${parameters}`;
-    // console.log(url);
+    console.log(url);
     request.get({
       url: url,
       json: true,
