@@ -194,9 +194,20 @@ exports.run = async (client, message, [search, ...args]) => {
             `**Time:** ${m.Minutes} Minutes, ${m.Time_In_Match_Seconds - (m.Minutes * 60)} Seconds`,
             `**Match Time:** ${m.Match_Time}`
           ];
-          let items = [
-            
+          let items = [];
+          let item = [
+            'Active_1',
+            'Active_2',
+            'Item_1',
+            'Item_2',
+            'Item_3',
+            'Item_4',
+            'Item_5',
+            'Item_6'
           ];
+          for (let i of item) {
+            if (m[i] !== '' || m[i] !== 'relic') items.push(`**${i.replace(/_/g, ' ')}:** ${m[i]}`);
+          }
           var historyEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .addField(`${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main.join('\n'))
