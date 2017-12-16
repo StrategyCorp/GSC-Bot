@@ -305,31 +305,43 @@ exports.run = async (client, message, [search, ...args]) => {
         var m = data;
         let gods = [];
         for (let god of m) {
-          gods.push(god.god);
+          gods.push(god["god"].toLowerCase());
         }
-        let user = 
-        let s = args[0].replace(/_/g, ' ').substr(args.length - 1) === "s" ? "" : "s";
-        const masteryEmbed = new Discord.RichEmbed()
-          .setColor(settings.embedColour)
-          .setTitle(`${args[0]}'${s} Masteries`);
-        let number = /^\d+$/.test(args[args.length - 1]) ? (args[args.length - 1] > 19) ? 20 : args[args.length - 1] : 5;
-        for (var i = 0; i < number; i++) {
-          if (m.length > 0) {
-            var hm = m.reduce(function(l, e) {
-              return e.Worshippers > l.Worshippers ? e : l;
-            });
-            let main = [
-              `**Mastery:** ${client.romanize(hm.Rank)}`,
-              `**Worshippers:** ${hm.Worshippers}`,
-              `**Win / Lose:** ${hm.Wins} / ${hm.Losses}`,
-              `**K / D / A:** ${hm.Kills} / ${hm.Deaths} / ${hm.Assists}`,
-              `**Minion Kills:** ${hm.MinionKills}`
-            ];
-            masteryEmbed.addField(hm.god, main.join('\n'));
-            client.removeObjectFromArrayOfObjectsFromKeyAndValue(m, "god", hm.god);
+        let user = args.shift();
+        args = args.join(' ');
+        const main = (g) => {
+          var stats = [
+            `**Mastery:** ${client.romanize(g.Rank)}`,
+            `**Worshippers:** ${g.Worshippers}`,
+            `**Win / Lose:** ${g.Wins} / ${g.Losses}`,
+            `**K / D / A:** ${g.Kills} / ${g.Deaths} / ${g.Assists}`,
+            `**Minion Kills:** ${g.MinionKills}`
+          ];
+          return stats;
+        }
+        if (client.isInArray(gods, args) === true) {
+          const findGod = (searchGod) => {
+            return searchGod["god"].toLowerCase() === args.toLowerCase();
           }
+          var g = data.find(findGod);
+          console.log(main(g));
+        } else {
+          let s = user.replace(/_/g, ' ').substr(user.length - 1) === "s" ? "" : "s";
+          const masteryEmbed = new Discord.RichEmbed()
+            .setColor(settings.embedColour)
+            .setTitle(`${user}'${s} Masteries`);
+          let number = /^\d+$/.test(args) ? (args > 19) ? 20 : args : 5;
+          for (var i = 0; i < number; i++) {
+            if (m.length > 0) {
+              var hm = m.reduce(function(l, e) {
+                return e.Worshippers > l.Worshippers ? e : l;
+              });
+              masteryEmbed.addField(hm.god, main.join('\n'));
+              client.removeObjectFromArrayOfObjectsFromKeyAndValue(m, "god", hm.god);
+            }
+          }
+          return message.channel.send({embed: masteryEmbed});
         }
-        return message.channel.send({embed: masteryEmbed});
       }
     },
     "player": {
