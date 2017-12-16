@@ -313,21 +313,24 @@ exports.run = async (client, message, [search, ...args]) => {
           var stats = [
             `**Mastery:** ${client.romanize(g.Rank)}`,
             `**Worshippers:** ${g.Worshippers}`,
-            `**Win / Lose:** ${g.Wins} / ${g.Losses}`,
+            `**Winrate:** ${(parseInt(g.Wins) / (parseInt(g.Wins) + parseInt(g.Losses)) * 100).toFixed(2)}%`,
+            `**Win / Lose / Total:** ${g.Wins} / ${g.Losses} / ${g.Wins + g.Losses}`,
             `**K / D / A:** ${g.Kills} / ${g.Deaths} / ${g.Assists}`,
             `**Minion Kills:** ${g.MinionKills}`
           ];
           return stats;
         }
+        let s = user.replace(/_/g, ' ').substr(user.length - 1) === "s" ? "" : "s";
         if (client.isInArray(gods, args) === true) {
           const findGod = (searchGod) => {
             return searchGod["god"].toLowerCase() === args.toLowerCase();
           }
           var g = data.find(findGod);
-          console.log(main(g));
-        } else {
-          let s = user.replace(/_/g, ' ').substr(user.length - 1) === "s" ? "" : "s";
-          const masteryEmbed = new Discord.RichEmbed()
+          var masteryEmbed = new Discord.RichEmbed()
+            .setColor(settings.embedColour)
+            .addField(`${user.toProperCase()}'${s} stats for ${g.god}`, main(g));
+        } else {      
+          var masteryEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .setTitle(`${user}'${s} Masteries`);
           let number = /^\d+$/.test(args) ? (args > 19) ? 20 : args : 5;
@@ -336,12 +339,12 @@ exports.run = async (client, message, [search, ...args]) => {
               var hm = m.reduce(function(l, e) {
                 return e.Worshippers > l.Worshippers ? e : l;
               });
-              masteryEmbed.addField(hm.god, main.join('\n'));
+              masteryEmbed.addField(hm.god, main(hm));
               client.removeObjectFromArrayOfObjectsFromKeyAndValue(m, "god", hm.god);
             }
           }
-          return message.channel.send({embed: masteryEmbed});
         }
+        return message.channel.send({embed: masteryEmbed});
       }
     },
     "player": {
@@ -373,7 +376,7 @@ exports.run = async (client, message, [search, ...args]) => {
           `**Achievements:** ${p.Total_Achievements}`
         ];
         let winrate = [
-          `**Winrate:** ${parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100}%`,
+          `**Winrate:** ${(parseInt(p.Wins) / (parseInt(p.Wins) + parseInt(p.Losses)) * 100).toFixed(2)}%`,
           `**Total Games Played:** ${parseInt(p.Wins) + parseInt(p.Losses)}`,
           `**Wins:** ${p.Wins}`,
           `**Losses:** ${p.Losses}`,
