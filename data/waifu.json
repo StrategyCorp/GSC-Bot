@@ -43,7 +43,7 @@
   "he bo": "https://web2.hirez.com/smite/god-cards/he-bo.jpg",
   "hel": "https://web2.hirez.com/smite/god-cards/hel.jpg",
   "hercules": "https://web2.hirez.com/smite/god-cards/hercules.jpg",
-  "hou yi": [0, "https://web2.hirez.com/smite/god-cards/hou-yi.jpg"],
+  "hou yi": [-10, "https://web2.hirez.com/smite/god-cards/hou-yi.jpg"],
   "hun batz": "https://web2.hirez.com/smite/god-cards/hun-batz.jpg",
   "isis": "https://web2.hirez.com/smite/god-cards/isis.jpg",
   "izanami": "https://web2.hirez.com/smite/god-cards/izanami.jpg",

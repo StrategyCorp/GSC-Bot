@@ -335,13 +335,8 @@ exports.run = async (client, message, [search, ...args]) => {
             .setTitle(`${user}'${s} Masteries`);
           let number = /^\d+$/.test(args) ? (args > 19) ? 20 : args : 5;
           for (var i = 0; i < number; i++) {
-            if (m.length > 0) {
-              var hm = m.reduce(function(l, e) {
-                return e.Worshippers > l.Worshippers ? e : l;
-              });
-              masteryEmbed.addField(hm.god, main(hm));
-              client.removeObjectFromArrayOfObjectsFromKeyAndValue(m, "god", hm.god);
-            }
+            let hm = m.shift();
+            masteryEmbed.addField(hm.god, main(hm));
           }
         }
         return message.channel.send({embed: masteryEmbed});
