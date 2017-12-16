@@ -5,7 +5,7 @@ exports.run = (client, message, args) => {
   var list = Object.keys(meme.inbuild).sort();
   if (args[0] === "list") {
     list = client.chunkArray(list, 25);
-    let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > list.length ? list.length : args[1]) : 1) : 1;
+    let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > list.length ? list.length : (args[1] === "0" ? 1 : args[1])) : 1) : 1;
     return message.channel.send(`**Page Number ${pageNumber} of ${list.length}**\n${list[pageNumber - 1].join(', ')}`);
   }
   list = list.join('-=_++').toLowerCase().split('-=_++');

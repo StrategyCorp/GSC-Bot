@@ -186,13 +186,18 @@ exports.run = async (client, message, [search, ...args]) => {
         if (h[0].ret_msg !== null) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
         let s = args[0].replace(/_/g, ' ').substr(args[0].length - 1) === "s" ? "" : "s";
         if (args[1] === "view") {
-          if (!args[2]) return message.channel.send(':negative_squared_cross_mark: Which match would you like to view');
-          let number = args[2];
+          let number = args[2] ? (/^\d+$/.test(args[2]) ? (args[2] > h.length ? h.length : (args[2] === "0" ? 1 : args[2])) : 1) : 1;
+          let m = h[number - 1];
+          let main = [
+            `a`,
+            `b`
+          ];
+          var historyEmbed = new Discord.RichEmbed()
+            .setColor(settings.embedColour)
+            .addField(`${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main.join('\n'));
         } else {
           let pages = client.chunkArray(h, 5);
           let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > pages.length ? pages.length : (args[1] === "0" ? 1 : args[1])) : 1) : 1;
-          console.log(pageNumber);
-          return
           const main = (m) => {
             let stats = [
               `**K / D / A:** ${m.Kills} / ${m.Deaths} / ${m.Assists}`,
@@ -208,7 +213,7 @@ exports.run = async (client, message, [search, ...args]) => {
           for (var i = 0; i < 5; i++) {
             if (pages[pageNumber - 1].length > 0) {
               let m = pages[pageNumber - 1].shift();
-              historyEmbed.addField(`${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main(m));
+              historyEmbed.addField(`[${i}] ${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main(m));
             }
           }
         }
