@@ -215,12 +215,15 @@ exports.run = async (client, message, [search, ...args]) => {
             `**Damage Mitigated:** ${m.Damage_Mitigated}`,
             `**Structure Damage:** ${m.Damage_Structure}`,
             `**Minions Killed:** ${m.Creeps}`,
-            `**Distance Traveled:** ${m.Distance_Traveled}`
+            `**Distance Traveled:** ${m.Distance_Traveled}`,
+            `**Wards Placed:** ${m.Wards_Placed}`,
+            `**Killing Spree / Best Multi Kill:** ${m.Killing_Spree} / ${m.Multi_kill_Max}`
           ];
           var historyEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .addField(`${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main.join('\n'))
-            .addField('Items', items.join('\n'));
+            .addField('Items', items.join('\n'))
+            .addField('Stats', stats.join('\n'));
         } else {
           let pages = client.chunkArray(h, 5);
           let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > pages.length ? pages.length : (args[1] === "0" ? 1 : args[1])) : 1) : 1;
