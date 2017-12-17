@@ -217,19 +217,20 @@ exports.run = async (client, message, [search, ...args]) => {
             `**Minions Killed:** ${m.Creeps}`,
             `**Distance Traveled:** ${m.Distance_Traveled}`,
             `**Wards Placed:** ${m.Wards_Placed}`,
+            
             `**Killing Spree / Best Multi Kill:** ${m.Killing_Spree} / ${m.Multi_kill_Max}`
           ];
           let bans = [];
-          for (var i = 0; i < 10; i++) {
-            if (m.length > 0) {
-              
-            }
+          for (var i = 1; i < 11; i++) {
+            let ban = "Ban" + i
+            if (m[ban] !== "") bans.push(m[ban].replace(/_/g, ' '));
           }
           var historyEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .addField(`${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main.join('\n'))
             .addField('Items', items.join('\n'))
             .addField('Stats', stats.join('\n'));
+          if (bans.length > 0) historyEmbed.addField('Bans', bans.join(', '));
         } else {
           let pages = client.chunkArray(h, 5);
           let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > pages.length ? pages.length : (args[1] === "0" ? 1 : args[1])) : 1) : 1;
