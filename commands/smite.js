@@ -191,9 +191,10 @@ exports.run = async (client, message, [search, ...args]) => {
           let main = [
             `**K / D / A:** ${m.Kills} / ${m.Deaths} / ${m.Assists}`,
             `**Gamemod:** ${m.Queue}`,
-            `**Time:** ${m.Minutes} Minutes, ${m.Time_In_Match_Seconds - (m.Minutes * 60)} Seconds`,
-            `**Match Time:** ${m.Match_Time}`,
-            `**Region:** ${m.Region}`
+            `**Duration:** ${m.Minutes} Minutes, ${m.Time_In_Match_Seconds - (m.Minutes * 60)} Seconds`,
+            `**Date:** ${m.Match_Time}`,
+            `**Region:** ${m.Region}`,
+            `**Match ID:** ${m.Match}`
           ];
           let items = [];
           let item = [
