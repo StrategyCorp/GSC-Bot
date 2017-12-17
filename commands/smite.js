@@ -3,6 +3,8 @@ const request = require('request');
 const moment = require('moment');
 const md5 = require('md5');
 const { inspect } = require("util");
+const Canvas = require("canvas");
+const fs = require('fs');
 const db = require('../data/smite.json');
 
 exports.run = async (client, message, [search, ...args]) => {
@@ -434,8 +436,20 @@ exports.run = async (client, message, [search, ...args]) => {
       "desc": "",
       "args": "",
       "api": [true, "getmatchdetails", args[0]],
-      "func": function match(data) {
-        
+      "func": async function match(data) {
+        var Image = Canvas.Image;
+        var canvas = new Canvas(200, 200);
+        var ctx = canvas.getContext('2d'); 
+        var out = fs.createWriteStream(__dirname + `/../data/canvas/smite/match/${args[0]}.png`);
+        var stream = canvas.pngStream();
+        stream.on('data', function(chunk){
+          out.write(chunk);
+        });
+        stream.on('end', function(){
+          console.log('saved png');
+          let image = fs.readFile('../data/canvas/image/bonobo.png');
+          message.channel.send()
+        });
       }
     },
     "player": {
