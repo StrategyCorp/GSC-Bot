@@ -218,7 +218,7 @@ exports.run = async (client, message, [search, ...args]) => {
             `**Minions Killed:** ${m.Creeps}`,
             `**Distance Traveled:** ${m.Distance_Traveled}`,
             `**Wards Placed:** ${m.Wards_Placed}`,
-            `**Gold:** ${m.Gold}`
+            `**Gold:** ${m.Gold}`,
             `**Killing Spree / Best Multi Kill:** ${m.Killing_Spree} / ${m.Multi_kill_Max}`
           ];
           let bans = [];
