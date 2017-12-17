@@ -410,17 +410,7 @@ exports.run = async (client, message, [search, ...args]) => {
           let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > pages.length ? pages.length : (args[1] === "0" ? 1 : args[1])) : 1) : 1;
           var masteryEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
-            .setTitle(`${user}'${s} Masteries`);
-          // let number = /^\d+$/.test(args) ? (args > 19) ? 20 : args : 5;
-          // for (var i = 0; i < number; i++) {
-          //   if (m.length > 0) {
-          //     let hm = m.shift();
-          //     masteryEmbed.addField(hm.god, main(hm));
-          //   }
-          // }
-          var historyEmbed = new Discord.RichEmbed()
-            .setColor(settings.embedColour)
-            .addField(`${args[0]}'${s} History`, `Page ${pageNumber} of ${pages.length}`);
+            .addField(`${user}'${s} Masteries`, `Page ${pageNumber} of ${pages.length}`);
           for (var i = 0; i < 5; i++) {
             if (pages[pageNumber - 1].length > 0) {
               let m = pages[pageNumber - 1].shift();
