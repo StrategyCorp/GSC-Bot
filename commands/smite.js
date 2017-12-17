@@ -439,17 +439,9 @@ exports.run = async (client, message, [search, ...args]) => {
       "func": function match(data) {
         if (data.length === 0) return message.channel.send(`:negative_squared_cross_mark: \`${args[0]}\` is not a valid match id`);
         var Image = Canvas.Image;
-        var canvas = new Canvas(200, 200);
+        var canvas = new Canvas(2304, 1408);
         var ctx = canvas.getContext('2d');
-        ctx.font = '30px Impact';
-        ctx.rotate(.1);
-        ctx.fillText("test", 50, 100);
-        var te = ctx.measureText('test');
-        ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-        ctx.beginPath();
-        ctx.lineTo(50, 102);
-        ctx.lineTo(50 + te.width, 102);
-        ctx.stroke();
+        
         var out = fs.createWriteStream(__dirname + `/../data/canvas/smite/matchoutput.png`);
         var stream = canvas.pngStream();
         stream.on('data', function(chunk) {
