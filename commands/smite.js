@@ -455,9 +455,7 @@ exports.run = async (client, message, [search, ...args]) => {
           out.write(chunk);
         });
         stream.on('end', function() {
-          console.log('saved png');
-          let image = fs.readFile(__dirname + `/../data/canvas/smite/match/${args[0]}.png`);
-          message.channel.send({file: image});
+          message.channel.send({file: __dirname + `/../data/canvas/smite/match/${args[0]}.png`});
         });
       }
     },
