@@ -199,16 +199,7 @@ exports.run = async (client, message, [search, ...args]) => {
             `**Match ID:** ${m.Match}`
           ];
           let items = [];
-          let item = [
-            'Active_1',
-            'Active_2',
-            'Item_1',
-            'Item_2',
-            'Item_3',
-            'Item_4',
-            'Item_5',
-            'Item_6'
-          ];
+          let item = ['Active_1', 'Active_2', 'Item_1', 'Item_2', 'Item_3', 'Item_4', 'Item_5', 'Item_6'];
           for (let i of item) {
             if (m[i] !== '' && m[i] !== 'Relic') items.push(`**${i.replace(/_/g, ' ')}:** ${m[i]}`);
           }
@@ -241,8 +232,8 @@ exports.run = async (client, message, [search, ...args]) => {
             let stats = [
               `**K / D / A:** ${m.Kills} / ${m.Deaths} / ${m.Assists}`,
               `**Gamemod:** ${m.Queue}`,
-              `**Time:** ${m.Minutes} Minutes, ${m.Time_In_Match_Seconds - (m.Minutes * 60)} Seconds`,
-              `**Match Time:** ${m.Match_Time}`
+              `**Duration:** ${m.Minutes} Minutes, ${m.Time_In_Match_Seconds - (m.Minutes * 60)} Seconds`,
+              `**Date:** ${m.Match_Time}`
             ];
             return stats.join('\n');
           }
@@ -381,7 +372,7 @@ exports.run = async (client, message, [search, ...args]) => {
     "mastery": {
       "name": "mastery",
       "aliase": ["masteries"],
-      "usage": "<player> [console] [number]",
+      "usage": "<player> [console] [god]",
       "desc": "Displays a players highest masteried Gods",
       "args": "Who would you like me to look up?",
       "api": [true, "getgodranks", args[0] ? args[0].replace(/_/g, ' ') : args],
