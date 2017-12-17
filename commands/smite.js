@@ -436,19 +436,28 @@ exports.run = async (client, message, [search, ...args]) => {
       "desc": "",
       "args": "",
       "api": [true, "getmatchdetails", args[0]],
-      "func": async function match(data) {
+      "func": function match(data) {
         var Image = Canvas.Image;
         var canvas = new Canvas(200, 200);
-        var ctx = canvas.getContext('2d'); 
+        var ctx = canvas.getContext('2d');
+        ctx.font = '30px Impact';
+        ctx.rotate(.1);
+        ctx.fillText("test", 50, 100);
+        var te = ctx.measureText('test');
+        ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+        ctx.beginPath();
+        ctx.lineTo(50, 102);
+        ctx.lineTo(50 + te.width, 102);
+        ctx.stroke();
         var out = fs.createWriteStream(__dirname + `/../data/canvas/smite/match/${args[0]}.png`);
         var stream = canvas.pngStream();
-        stream.on('data', function(chunk){
+        stream.on('data', function(chunk) {
           out.write(chunk);
         });
-        stream.on('end', function(){
+        stream.on('end', function() {
           console.log('saved png');
-          let image = fs.readFile('../data/canvas/image/bonobo.png');
-          message.channel.send()
+          let image = fs.readFile(__dirname + `/../data/canvas/smite/match/${args[0]}.png`);
+          message.channel.send({file: image});
         });
       }
     },
