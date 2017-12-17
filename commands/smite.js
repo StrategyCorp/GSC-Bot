@@ -427,6 +427,17 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send({embed: masteryEmbed});
       }
     },
+    "match": {
+      "name": "match",
+      "aliase": [],
+      "usage": "",
+      "desc": "",
+      "args": "",
+      "api": [true, "getmatchdetails", args[0]],
+      "func": function match(data) {
+        
+      }
+    },
     "player": {
       "name": "player",
       "aliase": ["profile"],
