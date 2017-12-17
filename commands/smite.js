@@ -441,14 +441,16 @@ exports.run = async (client, message, [search, ...args]) => {
         var Image = Canvas.Image;
         var canvas = new Canvas(2304, 1408);
         var ctx = canvas.getContext('2d');
-        
-        var out = fs.createWriteStream(__dirname + `/../data/canvas/smite/matchoutput.png`);
+        var img = new Image();
+        img.src = fs.readFileSync(__dirname + `/../data/canvas/smite/match.png`);
+        ctx.drawImage(img, 0, 0);
+        var out = fs.createWriteStream(__dirname + `/../data/canvas/smite/matchout.png`);
         var stream = canvas.pngStream();
         stream.on('data', function(chunk) {
           out.write(chunk);
         });
         stream.on('end', function() {
-          message.channel.send({file: __dirname + `/../data/canvas/smite/matchout.png`});
+          message.channel.send(__dirname + `/../data/canvas/smite/matchout.png`);
         });
       }
     },
