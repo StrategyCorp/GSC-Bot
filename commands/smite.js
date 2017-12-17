@@ -437,6 +437,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "args": "",
       "api": [true, "getmatchdetails", args[0]],
       "func": function match(data) {
+        
         var Image = Canvas.Image;
         var canvas = new Canvas(200, 200);
         var ctx = canvas.getContext('2d');
