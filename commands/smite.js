@@ -219,6 +219,12 @@ exports.run = async (client, message, [search, ...args]) => {
             `**Wards Placed:** ${m.Wards_Placed}`,
             `**Killing Spree / Best Multi Kill:** ${m.Killing_Spree} / ${m.Multi_kill_Max}`
           ];
+          let bans = [];
+          for (var i = 0; i < 10; i++) {
+            if (m.length > 0) {
+              
+            }
+          }
           var historyEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .addField(`${m.Win_Status} - ${m["God"].replace(/_/g, ' ')}`, main.join('\n'))
