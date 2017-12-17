@@ -408,6 +408,7 @@ exports.run = async (client, message, [search, ...args]) => {
         } else {
           let pages = client.chunkArray(m, 5);
           let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > pages.length ? pages.length : (args[1] === "0" ? 1 : args[1])) : 1) : 1;
+          console.log(pageNumber);
           var masteryEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .addField(`${user}'${s} Masteries`, `Page ${pageNumber} of ${pages.length}`);
