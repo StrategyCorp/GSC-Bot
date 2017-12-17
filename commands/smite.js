@@ -437,7 +437,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "args": "",
       "api": [true, "getmatchdetails", args[0]],
       "func": function match(data) {
-        
+        if (data.length === 0) return message.channel.send(`:negative_squared_cross_mark: \`${args[0]}\` is not a valid match id`);
         var Image = Canvas.Image;
         var canvas = new Canvas(200, 200);
         var ctx = canvas.getContext('2d');
