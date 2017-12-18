@@ -407,7 +407,8 @@ exports.run = async (client, message, [search, ...args]) => {
             .addField(`${user.toProperCase()}'${s} stats for ${g.god}`, main(g));
         } else {
           let pages = client.chunkArray(m, 5);
-          let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > pages.length ? pages.length : (args[1] === "0" ? 1 : args[1])) : 1) : 1;
+          // let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? (args[1] > pages.length ? pages.length : (args[1] === "0" ? 1 : args[1])) : 1) : 1;
+          let pageNumber = args[1] ? (/^\d+$/.test(args[1]) ? args[1] : 1) : 1;
           console.log(pageNumber);
           var masteryEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
