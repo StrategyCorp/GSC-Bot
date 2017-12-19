@@ -79,12 +79,20 @@ exports.run = async (client, message, [search, ...args]) => {
         }
       }
     },
+    "clan": {
+      "name": "clan",
+      "aliase": ["clans"],
+      "usage": "<clan name>",
+      "desc": "not sure yeT?",
+      "args": "Which clan would you like to look up?",
+      "api": [true, "searchteams", args[0]]
+    },
     "god": {
       "name": "god",
       "aliase": ["gods"],
       "usage": "<god>",
       "desc": "Displays infomation on a chosen God",
-      "args": "Which God would you like me to look up?",
+      "args": "Which God would you like to look up?",
       "api": [true, "getgods", "1"],
       "func": function god(data) {
         const findGod = (searchGod) => {
@@ -368,14 +376,6 @@ exports.run = async (client, message, [search, ...args]) => {
         if (jokeArrayArray[jokeNumber - 1].length === 3) jokeEmbed.addField(`:regional_indicator_q: ${jokeArrayArray[jokeNumber - 1][0]}`, `:regional_indicator_a: ${jokeArrayArray[jokeNumber - 1][1]}`);
         return message.channel.send({embed: jokeEmbed});
       }
-    },
-    "live": {
-      "name": "live",
-      "aliase": [],
-      "usage": "<player>",
-      "desc": "not sure yeT?",
-      "args": "Who would you like me to look up?",
-      "api": [true, ""]
     },
     "mastery": {
       "name": "mastery",
