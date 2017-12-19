@@ -103,11 +103,11 @@ exports.run = async (client, message, [search, ...args]) => {
         ];
         if (g.latestGod === "y") main.push(`Currently the newest God`);
         let abilities = [
-          `**P:** ${g.Ability1}`,
-          `**1:** ${g.Ability2}`,
-          `**2:** ${g.Ability3}`,
-          `**3:** ${g.Ability4}`,
-          `**4:** ${g.Ability5}`
+          `**P:** ${g.Ability5}`,
+          `**1:** ${g.Ability1}`,
+          `**2:** ${g.Ability2}`,
+          `**3:** ${g.Ability3}`,
+          `**4:** ${g.Ability4}`
         ];
         let stats = [
           [`**Attack Speed:** ${g.AttackSpeed}`, g.AttackSpeedPerLevel],
