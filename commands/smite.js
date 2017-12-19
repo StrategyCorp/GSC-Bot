@@ -85,7 +85,23 @@ exports.run = async (client, message, [search, ...args]) => {
       "usage": "<clan name>",
       "desc": "not sure yeT?",
       "args": "Which clan would you like to look up?",
-      "api": [true, "searchteams", args[0]]
+      "api": [true, "searchteams", args[0]],
+      "func": function clan(data) {
+        let clans = [];
+        for (let clan of data) {
+          if (args[0].toLowerCase() === data.Name || args[0].toLowerCase() === data.tag) clans.push(info(clan));
+        }
+        const info = (clan) => {
+          let main = [
+            `**[${clan.Tag}]** ${clan.Name}`,
+            `**Founder:** ${clan.Founder}`,
+            `**Members:** ${clan.Players}`,
+            `**ID:** ${clan.TeamId}`
+          ];
+          return main.join('\n');
+        }
+        return message.channel.send(clans.join('\n\n'));
+      }
     },
     "god": {
       "name": "god",
@@ -416,7 +432,6 @@ exports.run = async (client, message, [search, ...args]) => {
         } else {
           let pages = client.chunkArray(m, 5);
           let pageNumber = args ? (/^\d+$/.test(args) ? (args > pages.length ? pages.length : (args === "0" ? 1 : args)) : 1) : 1;
-          console.log(pageNumber);
           var masteryEmbed = new Discord.RichEmbed()
             .setColor(settings.embedColour)
             .addField(`${user}'${s} Masteries`, `Page ${pageNumber} of ${pages.length}`);
