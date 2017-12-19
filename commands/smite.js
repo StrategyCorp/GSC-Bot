@@ -85,20 +85,21 @@ exports.run = async (client, message, [search, ...args]) => {
       "usage": "<clan name>",
       "desc": "not sure yeT?",
       "args": "Which clan would you like to look up?",
-      "api": [true, "searchteams", args[0]],
+      "api": [true, "searchteams", args.join(' ')],
       "func": function clan(data) {
-        let clans = [];
-        for (let clan of data) {
-          if (args[0].toLowerCase() === data.Name || args[0].toLowerCase() === data.tag) clans.push(info(clan));
-        }
         const info = (clan) => {
+          let tag = clan.Tag === "" ? "" : `**[${clan.Tag}]** `;
           let main = [
-            `**[${clan.Tag}]** ${clan.Name}`,
+            `${tag}${clan.Name}`,
             `**Founder:** ${clan.Founder}`,
             `**Members:** ${clan.Players}`,
             `**ID:** ${clan.TeamId}`
           ];
           return main.join('\n');
+        };
+        let clans = [];
+        for (let clan of data) {
+          if (args.join(' ').toLowerCase() === clan["Name"].toLowerCase() || args.join(' ').toLowerCase() === clan["Tag"].toLowerCase()) clans.push(info(clan));
         }
         return message.channel.send(clans.join('\n\n'));
       }
