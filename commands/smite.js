@@ -369,6 +369,14 @@ exports.run = async (client, message, [search, ...args]) => {
         return message.channel.send({embed: jokeEmbed});
       }
     },
+    "live": {
+      "name": "live",
+      "aliase": [],
+      "usage": "<player>",
+      "desc": "not sure yeT?",
+      "args": "Who would you like me to look up?",
+      "api": [true, ""]
+    },
     "mastery": {
       "name": "mastery",
       "aliase": ["masteries"],
