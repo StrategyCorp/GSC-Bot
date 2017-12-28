@@ -7,7 +7,7 @@ const Canvas = require("canvas");
 const fs = require('fs');
 const db = require('../data/smite.json');
 
-exports.run = (client, message, [search, ...args]) => {
+exports.run = async (client, message, [search, ...args]) => {
   const settings = client.settings.get(message.guild.id);
   search = search ? search.toLowerCase() : "help";
   var cmdObj = {
@@ -575,6 +575,10 @@ exports.run = (client, message, [search, ...args]) => {
   var authKey = process.env.SMITEAUTHID;
   function createSignature(method) {
     return md5(`${devID}${method}${authKey}${timestamp}`);
+  }
+  if (cmdObj[search].api === true) {
+    session();
+    await client.wait(2000);
   }
   cmdObj[search].func();
   var rankedTierObj = {
