@@ -578,7 +578,6 @@ exports.run = async (client, message, [search, ...args]) => {
   }
   if (cmdObj[search].api === true) {
     session();
-    await client.wait(2000);
   }
   cmdObj[search].func();
   var rankedTierObj = {
