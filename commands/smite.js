@@ -18,6 +18,7 @@ exports.run = (client, message, [search, ...args]) => {
       "desc": "Not sure yet, not done",
       "args": "Which God would you like me to look up?",
       "hidden": false,
+      "api": true,
       "func": function () {
         api("getgods", "1", function(a) {
           var ab = client.isInArray(abilityArray, args[args.length - 1]) ? args.pop() : "1";
@@ -60,6 +61,7 @@ exports.run = (client, message, [search, ...args]) => {
       "desc": "Looks up a build for a God",
       "args": "Which God would you like builds for?",
       "hidden": true,
+      "api": true,
       "func": function () {
         api("getitems", "1", function(i) {
           if (args[0] === "create") {
@@ -89,7 +91,8 @@ exports.run = (client, message, [search, ...args]) => {
       "usage": "<clan name>",
       "desc": "not sure yeT?",
       "args": "Which clan would you like to look up?",
-      "api": [true, "searchteams", args.join(' ')],
+      "hidden": false,
+      "api": true,
       "func": function () {
         api("searchteams", args.join(' '), function(c) {
           const info = (clan) => {
@@ -117,6 +120,7 @@ exports.run = (client, message, [search, ...args]) => {
       "desc": "Displays infomation on a chosen God",
       "args": "Which God would you like to look up?",
       "hidden": false,
+      "api": true,
       "func": function () {
         api("getgods", "1", function(g) {
           const findGod = (searchGod) => {
@@ -182,6 +186,7 @@ exports.run = (client, message, [search, ...args]) => {
       "desc": "Displayes a list of the users friends (without private profiles)",
       "args": "Who would you like me to look up?",
       "hidden": false,
+      "api": true,
       "func": function () {
         api("getfriends", args[0].replace(/_/g, ' '), function(f) {
           if (f.length === 0) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
@@ -200,6 +205,7 @@ exports.run = (client, message, [search, ...args]) => {
       "desc": "Displayes all smite commands and how to use them",
       "args": null,
       "hidden": false,
+      "api": false,
       "func": function () {
         const helpEmbed = new Discord.RichEmbed()
           .setColor(settings.embedColour)
@@ -217,6 +223,7 @@ exports.run = (client, message, [search, ...args]) => {
       "desc": "Displays a players match history",
       "args": "Who would you like me to look up?",
       "hidden": false,
+      "api": true,
       "func": function () {
         api("getmatchhistory", args[0].replace(/_/g, ' '), function(h) {
           if (h.length === 0) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
@@ -292,6 +299,7 @@ exports.run = (client, message, [search, ...args]) => {
       "desc": "Displayes an item or a list of items",
       "args": "Which item or term would you like me to look up?",
       "hidden": false,
+      "api": true,
       "func": function () {
         api("getitems", "1", function(i) {
           if (client.isInArray(itemArray, args.join(' ')) === true) {
@@ -381,6 +389,7 @@ exports.run = (client, message, [search, ...args]) => {
       "desc": "Tells you a smite joke",
       "args": null,
       "hidden": false,
+      "api": false,
       "func": function () {
         var jokeArrayArray = [
           ["Why does everyone think Bacchus is so annoying?", "Because he's always whining", "/u/MaggehG"],
@@ -412,6 +421,7 @@ exports.run = (client, message, [search, ...args]) => {
       "desc": "Displays a players highest masteried Gods",
       "args": "Who would you like me to look up?",
       "hidden": false,
+      "api": true,
       "func": function() {
         api("getgodranks", args[0].replace(/_/g, ' '), function(m) {
           if (m.length === 0) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
@@ -465,6 +475,7 @@ exports.run = (client, message, [search, ...args]) => {
       "desc": "?",
       "args": "match id?",
       "hidden": true,
+      "api": true,
       "func": function() {
         api("getmatchdetails", args[0], function(m) {
           if (m.length === 0) return message.channel.send(`:negative_squared_cross_mark: \`${args[0]}\` is not a valid match id`);
@@ -492,6 +503,7 @@ exports.run = (client, message, [search, ...args]) => {
       "desc": "Displays a players stats",
       "args": "Who would you like me to look up?",
       "hidden": false,
+      "api": true,
       "func": function() {
         api("getplayer", args[0].replace(/_/g, ' '), function(p) {
           if (p.length === 0) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
@@ -816,7 +828,7 @@ exports.run = (client, message, [search, ...args]) => {
     "rangda's": "rangda's mask"
   };
   var itemAliaseArray = Object.keys(itemAliaseObj);
-  function api(method, parameters, fn) {
+  function session() {
     let signature = createSignature("testsession");
     request.get({
       url: domain + `testsessionJson/${devID}/${signature}/${client.smite.get(`session{platform}`)}/${timestamp}`,
@@ -837,33 +849,35 @@ exports.run = (client, message, [search, ...args]) => {
             url: domain + `createsessionJson/${devID}/${signature}/${timestamp}`,
             json: true,
             headers: {'User-Agent': 'request'}
-          }, async (err, res, data) => {
+          }, (err, res, data) => {
             if (err) {
               return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
             } else if (res.statusCode !== 200) {
               return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
             } else {
               client.smite.set(`session${platform}`, data.session_id);
-              await client.wait(2000);
+              // await client.wait(2000);
             }
           });
         }
-        let signature = createSignature(method);
-        let url = domain + `${method}Json/${devID}/${signature}/${client.smite.get(`session${platform}`)}/${timestamp}/${parameters}`;
-        // console.log(url);
-        request.get({
-          url: url,
-          json: true,
-          headers: {'User-Agent': 'request'}
-        }, (err, res, data) => {
-          if (err) {
-            return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
-          } else if (res.statusCode !== 200) {
-            return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
-          } else {
-            fn(data);
-          }
-        });
+      }
+    });
+  }
+  function api(method, parameters, fn) {
+    let signature = createSignature(method);
+    let url = domain + `${method}Json/${devID}/${signature}/${client.smite.get(`session${platform}`)}/${timestamp}/${parameters}`;
+    // console.log(url);
+    request.get({
+      url: url,
+      json: true,
+      headers: {'User-Agent': 'request'}
+    }, (err, res, data) => {
+      if (err) {
+        return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
+      } else if (res.statusCode !== 200) {
+        return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
+      } else {
+        fn(data);
       }
     });
   }
