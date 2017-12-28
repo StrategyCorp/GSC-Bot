@@ -3,9 +3,7 @@ module.exports = (client, message) => {
   client.vgs(client, message);
   client.pointsMonitor(client, message);
   client.replyArray(client, message);
-  const settings = message.guild
-    ? client.settings.get(message.guild.id)
-    : client.config.serverSettings;
+  const settings = message.guild ? client.settings.get(message.guild.id) : client.config.serverSettings;
   message.settings = settings;
   if (message.content.indexOf(settings.prefix) !== 0) return;
   const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
