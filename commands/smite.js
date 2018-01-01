@@ -578,6 +578,7 @@ exports.run = async (client, message, [search, ...args]) => {
   }
   if (cmdObj[search].api === true) {
     session();
+    await client.wait(2000);
   }
   cmdObj[search].func();
   var rankedTierObj = {
@@ -859,7 +860,6 @@ exports.run = async (client, message, [search, ...args]) => {
               return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
             } else {
               client.smite.set(`session${platform}`, data.session_id);
-              // await client.wait(2000);
             }
           });
         }
@@ -874,12 +874,13 @@ exports.run = async (client, message, [search, ...args]) => {
       url: url,
       json: true,
       headers: {'User-Agent': 'request'}
-    }, (err, res, data) => {
+    }, async (err, res, data) => {
       if (err) {
         return message.channel.send(':negative_squared_cross_mark: Error: ' + err);
       } else if (res.statusCode !== 200) {
         return message.channel.send(':negative_squared_cross_mark: Status: ' + res.statusCode);
       } else {
+        await client.wait(2000);
         fn(data);
       }
     });
