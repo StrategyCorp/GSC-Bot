@@ -11,9 +11,8 @@ exports.run = function(client, message, args) {
     if (user) {
       const filterBy = user ? user.id : client.user.id;
       messages = messages.filter(m => m.author.id === filterBy).array().slice(0, amount);
-    } else {
-      message.channel.bulkDelete(messages).catch(error => console.log(error.stack));
     }
+    message.channel.bulkDelete(messages);
   });
 };
 
