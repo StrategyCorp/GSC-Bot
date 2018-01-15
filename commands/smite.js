@@ -90,7 +90,13 @@ exports.run = async (client, message, [search, ...args]) => {
       "hidden": false,
       "api": [true, "searchteams", args[0]],
       "func": function (data) {
-      
+        let clans = [];
+        const clan = (stats) => {
+          
+        }
+        for (let c of data) {
+          if (c["Name"].toLowerCase() === args[0].toLowerCase() || c["Tag"].toLowerCase() === args[0].toLowerCase()) c.push(clan(c));
+        }
       }
     },
     "god": {
@@ -285,7 +291,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "args": "Which item or term would you like me to look up?",
       "hidden": false,
       "api": [true, "getitems", "1"],
-      "func": function item(data) {
+      "func": function (data) {
         if (client.isInArray(itemArray, args.join(' ')) === true) {
           var filterItemArray = [];
             for (const item of data) {
@@ -374,7 +380,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "args": null,
       "hidden": false,
       "api": [false],
-      "func": function joke() {
+      "func": function () {
         var jokeArrayArray = [
           ["Why does everyone think Bacchus is so annoying?", "Because he's always whining", "/u/MaggehG"],
           ["What is Sol's favourite movie?", "Twilight: Breaking Down", "/u/MaggehG"],
@@ -405,7 +411,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "desc": "Get match details on a live match",
       "hidden": true,
       "api": [true, "getmatchidsbyqueue"],
-      "func": function(data) {
+      "func": function (data) {
       
       }
     },
@@ -417,7 +423,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "args": "Who would you like me to look up?",
       "hidden": false,
       "api": [true, "getgodranks", args[0] ? args[0].replace(/_/g, ' ') : args],
-      "func": function(data) {
+      "func": function (data) {
         if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
         var m = data;
         let gods = [];
@@ -469,7 +475,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "args": "match id?",
       "hidden": true,
       "api": [true, "getmatchdetails", args[0]],
-      "func": function match(data) {
+      "func": function (data) {
         if (data.length === 0) return message.channel.send(`:negative_squared_cross_mark: \`${args[0]}\` is not a valid match id`);
         var Image = Canvas.Image;
         var canvas = new Canvas(2304, 1408);
@@ -495,7 +501,7 @@ exports.run = async (client, message, [search, ...args]) => {
       "args": "Who would you like me to look up?",
       "hidden": false,
       "api": [true, "getplayer", args[0] ? args[0].replace(/_/g, ' ') : args],
-      "func": function player(data) {
+      "func": function (data) {
         if (!data[0]) return message.channel.send(`:negative_squared_cross_mark: I could not find that player. Either \`${args[0].replace(/_/g, ' ')}\` is wrong or the profile is private`);
         var p = data[0];
         if (p["Name"].startsWith('[') === true) {
