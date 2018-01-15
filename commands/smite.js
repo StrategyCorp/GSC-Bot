@@ -83,7 +83,7 @@ exports.run = async (client, message, [search, ...args]) => {
     },
     "clan": {
       "name": "clan",
-      "aliase": [],
+      "aliase": ["clans"],
       "usage": "<CLAN>",
       "desc": "Displays infomation on a chosen Clan",
       "args": "Which clan would you like me to look up?",
@@ -91,12 +91,20 @@ exports.run = async (client, message, [search, ...args]) => {
       "api": [true, "searchteams", args[0]],
       "func": function (data) {
         let clans = [];
-        const clan = (stats) => {
-          
+        const clan = (s) => {
+          let stats = [
+            `**[${s.Tag}]** ${s.Name}`,
+            `**Leader:** ${s.Founder}`,
+            `**Members:** ${s.Players}`,
+            `**ID:** ${s.TeamId}`,
+            `\n`
+          ];
+          return stats.join('\n');
         }
         for (let c of data) {
-          if (c["Name"].toLowerCase() === args[0].toLowerCase() || c["Tag"].toLowerCase() === args[0].toLowerCase()) c.push(clan(c));
+          if (c["Name"].toLowerCase() === args[0].toLowerCase() || c["Tag"].toLowerCase() === args[0].toLowerCase()) clans.push(clan(c));
         }
+        return message.channel.send(clans);
       }
     },
     "god": {
