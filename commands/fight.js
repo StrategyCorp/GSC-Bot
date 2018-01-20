@@ -10,7 +10,7 @@ exports.run = (client, message, args) => {
   const startCollector = message.channel.createMessageCollector(message => message);
   startCollector.on('collect', m => {
     if (m.content.startsWith('no') && m.author.id === user.id) {
-      startCollector.stop();
+      startCollector.stop('declined');
       return message.channel.send(`:crossed_swords: **${user.username}** has declined the fight`);
     } else if (m.content.startsWith('yes') && m.author.id === user.id) {
       message.channel.send(':crossed_swords: The fight will now commence! Both parties need to say `roll` to get their scores for the round');
@@ -21,6 +21,7 @@ exports.run = (client, message, args) => {
         second: user.id,
         secondScore: null,
         rounds: rounds,
+        needed: Math.ceil(rounds / 2),
         round: 1,
         score: [0, 0]
       };
@@ -40,7 +41,8 @@ exports.run = (client, message, args) => {
                   let theMessage = [
                     ':crossed_swords:',
                     `**${name}** has won round ${client.fight[message.guild.id].round}.`,
-                    `The score is now \`${client.fight[message.guild.id].score[0]} - ${client.fight[message.guild.id].score[1]}\``
+                    `The score is now \`${client.fight[message.guild.id].score[0]} - ${client.fight[message.guild.id].score[1]}\`\n`,
+                    `Total rounds: ${client.fight[message.guild.id].rounds} (First to ${client.fight[message.guild.id].needed})`
                   ];
                   return theMessage.join(' ');
                 }
@@ -51,7 +53,7 @@ exports.run = (client, message, args) => {
                   message.channel.send(endMessage(client.users.get(client.fight[message.guild.id].first).username));
                 } else if (client.fight[message.guild.id].firstScore < client.fight[message.guild.id].secondScore) {
                   client.fight[message.guild.id].score[1] = client.fight[message.guild.id].score[1] + 1;
-                  message.channel.send(`:crossed_swords: **${client.users.get(client.fight[message.guild.id].second).username}** has won the round. The score is now \`${client.fight[message.guild.id].score[0]} - ${client.fight[message.guild.id].score[1]}\``);
+                  message.channel.send(endMessage(client.users.get(client.fight[message.guild.id].second).username));
                 }
                 collector.stop();
               }
