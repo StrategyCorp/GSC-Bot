@@ -55,7 +55,6 @@ exports.run = (client, message, args) => {
                     collector.stop('roundEnd');
                     theMessage.push(`Total rounds: ${client.fight[message.guild.id].rounds} (First to ${client.fight[message.guild.id].needed})`);
                   }
-                  console.log(client.fight[message.guild.id]);
                   return theMessage.join(' ');
                 }
                 if (client.fight[message.guild.id].firstScore === client.fight[message.guild.id].secondScore) {
