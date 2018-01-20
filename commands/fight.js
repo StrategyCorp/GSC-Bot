@@ -55,11 +55,16 @@ exports.run = (client, message, args) => {
                   client.fight[message.guild.id].score[1] = client.fight[message.guild.id].score[1] + 1;
                   message.channel.send(endMessage(client.users.get(client.fight[message.guild.id].second).username));
                 }
-                collector.stop();
+                collector.stop('roundEnd');
               }
             } else {
               message.channel.send(`:crossed_swords: You have already rolled for this round. You scored \`${client.fight[message.guild.id][person + 'Score']}\``);
             }
+          }
+        });
+        collector.on('end', (collected, reason) => {
+          if (reason === 'roundEnd') {
+            
           }
         });
       }
