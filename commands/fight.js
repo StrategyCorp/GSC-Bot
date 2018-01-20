@@ -9,9 +9,9 @@ exports.run = (client, message, args) => {
   message.channel.send(`:crossed_swords: **${message.author.username}** has challenged **${user.username}** to a fight for **${rounds}** rounds, <@${user.id}> do you accept? (yes/no)`);
   const startCollector = message.channel.createMessageCollector(message => message);
   startCollector.on('collect', m => {
-    if (m.content.startsWith('no') && m.author.id === user.id) {
+    if (m.content.toLowerCase().startsWith('no') && m.author.id === user.id) {
       startCollector.stop('declined');
-    } else if (m.content.startsWith('yes') && m.author.id === user.id) {
+    } else if (m.content.toLowerCase().startsWith('yes') && m.author.id === user.id) {
       message.channel.send(':crossed_swords: The fight will now commence! Both parties need to say `roll` to get their scores for the round');
       client.fight[message.guild.id] = {
         active: true,
@@ -29,7 +29,7 @@ exports.run = (client, message, args) => {
       function makeRound () {
         const collector = message.channel.createMessageCollector(message => message);
         collector.on('collect', msg => {
-          if (msg.content.startsWith('roll') && (msg.author.id === client.fight[message.guild.id].first || msg.author.id === client.fight[message.guild.id].second)) {
+          if (msg.content.toLowerCase().startsWith('roll') && (msg.author.id === client.fight[message.guild.id].first || msg.author.id === client.fight[message.guild.id].second)) {
             let person = msg.author.id === client.fight[message.guild.id].first ? 'first' : 'second';
             if (client.fight[message.guild.id][person + 'Score'] === null) {
               let score = client.randomNum(1, 100);
