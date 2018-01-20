@@ -7,9 +7,7 @@ exports.run = (client, message, args) => {
   if (user.id === message.author.id) return message.channel.send(':negative_squared_cross_mark: You may not fight yourself');
   if (message.mentions.users.size < 1) return message.channel.send(':negative_squared_cross_mark: You must mention someone to fight them');
   message.channel.send(`:crossed_swords: **${message.author.username}** has challenged **${user.username}** to a fight for **${rounds}** rounds, <@${user.id}> do you accept? (yes/no)`);
-  const startCollector = message.channel.createMessageCollector(message => message, 
-                                                                {time: 30000}
-                                                               );
+  const startCollector = message.channel.createMessageCollector(message => message);
   startCollector.on('collect', m => {
     if (m.content.startsWith('no') && m.author.id === user.id) {
       startCollector.stop('declined');
@@ -73,6 +71,7 @@ exports.run = (client, message, args) => {
           }
         });
         collector.on('end', (collected, reason) => {
+          if (reason === 'roundEnd') makeRound();
           if (reason === 'gameEnd') {
             client.fight[message.guild.id] = {active: false};
             return;
