@@ -29,7 +29,10 @@ exports.run = (client, message, args) => {
       const collector = message.channel.createMessageCollector(message => message);
       collector.on('collect', msg => {
         if (msg.content.startsWith('roll') && (msg.author.id === client.fight[message.guild.id].first || msg.author.id === client.fight[message.guild.id].second)) {
-          
+          let person = msg.author.id === client.fight[message.guild.id].first ? 'f' : 's';
+          let score = client.randomNum(1, 100);
+          message.channel.send(`**${msg.author.username}** has rolled \`${score}\``);
+          console.log(client.fight[message.guild.id]);
         }
       });
     }
