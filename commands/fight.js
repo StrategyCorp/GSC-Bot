@@ -28,8 +28,8 @@ exports.run = (client, message, args) => {
       console.log(client.fight[message.guild.id]);
       const collector = message.channel.createMessageCollector(message => message);
       collector.on('collect', msg => {
-        if (msg.content.startsWith('roll')) {
-        
+        if (msg.content.startsWith('roll') && (msg.author.id === client.fight[message.guild.id].first || msg.author.id === client.fight[message.guild.id].second)) {
+          
         }
       });
     }
