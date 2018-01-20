@@ -24,7 +24,7 @@ exports.run = (client, message, args) => {
         secondPoint: 0,
         rounds: rounds,
         needed: Math.ceil(rounds / 2),
-        round: 1
+        round: 0
       };
       makeRound();
       function makeRound () {
@@ -39,7 +39,9 @@ exports.run = (client, message, args) => {
               console.log(client.fight[message.guild.id]);
               if (client.fight[message.guild.id].firstScore !== null && client.fight[message.guild.id].secondScore !== null) {
                 const endMessage = (player) => {
-                  let name = client.users.get(client.fight[message.guild.id].first).username;
+                  client.fight[message.guild.id][player + 'Point'] = client.fight[message.guild.id][player + 'Point'] + 1;
+                  client.fight[message.guild.id].round = client.fight[message.guild.id].round + 1;
+                  let name = client.users.get(client.fight[message.guild.id][player]).username;
                   let theMessage = [
                     ':crossed_swords:',
                     `**${name}** has won round ${client.fight[message.guild.id].round}.`,
@@ -52,7 +54,6 @@ exports.run = (client, message, args) => {
                     collector.stop('gameEnd');
                     theMessage.push(`**${name}** has won the fight!`);
                   }
-                  
                   return theMessage.join(' ');
                 }
                 if (client.fight[message.guild.id].firstScore === client.fight[message.guild.id].secondScore) {
@@ -69,7 +70,6 @@ exports.run = (client, message, args) => {
         });
         collector.on('end', (collected, reason) => {
           console.log(reason);
-          if (reason === 'roundEnd') makeRound();
         });
       }
     }
