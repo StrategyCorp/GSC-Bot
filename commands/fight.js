@@ -3,14 +3,19 @@ exports.run = (client, message, args) => {
   let user = message.mentions.users.first();
   if (user.id === message.author.id) return message.channel.send(':negative_squared_cross_mark: You may not fight yourself');
   if (message.mentions.users.size < 1) return message.channel.send(':negative_squared_cross_mark: You must mention someone to fight them');
-  message.channel.send(`**${message.author.username}** has challenged **${user.username}** to a fight, <@${user.id}> do you accept? (yes/no)`);
-  const collector = message.channel.createMessageCollector(message => message);
-  collector.on('collect', m => {
+  message.channel.send(`**${message.author.username}** has challenged **${user.username}** to a fight for **${rounds}** rounds, <@${user.id}> do you accept? (yes/no)`);
+  const startCollector = message.channel.createMessageCollector(message => message);
+  startCollector.on('collect', m => {
     if (m.content.startsWith('no') && m.author.id === user.id) {
-      collector.stop();
+      startCollector.stop();
       return message.channel.send('ended');
     } else if (m.content.startsWith('yes') && m.author.id === user.id) {
       message.channel.send('The fight will now commence! Both parties need to say `roll` to get their scores for the round');
+      
+      const collector = message.channel.createMessageCollector(message => message);
+      collector.on('collect', msg => {
+        
+      });
     }
   });
 };

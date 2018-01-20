@@ -11,6 +11,7 @@ require("./util/functions.js")(client);
 client.commands = new Enmap();
 client.aliases = new Enmap();
 client.queue = new Enmap();
+client.fight = new Enmap();
 client.smite = new Enmap({provider: new EnmapLevel({name: "smite"})});
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 client.gpoints = new Enmap({provider: new EnmapLevel({name: "gpoints"})});
