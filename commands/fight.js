@@ -2,16 +2,15 @@ exports.run = (client, message, args) => {
   if (!client.hasOwnProperty('fight')) client.fight = {};
   if (!client.fight.hasOwnProperty(message.guild.id)) {client.fight[message.guild.id] = {active: false};};
   if (client.fight[message.guild.id].active === true) return message.channel.send(`:negative_squared_cross_mark: A fight is already taking place between **${client.users.get(client.fight[message.guild.id].first).username}** and **${client.users.get(client.fight[message.guild.id].second).username}**. We don't want it to be a bloodbath, do we?`);
-  let rounds = args[0] ? (/^\d+$/.test(args[0]) ? (1 < args[0] ? (20 > args[0] ? (args[0] % 2 === 0 ? parseInt(args[0]) + 1 : args[0]) : 3) : 3) : 3) : 3;
+  let rounds = args[0] ? (/^\d+$/.test(args[0]) ? (0 < args[0] ? (23 > args[0] ? (args[0] % 2 === 0 ? parseInt(args[0]) + 1 : args[0]) : 3) : 3) : 3) : 3;
   let user = message.mentions.users.first();
   if (user.id === message.author.id) return message.channel.send(':negative_squared_cross_mark: You may not fight yourself');
   if (message.mentions.users.size < 1) return message.channel.send(':negative_squared_cross_mark: You must mention someone to fight them');
   message.channel.send(`:crossed_swords: **${message.author.username}** has challenged **${user.username}** to a fight for **${rounds}** rounds, <@${user.id}> do you accept? (yes/no)`);
-  const startCollector = message.channel.createMessageCollector(message => message);
+  const startCollector = message.channel.createMessageCollector(message => message, {time: 15000});
   startCollector.on('collect', m => {
     if (m.content.startsWith('no') && m.author.id === user.id) {
       startCollector.stop('declined');
-      return message.channel.send(`:crossed_swords: **${user.username}** has declined the fight`);
     } else if (m.content.startsWith('yes') && m.author.id === user.id) {
       message.channel.send(':crossed_swords: The fight will now commence! Both parties need to say `roll` to get their scores for the round');
       client.fight[message.guild.id] = {
@@ -47,12 +46,12 @@ exports.run = (client, message, args) => {
                     `**${name}** has won round ${client.fight[message.guild.id].round}.`,
                     `The score is now \`${client.fight[message.guild.id].firstPoint} - ${client.fight[message.guild.id].secondPoint}\`\n`       
                   ];
-                  if (client.fight[message.guild.id].firstPoint < client.fight[message.guild.id].needed || client.fight[message.guild.id].secondPoint < client.fight[message.guild.id].needed) {
-                    collector.stop('roundEnd');
-                    theMessage.push(`Total rounds: ${client.fight[message.guild.id].rounds} (First to ${client.fight[message.guild.id].needed})`);
-                  } else {
+                  if (client.fight[message.guild.id].firstPoint === client.fight[message.guild.id].needed || client.fight[message.guild.id].secondPoint === client.fight[message.guild.id].needed) {
                     collector.stop('gameEnd');
                     theMessage.push(`**${name}** has won the fight!`);
+                  } else {
+                    collector.stop('roundEnd');
+                    theMessage.push(`Total rounds: ${client.fight[message.guild.id].rounds} (First to ${client.fight[message.guild.id].needed})`);
                   }
                   return theMessage.join(' ');
                 }
@@ -70,9 +69,17 @@ exports.run = (client, message, args) => {
         });
         collector.on('end', (collected, reason) => {
           console.log(reason);
+          if (reason === 'gameEnd') {
+            client.fight[message.guild.id] = {active: false};
+            return;
+          }
         });
       }
     }
+  });
+  startCollector.on('end', (collected, reason) => {
+    if (reason === 'declined') return message.channel.send(`:crossed_swords: **${user.username}** has declined the fight`);
+    if (reason === 'time') return message.channel.send(`:crossed_swords: **${user.username}** has ran out of time`);
   });
 };
 
