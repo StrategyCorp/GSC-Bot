@@ -29,10 +29,15 @@ exports.run = (client, message, args) => {
       const collector = message.channel.createMessageCollector(message => message);
       collector.on('collect', msg => {
         if (msg.content.startsWith('roll') && (msg.author.id === client.fight[message.guild.id].first || msg.author.id === client.fight[message.guild.id].second)) {
-          let person = msg.author.id === client.fight[message.guild.id].first ? 'f' : 's';
-          let score = client.randomNum(1, 100);
-          message.channel.send(`**${msg.author.username}** has rolled \`${score}\``);
-          console.log(client.fight[message.guild.id]);
+          let person = msg.author.id === client.fight[message.guild.id].first ? 'first' : 'second';
+          if (client.fight[message.guild.id][person + 'Score'] === null) {
+            let score = client.randomNum(1, 100);
+            client.fight[message.guild.id][person + 'Score'] = score;
+            message.channel.send(`**${msg.author.username}** has rolled \`${score}\``);
+            console.log(client.fight[message.guild.id]);
+          } else {
+            message.channel.send(`You have already rolled for this round. You scored \`${client.fight[message.guild.id][person + 'Score']}\``);
+          }
         }
       });
     }
