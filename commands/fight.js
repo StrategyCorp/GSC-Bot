@@ -18,12 +18,13 @@ exports.run = (client, message, args) => {
         active: true,
         first: message.author.id,
         firstScore: null,
+        firstPoint: 0,
         second: user.id,
         secondScore: null,
+        secondPoint: 0,
         rounds: rounds,
         needed: Math.ceil(rounds / 2),
-        round: 1,
-        score: [0, 0]
+        round: 1
       };
       makeRound();
       function makeRound () {
@@ -37,13 +38,14 @@ exports.run = (client, message, args) => {
               message.channel.send(`:crossed_swords: **${msg.author.username}** has rolled \`${score}\``);
               console.log(client.fight[message.guild.id]);
               if (client.fight[message.guild.id].firstScore !== null && client.fight[message.guild.id].secondScore !== null) {
-                const endMessage = (name) => {
+                const endMessage = (player) => {
+                  let name = client.users.get(client.fight[message.guild.id].first).username;
                   let theMessage = [
                     ':crossed_swords:',
                     `**${name}** has won round ${client.fight[message.guild.id].round}.`,
-                    `The score is now \`${client.fight[message.guild.id].score[0]} - ${client.fight[message.guild.id].score[1]}\`\n`       
+                    `The score is now \`${client.fight[message.guild.id].firstPoint} - ${client.fight[message.guild.id].secondPoint}\`\n`       
                   ];
-                  if (client.fight[message.guild.id].score[0] < client.fight[message.guild.id].needed || client.fight[message.guild.id].score[1] < client.fight[message.guild.id].needed) {
+                  if (client.fight[message.guild.id].firstPoint < client.fight[message.guild.id].needed || client.fight[message.guild.id].secondPoint < client.fight[message.guild.id].needed) {
                     collector.stop('roundEnd');
                     theMessage.push(`Total rounds: ${client.fight[message.guild.id].rounds} (First to ${client.fight[message.guild.id].needed})`);
                   } else {
@@ -55,12 +57,9 @@ exports.run = (client, message, args) => {
                 }
                 if (client.fight[message.guild.id].firstScore === client.fight[message.guild.id].secondScore) {
                   message.channel.send(':crossed_swords: The round was a draw and will be redone');                                                                                        
-                } else if (client.fight[message.guild.id].firstScore > client.fight[message.guild.id].secondScore) {
-                  client.fight[message.guild.id].score[0] = client.fight[message.guild.id].score[0] + 1;
-                  message.channel.send(endMessage(client.users.get(client.fight[message.guild.id].first).username));
-                } else if (client.fight[message.guild.id].firstScore < client.fight[message.guild.id].secondScore) {
-                  client.fight[message.guild.id].score[1] = client.fight[message.guild.id].score[1] + 1;
-                  message.channel.send(endMessage(client.users.get(client.fight[message.guild.id].second).username));
+                } else {
+                  let winner = client.fight[message.guild.id].firstScore > client.fight[message.guild.id].secondScore ? 'first' : 'second';
+                  message.channel.send(endMessage(winner));
                 }
               }
             } else {
