@@ -1,7 +1,8 @@
 exports.run = (client, message, args) => {
   if (!client.hasOwnProperty('fight')) client.fight = {};
-  if (Object.keys(client.fight[message.guild.id]) === 0) client.fight[message.guild.id] = {active: false};
-  if (client.fight[message.guild.id].active === true) return message.channel.send(`:negative_squared_cross_mark: A fight is already taking place between **${client.users.get(client.fight[message.guild.id].first)}** and **${client.users.get(client.fight[message.guild.id].second)}**. We don't want it to be a bloodbath, do we?`);
+  if (!client.fight.hasOwnProperty(message.guild.id)) {client.fight[message.guild.id] = {active: false};};
+  console.log(client.fight[message.guild.id]);
+  if (client.fight[message.guild.id].active === true) return message.channel.send(`:negative_squared_cross_mark: A fight is already taking place between **${client.users.get(client.fight[message.guild.id].first).username}** and **${client.users.get(client.fight[message.guild.id].second).username}**. We don't want it to be a bloodbath, do we?`);
   let rounds = args[0] ? (/^\d+$/.test(args[0]) ? (1 < args[0] ? (20 > args[0] ? args[0] : 3) : 3) : 3) : 3;
   let user = message.mentions.users.first();
   if (user.id === message.author.id) return message.channel.send(':negative_squared_cross_mark: You may not fight yourself');
@@ -17,14 +18,19 @@ exports.run = (client, message, args) => {
       client.fight[message.guild.id] = {
         active: true,
         first: message.author.id,
+        firstScore: null,
         second: user.id,
+        secondScore: null,
         rounds: rounds,
         round: 1,
         score: [0, 0]
       };
+      console.log(client.fight[message.guild.id]);
       const collector = message.channel.createMessageCollector(message => message);
       collector.on('collect', msg => {
+        if (msg.content.startsWith('roll')) {
         
+        }
       });
     }
   });
