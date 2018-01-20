@@ -36,14 +36,19 @@ exports.run = (client, message, args) => {
               message.channel.send(`:crossed_swords: **${msg.author.username}** has rolled \`${score}\``);
               console.log(client.fight[message.guild.id]);
               if (client.fight[message.guild.id].firstScore !== null && client.fight[message.guild.id].secondScore !== null) {
-                const endMessage = (name, score) => {
-                  
+                const endMessage = (name) => {
+                  let theMessage = [
+                    ':crossed_swords:',
+                    `**${name}** has won round ${client.fight[message.guild.id].round}.`,
+                    `The score is now \`${client.fight[message.guild.id].score[0]} - ${client.fight[message.guild.id].score[1]}\``
+                  ];
+                  return theMessage.join(' ');
                 }
                 if (client.fight[message.guild.id].firstScore === client.fight[message.guild.id].secondScore) {
                   message.channel.send(':crossed_swords: The round was a draw and will be redone');                                                                                        
                 } else if (client.fight[message.guild.id].firstScore > client.fight[message.guild.id].secondScore) {
                   client.fight[message.guild.id].score[0] = client.fight[message.guild.id].score[0] + 1;
-                  message.channel.send(`:crossed_swords: **${client.users.get(client.fight[message.guild.id].first).username}** has won the round. The score is now \`${client.fight[message.guild.id].score[0]} - ${client.fight[message.guild.id].score[1]}\``);
+                  message.channel.send(endMessage(client.users.get(client.fight[message.guild.id].first).username));
                 } else if (client.fight[message.guild.id].firstScore < client.fight[message.guild.id].secondScore) {
                   client.fight[message.guild.id].score[1] = client.fight[message.guild.id].score[1] + 1;
                   message.channel.send(`:crossed_swords: **${client.users.get(client.fight[message.guild.id].second).username}** has won the round. The score is now \`${client.fight[message.guild.id].score[0]} - ${client.fight[message.guild.id].score[1]}\``);
