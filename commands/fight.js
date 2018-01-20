@@ -34,7 +34,15 @@ exports.run = (client, message, args) => {
             message.channel.send(`:crossed_swords: **${msg.author.username}** has rolled \`${score}\``);
             console.log(client.fight[message.guild.id]);
             if (client.fight[message.guild.id].firstScore !== null && client.fight[message.guild.id].secondScore !== null) {
-              if (client.fight[message.guild.id].firstScore === client.fight[message.guild.id].secondScore) return message.channel.send(':crossed_swords: The round');
+              if (client.fight[message.guild.id].firstScore === client.fight[message.guild.id].secondScore) {
+                message.channel.send(':crossed_swords: The round was a draw and will be redone');                                                                                        
+              } else if (client.fight[message.guild.id].firstScore > client.fight[message.guild.id].secondScore) {
+                client.fight[message.guild.id].score[0] = client.fight[message.guild.id].score[0] + 1;
+                message.channel.send(`:crossed_swords: **${client.users.get(client.fight[message.guild.id].first).username}** has won the round. The score is now \`${client.fight[message.guild.id].score[0]} - ${client.fight[message.guild.id].score[1]}\``);
+              } else if (client.fight[message.guild.id].firstScore < client.fight[message.guild.id].secondScore) {
+                client.fight[message.guild.id].score[1] = client.fight[message.guild.id].score[1] + 1;
+                message.channel.send(`:crossed_swords: **${client.users.get(client.fight[message.guild.id].second).username}** has won the round. The score is now \`${client.fight[message.guild.id].score[0]} - ${client.fight[message.guild.id].score[1]}\``);
+              }
             }
           } else {
             message.channel.send(`:crossed_swords: You have already rolled for this round. You scored \`${client.fight[message.guild.id][person + 'Score']}\``);
