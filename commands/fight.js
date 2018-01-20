@@ -7,7 +7,9 @@ exports.run = (client, message, args) => {
   if (user.id === message.author.id) return message.channel.send(':negative_squared_cross_mark: You may not fight yourself');
   if (message.mentions.users.size < 1) return message.channel.send(':negative_squared_cross_mark: You must mention someone to fight them');
   message.channel.send(`:crossed_swords: **${message.author.username}** has challenged **${user.username}** to a fight for **${rounds}** rounds, <@${user.id}> do you accept? (yes/no)`);
-  const startCollector = message.channel.createMessageCollector(message => message, {time: 15000});
+  const startCollector = message.channel.createMessageCollector(message => message, 
+                                                                {time: 30000}
+                                                               );
   startCollector.on('collect', m => {
     if (m.content.startsWith('no') && m.author.id === user.id) {
       startCollector.stop('declined');
@@ -35,9 +37,11 @@ exports.run = (client, message, args) => {
               let score = client.randomNum(1, 100);
               client.fight[message.guild.id][person + 'Score'] = score;
               message.channel.send(`:crossed_swords: **${msg.author.username}** has rolled \`${score}\``);
-              console.log(client.fight[message.guild.id]);
               if (client.fight[message.guild.id].firstScore !== null && client.fight[message.guild.id].secondScore !== null) {
                 const endMessage = (player) => {
+                  console.log(client.fight[message.guild.id]);
+                  client.fight[message.guild.id].firstScore = null;
+                  client.fight[message.guild.id].secondScore = null;
                   client.fight[message.guild.id][player + 'Point'] = client.fight[message.guild.id][player + 'Point'] + 1;
                   client.fight[message.guild.id].round = client.fight[message.guild.id].round + 1;
                   let name = client.users.get(client.fight[message.guild.id][player]).username;
@@ -53,13 +57,14 @@ exports.run = (client, message, args) => {
                     collector.stop('roundEnd');
                     theMessage.push(`Total rounds: ${client.fight[message.guild.id].rounds} (First to ${client.fight[message.guild.id].needed})`);
                   }
+                  console.log(client.fight[message.guild.id]);
                   return theMessage.join(' ');
                 }
                 if (client.fight[message.guild.id].firstScore === client.fight[message.guild.id].secondScore) {
                   message.channel.send(':crossed_swords: The round was a draw and will be redone');                                                                                        
                 } else {
                   let winner = client.fight[message.guild.id].firstScore > client.fight[message.guild.id].secondScore ? 'first' : 'second';
-                  message.channel.send(endMessage(winner));
+                  message.channel.send(endMessage(winner));  
                 }
               }
             } else {
@@ -68,7 +73,6 @@ exports.run = (client, message, args) => {
           }
         });
         collector.on('end', (collected, reason) => {
-          console.log(reason);
           if (reason === 'gameEnd') {
             client.fight[message.guild.id] = {active: false};
             return;
