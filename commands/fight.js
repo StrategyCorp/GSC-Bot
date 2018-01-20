@@ -41,9 +41,16 @@ exports.run = (client, message, args) => {
                   let theMessage = [
                     ':crossed_swords:',
                     `**${name}** has won round ${client.fight[message.guild.id].round}.`,
-                    `The score is now \`${client.fight[message.guild.id].score[0]} - ${client.fight[message.guild.id].score[1]}\`\n`,
-                    `Total rounds: ${client.fight[message.guild.id].rounds} (First to ${client.fight[message.guild.id].needed})`
+                    `The score is now \`${client.fight[message.guild.id].score[0]} - ${client.fight[message.guild.id].score[1]}\`\n`       
                   ];
+                  if (client.fight[message.guild.id].score[0] < client.fight[message.guild.id].needed || client.fight[message.guild.id].score[1] < client.fight[message.guild.id].needed) {
+                    collector.stop('roundEnd');
+                    theMessage.push(`Total rounds: ${client.fight[message.guild.id].rounds} (First to ${client.fight[message.guild.id].needed})`);
+                  } else {
+                    collector.stop('gameEnd');
+                    theMessage.push(`**${name}** has won the fight!`);
+                  }
+                  
                   return theMessage.join(' ');
                 }
                 if (client.fight[message.guild.id].firstScore === client.fight[message.guild.id].secondScore) {
@@ -55,7 +62,6 @@ exports.run = (client, message, args) => {
                   client.fight[message.guild.id].score[1] = client.fight[message.guild.id].score[1] + 1;
                   message.channel.send(endMessage(client.users.get(client.fight[message.guild.id].second).username));
                 }
-                collector.stop('roundEnd');
               }
             } else {
               message.channel.send(`:crossed_swords: You have already rolled for this round. You scored \`${client.fight[message.guild.id][person + 'Score']}\``);
@@ -63,9 +69,8 @@ exports.run = (client, message, args) => {
           }
         });
         collector.on('end', (collected, reason) => {
-          if (reason === 'roundEnd') {
-            
-          }
+          console.log(reason);
+          if (reason === 'roundEnd') makeRound();
         });
       }
     }
