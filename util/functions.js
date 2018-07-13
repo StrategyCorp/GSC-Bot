@@ -1,5 +1,5 @@
 const moment = require('moment');
-const vgs = require('../data/vgs.json');
+
 
 module.exports = (client) => {
   client.log = (message) => {
