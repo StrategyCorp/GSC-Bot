@@ -11,18 +11,18 @@ const config = {
   "serverPoints": {},
   "serverSettings": {
     "prefix": "!",
-    "adminRole": "admin",
+    "adminRole": "Bot Admin",
     "iamroles": "",
-    "currency": "Points",
+    "currency": "points",
     "defaultChannel": "general",
     "welcomeMessage": "Welcome {{user}} to {{guild}}. Member count is now {{memberCount}}",
-    "welcomeEnable": "false",
+    "welcomeEnable": "true",
     "leaveMessage": "{{user}} has left {{guild}}. Member count is now {{memberCount}}",
-    "leaveEnable": "false",
-    "autoRole": "member",
-    "autoEnable": "false",
+    "leaveEnable": "true",
+    "autoRole": "New Member",
+    "autoEnable": "true",
     "modlogChannel": "mod-log",
-    "modlogEnable": "false",
+    "modlogEnable": "true",
     "embedColour": "#8F00FF"
   }
 }

@@ -5,7 +5,7 @@ exports.run = async (client, message, [search, key, ...value]) => {
   const settings = client.settings.get(message.guild.id);
   let perms = message.member.hasPermission("ADMINISTRATOR");
   let adminRole = message.guild.roles.find("name", settings.adminRole);
-  if (perms === false || message.member.roles.has(adminRole) || message.author.id !== client.config.ownerId) return message.channel.send(':negative_squared_cross_mark: You do not have permission. You need \`ADMINISTRATOR\`');
+  if (perms === false || message.member.roles.has(adminRole) || message.author.id == client.config.ownerId) return message.channel.send(':negative_squared_cross_mark: You do not have permission. You need \`ADMINISTRATOR\`');
   if (search === "help") {
     var cmdArray = [
       ["add", "<key> <value>", "No too show why this is here yet but it is so..."],
