@@ -4,7 +4,7 @@ var user = message.mentions.members.first();
 
   fs.appendFile(`${user}`,"\n")
   var date = new Date();
-  var dataf = date+args;
+  var dataf = date+args+message.author
   var datafs = dataf.replace(/,/g," ");
   message.channel.send(`${user} Data Has been saved with this data \n ${datafs}`);
   fs.appendFile(`${user}`, datafs , function (err) {
