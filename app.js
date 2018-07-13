@@ -17,6 +17,25 @@ client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 client.gpoints = new Enmap({provider: new EnmapLevel({name: "gpoints"})});
 client.spoints = new Enmap({provider: new EnmapLevel({name: "spoints"})});
 
+const mysql = require('mysql');
+
+
+var con = mysql.createConnection({
+  host: "gscstorage.c6yizf7g9gif.us-east-2.rds.amazonaws.com",
+  user: "chickenbone",
+  password: "m4290fIm1dg5y7!h2002",
+  database: "storage"
+});
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected! To mysql database!");
+  var sql = "INSERT INTO users (name, address) VALUES ('test', 'test')";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 record inserted");
+  });
+});
+
 const init = async () => {
   const cmdFiles = await readdir("./commands/");
   client.log(`Loading a total of ${cmdFiles.length} commands`);
