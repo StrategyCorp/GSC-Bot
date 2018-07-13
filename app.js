@@ -16,7 +16,7 @@ client.smite = new Enmap({provider: new EnmapLevel({name: "smite"})});
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 client.gpoints = new Enmap({provider: new EnmapLevel({name: "gpoints"})});
 client.spoints = new Enmap({provider: new EnmapLevel({name: "spoints"})});
-client.user.setActivity(`Serving ${client.guilds.size} GSC servers`);
+
 const init = async () => {
   const cmdFiles = await readdir("./commands/");
   client.log(`Loading a total of ${cmdFiles.length} commands`);

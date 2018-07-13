@@ -6,12 +6,6 @@ module.exports = (client) => {
     console.log(`[${moment().format("YYYY-MM-DD HH:mm:ss")}] ${message}`);
   };
 
-  client.vgs = (client, message) => {
-    if (message.channel.type !== 'text') return;
-    if (vgs[message.content.toLowerCase()]) {
-      message.channel.send(vgs[message.content.toLowerCase()]);
-    }
-  };
   
   client.replyArray = (client, message) => {
     if (message.channel.type !== 'text') return;
