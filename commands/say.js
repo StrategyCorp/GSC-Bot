@@ -12,5 +12,5 @@ exports.cmdConfig = {
   aliases: ['s','announce', 'a'],
   description: "Creates an announcement on the announcements channel",
   usage: "!say <announcement>  \nAliases: s, announce, a",
-  type: "core"
+  type: "gsc"
 };

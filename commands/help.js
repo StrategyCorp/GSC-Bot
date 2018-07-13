@@ -5,6 +5,7 @@ exports.run = (client, message, args) => {
   if (!args[0]) {
     let cmdName = client.commands.map(c => `${c.cmdConfig.name}type=${c.cmdConfig.type}`);
     let core = cmdName.filter(filterCore).join(', ').replace(/type=core/g, '');
+    let gsc = cmdName.filter(filterGSC).join(', ').replace(/type=gsc/g, '');
     let info = cmdName.filter(filterInfo).join(', ').replace(/type=info/g, '');
     let mod = cmdName.filter(filterMod).join(', ').replace(/type=mod/g, '');
     let clnt = cmdName.filter(filterClnt).join(', ').replace(/type=client/g, '');
@@ -13,6 +14,7 @@ exports.run = (client, message, args) => {
       .setThumbnail(client.user.avatarURL)
       .setTitle(`Use ${settings.prefix}help [command] for more infomation`)
       .addField('Core', core)
+      .addField('GSC', gsc)
       .addField('Infomation', info)
       .addField('Mod', mod);
     if (message.author.id === client.config.ownerId) normalHelp.addField('Client', clnt);
@@ -37,6 +39,10 @@ exports.run = (client, message, args) => {
 
 function filterCore(type) {
   return type.includes('type=core');
+}
+
+function filterGSC(type) {
+  return type.includes('type=gsc');
 }
 
 
