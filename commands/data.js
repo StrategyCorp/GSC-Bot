@@ -20,6 +20,6 @@ exports.cmdConfig = {
   name: "data",
   aliases: ['d','data', 'ort'],
   description: "Manages GSC User Data",
-  usage: "!",
+  usage: "!data <user> <data>",
   type: "gsc"
 };
