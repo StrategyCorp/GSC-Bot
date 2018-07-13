@@ -1,14 +1,18 @@
 var fs = require('fs');
 module.exports.run = async (bot, message, args) => {
-var user= message.mentions.members.first();
-var data =  fs.readFile(`${user}`)
-
+var userg= message.mentions.members.first();
+fs.readFile(`/app/${userg}`, 'utf8', function (err,data) {
+if (err) {
+    return console.log(err);
+  }
+  message.channel.send(data);
+});
 }
 
 exports.cmdConfig = {
-  name: "data",
-  aliases: ['d','data', 'ort'],
-  description: "Manages GSC User Data",
-  usage: "!",
+  name: "get",
+  aliases: ['g','get', 'info'],
+  description: "Gets GSC user info",
+  usage: "!get <user>",
   type: "gsc"
 };

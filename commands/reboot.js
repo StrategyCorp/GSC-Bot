@@ -1,5 +1,5 @@
 exports.run = async (client, message) => {
-  await message.channel.send(":white_check_mark: Bot is shutting down.");
+  await message.channel.send(":white_check_mark: Bot is restarting.");
   client.commands.forEach( async cmd => {
     await client.unloadCommand(cmd);
   });
