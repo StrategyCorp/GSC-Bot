@@ -23,7 +23,8 @@
     "request": "^2.83.0",
     "snekfetch": "^3.6.1",
     "util": "^0.10.3",
-    "ytdl-core": "^0.18.7"
+    "ytdl-core": "^0.18.7",
+    "mysql": "^2.15.0"
   },
   "engines": {
     "node": "8.4.0"
