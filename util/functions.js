@@ -14,18 +14,6 @@ module.exports = (client) => {
     }
   };
   
-  client.pointsMonitor = (client, message) => {
-    if (message.channel.type !=='text') return;
-    const score = client.gpoints.get(message.author.id) || { points: 0, level: 0 };
-    score.points++;
-    score.level = Math.floor(0.1 * Math.sqrt(score.points));
-    client.gpoints.set(message.author.id, score);
-    
-    const spoints = client.spoints.get(message.guild.id);
-    if (!spoints[message.author.id] || spoints[message.author.id] === NaN) spoints[message.author.id] = [0, 0];
-    spoints[message.author.id] = [parseInt(spoints[message.author.id][0]) + 1, parseInt(spoints[message.author.id][1]) + 1];
-    client.spoints.set(message.guild.id, spoints);
-  };
 
   
   client.awaitReply = async (msg, question, limit = 60000) => {
