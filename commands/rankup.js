@@ -1,9 +1,16 @@
+const Discord = require("discord.js");
+const { promisify } = require("util");
+const readdir = promisify(require("fs").readdir);
+const Enmap = require("enmap");
+const EnmapLevel = require("enmap-level");
+const client = new Discord.Client();
 var fs = require('fs');
 module.exports.run = async (userg, message, args) => {
 if(message.member.roles.find("name", "Bot Admin")){
 var userg= message.mentions.members.first();
-if(message.guild.roles.find("name", "IN-Processing").userg){
-userg.addRole(`${userg}`, "Clearance Level -1 (CL-1)")
+var roleArray = userg.roles.filter(r => r.id !== message.guild.id).map(role => role.name).join(', ');
+if(roleArray.includes("IN-Processing")){
+userg.addRole("name", "Clearance Level -1 (CL-1)")
 userg.addRole("name", "[GS-01] Basic Field Officer") 
 userg.removeRole("name", "IN-Processing")
 userg.addRole("name", "BE ADVISED!!!!")
