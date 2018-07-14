@@ -10,7 +10,7 @@ if(message.member.roles.find("name", "Bot Admin")){
 var userg= message.mentions.members.first();
 var roleArray = userg.roles.filter(r => r.id !== message.guild.id).map(role => role.name).join(', ');
 if(roleArray.includes("IN-Processing")){
-userg.addRole("name", "Clearance Level -1 (CL-1)")
+userg.addRole(message.guild.roles.find("name", "Clearance Level -1 (CL-1)");
 userg.addRole("name", "[GS-01] Basic Field Officer") 
 userg.removeRole("name", "IN-Processing")
 userg.addRole("name", "BE ADVISED!!!!")
@@ -26,7 +26,7 @@ userg.addRole("name", "All-Callsigns-CMD")
   console.log(`Saved! ${userg}`);
 });
 }else{
-if(userg.guild.roles.find("name", "[GS-01] Basic Field Officer")){
+if(roleArray.includes("[GS-01] Basic Field Officer")){
 userg.addRole("name", "[GS-02]  Field Officer") 
 userg.removeRole("name", "[GS-01] Basic Field Officer")
   var file_path = `/app/.data/${userg}`;
@@ -39,7 +39,7 @@ userg.removeRole("name", "[GS-01] Basic Field Officer")
   console.log(`Saved! ${userg}`);
 });
 }else{
-if(userg.guild.roles.find("name", "[GS-02]  Field Officer")){
+if(roleArray.includes("[GS-02]  Field Officer")){
 userg.addRole("name", "[GS-03]  Field Officer") 
 userg.removeRole("name", "[GS-02]  Field Officer")
   var file_path = `/app/.data/${userg}`;
@@ -52,7 +52,7 @@ userg.removeRole("name", "[GS-02]  Field Officer")
   console.log(`Saved! ${userg}`);
   });
 }else{
-if(userg.guild.roles.find("name", "[GS-03]  Field Officer")){
+if(roleArray.includes("[GS-03]  Field Officer")){
 userg.addRole("name", "[GS-04]  Field Officer") 
 userg.removeRole("name", "[GS-03]  Field Officer")
     var file_path = `/app/.data/${userg}`;
@@ -65,7 +65,7 @@ userg.removeRole("name", "[GS-03]  Field Officer")
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(userg.guild.roles.find("name", "[GS-04]  Field Officer")){
+if(roleArray.includes("[GS-04]  Field Officer")){
 userg.addRole("name", "[GS-05]  Field Specialist") 
 userg.removeRole("name", "[GS-04]  Field Officer")
       var file_path = `/app/.data/${userg}`;
@@ -78,7 +78,7 @@ userg.removeRole("name", "[GS-04]  Field Officer")
   console.log(`Saved! ${userg}`);
     });
   }else{
-if(userg.guild.roles.find("name", "[GS-05]  Field Specialist")){
+if(roleArray.includes("[GS-05]  Field Specialist")){
   userg.addRole("name", "[GS-06]  Field Coordinator") 
   userg.addRole("name", "Clearance Level -2 (CL-2)") 
   userg.removeRole("name", "[GS-05]  Field Specialist")
@@ -93,7 +93,7 @@ if(userg.guild.roles.find("name", "[GS-05]  Field Specialist")){
   console.log(`Saved! ${userg}`);
     });
   }else{
-if(userg.guild.roles.find("name", "[GS-06]  Field Coordinator")){
+if(roleArray.includes("[GS-06]  Field Coordinator")){
   userg.addRole("name", "[GS-07]  Field Coorinator 2")
   userg.addRole("name", "Clearance Level -2 (CL-2)") 
   userg.removeRole("name", "Clearance Level -1 (CL-1)")
@@ -107,7 +107,7 @@ if(userg.guild.roles.find("name", "[GS-06]  Field Coordinator")){
   console.log(`Saved! ${userg}`);
     });
   }else{
-if(userg.guild.roles.find("name", "[GS-07]  Field Coorinator 2")){
+if(roleArray.includes("[GS-07]  Field Coorinator 2")){
   userg.addRole("name", "[GS-08] Field Operations Officer")
   userg.removeMemberToRole("name", "[GS-07]  Field Coorinator 2") 
         var file_path = `/app/.data/${userg}`;
@@ -120,7 +120,7 @@ if(userg.guild.roles.find("name", "[GS-07]  Field Coorinator 2")){
   console.log(`Saved! ${userg}`);
     });
   }else{
-if(userg.guild.roles.find("name", "[GS-08] Field Operations Officer")){
+if(roleArray.includes("[GS-08] Field Operations Officer")){
   userg.addRole("name", "[GS-09] Duty Ops Officer")
   userg.removeMemberToRole("name", "[GS-08] Field Operations Officer") 
         var file_path = `/app/.data/${userg}`;
@@ -133,7 +133,7 @@ if(userg.guild.roles.find("name", "[GS-08] Field Operations Officer")){
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(userg.guild.roles.find("name", "[GS-09] Duty Ops Officer")){
+if(roleArray.includes("[GS-09] Duty Ops Officer")){
   userg.addRole("name", "[GS-10] Field Training Officer")
   userg.removeMemberToRole("name", "[GS-09] Duty Ops Officer") 
         var file_path = `/app/.data/${userg}`;
@@ -146,7 +146,7 @@ if(userg.guild.roles.find("name", "[GS-09] Duty Ops Officer")){
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(userg.guild.roles.find("name", "[GS-10] Field Training Officer")){
+if(roleArray.includes("[GS-10] Field Training Officer")){
   userg.addRole("name", "[GS-11] Admin Support Staff 3")
   userg.addRole("name", "ADMIN Staff")
   userg.removeMemberToRole("name", "Clearance Level -2 (CL-2)") 
@@ -162,7 +162,7 @@ if(userg.guild.roles.find("name", "[GS-10] Field Training Officer")){
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(userg.guild.roles.find("name", "[GS-11] Admin Support Staff 3")){
+if(roleArray.includes("[GS-11] Admin Support Staff 3")){
   userg.addRole("name", "[GS-11] Admin Support Staff 2")
   userg.removeMemberToRole("name", "[GS-11] Admin Support Staff 2") 
         var file_path = `/app/.data/${userg}`;
@@ -175,7 +175,7 @@ if(userg.guild.roles.find("name", "[GS-11] Admin Support Staff 3")){
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(userg.guild.roles.find("name", "[GS-11] Admin Support Staff 2")){
+if(roleArray.includes("[GS-11] Admin Support Staff 2")){
   userg.addRole("name", "[GS-11] Admin Support Staff 1")
   userg.removeMemberToRole("name", "[GS-11] Admin Support Staff 1") 
         var file_path = `/app/.data/${userg}`;
@@ -188,7 +188,7 @@ if(userg.guild.roles.find("name", "[GS-11] Admin Support Staff 2")){
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(userg.guild.roles.find("name", "[GS-11] Admin Support Staff 1")){
+if(roleArray.includes("[GS-11] Admin Support Staff 1")){
   userg.addRole("name", "[GS-12] Unit Management")
   userg.removeMemberToRole("name", "[GS-11] Admin Support Staff 1")
           var file_path = `/app/.data/${userg}`;
@@ -201,7 +201,7 @@ if(userg.guild.roles.find("name", "[GS-11] Admin Support Staff 1")){
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(userg.guild.roles.find("name", "[GS-12] Unit Management")){
+if(roleArray.includes("[GS-12] Unit Management")){
   userg.addRole("name", "[GS-12] Unit Advisory Officer")
   userg.removeMemberToRole("name", "[GS-12] Unit Management") 
             var file_path = `/app/.data/${userg}`;
