@@ -47,11 +47,52 @@ if(client.memberHasRole(`${userg}`, "[GS-09] Duty Ops Officer")){
   client.addMemberToRole(`${userg}`, "[GS-10] Field Training Officer")
   client.removeMemberToRole(`${userg}`, "[GS-09] Duty Ops Officer") 
 }else{
-if(client.memberHasRole(`${userg}`, "[GS-09] Duty Ops Officer")){
-  client.addMemberToRole(`${userg}`, "[GS-10] Field Training Officer")
-  client.removeMemberToRole(`${userg}`, "[GS-09] Duty Ops Officer") 
+if(client.memberHasRole(`${userg}`, "[GS-10] Field Training Officer")){
+  client.addMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 3")
+  client.addMemberToRole(`${userg}`, "ADMIN Staff")
+  client.removeMemberToRole(`${userg}`, "Clearance Level -2 (CL-2)") 
+  client.addMemberToRole(`${userg}`, "Clearance Level -3 (CL-3)")
+  client.removeMemberToRole(`${userg}`, "[GS-10] Field Training Officer") 
 }else{
-
+if(client.memberHasRole(`${userg}`, "[GS-11] Admin Support Staff 3")){
+  client.addMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 2")
+  client.removeMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 3") 
+}else{
+if(client.memberHasRole(`${userg}`, "[GS-11] Admin Support Staff 2")){
+  client.addMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 1")
+  client.removeMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 2") 
+}else{
+if(client.memberHasRole(`${userg}`, "[GS-11] Admin Support Staff 1")){
+  client.addMemberToRole(`${userg}`, "[GS-12] Unit Management")
+  client.removeMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 1") 
+}else{
+if(client.memberHasRole(`${userg}`, "[GS-12] Unit Management")){
+  client.addMemberToRole(`${userg}`, "[GS-12] Unit Advisory Officer")
+  client.removeMemberToRole(`${userg}`, "[GS-12] Unit Management") 
+}else{
+message.channel.send(`Your going to have to rank up ${userg} manually I can't rankup that auto rankup high! `);
 }
-
+message.channel.send("Rank-Up complete ");
 }
+  }
+  }
+  }
+  }
+  }
+    }
+    }
+    }
+    }
+  }
+  }
+  }
+  }
+  }
+  }
+exports.cmdConfig = {
+  name: "rankup",
+  aliases: ['rup','rankup', 'r'],
+  description: "Auto Changes roles to the next rank for the user",
+  usage: "!rankup <user>",
+  type: "gsc"
+};
