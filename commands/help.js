@@ -6,7 +6,6 @@ exports.run = (client, message, args) => {
     let cmdName = client.commands.map(c => `${c.cmdConfig.name}type=${c.cmdConfig.type}`);
     let core = cmdName.filter(filterCore).join(', ').replace(/type=core/g, '');
     let gsc = cmdName.filter(filterGSC).join(', ').replace(/type=gsc/g, '');
-    let info = cmdName.filter(filterInfo).join(', ').replace(/type=info/g, '');
     let mod = cmdName.filter(filterMod).join(', ').replace(/type=mod/g, '');
     let clnt = cmdName.filter(filterClnt).join(', ').replace(/type=client/g, '');
     const normalHelp = new Discord.RichEmbed()
@@ -15,7 +14,6 @@ exports.run = (client, message, args) => {
       .setTitle(`Use ${settings.prefix}help [command] for more infomation`)
       .addField('Core', core)
       .addField('GSC', gsc)
-      .addField('Infomation', info)
       .addField('Mod', mod);
     if (message.author.id === client.config.ownerId) normalHelp.addField('Client', clnt);
     message.channel.send({embed: normalHelp});
@@ -43,11 +41,6 @@ function filterCore(type) {
 
 function filterGSC(type) {
   return type.includes('type=gsc');
-}
-
-
-function filterInfo(type) {
-  return type.includes('type=info');
 }
 
 

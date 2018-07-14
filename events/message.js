@@ -1,6 +1,5 @@
 module.exports = (client, message) => {
   if (message.author.bot) return;
-  client.pointsMonitor(client, message);
   const settings = message.guild ? client.settings.get(message.guild.id) : client.config.serverSettings;
   message.settings = settings;
   if (message.content.indexOf(settings.prefix) !== 0) return;
