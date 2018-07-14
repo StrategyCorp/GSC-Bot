@@ -1,14 +1,14 @@
 var fs = require('fs');
-module.exports.run = async (client, message, args) => {
+module.exports.run = async (userg, message, args) => {
 if(message.member.roles.find("name", "Bot Admin")){
 var userg= message.mentions.members.first();
-if(client.memberHasRole(`${userg}`, "IN-Processing")){
-client.addMemberToRole(`${userg}`, "Clearance Level -1 (CL-1)")
-client.addMemberToRole(`${userg}`, "[GS-01] Basic Field Officer") 
-client.removeMemberFromRole(`${userg}`, "IN-Processing")
-client.addMemberToRole(`${userg}`, "BE ADVISED!!!!")
-client.addMemberToRole(`${userg}`, "GSC")
-client.addMemberToRole(`${userg}`, "All-Callsigns-CMD") 
+if(userg.guild.roles.find(`${userg}`, "IN-Processing")){
+userg.addMemberToRole(`${userg}`, "Clearance Level -1 (CL-1)")
+userg.addMemberToRole(`${userg}`, "[GS-01] Basic Field Officer") 
+userg.removeMemberFromRole(`${userg}`, "IN-Processing")
+userg.addMemberToRole(`${userg}`, "BE ADVISED!!!!")
+userg.addMemberToRole(`${userg}`, "GSC")
+userg.addMemberToRole(`${userg}`, "All-Callsigns-CMD") 
   var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -19,9 +19,9 @@ client.addMemberToRole(`${userg}`, "All-Callsigns-CMD")
   console.log(`Saved! ${userg}`);
 });
 }else{
-if(client.memberHasRole(`${userg}`, "[GS-01] Basic Field Officer")){
-client.addMemberToRole(`${userg}`, "[GS-02]  Field Officer") 
-client.removeMemberFromRole(`${userg}`, "[GS-01] Basic Field Officer")
+if(userg.guild.roles.find(`${userg}`, "[GS-01] Basic Field Officer")){
+userg.addMemberToRole(`${userg}`, "[GS-02]  Field Officer") 
+userg.removeMemberFromRole(`${userg}`, "[GS-01] Basic Field Officer")
   var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -32,9 +32,9 @@ client.removeMemberFromRole(`${userg}`, "[GS-01] Basic Field Officer")
   console.log(`Saved! ${userg}`);
 });
 }else{
-if(client.memberHasRole(`${userg}`, "[GS-02]  Field Officer")){
-client.addMemberToRole(`${userg}`, "[GS-03]  Field Officer") 
-client.removeMemberFromRole(`${userg}`, "[GS-02]  Field Officer")
+if(userg.guild.roles.find(`${userg}`, "[GS-02]  Field Officer")){
+userg.addMemberToRole(`${userg}`, "[GS-03]  Field Officer") 
+userg.removeMemberFromRole(`${userg}`, "[GS-02]  Field Officer")
   var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -45,9 +45,9 @@ client.removeMemberFromRole(`${userg}`, "[GS-02]  Field Officer")
   console.log(`Saved! ${userg}`);
   });
 }else{
-if(client.memberHasRole(`${userg}`, "[GS-03]  Field Officer")){
-client.addMemberToRole(`${userg}`, "[GS-04]  Field Officer") 
-client.removeMemberFromRole(`${userg}`, "[GS-03]  Field Officer")
+if(userg.guild.roles.find(`${userg}`, "[GS-03]  Field Officer")){
+userg.addMemberToRole(`${userg}`, "[GS-04]  Field Officer") 
+userg.removeMemberFromRole(`${userg}`, "[GS-03]  Field Officer")
     var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -58,9 +58,9 @@ client.removeMemberFromRole(`${userg}`, "[GS-03]  Field Officer")
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(client.memberHasRole(`${userg}`, "[GS-04]  Field Officer")){
-client.addMemberToRole(`${userg}`, "[GS-05]  Field Specialist") 
-client.removeMemberFromRole(`${userg}`, "[GS-04]  Field Officer")
+if(userg.guild.roles.find(`${userg}`, "[GS-04]  Field Officer")){
+userg.addMemberToRole(`${userg}`, "[GS-05]  Field Specialist") 
+userg.removeMemberFromRole(`${userg}`, "[GS-04]  Field Officer")
       var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -71,11 +71,11 @@ client.removeMemberFromRole(`${userg}`, "[GS-04]  Field Officer")
   console.log(`Saved! ${userg}`);
     });
   }else{
-if(client.memberHasRole(`${userg}`, "[GS-05]  Field Specialist")){
-  client.addMemberToRole(`${userg}`, "[GS-06]  Field Coordinator") 
-  client.addMemberToRole(`${userg}`, "Clearance Level -2 (CL-2)") 
-  client.removeMemberFromRole(`${userg}`, "[GS-05]  Field Specialist")
-  client.removeMemberFromRole(`${userg}`, "Clearance Level -1 (CL-1)")
+if(userg.guild.roles.find(`${userg}`, "[GS-05]  Field Specialist")){
+  userg.addMemberToRole(`${userg}`, "[GS-06]  Field Coordinator") 
+  userg.addMemberToRole(`${userg}`, "Clearance Level -2 (CL-2)") 
+  userg.removeMemberFromRole(`${userg}`, "[GS-05]  Field Specialist")
+  userg.removeMemberFromRole(`${userg}`, "Clearance Level -1 (CL-1)")
       var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -86,10 +86,10 @@ if(client.memberHasRole(`${userg}`, "[GS-05]  Field Specialist")){
   console.log(`Saved! ${userg}`);
     });
   }else{
-if(client.memberHasRole(`${userg}`, "[GS-06]  Field Coordinator")){
-  client.addMemberToRole(`${userg}`, "[GS-07]  Field Coorinator 2")
-  client.addMemberToRole(`${userg}`, "Clearance Level -2 (CL-2)") 
-  client.removeMemberFromRole(`${userg}`, "Clearance Level -1 (CL-1)")
+if(userg.guild.roles.find(`${userg}`, "[GS-06]  Field Coordinator")){
+  userg.addMemberToRole(`${userg}`, "[GS-07]  Field Coorinator 2")
+  userg.addMemberToRole(`${userg}`, "Clearance Level -2 (CL-2)") 
+  userg.removeMemberFromRole(`${userg}`, "Clearance Level -1 (CL-1)")
       var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -100,9 +100,9 @@ if(client.memberHasRole(`${userg}`, "[GS-06]  Field Coordinator")){
   console.log(`Saved! ${userg}`);
     });
   }else{
-if(client.memberHasRole(`${userg}`, "[GS-07]  Field Coorinator 2")){
-  client.addMemberToRole(`${userg}`, "[GS-08] Field Operations Officer")
-  client.removeMemberToRole(`${userg}`, "[GS-07]  Field Coorinator 2") 
+if(userg.guild.roles.find(`${userg}`, "[GS-07]  Field Coorinator 2")){
+  userg.addMemberToRole(`${userg}`, "[GS-08] Field Operations Officer")
+  userg.removeMemberToRole(`${userg}`, "[GS-07]  Field Coorinator 2") 
         var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -113,9 +113,9 @@ if(client.memberHasRole(`${userg}`, "[GS-07]  Field Coorinator 2")){
   console.log(`Saved! ${userg}`);
     });
   }else{
-if(client.memberHasRole(`${userg}`, "[GS-08] Field Operations Officer")){
-  client.addMemberToRole(`${userg}`, "[GS-09] Duty Ops Officer")
-  client.removeMemberToRole(`${userg}`, "[GS-08] Field Operations Officer") 
+if(userg.guild.roles.find(`${userg}`, "[GS-08] Field Operations Officer")){
+  userg.addMemberToRole(`${userg}`, "[GS-09] Duty Ops Officer")
+  userg.removeMemberToRole(`${userg}`, "[GS-08] Field Operations Officer") 
         var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -126,9 +126,9 @@ if(client.memberHasRole(`${userg}`, "[GS-08] Field Operations Officer")){
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(client.memberHasRole(`${userg}`, "[GS-09] Duty Ops Officer")){
-  client.addMemberToRole(`${userg}`, "[GS-10] Field Training Officer")
-  client.removeMemberToRole(`${userg}`, "[GS-09] Duty Ops Officer") 
+if(userg.guild.roles.find(`${userg}`, "[GS-09] Duty Ops Officer")){
+  userg.addMemberToRole(`${userg}`, "[GS-10] Field Training Officer")
+  userg.removeMemberToRole(`${userg}`, "[GS-09] Duty Ops Officer") 
         var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -139,12 +139,12 @@ if(client.memberHasRole(`${userg}`, "[GS-09] Duty Ops Officer")){
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(client.memberHasRole(`${userg}`, "[GS-10] Field Training Officer")){
-  client.addMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 3")
-  client.addMemberToRole(`${userg}`, "ADMIN Staff")
-  client.removeMemberToRole(`${userg}`, "Clearance Level -2 (CL-2)") 
-  client.addMemberToRole(`${userg}`, "Clearance Level -3 (CL-3)")
-  client.removeMemberToRole(`${userg}`, "[GS-10] Field Training Officer") 
+if(userg.guild.roles.find(`${userg}`, "[GS-10] Field Training Officer")){
+  userg.addMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 3")
+  userg.addMemberToRole(`${userg}`, "ADMIN Staff")
+  userg.removeMemberToRole(`${userg}`, "Clearance Level -2 (CL-2)") 
+  userg.addMemberToRole(`${userg}`, "Clearance Level -3 (CL-3)")
+  userg.removeMemberToRole(`${userg}`, "[GS-10] Field Training Officer") 
         var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -155,9 +155,9 @@ if(client.memberHasRole(`${userg}`, "[GS-10] Field Training Officer")){
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(client.memberHasRole(`${userg}`, "[GS-11] Admin Support Staff 3")){
-  client.addMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 2")
-  client.removeMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 2") 
+if(userg.guild.roles.find(`${userg}`, "[GS-11] Admin Support Staff 3")){
+  userg.addMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 2")
+  userg.removeMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 2") 
         var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -168,9 +168,9 @@ if(client.memberHasRole(`${userg}`, "[GS-11] Admin Support Staff 3")){
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(client.memberHasRole(`${userg}`, "[GS-11] Admin Support Staff 2")){
-  client.addMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 1")
-  client.removeMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 1") 
+if(userg.guild.roles.find(`${userg}`, "[GS-11] Admin Support Staff 2")){
+  userg.addMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 1")
+  userg.removeMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 1") 
         var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -181,9 +181,9 @@ if(client.memberHasRole(`${userg}`, "[GS-11] Admin Support Staff 2")){
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(client.memberHasRole(`${userg}`, "[GS-11] Admin Support Staff 1")){
-  client.addMemberToRole(`${userg}`, "[GS-12] Unit Management")
-  client.removeMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 1")
+if(userg.guild.roles.find(`${userg}`, "[GS-11] Admin Support Staff 1")){
+  userg.addMemberToRole(`${userg}`, "[GS-12] Unit Management")
+  userg.removeMemberToRole(`${userg}`, "[GS-11] Admin Support Staff 1")
           var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
@@ -194,9 +194,9 @@ if(client.memberHasRole(`${userg}`, "[GS-11] Admin Support Staff 1")){
   console.log(`Saved! ${userg}`);
     });
 }else{
-if(client.memberHasRole(`${userg}`, "[GS-12] Unit Management")){
-  client.addMemberToRole(`${userg}`, "[GS-12] Unit Advisory Officer")
-  client.removeMemberToRole(`${userg}`, "[GS-12] Unit Management") 
+if(userg.guild.roles.find(`${userg}`, "[GS-12] Unit Management")){
+  userg.addMemberToRole(`${userg}`, "[GS-12] Unit Advisory Officer")
+  userg.removeMemberToRole(`${userg}`, "[GS-12] Unit Management") 
             var file_path = `/app/.data/${userg}`;
   fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
