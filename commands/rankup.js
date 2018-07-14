@@ -28,7 +28,6 @@ userg.addRole(message.guild.roles.find("name", "All-Callsigns-CMD") )
 });
 }else{
 if(roleArray.includes("[GS-01] Basic Field Officer")){
-userg.setUsername(`[GS-02] FO ${userg}`)
 userg.addRole(message.guild.roles.find("name", "[GS-02]  Field Officer") )
 userg.removeRole(message.guild.roles.find("name", "[GS-01] Basic Field Officer"))
   var file_path = `/app/.data/${userg}`;
@@ -42,7 +41,6 @@ userg.removeRole(message.guild.roles.find("name", "[GS-01] Basic Field Officer")
 });
 }else{
 if(roleArray.includes("[GS-02]  Field Officer")){
-userg.setUsername(`[GS-03] FO ${userg}`)
 userg.addRole(message.guild.roles.find("name", "[GS-03]  Field Officer")) 
 userg.removeRole(message.guild.roles.find("name", "[GS-02]  Field Officer"))
   var file_path = `/app/.data/${userg}`;
@@ -56,7 +54,6 @@ userg.removeRole(message.guild.roles.find("name", "[GS-02]  Field Officer"))
   });
 }else{
 if(roleArray.includes("[GS-03]  Field Officer")){
-message.guild.members.get(`${userg}`).setNickname(`[GS-04] FO ${userg}`)
 userg.addRole(message.guild.roles.find("name", "[GS-04]  Field Officer")) 
 userg.removeRole(message.guild.roles.find("name", "[GS-03]  Field Officer"))
     var file_path = `/app/.data/${userg}`;
@@ -70,7 +67,6 @@ userg.removeRole(message.guild.roles.find("name", "[GS-03]  Field Officer"))
     });
 }else{
 if(roleArray.includes("[GS-04]  Field Officer")){
-message.guild.members.get(`${userg}`).setNickname(`[GS-05] FS ${userg}`)
 userg.addRole(message.guild.roles.find("name", "[GS-05]  Field Specialist")) 
 userg.removeRole(message.guild.roles.find("name", "[GS-04]  Field Officer"))
       var file_path = `/app/.data/${userg}`;
@@ -84,7 +80,6 @@ userg.removeRole(message.guild.roles.find("name", "[GS-04]  Field Officer"))
     });
   }else{
 if(roleArray.includes("[GS-05]  Field Specialist")){
-message.guild.member(`${userg}`).setNickname(`[GS-06] FS ${userg}`)
   userg.addRole(message.guild.roles.find("name", "[GS-06]  Field Coordinator")) 
   userg.addRole(message.guild.roles.find("name", "Clearance Level -2 (CL-2)")) 
   userg.removeRole(message.guild.roles.find("name", "[GS-05]  Field Specialist"))
