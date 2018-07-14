@@ -6,7 +6,7 @@ fs.readFile(`/app/${userg}`, 'utf8', function (err,data) {
 if (err) {
     return console.log(err);
   }
-  message.channel.send(data);
+  message.channel.send(`This is the data for ${userg}`+data);
 });
 
 }else{
