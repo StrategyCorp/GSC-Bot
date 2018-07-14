@@ -1,9 +1,9 @@
 var fs = require('fs');
-module.exports.run = async (userg, message, args) => {
+module.exports.run = async (client, message, args) => {
+const userg = message.mentions.members.first();
 if(message.member.hasPermission("MANAGE_ROLES") == true){
-let userg = message.mentions.members.first();
-if(userg.member.roles.find("IN-Processing") == true){
-userg.addRole(`${userg}`, "Clearance Level -1 (CL-1)")
+if(message.member.roles.find("IN-Processing") == true){
+userg.addRole("Clearance Level -1 (CL-1)")
 userg.addRole("[GS-01] Basic Field Officer") 
 userg.removeRole("IN-Processing")
 userg.addRole("BE ADVISED!!!!")
