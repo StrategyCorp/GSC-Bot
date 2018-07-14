@@ -33,7 +33,11 @@ const init = async () => {
     delete require.cache[require.resolve(`./events/${file}`)];
   });
 }
-
+  client.on('guildMemberAdd', member => {
+      var role = member.guild.roles.find('name', 'IN-Processing');
+    member.addRole(role)
+    client.channels.get(``).send(`Welcome ${member} to the GSC family!`);
+      });
   client.login(process.env.TOKEN);
   
          
