@@ -32,6 +32,9 @@ const init = async () => {
     client.on(eventName, event.bind(null, client));
     delete require.cache[require.resolve(`./events/${file}`)];
   });
+  bot.on('guildMemberAdd', member => {
+  console.log('User
+  }
   client.login(process.env.TOKEN);
 };
 
