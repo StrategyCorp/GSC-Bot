@@ -1,3 +1,4 @@
+var fs = require('fs');
 module.exports.run = async (client, message, args) => {
 if(message.member.roles.find("name", "Bot Admin")){
 var userg= message.mentions.members.first();
@@ -6,15 +7,43 @@ client.addMemberToRole(`${userg}`, "Clearance Level -1 (CL-1)")
 client.addMemberToRole(`${userg}`, "[GS-01] Basic Field Officer") 
 client.removeMemberFromRole(`${userg}`, "IN-Processing")
 client.addMemberToRole(`${userg}`, "BE ADVISED!!!!")
+client.addMemberToRole(`${userg}`, "GSC")
 client.addMemberToRole(`${userg}`, "All-Callsigns-CMD") 
+  var file_path = `/app/.data/${userg}`;
+  fs.appendFile(`${file_path}`,"\n")
+  var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
+  var dataf = date+" MDT "+"RankUp to IN-Processing"+`\` log from \`${message.author}`
+  var datafs = dataf.replace(/,/g," ");
+  fs.appendFile(`${file_path}`, datafs , function (err) {
+  if (err) throw err;
+  console.log(`Saved! ${userg}`);
+});
 }else{
 if(client.memberHasRole(`${userg}`, "[GS-01] Basic Field Officer")){
 client.addMemberToRole(`${userg}`, "[GS-02]  Field Officer") 
 client.removeMemberFromRole(`${userg}`, "[GS-01] Basic Field Officer")
+  var file_path = `/app/.data/${userg}`;
+  fs.appendFile(`${file_path}`,"\n")
+  var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
+  var dataf = date+" MDT "+"RankUp to GSC-01"+`\` log from \`${message.author}`
+  var datafs = dataf.replace(/,/g," ");
+  fs.appendFile(`${file_path}`, datafs , function (err) {
+  if (err) throw err;
+  console.log(`Saved! ${userg}`);
+});
 }else{
 if(client.memberHasRole(`${userg}`, "[GS-02]  Field Officer")){
 client.addMemberToRole(`${userg}`, "[GS-03]  Field Officer") 
 client.removeMemberFromRole(`${userg}`, "[GS-02]  Field Officer")
+  var file_path = `/app/.data/${userg}`;
+  fs.appendFile(`${file_path}`,"\n")
+  var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
+  var dataf = date+" MDT "+"RankUp to GSC-02"+`\` log from \`${message.author}`
+  var datafs = dataf.replace(/,/g," ");
+  fs.appendFile(`${file_path}`, datafs , function (err) {
+  if (err) throw err;
+  console.log(`Saved! ${userg}`);
+  });
 }else{
 if(client.memberHasRole(`${userg}`, "[GS-03]  Field Officer")){
 client.addMemberToRole(`${userg}`, "[GS-04]  Field Officer") 
