@@ -2,7 +2,8 @@ var fs = require('fs');
 module.exports.run = async (bot, message, args) => {
 if(message.member.roles.find("name", "GSC")){
 var userg= message.mentions.members.first();
-fs.readFile(`/app/${userg}`, 'utf8', function (err,data) {
+  var file_path = `/app/.data/${userg}`;
+fs.readFile(`${file_path}`, 'utf8', function (err,data) {
 if (err) {
     return console.log(err);
   }

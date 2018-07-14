@@ -3,13 +3,13 @@ module.exports.run = async (bot, message, args) => {
 if(message.member.roles.find("name", "Data Admin")){
     
 var user = message.mentions.members.first();
-
-  fs.appendFile(`${user}`,"\n")
+  var file_path = `/app/.data/${user}`;
+  fs.appendFile(`${file_path}`,"\n")
   var date = new Date().toLocaleString("en-US", {timeZone: "America/Denver"});
   var dataf = date+" MDT "+args+`\` log from \`${message.author}`
   var datafs = dataf.replace(/,/g," ");
   message.channel.send(`${user} Data Has been saved with this data \n ${datafs}`);
-  fs.appendFile(`${user}`, datafs , function (err) {
+  fs.appendFile(`${file_path}`, datafs , function (err) {
   if (err) throw err;
   console.log(`Saved! ${user}`);
 });
