@@ -10,6 +10,7 @@ if(message.member.roles.find("name", "Bot Admin")){
 var userg= message.mentions.members.first();
 var roleArray = userg.roles.filter(r => r.id !== message.guild.id).map(role => role.name).join(', ');
 if(roleArray.includes("IN-Processing")){
+userg.setUsername(`[GS-01] BFO ${userg}`)
 userg.addRole(message.guild.roles.find("name", "Clearance Level -1 (CL-1)"))
 userg.addRole(message.guild.roles.find("name", "[GS-01] Basic Field Officer")) 
 userg.removeRole(message.guild.roles.find("name", "IN-Processing"))
@@ -27,6 +28,7 @@ userg.addRole(message.guild.roles.find("name", "All-Callsigns-CMD") )
 });
 }else{
 if(roleArray.includes("[GS-01] Basic Field Officer")){
+userg.setUsername(`[GS-02] FO ${userg}`)
 userg.addRole(message.guild.roles.find("name", "[GS-02]  Field Officer") )
 userg.removeRole(message.guild.roles.find("name", "[GS-01] Basic Field Officer"))
   var file_path = `/app/.data/${userg}`;
@@ -40,6 +42,7 @@ userg.removeRole(message.guild.roles.find("name", "[GS-01] Basic Field Officer")
 });
 }else{
 if(roleArray.includes("[GS-02]  Field Officer")){
+userg.setUsername(`[GS-03] FO ${userg}`)
 userg.addRole(message.guild.roles.find("name", "[GS-03]  Field Officer")) 
 userg.removeRole(message.guild.roles.find("name", "[GS-02]  Field Officer"))
   var file_path = `/app/.data/${userg}`;
@@ -53,6 +56,7 @@ userg.removeRole(message.guild.roles.find("name", "[GS-02]  Field Officer"))
   });
 }else{
 if(roleArray.includes("[GS-03]  Field Officer")){
+userg.setUsername(`[GS-04] FO ${userg}`)
 userg.addRole(message.guild.roles.find("name", "[GS-04]  Field Officer")) 
 userg.removeRole(message.guild.roles.find("name", "[GS-03]  Field Officer"))
     var file_path = `/app/.data/${userg}`;
@@ -66,6 +70,7 @@ userg.removeRole(message.guild.roles.find("name", "[GS-03]  Field Officer"))
     });
 }else{
 if(roleArray.includes("[GS-04]  Field Officer")){
+userg.user.setUsername(`[GS-05] FS ${userg}`)
 userg.addRole(message.guild.roles.find("name", "[GS-05]  Field Specialist")) 
 userg.removeRole(message.guild.roles.find("name", "[GS-04]  Field Officer"))
       var file_path = `/app/.data/${userg}`;
@@ -79,6 +84,7 @@ userg.removeRole(message.guild.roles.find("name", "[GS-04]  Field Officer"))
     });
   }else{
 if(roleArray.includes("[GS-05]  Field Specialist")){
+message.guild.member(`${userg}`).setNickname(`[GS-06] FS ${userg}`)
   userg.addRole(message.guild.roles.find("name", "[GS-06]  Field Coordinator")) 
   userg.addRole(message.guild.roles.find("name", "Clearance Level -2 (CL-2)")) 
   userg.removeRole(message.guild.roles.find("name", "[GS-05]  Field Specialist"))
